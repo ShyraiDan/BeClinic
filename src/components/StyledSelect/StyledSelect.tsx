@@ -1,8 +1,6 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Option } from '@/shared/types'
 
-import React from 'react'
-
 interface StyledSelectProps {
   placeholder: string
   options: Option[]

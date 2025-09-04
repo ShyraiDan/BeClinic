@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 import { cn } from '@/lib/utils'
 
 export const StyledLink = ({ children, className, ...props }: React.ComponentProps<typeof Link>) => {

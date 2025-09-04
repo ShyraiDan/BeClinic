@@ -1,6 +1,7 @@
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
 import { cva, VariantProps } from 'class-variance-authority'
+import Link from 'next/link'
+
+import { cn } from '@/lib/utils'
 
 const linkButtonVariants = cva(
   'inline-block text-xs font-bold font-primary uppercase tracking-[2px] px-5 py-3 rounded transition-all duration-300 ease-in-out',

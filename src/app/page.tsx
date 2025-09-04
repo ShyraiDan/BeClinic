@@ -1,17 +1,18 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { ErrorText } from '@/components/ui/errorText'
-import { Label } from '@/components/ui/label'
-import { Toaster } from '@/components/ui/sonner'
 import { toast } from 'sonner'
+
+import { StyledModal } from '@/components/StyledModal/StyledModal'
+import { StyledSelect } from '@/components/StyledSelect/StyledSelect'
+import { Button } from '@/components/ui/button'
+import { DialogHeader, DialogDescription, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog'
+import { ErrorText } from '@/components/ui/errorText'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Toaster } from '@/components/ui/sonner'
 import { StyledLink } from '@/components/ui/styledLink'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
-import { StyledSelect } from '@/components/StyledSelect/StyledSelect'
-import { StyledModal } from '@/components/StyledModal/StyledModal'
-import { DialogHeader, DialogDescription, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog'
 
 export default function Home() {
   const mockedValues = [
