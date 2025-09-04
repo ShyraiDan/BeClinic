@@ -7,6 +7,8 @@ import { Label } from '@/components/ui/label'
 import { Toaster } from '@/components/ui/sonner'
 import { toast } from 'sonner'
 import { Skeleton } from '@/components/ui/skeleton'
+import { StyledLink } from '@/components/ui/styledLink'
+import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 
 export default function Home() {
   return (
@@ -21,6 +23,10 @@ export default function Home() {
       <Button onClick={() => toast.error('Error')}>Click</Button>
 
       <Skeleton className='w-10 h-10' />
+
+      <StyledLink href='/'>Styled Link</StyledLink>
+
+      <StyledLinkButton href='/'>Styled Link</StyledLinkButton>
 
       <Toaster richColors />
     </>
