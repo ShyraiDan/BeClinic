@@ -11,7 +11,7 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-blue-300 text-white hover:bg-purple-100 hover:text-white',
         outline:
-          'bg-transparent border border-solid border-blue-300 text-blue-300 hover:bg-purple-100 hover:text-white',
+          'bg-transparent border border-solid border-blue-300 text-blue-300 hover:bg-purple-100 hover:text-white hover:border-purple-100',
         icon: 'bg-blue-300 p-3 rounded-2xl w-10 h-10 enabled:hover:bg-purple-100'
       }
     },

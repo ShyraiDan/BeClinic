@@ -10,6 +10,8 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { StyledLink } from '@/components/ui/styledLink'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { StyledSelect } from '@/components/StyledSelect/StyledSelect'
+import { StyledModal } from '@/components/StyledModal/StyledModal'
+import { DialogHeader, DialogDescription, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog'
 
 export default function Home() {
   const mockedValues = [
@@ -38,6 +40,31 @@ export default function Home() {
       <StyledLinkButton href='/'>Styled Link</StyledLinkButton>
 
       <StyledSelect options={mockedValues} triggerClassName='w-80' placeholder='Select an option' />
+
+      <StyledModal triggerButton={<Button>Open Modal</Button>}>
+        <>
+          <DialogHeader>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogDescription>Make changes to your profile here. Click save when you&apos;re done.</DialogDescription>
+          </DialogHeader>
+          <div className='grid gap-4'>
+            <div className='grid gap-3'>
+              <Label htmlFor='name-1'>Name</Label>
+              <Input id='name-1' name='name' defaultValue='Pedro Duarte' />
+            </div>
+            <div className='grid gap-3'>
+              <Label htmlFor='username-1'>Username</Label>
+              <Input id='username-1' name='username' defaultValue='@peduarte' />
+            </div>
+          </div>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant='outline'>Cancel</Button>
+            </DialogClose>
+            <Button type='submit'>Save changes</Button>
+          </DialogFooter>
+        </>
+      </StyledModal>
 
       <Toaster richColors />
     </>
