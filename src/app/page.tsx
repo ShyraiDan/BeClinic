@@ -9,8 +9,17 @@ import { toast } from 'sonner'
 import { Skeleton } from '@/components/ui/skeleton'
 import { StyledLink } from '@/components/ui/styledLink'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
+import { StyledSelect } from '@/components/StyledSelect/StyledSelect'
 
 export default function Home() {
+  const mockedValues = [
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' },
+    { value: 'blueberry', label: 'Blueberry' },
+    { value: 'grapes', label: 'Grapes' },
+    { value: 'pineapple', label: 'Pineapple' }
+  ]
+
   return (
     <>
       <Button>Button</Button>
@@ -27,6 +36,8 @@ export default function Home() {
       <StyledLink href='/'>Styled Link</StyledLink>
 
       <StyledLinkButton href='/'>Styled Link</StyledLinkButton>
+
+      <StyledSelect options={mockedValues} triggerClassName='w-80' placeholder='Select an option' />
 
       <Toaster richColors />
     </>
