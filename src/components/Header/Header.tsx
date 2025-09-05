@@ -14,20 +14,24 @@ import { StyledLinkButton } from '../ui/styledLinkButton'
 const HEADER_ANIMATION_HEIGHT = 220
 const HEADER_ANIMATION_HEIGHT_HERO = 550
 
-const links: { href: string; label: string; prefetch?: boolean }[] = [
+const links: { id: string; href: string; label: string; prefetch?: boolean }[] = [
   {
+    id: 'header-link-1',
     href: '/doctors',
     label: 'Лікарі'
   },
   {
+    id: 'header-link-2',
     href: '/blog',
     label: 'Блог'
   },
   {
+    id: 'header-link-3',
     href: '/contacts',
     label: 'Контакти'
   },
   {
+    id: 'header-link-4',
     href: '/faq',
     label: 'ЧАПи'
   }
@@ -65,8 +69,8 @@ export const Header = () => {
 
           <div className='hidden lg:block'>
             <ul className='flex items-center gap-5'>
-              {links.map(({ label, href }) => (
-                <li className='p-2.5 flex' key={label}>
+              {links.map(({ id, label, href }) => (
+                <li className='p-2.5 flex' key={id}>
                   <StyledLink
                     href={href}
                     className={cn(

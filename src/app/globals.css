@@ -19,6 +19,7 @@
   --color-blue-100: var(--blue-100);
   --color-blue-200: var(--blue-200);
   --color-blue-300: var(--blue-300);
+  --color-blue-400: var(--blue-400);
 
   --color-purple-100: var(--purple-100);
 
@@ -45,6 +46,7 @@
   --blue-100: oklch(62.97% 0.122 236.58);
   --blue-200: oklch(71.41% 0.097 223.29);
   --blue-300: oklch(55.72% 0.167 252.46);
+  --blue-400: oklch(86.93% 0.094 219.94);
 
   --purple-100: oklch(54.16% 0.156 297.51);
 
