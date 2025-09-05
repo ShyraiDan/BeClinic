@@ -1,9 +1,11 @@
 import { Jost, Roboto } from 'next/font/google'
 
+import Footer from '@/components/Footer/Footer'
+import { Header } from '@/components/Header/Header'
+
 import type { Metadata } from 'next'
 
 import './globals.css'
-import { Header } from '@/components/Header/Header'
 
 const roboto = Roboto({
   subsets: ['cyrillic', 'latin'],
@@ -36,6 +38,7 @@ export default function RootLayout({
       <body className={`${roboto.variable} ${jost.variable} antialiased`}>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   )
