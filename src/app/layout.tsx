@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${roboto.variable} ${jost.variable} antialiased`}>
+      <body className={`${roboto.variable} ${jost.variable} bg-[#f7f7f7] antialiased`}>
         <Header />
         {children}
         <Footer />

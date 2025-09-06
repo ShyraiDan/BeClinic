@@ -8,8 +8,10 @@ const linkButtonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'text-white bg-blue-100 hover:bg-purple-100',
-        outline: 'text-blue-100 border border-solid border-blue-100 hover:text-purple-100 hover:border-purple-100'
+        default: 'text-white bg-blue-100 hover:bg-blue-100',
+        'outline-white':
+          'text-white border border-solid border-white hover:text-white hover:bg-blue-100 hover:border-blue-100',
+        'outline-blue': 'text-blue-100 border border-solid border-blue-100 hover:text-white hover:bg-blue-100'
       }
     }
   }

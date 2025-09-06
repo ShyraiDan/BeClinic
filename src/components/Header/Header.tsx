@@ -110,7 +110,7 @@ export const Header = () => {
           </div>
 
           <div className='flex items-center gap-4 ml-4'>
-            <StyledLinkButton variant='outline' href='#' className='border-white text-white'>
+            <StyledLinkButton variant='outline-white' href='#' className='hover:bg-blue-200 hover:border-blue-200'>
               Увійти
             </StyledLinkButton>
 

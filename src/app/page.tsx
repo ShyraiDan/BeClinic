@@ -95,7 +95,7 @@ const HeroPage = () => {
             <P className='mb-5 text-[#42474c] font-light'>
               Ваш план лікування розрахований на постійний прогрес, з оперативним виконанням кожного етапу.
             </P>
-            <StyledLinkButton variant='outline' href='/appointments/add'>
+            <StyledLinkButton variant='outline-blue' href='/appointments/add'>
               Записатись на прийом
             </StyledLinkButton>
           </div>
@@ -135,7 +135,7 @@ const HeroPage = () => {
           ))}
         </div>
       </Container>
-      <div className='py-[70px] mb-[50px] bg-welcome bg-cover bg-no-repeat bg-center'>
+      <div className="py-[70px] mb-[50px] bg-[url('/fullwidth-img-1.jpg')] bg-cover bg-no-repeat bg-center">
         <div className='flex flex-col p-4 xl:max-w-[1200px] xl:mx-auto'>
           <Image src='/logo.png' alt='BeClinic' className='mb-[35px]' width={182} height={32} />
           <H3 className='text-[38px] text-white font-normal mb-[30px]'>Вітаємо у нашій клініці!</H3>
@@ -147,10 +147,7 @@ const HeroPage = () => {
             нейрохірургію, гастроентерологію, пластичну хірургію та багато інших відділень.
           </P>
 
-          <StyledLinkButton
-            variant='outline'
-            href='/contacts'
-            className='flex items-center justify-center w-[250px] text-xs text-blue-100 bg-white'>
+          <StyledLinkButton variant='outline-white' href='/contacts' className='w-[250px] border-white text-white'>
             Зв&apos;яжіться з нами
           </StyledLinkButton>
         </div>

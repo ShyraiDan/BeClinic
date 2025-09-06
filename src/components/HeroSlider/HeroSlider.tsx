@@ -39,7 +39,7 @@ const Slide = ({ background }: SlideProps) => {
             <StyledLinkButton href='/doctors' className='bg-white text-blue-100'>
               Лікарі
             </StyledLinkButton>
-            <StyledLinkButton variant='outline' className='border-white text-white' href='/contacts'>
+            <StyledLinkButton variant='outline-white' className='border-white text-white' href='/contacts'>
               Контакти
             </StyledLinkButton>
           </div>
