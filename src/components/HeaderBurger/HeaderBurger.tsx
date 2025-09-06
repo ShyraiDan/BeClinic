@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button'
 import { StyledLink } from '@/components/ui/styledLink'
 import { cn } from '@/lib/utils'
 import { removeScrollBar } from '@/utils/removeScrollBar'
-
-import { BurgerMenu } from '../ui/burgerMenu'
+import { BurgerMenu } from '@/components/ui/burgerMenu'
+import { Menu } from 'lucide-react'
 
 interface BurgerMenuContentProps {
   showModal: () => void
@@ -84,10 +84,8 @@ export const HeaderBurger = () => {
           aria-label='Open menu'
           onClick={() => showModal()}
           aria-expanded={isBurgerShow}
-          className='m-0 !bg-transparent border-none relative !rounded-2xl !p-0 w-10 h-10 text-black ml-2 lg:!hidden hover:!bg-[#E6EAF0] dark:hover:!bg-blue-900'>
-          <span className='absolute left-2 h-[2px] w-6 top-[12px] bg-blue-200 dark:bg-grey-600' />
-          <span className='absolute left-2 h-[2px] w-6 top-[19px] bg-blue-200 dark:bg-grey-600' />
-          <span className='absolute left-2 h-[2px] w-6 top-[26px] bg-blue-200 dark:bg-grey-600' />
+          className='m-0 bg-transparent border-none relative rounded-2xl p-0 w-10 h-10 text-black ml-2 lg:!hidden hover:!bg-[#E6EAF0]'>
+          <Menu size={30} className='text-white' />
         </Button>
       }
       showModal={showModal}
