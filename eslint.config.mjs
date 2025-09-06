@@ -5,7 +5,6 @@ import prettierPlugin from 'eslint-plugin-prettier'
 import tsParser from '@typescript-eslint/parser'
 import unusedImportsPlugin from 'eslint-plugin-unused-imports'
 import reactRefreshPlugin from 'eslint-plugin-react-refresh'
-import tanstackQueryPlugin from '@tanstack/eslint-plugin-query'
 import importSortPlugin from 'eslint-plugin-import'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -50,7 +49,6 @@ export default [
       prettier: prettierPlugin,
       'unused-imports': unusedImportsPlugin,
       'react-refresh': reactRefreshPlugin,
-      '@tanstack/query': tanstackQueryPlugin,
       import: importSortPlugin
     },
     rules: {
@@ -87,7 +85,6 @@ export default [
       semi: ['error', 'never'],
       'comma-dangle': ['error', 'never'],
       'max-len': 'off',
-      '@tanstack/query/exhaustive-deps': 'error',
       'import/order': [
         'error',
         {
