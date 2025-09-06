@@ -14,6 +14,7 @@ import {
   mockedClients
 } from '@/mocks/HeroPage.mock'
 import { Service, Department } from '@/shared/types'
+import { getLocale } from 'next-intl/server'
 
 const ServiceItem = ({ item }: { item: Service }) => {
   return (
@@ -60,7 +61,11 @@ const Departments = () => {
   )
 }
 
-const HeroPage = () => {
+const HeroPage = async () => {
+  const locale = await getLocale()
+
+  console.log('locale', locale)
+
   return (
     <>
       <div>
