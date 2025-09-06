@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils'
 import { removeScrollBar } from '@/utils/removeScrollBar'
 import { BurgerMenu } from '@/components/ui/burgerMenu'
 import { Menu } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 interface BurgerMenuContentProps {
   showModal: () => void
@@ -17,28 +18,29 @@ interface BurgerMenuContentProps {
 const links = [
   {
     href: '/',
-    label: 'Головна'
+    label: 'links.hero'
   },
   {
     href: '/doctors',
-    label: 'Лікарі'
+    label: 'links.doctors'
   },
   {
     href: '/blog',
-    label: 'Блог'
+    label: 'links.blog'
   },
   {
     href: '/contacts',
-    label: 'Контакти'
+    label: 'links.contacts'
   },
   {
     href: '/faq',
-    label: 'ЧАПи'
+    label: 'links.faqs'
   }
 ]
 
 const BurgerMenuContent = ({ showModal, isAuth }: BurgerMenuContentProps) => {
   const path = usePathname()
+  const t = useTranslations('header')
 
   return (
     <>
@@ -59,7 +61,7 @@ const BurgerMenuContent = ({ showModal, isAuth }: BurgerMenuContentProps) => {
                 variant='burger'
                 className={cn(path === link.href && 'text-blue-200')}
                 onClick={() => showModal()}>
-                {link.label}
+                {t(link.label)}
               </StyledLink>
             </li>
           ))}

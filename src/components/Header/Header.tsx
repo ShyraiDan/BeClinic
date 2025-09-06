@@ -9,6 +9,7 @@ import { HeaderBurger } from '@/components/HeaderBurger/HeaderBurger'
 import { StyledLink } from '@/components/ui/styledLink'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { cn } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 
 const HEADER_ANIMATION_HEIGHT = 220
 const HEADER_ANIMATION_HEIGHT_HERO = 550
@@ -17,26 +18,27 @@ const links: { id: string; href: string; label: string; prefetch?: boolean }[] =
   {
     id: 'header-link-1',
     href: '/doctors',
-    label: 'Лікарі'
+    label: 'links.doctors'
   },
   {
     id: 'header-link-2',
     href: '/blog',
-    label: 'Блог'
+    label: 'links.blog'
   },
   {
     id: 'header-link-3',
     href: '/contacts',
-    label: 'Контакти'
+    label: 'links.contacts'
   },
   {
     id: 'header-link-4',
     href: '/faq',
-    label: 'ЧАПи'
+    label: 'links.faqs'
   }
 ]
 
 export const Header = () => {
+  const t = useTranslations('header')
   const path = usePathname()
   const [scrolled, setScrolled] = useState(false)
 
@@ -102,7 +104,7 @@ export const Header = () => {
                       'text-white text-lg hover:text-[#89E3FF] transition-all duration-300 ease-in-out',
                       path === href && 'text-[#89E3FF]'
                     )}>
-                    {label}
+                    {t(label)}
                   </StyledLink>
                 </li>
               ))}
@@ -111,7 +113,7 @@ export const Header = () => {
 
           <div className='flex items-center gap-4 ml-4'>
             <StyledLinkButton variant='outline-white' href='#' className='hover:bg-blue-200 hover:border-blue-200'>
-              Увійти
+              {t('button.signIn')}
             </StyledLinkButton>
 
             <div className='lg:hidden'>

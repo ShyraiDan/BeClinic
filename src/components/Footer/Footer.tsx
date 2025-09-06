@@ -3,36 +3,37 @@ import Link from 'next/link'
 
 import { Separator } from '@/components/ui/separator'
 import { P, H6 } from '@/components/ui/typography'
+import { useTranslations } from 'next-intl'
 
 const departmentsData = [
   {
     id: 'department-1',
-    title: 'Неврологія',
+    title: 'departments.nephrology',
     link: '/'
   },
   {
     id: 'department-2',
-    title: 'Травматологія',
+    title: 'departments.traumatology',
     link: '/'
   },
   {
     id: 'department-3',
-    title: 'Гінекологія',
+    title: 'departments.gynecology',
     link: '/'
   },
   {
     id: 'department-4',
-    title: 'Неврологія',
+    title: 'departments.nephrology',
     link: '/'
   },
   {
     id: 'department-5',
-    title: 'Кардіологія',
+    title: 'departments.cardiology',
     link: '/'
   },
   {
     id: 'department-6',
-    title: 'Пульмонологія',
+    title: 'departments.pulmanology',
     link: '/'
   }
 ]
@@ -40,17 +41,17 @@ const departmentsData = [
 const otherLinksData = [
   {
     id: 'footer-link-1',
-    title: 'Блог',
+    title: 'links.blog',
     link: '/blog'
   },
   {
     id: 'footer-link-2',
-    title: 'ЧАПи',
+    title: 'links.faqs',
     link: '/faqs'
   },
   {
     id: 'footer-link-3',
-    title: 'Контакти',
+    title: 'links.contacts',
     link: '/contacts'
   }
 ]
@@ -67,6 +68,8 @@ const SectionHeading = ({ title }: { title: string }) => {
 }
 
 const Footer = () => {
+  const t = useTranslations('footer')
+
   return (
     <footer className='bg-[#919ba6]'>
       <div className='xl:max-w-[1200px] xl:mx-auto'>
@@ -75,20 +78,17 @@ const Footer = () => {
             <Link href='/' className='block mb-5'>
               <Image src='/logo.png' alt='BeClinic' width={182} height={32} />
             </Link>
-            <P className='text-white font-light'>
-              Вибір правильної лікарні та лікаря є важливими факторами, які суттєво впливають на лікування пацієнта.
-              Багато пацієнтів надають перевагу приватній медицині.
-            </P>
+            <P className='text-white font-light'>{t('description')}</P>
           </div>
           <div className='pt-[22px] px-4 pb-[30px] flex flex-col md:pt-4'>
-            <SectionHeading title='Відділи' />
+            <SectionHeading title={t('departments.title')} />
             <ul>
               {departmentsData.map((item) => (
                 <li className='pb-[3px]' key={item.id}>
                   <Link
                     href={item.link}
                     className='text-white font-primary transition-all duration-300 ease-in-out font-light leading-[1.9em] hover:text-blue-400'>
-                    {item.title}
+                    {t(item.title)}
                   </Link>
                 </li>
               ))}
@@ -96,9 +96,9 @@ const Footer = () => {
           </div>
 
           <div className='pt-[22px] px-4 pb-[30px] flex flex-col md:pt-4'>
-            <SectionHeading title='Головний офіс' />
+            <SectionHeading title={t('headOffice.title')} />
             <P className='mb-3 font-light text-white'>
-              м. Вінниця, вулиця Келецька, 41
+              {t('headOffice.address')}
               <br />
               <Link href='mailto:info@beclinic.com' className='font-primary'>
                 info@beclinic.com
@@ -107,21 +107,21 @@ const Footer = () => {
               <Link href='tel:80012345678'>800 1234 56 78</Link>
             </P>
             <P className='font-light text-white'>
-              Пн-Пт: 9:00 - 19:00
-              <br /> Сб: 10:00 - 18:00
-              <br /> Нд: Вихідний
+              {t('headOffice.businessDays')} 9:00 - 19:00
+              <br /> {t('headOffice.saturday')} 10:00 - 18:00
+              <br /> {t('headOffice.sunday')} {t('headOffice.weekday')}
             </P>
           </div>
 
           <div className='pt-[22px] px-4 pb-[30px] flex flex-col md:pt-4'>
-            <SectionHeading title='Посилання' />
+            <SectionHeading title={t('links.title')} />
             <ul>
               {otherLinksData.map((item) => (
                 <li className='pb-[3px]' key={item.id}>
                   <Link
                     href={item.link}
                     className='text-white font-primary transition-all duration-300 ease-in-out font-light leading-[1.9em] hover:text-blue-400'>
-                    {item.title}
+                    {t(item.title)}
                   </Link>
                 </li>
               ))}
@@ -131,10 +131,12 @@ const Footer = () => {
         <Separator className='bg-[#ffffff26] my-0' />
         <section className='pb-4 md:flex md:justify-between'>
           <div className='pt-2.5 px-4 md:pt-0 md:px-2.5'>
-            <P className='mt-2.5 text-white font-light md:text-sm'>Terms and Conditions | Privacy Policy</P>
+            <P className='mt-2.5 text-white font-light md:text-sm'>
+              {t('bottom.terms')} | {t('bottom.policy')}
+            </P>
           </div>
           <div className='pb-2.5 px-4 md:pt-0 md:px-2.5'>
-            <P className='mt-2.5 text-white font-light md:text-sm'>ShyraiDan ©. All rights reserved.</P>
+            <P className='mt-2.5 text-white font-light md:text-sm'>ShyraiDan ©. {t('bottom.allRightsReserved')}.</P>
           </div>
         </section>
       </div>
