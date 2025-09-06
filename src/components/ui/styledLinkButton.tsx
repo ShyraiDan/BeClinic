@@ -4,12 +4,14 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 const linkButtonVariants = cva(
-  'inline-block text-xs font-bold font-primary uppercase tracking-[2px] px-5 py-3 rounded transition-all duration-300 ease-in-out',
+  'flex items-center justify-center text-xs font-bold font-primary uppercase tracking-[2px] px-5 py-3 rounded cursor-pointer transition-all duration-300 ease-in-out pointer-events-auto',
   {
     variants: {
       variant: {
-        default: 'text-white bg-blue-100 hover:bg-purple-100',
-        outline: 'text-blue-100 border border-solid border-blue-100 hover:text-purple-100 hover:border-purple-100'
+        default: 'text-white bg-blue-100 hover:bg-blue-100',
+        'outline-white':
+          'text-white border border-solid border-white hover:text-white hover:bg-blue-100 hover:border-blue-100',
+        'outline-blue': 'text-blue-100 border border-solid border-blue-100 hover:text-white hover:bg-blue-100'
       }
     }
   }

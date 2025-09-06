@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 const styledLinkVariants = cva('flex font-primary text-blue-300 transition-all duration-300 ease-in-out ', {
   variants: {
     variant: {
-      default: 'hover:text-purple-100',
+      default: 'hover:text-blue-200',
       burger: 'text-black-100 text-lg hover:text-blue-200'
     }
   }
