@@ -3,13 +3,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { HeaderBurger } from '@/components/HeaderBurger/HeaderBurger'
 import { StyledLink } from '@/components/ui/styledLink'
+import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { cn } from '@/lib/utils'
-
-import { StyledLinkButton } from '../ui/styledLinkButton'
 
 const HEADER_ANIMATION_HEIGHT = 220
 const HEADER_ANIMATION_HEIGHT_HERO = 550
@@ -38,27 +37,53 @@ const links: { id: string; href: string; label: string; prefetch?: boolean }[] =
 ]
 
 export const Header = () => {
+  const path = usePathname()
   const [scrolled, setScrolled] = useState(false)
 
-  const path = usePathname()
+  const threshold = useMemo(() => (path === '/' ? HEADER_ANIMATION_HEIGHT_HERO : HEADER_ANIMATION_HEIGHT), [path])
+
+  const bgRef = useRef<HTMLDivElement | null>(null)
+  const overlayRef = useRef<HTMLDivElement | null>(null)
+  const tickingRef = useRef(false)
 
   useEffect(() => {
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
+
     const onScroll = () => {
-      setScrolled(window.scrollY > (path === '/' ? HEADER_ANIMATION_HEIGHT_HERO : HEADER_ANIMATION_HEIGHT))
+      if (tickingRef.current) return
+      tickingRef.current = true
+
+      requestAnimationFrame(() => {
+        const y = window.scrollY
+        if (!reduceMotion) {
+          const parallaxY = -y * 0.35
+          if (bgRef.current) {
+            bgRef.current.style.transform = `translate3d(0, ${parallaxY}px, 0)`
+          }
+
+          const op = y <= threshold ? Math.min(0.65, (y / threshold) * 0.65) : 0.65
+          if (overlayRef.current) {
+            overlayRef.current.style.opacity = String(op)
+          }
+        }
+
+        setScrolled((prev) => (prev !== y > threshold ? y > threshold : prev))
+
+        tickingRef.current = false
+      })
     }
 
-    window.addEventListener('scroll', onScroll)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  const isAuth = true
+  }, [threshold])
 
   return (
     <header>
       <div
         className={cn(
           'fixed top-0 left-0 w-full z-[100] bg-hero bg-center bg-no-repeat bg-cover transition-all ease-in-out duration-300 lg:bg-none lg:backdrop-blur',
-          scrolled && "lg:!bg-[url('/images/header_bg.jpg')] bg-center bg-no-repeat bg-cover"
+          scrolled && "lg:!bg-[url('/header_bg.jpg')] bg-center bg-no-repeat bg-cover"
         )}>
         <div className='flex justify-between py-9 px-4 w-full lg:max-w-[1200px] lg:mx-auto'>
           <div className='flex items-center justify-center'>
@@ -85,7 +110,7 @@ export const Header = () => {
           </div>
 
           <div className='flex items-center gap-4 ml-4'>
-            <StyledLinkButton variant='outline' href='#'>
+            <StyledLinkButton variant='outline' href='#' className='border-white text-white'>
               Увійти
             </StyledLinkButton>
 
