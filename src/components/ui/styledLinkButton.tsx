@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 const linkButtonVariants = cva(
-  'flex items-center justify-center text-xs font-bold font-primary uppercase tracking-[2px] px-5 py-3 rounded cursor-pointer transition-all duration-300 ease-in-out',
+  'flex items-center justify-center text-xs font-bold font-primary uppercase tracking-[2px] px-5 py-3 rounded cursor-pointer transition-all duration-300 ease-in-out pointer-events-auto',
   {
     variants: {
       variant: {

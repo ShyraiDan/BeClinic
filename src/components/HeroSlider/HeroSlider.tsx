@@ -36,7 +36,7 @@ const Slide = ({ background }: SlideProps) => {
           <H2 className='text-white sm:text-[50px] md:text-[60px] lg:text-[68px]'>Забезпечуємо здоров&apos;я</H2>
           <H6 className='text-white font-normal sm:text-[32px] md:text-[40px] lg:text-[44px]'>для всієї сім&apos;ї</H6>
           <div className='flex gap-4 mt-3 sm:mt-6 lg:mt-9'>
-            <StyledLinkButton href='/doctors' className='bg-white text-blue-100'>
+            <StyledLinkButton href='/doctors' className='bg-white text-blue-100 hover:text-white'>
               Лікарі
             </StyledLinkButton>
             <StyledLinkButton variant='outline-white' className='border-white text-white' href='/contacts'>
