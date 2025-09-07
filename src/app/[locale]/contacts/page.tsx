@@ -14,13 +14,16 @@ import {
 } from '@/mocks/ContactsPage.mock'
 
 import type { ContactsItem, ContactsOfficeItem, ContactsAdvantageItem, WorkingHoursItem } from '@/shared/types'
+import { useTranslations } from 'next-intl'
 
 const ContactsItem = ({ item }: { item: ContactsItem }) => {
+  const t = useTranslations('page')
+
   return (
     <div className='flex flex-col items-center justify-center md:flex-row md:items-start md:justify-start md:gap-[18px]'>
       <Image src={item.icon} alt={item.title} className='md:h-8 md:w-8' width={32} height={32} />
       <div className='flex flex-col items-center justify-center md:items-start md:justify-start'>
-        <H5 className='mt-3 text-[#2a93c9] text-lg md:mt-0'>{item.title}</H5>
+        <H5 className='mt-3 text-[#2a93c9] text-lg md:mt-0'>{t(item.title)}</H5>
 
         {item.type === 'address' ? (
           <P className='text-[26px] text-[#1E2428]'>{item.info}</P>
@@ -37,6 +40,8 @@ const ContactsItem = ({ item }: { item: ContactsItem }) => {
 }
 
 const AdvantagesItem = ({ item }: { item: ContactsAdvantageItem }) => {
+  const t = useTranslations('page')
+
   return (
     <div
       className={cn(
@@ -44,18 +49,22 @@ const AdvantagesItem = ({ item }: { item: ContactsAdvantageItem }) => {
         item.type === 'doctor' ? 'bg-[#6cc8df]' : item.type === 'treatment' ? 'bg-[#56b0d2]' : 'bg-[#2a88c9]'
       )}>
       <Image src={item.icon} alt={item.title} width={50} height={50} />
-      <H5 className='mt-4 mb-1.5 text-white text-center text-lg'>{item.title}</H5>
-      <P className='text-sm font-thin text-white text-center'>{item.description}</P>
+      <H5 className='mt-4 mb-1.5 text-white text-center text-lg'>{t(item.title)}</H5>
+      <P className='text-sm font-thin text-white text-center'>{t(item.description)}</P>
     </div>
   )
 }
 
 const OfficeItem = ({ item, count }: { item: ContactsOfficeItem; count: number }) => {
+  const t = useTranslations('page')
+
   return (
     <div className='p-2.5 mb-5'>
-      <H5 className='mb-2.5 text-center text-[#2a93c9] text-[26px] md:text-left'>Відділення #{count + 1}</H5>
+      <H5 className='mb-2.5 text-center text-[#2a93c9] text-[26px] md:text-left'>
+        {t('contacts.location.branch', { count: count + 1 })}
+      </H5>
       <P className='mt-3 text-center font-light md:text-left'>
-        {item.address} <br />
+        {t(item.address)} <br />
         <StyledLink href={`mailto:${item.email}`} className='justify-center md:justify-start'>
           {item.email}
         </StyledLink>
@@ -68,31 +77,40 @@ const OfficeItem = ({ item, count }: { item: ContactsOfficeItem; count: number }
 }
 
 const WorkingHoursItem = ({ item }: { item: WorkingHoursItem }) => {
+  const t = useTranslations('page')
+
   return (
     <div className='p-2.5 mb-5'>
-      <H5 className='mb-2.5 text-center text-[#2a93c9] text-[26px] lg:text-left'>Графік роботи</H5>
-      <P className='mt-3 text-center font-light lg:text-left'>Пн-Пт: {item.businessDay}</P>
-      <P className='text-center font-light lg:text-left'>Сб: {item.saturday}</P>
-      <P className='text-center font-light lg:text-left'>Hд: {item.sunday}</P>
+      <H5 className='mb-2.5 text-center text-[#2a93c9] text-[26px] lg:text-left'>
+        {t('contacts.location.workingHours')}
+      </H5>
+      <P className='mt-3 text-center font-light lg:text-left'>
+        {t('contacts.location.businessDays')} {item.businessDay}
+      </P>
+      <P className='text-center font-light lg:text-left'>
+        {t('contacts.location.saturday')} {item.saturday}
+      </P>
+      <P className='text-center font-light lg:text-left'>
+        {t('contacts.location.sunday')} {t(item.sunday)}
+      </P>
     </div>
   )
 }
 
 const ContactsPage = () => {
+  const t = useTranslations('page')
+
   return (
     <>
-      <PageHeading title='Контакти' />
+      <PageHeading title={t('contacts.title')} />
       <div className='md:grid md:grid-cols-2'>
         <div className="bg-[url('/contacts-img1.jpg')] bg-cover bg-no-repeat w-full h-[240px] bg-center md:h-[580px] md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2" />
         <div className='py-[60px] px-4 lg:max-w-[600px] lg:ml-auto'>
-          <H1 className='mb-5 text-center text-[26px] md:text-left xl:text-[26px]'>Контактні дані</H1>
+          <H1 className='mb-5 text-center text-[26px] md:text-left xl:text-[26px]'>{t('contacts.subtitle')}</H1>
           <div className='flex items-center justify-center md:justify-start'>
             <div className='border border-solid border-blue-100 w-[65px]' />
           </div>
-          <P className='mt-5 text-center mb-[30px] md:text-left'>
-            Наш медичний центр є найкращим вибором для дипломатів і співробітників 64 посольств та агентств ООН, а також
-            приватних пацієнтів з більш ніж 60 країн світу.
-          </P>
+          <P className='mt-5 text-center mb-[30px] md:text-left'>{t('contacts.description')}</P>
           <div className='flex flex-col gap-8'>
             {mockedContactsItems.map((item, i) => (
               <ContactsItem key={i} item={item} />
