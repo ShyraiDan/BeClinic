@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 import { Map } from '@/components/Map/Map'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
@@ -14,7 +15,6 @@ import {
 } from '@/mocks/ContactsPage.mock'
 
 import type { ContactsItem, ContactsOfficeItem, ContactsAdvantageItem, WorkingHoursItem } from '@/shared/types'
-import { useTranslations } from 'next-intl'
 
 const ContactsItem = ({ item }: { item: ContactsItem }) => {
   const t = useTranslations('page')
