@@ -1,5 +1,6 @@
 import Image from 'next/image'
 
+import { Map } from '@/components/Map/Map'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { StyledLink } from '@/components/ui/styledLink'
 import { H1, P, H5 } from '@/components/ui/typography'
@@ -17,7 +18,7 @@ import type { ContactsItem, ContactsOfficeItem, ContactsAdvantageItem, WorkingHo
 const ContactsItem = ({ item }: { item: ContactsItem }) => {
   return (
     <div className='flex flex-col items-center justify-center md:flex-row md:items-start md:justify-start md:gap-[18px]'>
-      <Image src={item.icon} alt={item.title} className='md:h-8 md:w-8' />
+      <Image src={item.icon} alt={item.title} className='md:h-8 md:w-8' width={32} height={32} />
       <div className='flex flex-col items-center justify-center md:items-start md:justify-start'>
         <H5 className='mt-3 text-[#2a93c9] text-lg md:mt-0'>{item.title}</H5>
 
@@ -42,7 +43,7 @@ const AdvantagesItem = ({ item }: { item: ContactsAdvantageItem }) => {
         'flex flex-col items-center justify-center py-8 px-4',
         item.type === 'doctor' ? 'bg-[#6cc8df]' : item.type === 'treatment' ? 'bg-[#56b0d2]' : 'bg-[#2a88c9]'
       )}>
-      <Image src={item.icon} alt={item.title} />
+      <Image src={item.icon} alt={item.title} width={50} height={50} />
       <H5 className='mt-4 mb-1.5 text-white text-center text-lg'>{item.title}</H5>
       <P className='text-sm font-thin text-white text-center'>{item.description}</P>
     </div>
@@ -82,7 +83,7 @@ const ContactsPage = () => {
     <>
       <PageHeading title='Контакти' />
       <div className='md:grid md:grid-cols-2'>
-        <div className='bg-contacts bg-cover bg-no-repeat w-full h-[240px] bg-center md:h-[580px] md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2' />
+        <div className="bg-[url('/contacts-img1.jpg')] bg-cover bg-no-repeat w-full h-[240px] bg-center md:h-[580px] md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2" />
         <div className='py-[60px] px-4 lg:max-w-[600px] lg:ml-auto'>
           <H1 className='mb-5 text-center text-[26px] md:text-left xl:text-[26px]'>Контактні дані</H1>
           <div className='flex items-center justify-center md:justify-start'>
@@ -105,7 +106,7 @@ const ContactsPage = () => {
         ))}
       </div>
       <div className='lg:grid lg:grid-cols-2'>
-        {/* map */}
+        <Map />
         <div className='pt-[54px] md:py-8 md:pl-[50px] md:grid md:grid-cols-2 xl:w-[600px] xl:mr-auto'>
           <div className='flex flex-col'>
             {mockedOfficeItems.map((item, i) => (
