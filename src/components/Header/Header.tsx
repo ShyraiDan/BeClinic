@@ -101,8 +101,8 @@ export const Header = () => {
                   <StyledLink
                     href={href}
                     className={cn(
-                      'text-white text-lg hover:text-[#89E3FF] transition-all duration-300 ease-in-out',
-                      path === href && 'text-[#89E3FF]'
+                      'text-white text-lg hover:text-blue-400 transition-all duration-300 ease-in-out',
+                      path === href && 'text-blue-400'
                     )}>
                     {t(label)}
                   </StyledLink>

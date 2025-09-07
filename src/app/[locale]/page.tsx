@@ -24,7 +24,7 @@ const ServiceItem = ({ item }: { item: Service }) => {
       <Image src={item.icon} alt={item.title} width={50} height={50} />
       <div>
         <H6 className='my-4 font-normal text-xl'>{t(item.title)}</H6>
-        <P className='text-[#42474c] font-light text-sm'>{t(item.description)}</P>
+        <P className='text-black-200 font-light text-sm'>{t(item.description)}</P>
       </div>
     </div>
   )
@@ -37,7 +37,7 @@ const DepartmentsItem = ({ item }: { item: Department }) => {
     <div className='mx-4 px-2.5 mt-4 pt-[27px] pb-[30px] flex flex-col items-center justify-center transition duration-300 hover:shadow-doctor-card'>
       <Image src={item.icon} alt={item.title} className='mb-4' width={90} height={90} />
       <H6 className='mt-4 mb-2.5 text-xl text-center'>{t(item.title)}</H6>
-      <P className='text-[#42474c] font-light text-center'>{t(item.description)}</P>
+      <P className='text-black-200 font-light text-center'>{t(item.description)}</P>
     </div>
   )
 }
@@ -74,39 +74,39 @@ const HeroPage = () => {
         <HeroSlider />
       </div>
       <Container className='my-0 pb-0'>
-        <div className='mt-[-55px] mb-[34px] bg-[#fff] md:grid md:grid-cols-3 z-[10] relative'>
-          <div className='py-5 px-4 border-b-[7px] border-solid border-[#6cc8df]'>
+        <div className='mt-[-55px] mb-[34px] bg-white md:grid md:grid-cols-3 z-[10] relative'>
+          <div className='py-5 px-4 border-b-[7px] border-solid border-blue-500'>
             <H3 className='mb-5 text-blue-100 font-normal text-[26px]'>{t('hero.schedule')}</H3>
-            <div className='mb-5 py-3 border-b border-solid border-[#edeff1]'>
+            <div className='mb-5 py-3 border-b border-solid border-grey-200'>
               <P className='flex items-center justify-between'>
-                <span className='text-sm font-bold text-[#42474c]'>{t('hero.businessDays')}</span>
+                <span className='text-sm font-bold text-black-200'>{t('hero.businessDays')}</span>
                 <span className='text-blue-100 text-sm font-bold'>9:00 - 18:00</span>
               </P>
             </div>
-            <div className='mb-5 py-3 border-b border-solid border-[#edeff1]'>
+            <div className='mb-5 py-3 border-b border-solid border-grey-200'>
               <P className='flex items-center justify-between'>
-                <span className='text-sm font-bold text-[#42474c]'>{t('hero.saturday')}</span>
+                <span className='text-sm font-bold text-black-200'>{t('hero.saturday')}</span>
                 <span className='text-blue-100 text-sm font-bold'>10:00-18:00</span>
               </P>
             </div>
-            <div className='mb-5 py-3 border-b border-solid border-[#edeff1]'>
+            <div className='mb-5 py-3 border-b border-solid border-grey-200'>
               <P className='flex items-center justify-between'>
-                <span className='text-sm font-bold text-[#42474c]'>{t('hero.sunday')}</span>
+                <span className='text-sm font-bold text-black-200'>{t('hero.sunday')}</span>
                 <span className='text-blue-100 text-sm font-bold'>{t('hero.weekday')}</span>
               </P>
             </div>
           </div>
 
-          <div className='py-5 px-4 border-b-[7px] border-solid border-[#56b0d2]'>
+          <div className='py-5 px-4 border-b-[7px] border-solid border-blue-600'>
             <H3 className='mb-5 text-blue-100 font-normal text-[26px]'>{t('hero.doctors.schedule')}</H3>
-            <P className='mb-5 text-[#42474c] font-light'>{t('hero.doctors.description')}</P>
+            <P className='mb-5 text-black-200 font-light'>{t('hero.doctors.description')}</P>
             <StyledLinkButton variant='outline-blue' href='/appointments/add'>
               {t('hero.button.makeAnAppointment')}
             </StyledLinkButton>
           </div>
 
-          <div className='py-5 px-4 border-b-[7px] border-solid border-[#2a88c9]'>
-            <H3 className='mb-5 text-[#2a93c9] font-normal text-[26px]'> {t('hero.urgentCases.title')}</H3>
+          <div className='py-5 px-4 border-b-[7px] border-solid border-blue-100'>
+            <H3 className='mb-5 text-blue-100 font-normal text-[26px]'> {t('hero.urgentCases.title')}</H3>
             <div className='flex items-center mb-5'>
               <Image
                 src='/contacts-icon-1.webp'
@@ -121,7 +121,7 @@ const HeroPage = () => {
                 800 123 45 67
               </Link>
             </div>
-            <P className='text-[#42474c] font-light'>{t('hero.urgentCases.description')}</P>
+            <P className='text-black-200 font-light'>{t('hero.urgentCases.description')}</P>
           </div>
         </div>
 

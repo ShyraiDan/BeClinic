@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 import { Map } from '@/components/Map/Map'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
@@ -14,7 +15,6 @@ import {
 } from '@/mocks/ContactsPage.mock'
 
 import type { ContactsItem, ContactsOfficeItem, ContactsAdvantageItem, WorkingHoursItem } from '@/shared/types'
-import { useTranslations } from 'next-intl'
 
 const ContactsItem = ({ item }: { item: ContactsItem }) => {
   const t = useTranslations('page')
@@ -23,13 +23,13 @@ const ContactsItem = ({ item }: { item: ContactsItem }) => {
     <div className='flex flex-col items-center justify-center md:flex-row md:items-start md:justify-start md:gap-[18px]'>
       <Image src={item.icon} alt={item.title} className='md:h-8 md:w-8' width={32} height={32} />
       <div className='flex flex-col items-center justify-center md:items-start md:justify-start'>
-        <H5 className='mt-3 text-[#2a93c9] text-lg md:mt-0'>{t(item.title)}</H5>
+        <H5 className='mt-3 text-blue-100 text-lg md:mt-0'>{t(item.title)}</H5>
 
         {item.type === 'address' ? (
-          <P className='text-[26px] text-[#1E2428]'>{item.info}</P>
+          <P className='text-[26px] text-black-100'>{item.info}</P>
         ) : (
           <Link
-            className='transition-all duration-300 ease-in-out text-[26px] font-primary text-[#1E2428] hover:text-[#2A93C9] md:h-[31px]'
+            className='transition-all duration-300 ease-in-out text-[26px] font-primary text-black-100 hover:text-blue-100 md:h-[31px]'
             href={item.type === 'phone' ? `tel:${item.info}` : `mailto:${item.info}`}>
             {item.info}
           </Link>
@@ -46,7 +46,7 @@ const AdvantagesItem = ({ item }: { item: ContactsAdvantageItem }) => {
     <div
       className={cn(
         'flex flex-col items-center justify-center py-8 px-4',
-        item.type === 'doctor' ? 'bg-[#6cc8df]' : item.type === 'treatment' ? 'bg-[#56b0d2]' : 'bg-[#2a88c9]'
+        item.type === 'doctor' ? 'bg-blue-500' : item.type === 'treatment' ? 'bg-blue-600' : 'bg-[#2a88c9]'
       )}>
       <Image src={item.icon} alt={item.title} width={50} height={50} />
       <H5 className='mt-4 mb-1.5 text-white text-center text-lg'>{t(item.title)}</H5>
@@ -60,7 +60,7 @@ const OfficeItem = ({ item, count }: { item: ContactsOfficeItem; count: number }
 
   return (
     <div className='p-2.5 mb-5'>
-      <H5 className='mb-2.5 text-center text-[#2a93c9] text-[26px] md:text-left'>
+      <H5 className='mb-2.5 text-center text-blue-100 text-[26px] md:text-left'>
         {t('contacts.location.branch', { count: count + 1 })}
       </H5>
       <P className='mt-3 text-center font-light md:text-left'>
@@ -81,7 +81,7 @@ const WorkingHoursItem = ({ item }: { item: WorkingHoursItem }) => {
 
   return (
     <div className='p-2.5 mb-5'>
-      <H5 className='mb-2.5 text-center text-[#2a93c9] text-[26px] lg:text-left'>
+      <H5 className='mb-2.5 text-center text-blue-100 text-[26px] lg:text-left'>
         {t('contacts.location.workingHours')}
       </H5>
       <P className='mt-3 text-center font-light lg:text-left'>

@@ -28,14 +28,14 @@ export default function NotFoundPage() {
             <P className='my-3'>{t('notFound.description')}</P>
 
             <div className='flex justify-center items-center gap-4'>
-              <StyledLinkButton href='/' className='bg-[#56b0d2] text-white w-[135px]'>
+              <StyledLinkButton href='/' className='bg-blue-600 text-white w-[135px]'>
                 {t('notFound.button.toHero')}
               </StyledLinkButton>
 
               <Button
                 onClick={handleRouterBack}
                 variant='outline-blue'
-                className='border-[#56b0d2] text-[#56b0d2] w-[135px]'>
+                className='border-blue-600 text-blue-600 w-[135px]'>
                 {t('notFound.button.back')}
               </Button>
             </div>
