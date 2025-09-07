@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 import { HeroSlider } from '@/components/HeroSlider/HeroSlider'
 import { DoctorCardSkeleton } from '@/components/skeletons/DoctorCardSkeletons'
@@ -14,8 +15,6 @@ import {
   mockedClients
 } from '@/mocks/HeroPage.mock'
 import { Service, Department } from '@/shared/types'
-import { getLocale, getTranslations } from 'next-intl/server'
-import { useTranslations } from 'next-intl'
 
 const ServiceItem = ({ item }: { item: Service }) => {
   const t = useTranslations('page')

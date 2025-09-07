@@ -1,14 +1,13 @@
-import { X } from 'lucide-react'
+import { X, Menu } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
+import { BurgerMenu } from '@/components/ui/burgerMenu'
 import { Button } from '@/components/ui/button'
 import { StyledLink } from '@/components/ui/styledLink'
 import { cn } from '@/lib/utils'
 import { removeScrollBar } from '@/utils/removeScrollBar'
-import { BurgerMenu } from '@/components/ui/burgerMenu'
-import { Menu } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 
 interface BurgerMenuContentProps {
   showModal: () => void

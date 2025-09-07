@@ -3,13 +3,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { HeaderBurger } from '@/components/HeaderBurger/HeaderBurger'
 import { StyledLink } from '@/components/ui/styledLink'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { cn } from '@/lib/utils'
-import { useTranslations } from 'next-intl'
 
 const HEADER_ANIMATION_HEIGHT = 220
 const HEADER_ANIMATION_HEIGHT_HERO = 550
