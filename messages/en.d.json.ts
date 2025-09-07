@@ -84,6 +84,40 @@ declare const messages: {
         "description": "Medical Center has been a medical service provider in all fields of medicine for the Diplomats and their families for the past twenty years and keeps on maintaining a successful cooperation between the two bodies."
       }
     },
+    "contacts": {
+      "title": "Contacts",
+      "subtitle": "Contact Details",
+      "description": "Our Medical Center is the preferred choice for diplomats and employees from 64 embassies, consulates and UN agencies, as well as private patients from over 60 countries.",
+      "contacts": {
+        "emergencyHospital": "Emergency Cases",
+        "address": "Address",
+        "email": "Email"
+      },
+      "advantages": {
+        "experiencedDoctors": {
+          "title": "Experienced Physicians",
+          "description": "Your health is your most important asset. You should entrust it only to the best professionals."
+        },
+        "personalHealth": {
+          "title": "Personalized Treatment",
+          "description": "Treatment choices perfectly match your goals of treatment complications with early intervention."
+        },
+        "urgentCases": {
+          "title": "Immediate Service",
+          "description": "Your treatment plan is designed for steady progress, with every phase promptly implemented."
+        }
+      },
+      "location": {
+        "branch": "Office #{ count }",
+        "addressOne": "вулиця Соборна, 51а",
+        "addressTwo": "вулиця Келецька, 41",
+        "workingHours": "Opening Hours",
+        "businessDays": "Mon-Fri:",
+        "saturday": "Sat:",
+        "sunday": "Sun:",
+        "weekend": "Weekend"
+      }
+    },
     "notFound": {
       "title": "404 Page not found",
       "subtitle": "Oops! This page cannot be found.",

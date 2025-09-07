@@ -16,3 +16,29 @@ export const departmentSchema = z.object({
   title: z.string(),
   description: z.string()
 })
+
+export const contactsItemSchema = z.object({
+  icon: z.string(),
+  type: z.string(),
+  title: z.string(),
+  info: z.string()
+})
+
+export const contactsAdvantageItemSchema = z.object({
+  icon: z.string(),
+  type: z.string(),
+  title: z.string(),
+  description: z.string()
+})
+
+export const contactsOfficeItemSchema = z.object({
+  address: z.string(),
+  email: z.string(),
+  phone: z.string()
+})
+
+export const workingHoursItemSchema = z.object({
+  businessDay: z.string(),
+  saturday: z.string(),
+  sunday: z.string()
+})
