@@ -71,6 +71,16 @@
         "contactUs": "Get in touch"
       }
     },
+    "doctors": {
+      "title": "Doctors",
+      "ourTeam": "Meet Our Professional Team",
+      "description": "The structure of the neurological center includes an outpatient department, the Department of Functional Studies of the Nervous System and the Visual Diagnostics and Rehabilitation Department. Medical Center provides diagnoses and treatments for patients of all ages.",
+      "doctors": "Medical Specialists",
+      "achievements": {
+        "title": "Our Achievements",
+        "description": "Medical Center has been a medical service provider in all fields of medicine for the Diplomats and their families for the past twenty years and keeps on maintaining a successful cooperation between the two bodies."
+      }
+    },
     "notFound": {
       "title": "404 Page not found",
       "subtitle": "Oops! This page cannot be found.",
