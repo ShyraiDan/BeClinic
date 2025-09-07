@@ -1,11 +1,12 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 import { PageHeading } from '@/components/PageHeading/PageHeading'
+import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { H1, P } from '@/components/ui/typography'
-import { useTranslations } from 'next-intl'
-import { Button } from '@/components/ui/button'
 import { useRouter } from '@/i18n/navigation'
 
 export default function NotFoundPage() {

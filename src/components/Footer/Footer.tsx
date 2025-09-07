@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 import { Separator } from '@/components/ui/separator'
 import { P, H6 } from '@/components/ui/typography'
-import { useTranslations } from 'next-intl'
 
 const departmentsData = [
   {

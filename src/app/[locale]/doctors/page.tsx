@@ -1,9 +1,10 @@
-import { PageHeading } from '@/components/PageHeading/PageHeading'
-import { H2, P } from '@/components/ui/typography'
-import { Container } from '@/components/ui/container'
 import Image from 'next/image'
-import { DoctorCardSkeleton } from '@/components/skeletons/DoctorCardSkeletons'
 import { useTranslations } from 'next-intl'
+
+import { PageHeading } from '@/components/PageHeading/PageHeading'
+import { DoctorCardSkeleton } from '@/components/skeletons/DoctorCardSkeletons'
+import { Container } from '@/components/ui/container'
+import { H2, P } from '@/components/ui/typography'
 
 const mockedCertificates = [
   {
