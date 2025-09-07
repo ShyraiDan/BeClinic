@@ -115,6 +115,49 @@
         "weekend": "Weekend"
       }
     },
+    "faqs": {
+      "title": "FAQs",
+      "subtitle": "FAQs",
+      "description": "The Frequently Asked Questions (FAQ) section is your first stop for quick and easy answers to our patients' most common questions. Here you will find up-to-date information about:",
+      "questions": {
+        "provideDentalCare": {
+          "question": "Q: Do you provide dental care for patients covered under a Medicaid plan?",
+          "answer": "Yes, we provide dental care for anyone who has this type of healthcare included. Regardless of whether it is under their Medicaid, Affordable Care Act or any other similar healthcare insurance plan."
+        },
+        "firstAppointment": {
+          "question": "Q: How long is the first appointment?",
+          "answer": "It may vary, but generally speaking, the first appointment will be merely a consulting one. Our dentist or dental hygienist will be checking the overall state of your oral health. Then a dentist will provide recommendations on any further dental procedures you might need."
+        },
+        "whoPerformsTreatment": {
+          "question": "Q: Who performs my treatment?",
+          "answer": "We have a dedicated team of 5 different dentists. Each of them has a profound medical experience and degree. Also, we have a practical nurse and dental hygienists in our clinic’s team. Our staff will be more than enough to provide a timely, efficient dental care for all of our patients!"
+        },
+        "whyVisitImportant": {
+          "question": "Q: Why is it so important to see a doctor?",
+          "answer": "Regular monthly visits to the doctor will not only help keep you in good shape, but also preserve the health of your entire body.",
+          "listTitle": "Health care is important because:",
+          "list": {
+            "preventCheckups": "Preventive checkups and basic tests help detect disease before symptoms appear, when treatment is easiest and most effective.",
+            "regularDiagnostics": "Regular diagnostics cost significantly less than treating advanced conditions or prolonged rehabilitation after complications.",
+            "byMaintaining": "By maintaining normal blood pressure, sugar, and cholesterol levels, you can maintain your energy, sleep well, and stay in a good mood every day.",
+            "timelyVaccinations": "Timely vaccinations and check-ups reduce the risk of transmitting infections to family and colleagues and allow you to remain an active member of your family for longer.",
+            "regularContact": "Regular contact with your doctor motivates you to drink more water, exercise daily, and give up bad habits — all of which contribute to your longevity."
+          }
+        },
+        "whyVisitDentistImportant": {
+          "question": "Q: Why is visiting the dentist so important?",
+          "answer": "You may feel fine and think that your oral health is not at risk. But the fact is that only a professional dentist can detect dental problems in their early stages. This can only happen during a regular dental checkup. Tooth decay, food staining, gum problems, and weakening teeth are just some of the problems that can go unnoticed for a long time. In addition, you need to take advantage of all the benefits of modern dental medicine to correct any problems that you have not corrected before (e.g., broken, chipped teeth, etc.)."
+        },
+        "whatAgeShouldVisitDentist": {
+          "question": "Q: At what age should you start taking your child to the dentist?",
+          "answer": "We recommend taking children aged 5 and older for regular dental checkups."
+        },
+        "whenShouldChangeToothbrush": {
+          "question": "Q: When should you replace your toothbrush?",
+          "answer": "It is strongly recommended to change your toothbrush once a month! This is strongly recommended by most American dental institutions and numerous studies."
+        }
+      }
+    },
     "notFound": {
       "title": "404 Page not found",
       "subtitle": "Oops! This page cannot be found.",
