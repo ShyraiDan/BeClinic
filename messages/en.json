@@ -70,6 +70,15 @@
         "makeAnAppointment": "Make an appointment",
         "contactUs": "Get in touch"
       }
+    },
+    "notFound": {
+      "title": "404 Page not found",
+      "subtitle": "Oops! This page cannot be found.",
+      "description": "It appears that nothing was found at the specified address.",
+      "button": {
+        "toHero": "Home",
+        "back": "Back"
+      }
     }
   },
   "footer": {
