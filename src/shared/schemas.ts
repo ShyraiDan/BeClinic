@@ -53,8 +53,6 @@ export const workingHoursItemSchema = z.object({
 
 export const blogSchema = z.object({
   _id: z.string(),
-  // title: z.object({ en: z.string(), uk: z.string() }),
-  // description: z.object({ en: z.string(), uk: z.string() }),
   title: localizedStringSchema,
   description: localizedStringSchema,
   image: z.string(),
