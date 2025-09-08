@@ -161,6 +161,11 @@ declare const messages: {
         }
       }
     },
+    "blog": {
+      "title": "Blog",
+      "findPosts": "{count, plural, =0 {No posts found} one {# post found} other {# posts found}}",
+      "readMore": "Read more"
+    },
     "notFound": {
       "title": "404 Page not found",
       "subtitle": "Oops! This page cannot be found.",

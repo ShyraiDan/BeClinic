@@ -1,8 +1,8 @@
-import { Separator } from '@/components/ui/separator'
-import { H2, P } from '@/components/ui/typography'
-
 import { Check } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+
+import { Separator } from '@/components/ui/separator'
+import { H2, P } from '@/components/ui/typography'
 
 interface FaqItem {
   question: string

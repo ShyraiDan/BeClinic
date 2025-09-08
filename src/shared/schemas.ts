@@ -42,3 +42,13 @@ export const workingHoursItemSchema = z.object({
   saturday: z.string(),
   sunday: z.string()
 })
+
+export const blogSchema = z.object({
+  _id: z.string(),
+  title: z.string(),
+  description: z.string(),
+  image: z.string(),
+  authorId: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string()
+})
