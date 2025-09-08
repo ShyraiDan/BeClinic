@@ -169,7 +169,9 @@ declare const messages: {
     "addBlogPage": {
       "title": "Add blog"
     },
-
+    "editBlogPage": {
+      "title": "Edit blog"
+    },
     "notFound": {
       "title": "404 Page not found",
       "subtitle": "Oops! This page cannot be found.",
