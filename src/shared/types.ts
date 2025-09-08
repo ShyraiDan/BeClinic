@@ -7,7 +7,8 @@ import {
   contactsItemSchema,
   contactsAdvantageItemSchema,
   contactsOfficeItemSchema,
-  workingHoursItemSchema
+  workingHoursItemSchema,
+  blogSchema
 } from './schemas'
 
 export type Option = z.infer<typeof optionSchema>
@@ -17,3 +18,4 @@ export type ContactsItem = z.infer<typeof contactsItemSchema>
 export type ContactsOfficeItem = z.infer<typeof contactsOfficeItemSchema>
 export type ContactsAdvantageItem = z.infer<typeof contactsAdvantageItemSchema>
 export type WorkingHoursItem = z.infer<typeof workingHoursItemSchema>
+export type Blog = z.infer<typeof blogSchema>

@@ -1,10 +1,10 @@
+import { useTranslations } from 'next-intl'
+
+import { FaqItem } from '@/components/FaqItem/FaqItem'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { Container } from '@/components/ui/container'
 import { H1, P } from '@/components/ui/typography'
-import React from 'react'
-import { FaqItem } from '@/components/FaqItem/FaqItem'
 import { mockedFaqs } from '@/mocks/Faqs.mock'
-import { useTranslations } from 'next-intl'
 
 const FaqPage = () => {
   const t = useTranslations('page')

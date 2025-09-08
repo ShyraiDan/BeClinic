@@ -11,7 +11,8 @@ const linkButtonVariants = cva(
         default: 'text-white bg-blue-100 hover:bg-blue-100',
         'outline-white':
           'text-white border border-solid border-white hover:text-white hover:bg-blue-100 hover:border-blue-100',
-        'outline-blue': 'text-blue-100 border border-solid border-blue-100 hover:text-white hover:bg-blue-100'
+        'outline-blue': 'text-blue-100 border border-solid border-blue-100 hover:text-white hover:bg-blue-100',
+        icon: 'bg-blue-300 p-3 rounded-2xl w-10 h-10 text-white hover:bg-blue-200'
       }
     }
   }
