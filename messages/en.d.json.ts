@@ -166,6 +166,10 @@ declare const messages: {
       "findPosts": "{count, plural, =0 {No posts found} one {# post found} other {# posts found}}",
       "readMore": "Read more"
     },
+    "addBlogPage": {
+      "title": "Add blog"
+    },
+
     "notFound": {
       "title": "404 Page not found",
       "subtitle": "Oops! This page cannot be found.",
@@ -175,6 +179,27 @@ declare const messages: {
         "back": "Back"
       }
     }
+  },
+  "forms": {
+    "blogForm": {
+      "blogTitle": {
+        "label": "{locale, select, en {Blog title in English} uk {Blog title in Ukrainian} other {Blog title}}",
+        "placeholder": "{locale, select, en {Enter blog title in English} uk {Enter blog title in Ukrainian} other {Enter blog title}}"
+      },
+      "image": {
+        "label": "Blog image"
+      },
+      "blogDescription": {
+        "label": "{locale, select, en {Blog text in English} uk {Blog text in Ukrainian} other {Blog text}}",
+        "placeholder": "{locale, select, en {Enter blog text in English} uk {Enter blog text in Ukrainian} other {Enter blog text}}"
+      }
+    },
+    "download": "Download",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "create": "Create"
   },
   "footer": {
     "description": "Choosing the right hospital and physician are important factors to consider that significantly influence a patient’s treatment. The preferred choice for many patients is choosing private care.",

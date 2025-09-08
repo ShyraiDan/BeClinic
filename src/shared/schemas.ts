@@ -1,5 +1,13 @@
 import { z } from 'zod'
 
+import { SUPPORTED_LOCALES } from '@/shared/constants'
+
+export type Locale = (typeof SUPPORTED_LOCALES)[number]
+
+const localizedStringSchema = z
+  .object(Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, z.string().min(1)])) as Record<Locale, z.ZodString>)
+  .strict()
+
 export const optionSchema = z.object({
   value: z.string(),
   label: z.string()
@@ -45,10 +53,16 @@ export const workingHoursItemSchema = z.object({
 
 export const blogSchema = z.object({
   _id: z.string(),
-  title: z.string(),
-  description: z.string(),
+  title: localizedStringSchema,
+  description: localizedStringSchema,
   image: z.string(),
   authorId: z.string(),
   createdAt: z.string(),
   updatedAt: z.string()
+})
+
+export const blogFormValuesSchema = blogSchema.pick({
+  title: true,
+  description: true,
+  image: true
 })
