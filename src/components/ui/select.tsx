@@ -31,7 +31,7 @@ const SelectTrigger = ({
       data-slot='select-trigger'
       data-size={size}
       className={cn(
-        'flex w-full items-center justify-between gap-2 font-regular opacity-90 px-3 py-1.5 rounded border border-grey-400',
+        'flex w-full items-center justify-between gap-2 font-regular opacity-90 px-3 py-1.5 rounded border border-grey-400 bg-white',
         className
       )}
       {...props}>
