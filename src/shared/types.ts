@@ -10,7 +10,12 @@ import {
   contactsOfficeItemSchema,
   workingHoursItemSchema,
   blogSchema,
-  blogFormValuesSchema
+  blogFormValuesSchema,
+  patientSchema,
+  appointmentSchema,
+  analyzesSchema,
+  doctorSchema,
+  paymentSchema
 } from './schemas'
 
 export type SupportedLocales = (typeof SUPPORTED_LOCALES)[number]
@@ -24,3 +29,8 @@ export type ContactsAdvantageItem = z.infer<typeof contactsAdvantageItemSchema>
 export type WorkingHoursItem = z.infer<typeof workingHoursItemSchema>
 export type Blog = z.infer<typeof blogSchema>
 export type BlogFormValues = z.infer<typeof blogFormValuesSchema>
+export type Patient = z.infer<typeof patientSchema>
+export type Appointment = z.infer<typeof appointmentSchema>
+export type Analysis = z.infer<typeof analyzesSchema>
+export type Doctor = z.infer<typeof doctorSchema>
+export type Payment = z.infer<typeof paymentSchema>

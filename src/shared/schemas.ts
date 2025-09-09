@@ -66,3 +66,54 @@ export const blogFormValuesSchema = blogSchema.pick({
   description: true,
   image: true
 })
+
+export const patientSchema = z.object({
+  _id: z.string(),
+  email: z.email(),
+  userName: z.string(),
+  dateOfBirth: z.string(),
+  phoneNumber: z.string(),
+  bloodType: z.string(),
+  diabetes: z.string(),
+  rhFactor: z.string(),
+  bloodTransfusion: z.string(),
+  intoleranceToMedicines: z.string(),
+  infectiousDiseases: z.string(),
+  surgicalInterventions: z.string(),
+  allergies: z.string(),
+  image: z.string().optional()
+})
+
+export const doctorSchema = z.object({
+  _id: z.string(),
+  doctorName: z.string(),
+  position: z.string()
+})
+
+export const analyzesSchema = z.object({
+  _id: z.string(),
+  patientId: z.string(),
+  analysisName: z.string(),
+  date: z.string(),
+  description: z.string().optional(),
+  fileName: z.string().optional()
+})
+
+export const appointmentSchema = z.object({
+  _id: z.string(),
+  patient: patientSchema,
+  doctor: doctorSchema,
+  reason: z.string(),
+  startTime: z.string(),
+  endTime: z.string(),
+  description: z.string().optional(),
+  analyzes: analyzesSchema
+})
+
+export const paymentSchema = z.object({
+  _id: z.string(),
+  appointment: appointmentSchema,
+  amount: z.number(),
+  isPayed: z.boolean(),
+  patient: patientSchema
+})
