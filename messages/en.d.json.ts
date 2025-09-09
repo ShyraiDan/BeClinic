@@ -189,7 +189,11 @@ declare const messages: {
         "billing": "Payment",
         "paid": "Paid",
         "paymentCardTitle": "Payment: Visit to { doctorPosition }a { doctorName }",
-        "needToPay": "Payable: { money }"
+        "needToPay": "Payable: { money }",
+        "no": "No",
+        "analyzes": "Analyzes",
+        "addAnalyzes": "Add analyzes",
+        "noAnalyzes": "No analyzes found"
       },
       "doctor": {},
       "personalInfo": "Personal data",

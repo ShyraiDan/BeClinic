@@ -96,7 +96,9 @@ export const analyzesSchema = z.object({
   analysisName: z.string(),
   date: z.string(),
   description: z.string().optional(),
-  fileName: z.string().optional()
+  fileName: z.string().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string()
 })
 
 export const appointmentSchema = z.object({

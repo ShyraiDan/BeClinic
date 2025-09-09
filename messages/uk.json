@@ -171,6 +171,7 @@
     },
     "profile": {
       "patient": {
+        "title": "Ваш профіль",
         "signalMarks": "Сигнальні позначки",
         "bloodType": "Група крові",
         "diabetes": "Цукровий діабет",
@@ -186,7 +187,11 @@
         "billing": "Оплата",
         "paid": "Оплачено",
         "paymentCardTitle": "Оплата: Візит до { doctorPosition }a { doctorName }",
-        "needToPay": "До сплати: { money }"
+        "needToPay": "До сплати: { money }",
+        "no": "Ні",
+        "analyzes": "Аналізи",
+        "addAnalyzes": "Додати аналіз",
+        "noAnalyzes": "Аналізи відсутні"
       },
       "doctor": {},
       "personalInfo": "Особисті дані",
