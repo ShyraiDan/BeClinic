@@ -13,6 +13,7 @@ interface AnalysesCardProps {
 
 export const AnalysesCard = ({ analysis, locale }: AnalysesCardProps) => {
   const dateLocale = dateLocaleMap[locale] ?? enUS
+
   return (
     <Link href={`/analyses/${analysis._id}`}>
       <div className='flex shadow-custom-right bg-white'>

@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { AnalyzesTab } from '@/components/patientTabs/AnalyzesTab'
+import { AppointmentTab } from '@/components/patientTabs/AppointmentTab'
 import { BillingTab } from '@/components/patientTabs/BillingTab'
 import { SkeletonAvatar } from '@/components/skeletons/SkeletonAvatar'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
@@ -172,6 +173,7 @@ const PatientProfile = ({ params }: PatientProfileProps) => {
 }
 
 const tabs = [
+  { id: TABS_ENUM.APPOINTMENTS, label: 'profile.patient.appointments', content: <AppointmentTab /> },
   { id: TABS_ENUM.BILLING, label: 'profile.patient.billing', content: <BillingTab /> },
   { id: TABS_ENUM.ANALYZES, label: 'profile.patient.analyzes', content: <AnalyzesTab /> }
 ]

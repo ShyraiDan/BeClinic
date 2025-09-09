@@ -191,7 +191,11 @@
         "no": "Ні",
         "analyzes": "Аналізи",
         "addAnalyzes": "Додати аналіз",
-        "noAnalyzes": "Аналізи відсутні"
+        "noAnalyzes": "Аналізи відсутні",
+        "appointments": "Записи на прийом",
+        "makeAnAppointment": "Записатися на прийом",
+        "historyAppointments": "Попередні прийоми",
+        "noAppointments": "Немає записів на прийом"
       },
       "doctor": {},
       "personalInfo": "Особисті дані",

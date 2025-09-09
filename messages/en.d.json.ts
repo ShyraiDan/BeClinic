@@ -193,7 +193,11 @@ declare const messages: {
         "no": "No",
         "analyzes": "Analyzes",
         "addAnalyzes": "Add analyzes",
-        "noAnalyzes": "No analyzes found"
+        "noAnalyzes": "No analyzes found",
+        "appointments": "Appointments",
+        "makeAnAppointment": "Make an appointment",
+        "historyAppointments": "Previous appointments",
+        "noAppointments": "No appointments found"
       },
       "doctor": {},
       "personalInfo": "Personal data",
