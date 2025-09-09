@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { ReactNode } from 'react'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -11,26 +12,26 @@ interface StyledTabProps {
   defaultValue?: string
 }
 
-const StyledTab = ({ defaultValue, tabs }: StyledTabProps) => {
+export const StyledTab = ({ defaultValue, tabs }: StyledTabProps) => {
+  const t = useTranslations('page')
+
   return (
-    <div className='flex w-full max-w-sm flex-col gap-6'>
+    <>
       <Tabs defaultValue={defaultValue}>
-        <TabsList>
+        <TabsList className='border-b border-solid border-[#ccc]'>
           {tabs.map((tab) => (
             <TabsTrigger key={`${tab.id}-trigger`} value={tab.id}>
-              {tab.label}
+              {t(tab.label)}
             </TabsTrigger>
           ))}
         </TabsList>
 
         {tabs.map((tab) => (
           <TabsContent key={`${tab.id}-content`} value={tab.id}>
-            {tab.label}
+            {tab.content}
           </TabsContent>
         ))}
       </Tabs>
-    </div>
+    </>
   )
 }
-
-export default StyledTab

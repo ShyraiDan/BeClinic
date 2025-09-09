@@ -107,7 +107,7 @@ export const appointmentSchema = z.object({
   startTime: z.string(),
   endTime: z.string(),
   description: z.string().optional(),
-  analyzes: analyzesSchema
+  analyzes: z.array(analyzesSchema)
 })
 
 export const paymentSchema = z.object({
@@ -115,5 +115,7 @@ export const paymentSchema = z.object({
   appointment: appointmentSchema,
   amount: z.number(),
   isPayed: z.boolean(),
-  patient: patientSchema
+  patient: patientSchema,
+  createdAt: z.string(),
+  updatedAt: z.string()
 })
