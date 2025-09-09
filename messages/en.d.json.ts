@@ -172,6 +172,39 @@ declare const messages: {
     "editBlogPage": {
       "title": "Edit blog"
     },
+    "profile": {
+      "patient": {
+        "signalMarks": "Signal marks",
+        "bloodType": "Blood type",
+        "diabetes": "Diabetes mellitus",
+        "rhFactor": "Rhesus factor",
+        "bloodTransfusion": "Blood transfusion",
+        "intoleranceToMedicines": "Drug intolerance",
+        "infectiousDiseases": "Infectious diseases",
+        "surgicalInterventions": "Surgical procedures",
+        "allergies": "Allergies",
+        "billingHistory": "Payment history",
+        "noBillingHistory": "No payment history available",
+        "unpaidBills": "Unpaid services",
+        "billing": "Payment",
+        "paid": "Paid",
+        "paymentCardTitle": "Payment: Visit to { doctorPosition }a { doctorName }",
+        "needToPay": "Payable: { money }",
+        "no": "No",
+        "analyzes": "Analyzes",
+        "addAnalyzes": "Add analyzes",
+        "noAnalyzes": "No analyzes found",
+        "appointments": "Appointments",
+        "makeAnAppointment": "Make an appointment",
+        "historyAppointments": "Previous appointments",
+        "noAppointments": "No appointments found"
+      },
+      "doctor": {},
+      "personalInfo": "Personal data",
+      "dateOfBirth": "Date of birth",
+      "phoneNumber": "Phone number",
+      "leave": "Log out of your account"
+    },
     "notFound": {
       "title": "404 Page not found",
       "subtitle": "Oops! This page cannot be found.",

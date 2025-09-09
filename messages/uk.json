@@ -169,6 +169,40 @@
     "editBlogPage": {
       "title": "Редагувати блог"
     },
+    "profile": {
+      "patient": {
+        "title": "Ваш профіль",
+        "signalMarks": "Сигнальні позначки",
+        "bloodType": "Група крові",
+        "diabetes": "Цукровий діабет",
+        "rhFactor": "Резус-фактор",
+        "bloodTransfusion": "Переливання крові",
+        "intoleranceToMedicines": "Непереносимість ліків",
+        "infectiousDiseases": "Інфекційні захворювання",
+        "surgicalInterventions": "Хірургічні втручання",
+        "allergies": "Алергії",
+        "billingHistory": "Історія оплат",
+        "noBillingHistory": "Історія оплат відсутня",
+        "unpaidBills": "Неоплачені послуги",
+        "billing": "Оплата",
+        "paid": "Оплачено",
+        "paymentCardTitle": "Оплата: Візит до { doctorPosition }a { doctorName }",
+        "needToPay": "До сплати: { money }",
+        "no": "Ні",
+        "analyzes": "Аналізи",
+        "addAnalyzes": "Додати аналіз",
+        "noAnalyzes": "Аналізи відсутні",
+        "appointments": "Записи на прийом",
+        "makeAnAppointment": "Записатися на прийом",
+        "historyAppointments": "Попередні прийоми",
+        "noAppointments": "Немає записів на прийом"
+      },
+      "doctor": {},
+      "personalInfo": "Особисті дані",
+      "dateOfBirth": "Дата народження",
+      "phoneNumber": "Номер телефону",
+      "leave": "Вийти з акаунту"
+    },
     "notFound": {
       "title": "404 Сторінка не знайдена",
       "subtitle": "Упс! Цю сторінку неможливо знайти.",

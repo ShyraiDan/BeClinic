@@ -20,6 +20,8 @@ interface BlogFormProps {
   blog?: Blog
 }
 
+// TODO: add validation
+
 export const BlogForm = ({ blog }: BlogFormProps) => {
   const [isEditImage, setIsEditImage] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
