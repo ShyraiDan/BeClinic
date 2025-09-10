@@ -57,8 +57,8 @@ export const blogSchema = z.object({
   description: localizedStringSchema,
   image: z.string(),
   authorId: z.string(),
-  createdAt: z.string(),
-  updatedAt: z.string()
+  createdAt: z.date(),
+  updatedAt: z.date()
 })
 
 export const blogFormValuesSchema = blogSchema.pick({
@@ -86,8 +86,14 @@ export const patientSchema = z.object({
 
 export const doctorSchema = z.object({
   _id: z.string(),
+  email: z.email(),
   doctorName: z.string(),
-  position: z.string()
+  position: z.string(),
+  image: z.string().optional(),
+  description: z.string().optional(),
+  phone: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date()
 })
 
 export const analysesSchema = z.object({
@@ -97,8 +103,8 @@ export const analysesSchema = z.object({
   date: z.string(),
   description: z.string().optional(),
   fileName: z.string().optional(),
-  createdAt: z.string(),
-  updatedAt: z.string()
+  createdAt: z.date(),
+  updatedAt: z.date()
 })
 
 export const appointmentSchema = z.object({
@@ -119,8 +125,8 @@ export const paymentSchema = z.object({
   amount: z.number(),
   isPayed: z.boolean(),
   patient: patientSchema,
-  createdAt: z.string(),
-  updatedAt: z.string()
+  createdAt: z.date(),
+  updatedAt: z.date()
 })
 
 export const appointmentFormValuesSchema = appointmentSchema
@@ -148,4 +154,12 @@ export const analysisFormValuesSchema = analysesSchema.pick({
   date: true,
   description: true,
   fileName: true
+})
+
+export const reviewSchema = z.object({
+  _id: z.string(),
+  userName: z.string(),
+  userPhoto: z.string(),
+  userPosition: z.string(),
+  review: z.string()
 })
