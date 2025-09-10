@@ -84,7 +84,7 @@ export const Header = () => {
     <header>
       <div
         className={cn(
-          "fixed top-0 left-0 w-full z-[100] bg-[url('/header_bg.jpg')] bg-center bg-no-repeat bg-cover transition-all ease-in-out duration-300 lg:bg-none lg:backdrop-blur",
+          "fixed top-0 left-0 w-full z-10 bg-[url('/header_bg.jpg')] bg-center bg-no-repeat bg-cover transition-all ease-in-out duration-300 lg:bg-none lg:backdrop-blur",
           scrolled && "lg:!bg-[url('/header_bg.jpg')] bg-center bg-no-repeat bg-cover"
         )}>
         <div className='flex justify-between py-9 px-4 w-full lg:max-w-[1200px] lg:mx-auto'>

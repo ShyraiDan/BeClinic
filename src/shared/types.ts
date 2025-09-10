@@ -15,7 +15,9 @@ import {
   appointmentSchema,
   analyzesSchema,
   doctorSchema,
-  paymentSchema
+  paymentSchema,
+  appointmentFormValuesSchema,
+  selectOptionSchema
 } from './schemas'
 
 export type SupportedLocales = (typeof SUPPORTED_LOCALES)[number]
@@ -34,3 +36,5 @@ export type Appointment = z.infer<typeof appointmentSchema>
 export type Analysis = z.infer<typeof analyzesSchema>
 export type Doctor = z.infer<typeof doctorSchema>
 export type Payment = z.infer<typeof paymentSchema>
+export type AppointmentFormValues = z.infer<typeof appointmentFormValuesSchema>
+export type SelectOption = z.infer<typeof selectOptionSchema>

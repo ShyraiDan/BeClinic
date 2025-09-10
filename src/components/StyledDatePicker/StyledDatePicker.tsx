@@ -9,6 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils'
 
 interface StyledDatePickerProps {
+  placeholder: string
   initialDate?: string
   calendarModalStyles?: string
   showOutsideDays?: boolean
@@ -21,7 +22,8 @@ export const StyledDatePicker = ({
   disabled,
   onChange,
   calendarModalStyles,
-  showOutsideDays
+  showOutsideDays,
+  placeholder
 }: StyledDatePickerProps) => {
   const [open, setOpen] = useState(false)
   const [date, setDate] = useState<Date | undefined>(initialDate ? new Date(initialDate) : undefined)
@@ -38,7 +40,7 @@ export const StyledDatePicker = ({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant='date-picker' disabled={disabled} id='date' className='w-full justify-between font-normal'>
-          {date ? date.toLocaleDateString() : 'Select date'}
+          {date ? date.toLocaleDateString() : placeholder}
           <ChevronDownIcon size={16} />
         </Button>
       </PopoverTrigger>
