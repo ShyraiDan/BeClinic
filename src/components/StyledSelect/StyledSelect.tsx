@@ -5,21 +5,24 @@ interface StyledSelectProps {
   placeholder: string
   options: Option[]
   triggerClassName?: string
+  disabled?: boolean
 }
 
-export const StyledSelect = ({ options, triggerClassName, placeholder }: StyledSelectProps) => {
+export const StyledSelect = ({ options, triggerClassName, placeholder, disabled }: StyledSelectProps) => {
   return (
     <Select>
       <SelectTrigger className={triggerClassName}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
-      <SelectContent>
-        {options.map((option: Option) => (
-          <SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
+      {!disabled && (
+        <SelectContent>
+          {options.map((option: Option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      )}
     </Select>
   )
 }

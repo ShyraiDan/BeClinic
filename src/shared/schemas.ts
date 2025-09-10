@@ -109,7 +109,8 @@ export const appointmentSchema = z.object({
   startTime: z.string(),
   endTime: z.string(),
   description: z.string().optional(),
-  analyzes: z.array(analyzesSchema)
+  analyzes: z.array(analyzesSchema),
+  fileName: z.string().optional()
 })
 
 export const paymentSchema = z.object({
@@ -120,4 +121,24 @@ export const paymentSchema = z.object({
   patient: patientSchema,
   createdAt: z.string(),
   updatedAt: z.string()
+})
+
+export const appointmentFormValuesSchema = appointmentSchema
+  .pick({
+    reason: true,
+    startTime: true,
+    endTime: true,
+    description: true,
+    analyzes: true,
+    fileName: true
+  })
+  .extend({
+    doctorId: z.string(),
+    specialty: z.string(),
+    startTimeHours: z.string()
+  })
+
+export const selectOptionSchema = z.object({
+  value: z.string(),
+  label: z.string()
 })

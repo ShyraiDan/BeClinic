@@ -171,6 +171,7 @@
     },
     "profile": {
       "patient": {
+        "title": "My profile",
         "signalMarks": "Signal marks",
         "bloodType": "Blood type",
         "diabetes": "Diabetes mellitus",
@@ -202,6 +203,9 @@
       "phoneNumber": "Phone number",
       "leave": "Log out of your account"
     },
+    "addAppointmentPage": {
+      "title": "Add appointment"
+    },
     "notFound": {
       "title": "404 Page not found",
       "subtitle": "Oops! This page cannot be found.",
@@ -224,6 +228,40 @@
       "blogDescription": {
         "label": "{locale, select, en {Blog text in English} uk {Blog text in Ukrainian} other {Blog text}}",
         "placeholder": "{locale, select, en {Enter blog text in English} uk {Enter blog text in Ukrainian} other {Enter blog text}}"
+      }
+    },
+    "appointmentForm": {
+      "appointmentReason": {
+        "label": "Reason for visit",
+        "placeholder": "Enter reason for visit"
+      },
+      "appointmentSpecialization": {
+        "label": "Select doctor speciality",
+        "placeholder": "Select option"
+      },
+      "appointmentDoctor": {
+        "label": "Select doctor",
+        "placeholder": "Select option"
+      },
+      "appointmentDate": {
+        "label": "Select visit date",
+        "placeholder": "Select date"
+      },
+      "appointmentTime": {
+        "label": "Select visit time",
+        "placeholder": "Select time"
+      },
+      "appointmentDescription": {
+        "label": "Additional information",
+        "placeholder": "Enter additional information"
+      },
+      "appointmentAnalyzes": {
+        "label": "Analyzes",
+        "button": "Add analyzes"
+      },
+      "appointmentFiles": {
+        "label": "Files",
+        "button": "Add files"
       }
     },
     "download": "Download",

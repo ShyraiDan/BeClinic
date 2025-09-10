@@ -203,6 +203,9 @@
       "phoneNumber": "Номер телефону",
       "leave": "Вийти з акаунту"
     },
+    "addAppointmentPage": {
+      "title": "Додати прийом"
+    },
     "notFound": {
       "title": "404 Сторінка не знайдена",
       "subtitle": "Упс! Цю сторінку неможливо знайти.",
@@ -225,6 +228,40 @@
       "blogDescription": {
         "label": "{locale, select, en {Текст статті англійською} uk {Текст статті українською} other {Текст статті}}",
         "placeholder": "{locale, select, en {Введіть текст статті англійською} uk {Введіть текст статті українською} other {Введіть текст статті}}"
+      }
+    },
+    "appointmentForm": {
+      "appointmentReason": {
+        "label": "Причина візиту",
+        "placeholder": "Введіть причину візиту"
+      },
+      "appointmentSpecialization": {
+        "label": "Оберіть спеціальність лікаря",
+        "placeholder": "Оберіть опцію"
+      },
+      "appointmentDoctor": {
+        "label": "Оберіть лікаря",
+        "placeholder": "Оберіть опцію"
+      },
+      "appointmentDate": {
+        "label": "Оберіть дату прийому",
+        "placeholder": "Оберіть дату"
+      },
+      "appointmentTime": {
+        "label": "Оберіть час прийому",
+        "placeholder": "Оберіть час прийому"
+      },
+      "appointmentDescription": {
+        "label": "Додаткова інформація",
+        "placeholder": "Введіть додаткову інформацію"
+      },
+      "appointmentAnalyzes": {
+        "label": "Аналізи",
+        "button": "Додати аналіз"
+      },
+      "appointmentFiles": {
+        "label": "Додаткові файли",
+        "button": "Додати файл"
       }
     },
     "download": "Завантажити",
