@@ -212,6 +212,9 @@ declare const messages: {
     "editAppointmentPage": {
       "title": "Edit appointment"
     },
+    "addAnalysisPage": {
+      "title": "Add analysis"
+    },
     "singleAppointmentPage": {
       "appointmentTo": " Visit to { position }",
       "appointmentDoctor": "Doctor: { name }",
@@ -277,6 +280,24 @@ declare const messages: {
         "button": "Add analyses"
       },
       "appointmentFiles": {
+        "label": "Files",
+        "button": "Add files"
+      }
+    },
+    "analysisForm": {
+      "analysisName": {
+        "label": "Analysis name",
+        "placeholder": "Enter analysis name"
+      },
+      "analysisDate": {
+        "label": "Analysis date",
+        "placeholder": "Select analysis date"
+      },
+      "analysisDescription": {
+        "label": "Analysis description",
+        "placeholder": "Enter analysis description"
+      },
+      "analysisFiles": {
         "label": "Files",
         "button": "Add files"
       }

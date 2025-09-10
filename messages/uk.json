@@ -209,6 +209,9 @@
     "editAppointmentPage": {
       "title": "Редагувати прийом"
     },
+    "addAnalysisPage": {
+      "title": "Додати аналіз"
+    },
     "singleAppointmentPage": {
       "appointmentTo": "Візит до { position }a",
       "appointmentDoctor": "Лікар: { name }",
@@ -274,6 +277,24 @@
         "button": "Додати аналіз"
       },
       "appointmentFiles": {
+        "label": "Додаткові файли",
+        "button": "Додати файл"
+      }
+    },
+    "analysisForm": {
+      "analysisName": {
+        "label": "Назва аналізу",
+        "placeholder": "Введіть назву аналізу"
+      },
+      "analysisDate": {
+        "label": "Дата аналізу",
+        "placeholder": "Оберіть дату аналізу"
+      },
+      "analysisDescription": {
+        "label": "Опис аналізу",
+        "placeholder": "Введіть опис аналізу"
+      },
+      "analysisFiles": {
         "label": "Додаткові файли",
         "button": "Додати файл"
       }
