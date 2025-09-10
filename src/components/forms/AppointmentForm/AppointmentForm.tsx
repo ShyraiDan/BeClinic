@@ -6,9 +6,9 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useMemo, useRef } from 'react'
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 
-import { AnalysesCard } from '@/components/AnalyzesCard/AnalyzesCard'
+import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
-import { SelectAnalyzesModal } from '@/components/modals/SelectAnalyzesModal/SelectAnalyzesModal'
+import { SelectAnalysesModal } from '@/components/modals/SelectAnalysesModal/SelectAnalysesModal'
 import { StyledDatePicker } from '@/components/StyledDatePicker/StyledDatePicker'
 import { StyledSelect } from '@/components/StyledSelect/StyledSelect'
 import { Button } from '@/components/ui/button'
@@ -41,7 +41,7 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
       startTime: appointment?.startTime ?? '',
       endTime: appointment?.endTime ?? '',
       description: appointment?.description ?? '',
-      analyzes: appointment?.analyzes ?? [],
+      analyses: appointment?.analyses ?? [],
       doctorId: appointment?.doctor._id ?? '',
       fileName: appointment?.fileName ?? '',
       startTimeHours: `${appointment?.startTime ? getHours(parseISO(appointment.startTime)) : 10}:00`
@@ -68,12 +68,12 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
   }, [startTime])
 
   const {
-    fields: analyzes,
-    append: appendAnalyzes,
-    remove: removeAnalyzes
+    fields: analyses,
+    append: appendAnalyses,
+    remove: removeAnalyses
   } = useFieldArray<AppointmentFormValues>({
     control,
-    name: 'analyzes'
+    name: 'analyses'
   })
 
   return (
@@ -174,20 +174,20 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
       </div>
 
       <div className='mt-4'>
-        <Label>{t('appointmentForm.appointmentAnalyzes.label')}</Label>
+        <Label>{t('appointmentForm.appointmentAnalyses.label')}</Label>
 
         <div className='grid grid-cols-1 gap-4 mt-4'>
-          {analyzes.map((analysis) => (
-            <AnalysesCard key={analysis._id} analysis={analysis} locale={locale as SupportedLocales} />
+          {analyses.map((analysis) => (
+            <AnalysisCard key={analysis._id} analysis={analysis} locale={locale as SupportedLocales} />
           ))}
         </div>
       </div>
 
-      <div className={cn(analyzes.length > 0 && 'mt-4')}>
-        <SelectAnalyzesModal
-          appendData={appendAnalyzes}
-          removeData={removeAnalyzes}
-          selectedAnalyzes={analyzes}
+      <div className={cn(analyses.length > 0 && 'mt-4')}>
+        <SelectAnalysesModal
+          appendData={appendAnalyses}
+          removeData={removeAnalyses}
+          selectedAnalyses={analyses}
           locale={locale as SupportedLocales}
         />
       </div>

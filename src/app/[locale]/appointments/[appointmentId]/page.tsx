@@ -4,7 +4,7 @@ import { Pencil } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 
-import { AnalysesCard } from '@/components/AnalyzesCard/AnalyzesCard'
+import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
@@ -43,12 +43,12 @@ const PastAppointment = ({ locale, appointmentData }: PastAppointmentProps) => {
       <P>{appointmentData?.description || '-'}</P>
       <Separator className='bg-[#D1D1D1]' />
 
-      <H4 className='mb-2'>{t('singleAppointmentPage.appointmentAnalyzes')}</H4>
+      <H4 className='mb-2'>{t('singleAppointmentPage.appointmentAnalyses')}</H4>
       <div className='flex flex-col gap-4'>
-        {appointmentData?.analyzes?.map((analysis) => (
-          <AnalysesCard key={analysis._id} analysis={analysis} locale={locale} />
+        {appointmentData?.analyses?.map((analysis) => (
+          <AnalysisCard key={analysis._id} analysis={analysis} locale={locale} />
         ))}
-        {appointmentData?.analyzes?.length === 0 && <P>-</P>}
+        {appointmentData?.analyses?.length === 0 && <P>-</P>}
       </div>
 
       <Separator className='bg-[#D1D1D1]' />
@@ -109,11 +109,11 @@ const UpcomingAppointment = ({ appointmentData, locale }: UpcomingAppointmentPro
       <P>{appointmentData?.description || '-'}</P>
 
       <Separator className='bg-[#D1D1D1]' />
-      <H4 className='mb-2'>{t('singleAppointmentPage.appointmentAnalyzes')}</H4>
+      <H4 className='mb-2'>{t('singleAppointmentPage.appointmentAnalyses')}</H4>
       <div className='flex flex-col gap-4'>
-        {appointmentData?.analyzes && appointmentData.analyzes.length > 0 ? (
-          appointmentData.analyzes.map((analysis) => (
-            <AnalysesCard key={analysis._id} analysis={analysis} locale={locale} />
+        {appointmentData?.analyses && appointmentData.analyses.length > 0 ? (
+          appointmentData.analyses.map((analysis) => (
+            <AnalysisCard key={analysis._id} analysis={analysis} locale={locale} />
           ))
         ) : (
           <P>-</P>

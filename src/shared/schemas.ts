@@ -90,7 +90,7 @@ export const doctorSchema = z.object({
   position: z.string()
 })
 
-export const analyzesSchema = z.object({
+export const analysesSchema = z.object({
   _id: z.string(),
   patientId: z.string(),
   analysisName: z.string(),
@@ -109,7 +109,7 @@ export const appointmentSchema = z.object({
   startTime: z.string(),
   endTime: z.string(),
   description: z.string().optional(),
-  analyzes: z.array(analyzesSchema),
+  analyses: z.array(analysesSchema),
   fileName: z.string().optional()
 })
 
@@ -129,7 +129,7 @@ export const appointmentFormValuesSchema = appointmentSchema
     startTime: true,
     endTime: true,
     description: true,
-    analyzes: true,
+    analyses: true,
     fileName: true
   })
   .extend({

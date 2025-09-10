@@ -6,12 +6,12 @@ import { H6, P } from '@/components/ui/typography'
 import { Analysis, SupportedLocales } from '@/shared/types'
 import { dateLocaleMap } from '@/utils/dateLocaleMap'
 
-interface AnalysesCardProps {
+interface AnalysisCardProps {
   analysis: Analysis
   locale: SupportedLocales
 }
 
-export const AnalysesCard = ({ analysis, locale }: AnalysesCardProps) => {
+export const AnalysisCard = ({ analysis, locale }: AnalysisCardProps) => {
   const dateLocale = dateLocaleMap[locale] ?? enUS
 
   return (

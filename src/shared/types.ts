@@ -13,7 +13,7 @@ import {
   blogFormValuesSchema,
   patientSchema,
   appointmentSchema,
-  analyzesSchema,
+  analysesSchema,
   doctorSchema,
   paymentSchema,
   appointmentFormValuesSchema,
@@ -33,7 +33,7 @@ export type Blog = z.infer<typeof blogSchema>
 export type BlogFormValues = z.infer<typeof blogFormValuesSchema>
 export type Patient = z.infer<typeof patientSchema>
 export type Appointment = z.infer<typeof appointmentSchema>
-export type Analysis = z.infer<typeof analyzesSchema>
+export type Analysis = z.infer<typeof analysesSchema>
 export type Doctor = z.infer<typeof doctorSchema>
 export type Payment = z.infer<typeof paymentSchema>
 export type AppointmentFormValues = z.infer<typeof appointmentFormValuesSchema>

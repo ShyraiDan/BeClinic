@@ -192,9 +192,9 @@ declare const messages: {
         "paymentCardTitle": "Payment: Visit to { doctorPosition }a { doctorName }",
         "needToPay": "Payable: { money }",
         "no": "No",
-        "analyzes": "Analyzes",
-        "addAnalyzes": "Add analyzes",
-        "noAnalyzes": "No analyzes found",
+        "analyses": "Analyses",
+        "addAnalysis": "Add analysis",
+        "noAnalyses": "No analyses found",
         "appointments": "Appointments",
         "makeAnAppointment": "Make an appointment",
         "historyAppointments": "Previous appointments",
@@ -220,7 +220,7 @@ declare const messages: {
       "seeOnMap": "See on the map",
       "appointmentReason": "Reason for visit",
       "appointmentDetails": "Additional details",
-      "appointmentAnalyzes": "Analyzes",
+      "appointmentAnalyses": "Analyses",
       "additionalFiles": "Additional files"
     },
     "notFound": {
@@ -272,9 +272,9 @@ declare const messages: {
         "label": "Additional information",
         "placeholder": "Enter additional information"
       },
-      "appointmentAnalyzes": {
-        "label": "Analyzes",
-        "button": "Add analyzes"
+      "appointmentAnalyses": {
+        "label": "Analyses",
+        "button": "Add analyses"
       },
       "appointmentFiles": {
         "label": "Files",
