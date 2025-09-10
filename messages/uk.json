@@ -223,6 +223,10 @@
       "appointmentAnalyses": "Аналізи",
       "additionalFiles": "Додаткові файли"
     },
+    "singleAnalysisPage": {
+      "analysisDate": "Дата аналізу:",
+      "analysisDetails": "Опис аналізу"
+    },
     "notFound": {
       "title": "404 Сторінка не знайдена",
       "subtitle": "Упс! Цю сторінку неможливо знайти.",
@@ -278,7 +282,7 @@
       },
       "appointmentFiles": {
         "label": "Додаткові файли",
-        "button": "Додати файл"
+        "button": "Переглянути файл"
       }
     },
     "analysisForm": {
