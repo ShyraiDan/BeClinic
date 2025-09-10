@@ -4,7 +4,7 @@ import { AppointmentForm } from '@/components/forms/AppointmentForm/AppointmentF
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { Container } from '@/components/ui/container'
 
-export const EditAppointmentPage = () => {
+const EditAppointmentPage = () => {
   const t = useTranslations('page')
 
   return (
@@ -16,3 +16,5 @@ export const EditAppointmentPage = () => {
     </>
   )
 }
+
+export default EditAppointmentPage
