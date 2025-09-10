@@ -174,8 +174,8 @@ const PatientProfile = ({ params }: PatientProfileProps) => {
 
 const tabs = [
   { id: TABS_ENUM.APPOINTMENTS, label: 'profile.patient.appointments', content: <AppointmentTab /> },
-  { id: TABS_ENUM.BILLING, label: 'profile.patient.billing', content: <BillingTab /> },
-  { id: TABS_ENUM.ANALYZES, label: 'profile.patient.analyzes', content: <AnalyzesTab /> }
+  { id: TABS_ENUM.ANALYZES, label: 'profile.patient.analyzes', content: <AnalyzesTab /> },
+  { id: TABS_ENUM.BILLING, label: 'profile.patient.billing', content: <BillingTab /> }
 ]
 
 interface PatientProfileProps {
