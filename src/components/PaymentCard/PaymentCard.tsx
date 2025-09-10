@@ -1,4 +1,4 @@
-import { parseISO, format } from 'date-fns'
+import { format } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import { useTranslations } from 'next-intl'
 
@@ -27,9 +27,7 @@ export const PaymentCard = ({ payment, isUnPayed, locale }: PaymentCardProps) =>
             doctorName: payment.appointment.doctor.doctorName
           })}
         </H6>
-        <P className='capitalize'>
-          {format(parseISO(payment.createdAt), 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
-        </P>
+        <P className='capitalize'>{format(payment.createdAt, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}</P>
         {payment.isPayed ? (
           <P>{t('profile.patient.paid')}</P>
         ) : (

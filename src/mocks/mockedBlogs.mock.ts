@@ -13,8 +13,8 @@ export const mockedBlogs: Blog[] = [
     },
     image: 'https://example.com/images/zod-nextjs.png',
     authorId: '64ab3e9f2f1c4d7b8a9c0123',
-    createdAt: '2025-07-21T10:15:23.000Z',
-    updatedAt: '2025-07-28T08:02:11.000Z'
+    createdAt: new Date('2025-07-21T10:15:23.000Z'),
+    updatedAt: new Date('2025-07-28T08:02:11.000Z')
   },
   {
     _id: '66de9b2f4c1a9b7a5f3c1d02',
@@ -28,8 +28,8 @@ export const mockedBlogs: Blog[] = [
     },
     image: 'https://example.com/images/rhf-zod.png',
     authorId: '64ab3e9f2f1c4d7b8a9c0456',
-    createdAt: '2025-08-02T14:03:00.000Z',
-    updatedAt: '2025-08-04T09:41:37.000Z'
+    createdAt: new Date('2025-08-02T14:03:00.000Z'),
+    updatedAt: new Date('2025-08-04T09:41:37.000Z')
   },
   {
     _id: '66de9b2f4c1a9b7a5f3c1d03',
@@ -43,8 +43,8 @@ export const mockedBlogs: Blog[] = [
     },
     image: 'https://example.com/images/tw4-bg.png',
     authorId: '64ab3e9f2f1c4d7b8a9c0789',
-    createdAt: '2025-08-11T08:20:10.000Z',
-    updatedAt: '2025-08-11T12:55:42.000Z'
+    createdAt: new Date('2025-08-11T08:20:10.000Z'),
+    updatedAt: new Date('2025-08-11T12:55:42.000Z')
   },
   {
     _id: '66de9b2f4c1a9b7a5f3c1d04',
@@ -58,8 +58,8 @@ export const mockedBlogs: Blog[] = [
     },
     image: 'https://example.com/images/stripe-i18n.png',
     authorId: '64ab3e9f2f1c4d7b8a9c0999',
-    createdAt: '2025-08-17T16:45:55.000Z',
-    updatedAt: '2025-08-18T07:12:13.000Z'
+    createdAt: new Date('2025-08-17T16:45:55.000Z'),
+    updatedAt: new Date('2025-08-18T07:12:13.000Z')
   },
   {
     _id: '66de9b2f4c1a9b7a5f3c1d05',
@@ -73,7 +73,7 @@ export const mockedBlogs: Blog[] = [
     },
     image: 'https://example.com/images/rtk-infinite-scroll.png',
     authorId: '64ab3e9f2f1c4d7b8a9c0aaa',
-    createdAt: '2025-08-23T09:01:31.000Z',
-    updatedAt: '2025-08-25T11:29:05.000Z'
+    createdAt: new Date('2025-08-23T09:01:31.000Z'),
+    updatedAt: new Date('2025-08-25T11:29:05.000Z')
   }
 ]

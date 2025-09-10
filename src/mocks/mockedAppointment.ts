@@ -21,9 +21,15 @@ export const mockedAppointment: Appointment[] = [
       image: 'https://example.com/patients/olivia.jpg'
     },
     doctor: {
-      _id: '66f2d0000000000000000001',
-      doctorName: 'Dr. Ethan Mason',
-      position: 'Cardiologist'
+      _id: '66e0c1a5b7f3c1d01a1b2c31',
+      email: 'oleksandr.shevchenko@clinic.com',
+      doctorName: 'Олександр Шевченко',
+      position: 'Хірург',
+      image: 'https://example.com/images/doctors/oleksandr-shevchenko.jpg',
+      description: 'Проводить оперативні втручання та спеціалізується на мінімально інвазивній хірургії.',
+      phone: '+380671234568',
+      createdAt: new Date('2023-08-05T11:30:00Z'),
+      updatedAt: new Date('2025-01-20T08:10:00Z')
     },
     reason: 'Follow-up ECG',
     startTime: '2025-08-29T08:30:00.000Z',
@@ -51,9 +57,15 @@ export const mockedAppointment: Appointment[] = [
       allergies: 'seasonal'
     },
     doctor: {
-      _id: '66f2d0000000000000000001',
-      doctorName: 'Dr. Ethan Mason',
-      position: 'Cardiologist'
+      _id: '66e0c1a5b7f3c1d01a1b2c31',
+      email: 'oleksandr.shevchenko@clinic.com',
+      doctorName: 'Олександр Шевченко',
+      position: 'Хірург',
+      image: 'https://example.com/images/doctors/oleksandr-shevchenko.jpg',
+      description: 'Проводить оперативні втручання та спеціалізується на мінімально інвазивній хірургії.',
+      phone: '+380671234568',
+      createdAt: new Date('2023-08-05T11:30:00Z'),
+      updatedAt: new Date('2025-01-20T08:10:00Z')
     },
     reason: 'Thyroid panel follow-up',
     startTime: '2025-09-01T08:30:00.000Z',
@@ -80,9 +92,15 @@ export const mockedAppointment: Appointment[] = [
       allergies: 'dust mites'
     },
     doctor: {
-      _id: '66f2d0000000000000000001',
-      doctorName: 'Dr. Ethan Mason',
-      position: 'Cardiologist'
+      _id: '66e0c1a5b7f3c1d01a1b2c31',
+      email: 'oleksandr.shevchenko@clinic.com',
+      doctorName: 'Олександр Шевченко',
+      position: 'Хірург',
+      image: 'https://example.com/images/doctors/oleksandr-shevchenko.jpg',
+      description: 'Проводить оперативні втручання та спеціалізується на мінімально інвазивній хірургії.',
+      phone: '+380671234568',
+      createdAt: new Date('2023-08-05T11:30:00Z'),
+      updatedAt: new Date('2025-01-20T08:10:00Z')
     },
     reason: 'Cough and mild fever',
     startTime: '2025-09-08T14:30:00.000Z',
@@ -110,9 +128,15 @@ export const mockedAppointment: Appointment[] = [
       allergies: 'cat dander'
     },
     doctor: {
-      _id: '66f2d0000000000000000001',
-      doctorName: 'Dr. Ethan Mason',
-      position: 'Cardiologist'
+      _id: '66e0c1a5b7f3c1d01a1b2c31',
+      email: 'oleksandr.shevchenko@clinic.com',
+      doctorName: 'Олександр Шевченко',
+      position: 'Хірург',
+      image: 'https://example.com/images/doctors/oleksandr-shevchenko.jpg',
+      description: 'Проводить оперативні втручання та спеціалізується на мінімально інвазивній хірургії.',
+      phone: '+380671234568',
+      createdAt: new Date('2023-08-05T11:30:00Z'),
+      updatedAt: new Date('2025-01-20T08:10:00Z')
     },
     reason: 'Sore throat and ear pain',
     startTime: '2025-09-10T07:30:00.000Z',
@@ -139,9 +163,15 @@ export const mockedAppointment: Appointment[] = [
       allergies: 'nuts'
     },
     doctor: {
-      _id: '66f2d0000000000000000001',
-      doctorName: 'Dr. Ethan Mason',
-      position: 'Cardiologist'
+      _id: '66e0c1a5b7f3c1d01a1b2c31',
+      email: 'oleksandr.shevchenko@clinic.com',
+      doctorName: 'Олександр Шевченко',
+      position: 'Хірург',
+      image: 'https://example.com/images/doctors/oleksandr-shevchenko.jpg',
+      description: 'Проводить оперативні втручання та спеціалізується на мінімально інвазивній хірургії.',
+      phone: '+380671234568',
+      createdAt: new Date('2023-08-05T11:30:00Z'),
+      updatedAt: new Date('2025-01-20T08:10:00Z')
     },
     reason: 'Acne consultation + treatment plan',
     startTime: '2025-09-12T12:00:00.000Z',

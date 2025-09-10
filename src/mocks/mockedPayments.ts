@@ -5,8 +5,8 @@ export const mockedPayments: Payment[] = [
     _id: '66f007a5c9c4a1f2b3d40111',
     amount: 120,
     isPayed: true,
-    createdAt: '2025-09-03T16:20:33.000Z',
-    updatedAt: '2025-09-03T16:40:10.000Z',
+    createdAt: new Date('2025-09-03T16:20:33.000Z'),
+    updatedAt: new Date('2025-09-03T16:40:10.000Z'),
     patient: {
       _id: '66f007a5c9c4a1f2b3d4aa01',
       email: 'olivia.morris@example.com',
@@ -42,9 +42,15 @@ export const mockedPayments: Payment[] = [
         image: 'https://example.com/patients/olivia.jpg'
       },
       doctor: {
-        _id: '66f007a5c9c4a1f2b3d4dd02',
-        doctorName: 'Dr. Sofia Riabchuk',
-        position: 'General Practitioner'
+        _id: '66e0c1a5b7f3c1d01a1b2c31',
+        email: 'oleksandr.shevchenko@clinic.com',
+        doctorName: 'Олександр Шевченко',
+        position: 'Хірург',
+        image: 'https://example.com/images/doctors/oleksandr-shevchenko.jpg',
+        description: 'Проводить оперативні втручання та спеціалізується на мінімально інвазивній хірургії.',
+        phone: '+380671234568',
+        createdAt: new Date('2023-08-05T11:30:00Z'),
+        updatedAt: new Date('2025-01-20T08:10:00Z')
       },
       reason: 'Annual check-up',
       startTime: '2025-09-10T09:00:00.000Z',
@@ -57,8 +63,8 @@ export const mockedPayments: Payment[] = [
     _id: '66f007a5c9c4a1f2b3d40222',
     amount: 85.5,
     isPayed: false,
-    createdAt: '2025-09-08T13:55:00.000Z',
-    updatedAt: '2025-09-08T15:10:00.000Z',
+    createdAt: new Date('2025-09-08T13:55:00.000Z'),
+    updatedAt: new Date('2025-09-08T15:10:00.000Z'),
     patient: {
       _id: '66f007a5c9c4a1f2b3d4aa02',
       email: 'denys.kovalenko@example.com',
@@ -92,9 +98,15 @@ export const mockedPayments: Payment[] = [
         allergies: 'dust mites'
       },
       doctor: {
-        _id: '66f007a5c9c4a1f2b3d4dd02',
-        doctorName: 'Dr. Sofia Riabchuk',
-        position: 'General Practitioner'
+        _id: '66e0c1a5b7f3c1d01a1b2c31',
+        email: 'oleksandr.shevchenko@clinic.com',
+        doctorName: 'Олександр Шевченко',
+        position: 'Хірург',
+        image: 'https://example.com/images/doctors/oleksandr-shevchenko.jpg',
+        description: 'Проводить оперативні втручання та спеціалізується на мінімально інвазивній хірургії.',
+        phone: '+380671234568',
+        createdAt: new Date('2023-08-05T11:30:00Z'),
+        updatedAt: new Date('2025-01-20T08:10:00Z')
       },
       reason: 'Cough and mild fever',
       startTime: '2025-09-08T14:30:00.000Z',
@@ -107,8 +119,8 @@ export const mockedPayments: Payment[] = [
     _id: '66f007a5c9c4a1f2b3d40333',
     amount: 250,
     isPayed: true,
-    createdAt: '2025-09-12T12:00:00.000Z',
-    updatedAt: '2025-09-12T12:45:00.000Z',
+    createdAt: new Date('2025-09-12T12:00:00.000Z'),
+    updatedAt: new Date('2025-09-12T12:45:00.000Z'),
     patient: {
       _id: '66f007a5c9c4a1f2b3d4aa03',
       email: 'marta.ivanova@example.com',
@@ -142,9 +154,15 @@ export const mockedPayments: Payment[] = [
         allergies: 'nuts'
       },
       doctor: {
-        _id: '66f007a5c9c4a1f2b3d4dd02',
-        doctorName: 'Dr. Sofia Riabchuk',
-        position: 'General Practitioner'
+        _id: '66e0c1a5b7f3c1d01a1b2c31',
+        email: 'oleksandr.shevchenko@clinic.com',
+        doctorName: 'Олександр Шевченко',
+        position: 'Хірург',
+        image: 'https://example.com/images/doctors/oleksandr-shevchenko.jpg',
+        description: 'Проводить оперативні втручання та спеціалізується на мінімально інвазивній хірургії.',
+        phone: '+380671234568',
+        createdAt: new Date('2023-08-05T11:30:00Z'),
+        updatedAt: new Date('2025-01-20T08:10:00Z')
       },
       reason: 'Acne consultation + treatment plan',
       startTime: '2025-09-12T12:00:00.000Z',
