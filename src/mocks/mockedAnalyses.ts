@@ -8,8 +8,8 @@ export const mockedAnalyses: Analysis[] = [
     date: '2025-09-06',
     description: 'Routine annual check; mild leukocytosis.',
     fileName: 'cbc_2025-09-06_olivia-morris.pdf',
-    createdAt: '2025-09-01T08:15:23.000Z',
-    updatedAt: '2025-09-01T09:42:10.000Z'
+    createdAt: new Date('2025-09-01T08:15:23.000Z'),
+    updatedAt: new Date('2025-09-01T09:42:10.000Z')
   },
   {
     _id: '66f11b2a0a1b2c3d4e5f7002',
@@ -17,8 +17,8 @@ export const mockedAnalyses: Analysis[] = [
     analysisName: 'PCR COVID-19',
     date: '2025-09-08',
     description: 'Tested due to cough and low-grade fever. Result: negative.',
-    createdAt: '2025-09-03T16:20:33.000Z',
-    updatedAt: '2025-09-03T16:40:10.000Z'
+    createdAt: new Date('2025-09-03T16:20:33.000Z'),
+    updatedAt: new Date('2025-09-03T16:40:10.000Z')
   },
   {
     _id: '66f11b2a0a1b2c3d4e5f7003',
@@ -27,8 +27,8 @@ export const mockedAnalyses: Analysis[] = [
     date: '2025-09-12',
     description: 'Dermatology workup for acne; labs ordered prior to follow-up.',
     fileName: 'hormone-panel_2025-09-12_marta-ivanova.pdf',
-    createdAt: '2025-09-05T00:00:00.000Z',
-    updatedAt: '2025-09-07T12:34:56.000Z'
+    createdAt: new Date('2025-09-05T00:00:00.000Z'),
+    updatedAt: new Date('2025-09-07T12:34:56.000Z')
   },
   {
     _id: '66f11b2a0a1b2c3d4e5f7004',
@@ -36,8 +36,8 @@ export const mockedAnalyses: Analysis[] = [
     analysisName: 'Rapid Strep Test',
     date: '2025-09-06',
     description: 'Sore throat evaluation. Result: pending.',
-    createdAt: '2025-08-31T23:59:59.000Z',
-    updatedAt: '2025-09-01T00:00:59.000Z'
+    createdAt: new Date('2025-08-31T23:59:59.000Z'),
+    updatedAt: new Date('2025-09-01T00:00:59.000Z')
   },
   {
     _id: '66f11b2a0a1b2c3d4e5f7005',
@@ -46,7 +46,7 @@ export const mockedAnalyses: Analysis[] = [
     date: '2025-09-02',
     description: 'Follow-up for endocrine consult; triglycerides borderline high.',
     fileName: 'lipid-panel_2025-09-02_taras-hnatyuk.pdf',
-    createdAt: '2025-09-08T13:55:00.000Z',
-    updatedAt: '2025-09-08T15:10:00.000Z'
+    createdAt: new Date('2025-09-08T13:55:00.000Z'),
+    updatedAt: new Date('2025-09-08T15:10:00.000Z')
   }
 ]

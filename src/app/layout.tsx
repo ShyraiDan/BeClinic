@@ -1,4 +1,7 @@
 import { Jost, Roboto } from 'next/font/google'
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages, setRequestLocale } from 'next-intl/server'
+import { ReactNode } from 'react'
 
 import Footer from '@/components/Footer/Footer'
 import { Header } from '@/components/Header/Header'
@@ -6,9 +9,6 @@ import { Header } from '@/components/Header/Header'
 import type { Metadata } from 'next'
 
 import './globals.css'
-import { NextIntlClientProvider } from 'next-intl'
-import { getLocale, getMessages, setRequestLocale } from 'next-intl/server'
-import { ReactNode } from 'react'
 
 const roboto = Roboto({
   subsets: ['cyrillic', 'latin'],

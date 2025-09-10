@@ -1,4 +1,4 @@
-import { parseISO, format } from 'date-fns'
+import { format } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import Link from 'next/link'
 
@@ -20,9 +20,7 @@ export const AnalysisCard = ({ analysis, locale }: AnalysisCardProps) => {
         <div className='w-2 bg-blue-100' />
         <div className='py-4 pr-4 pl-3 flex flex-col'>
           <H6>{analysis.analysisName}</H6>
-          <P className='capitalize'>
-            {format(parseISO(analysis.createdAt), 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
-          </P>
+          <P className='capitalize'>{format(analysis.createdAt, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}</P>
         </div>
       </div>
     </Link>

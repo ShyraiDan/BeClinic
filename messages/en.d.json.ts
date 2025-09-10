@@ -231,7 +231,53 @@ declare const messages: {
       "analysisDetails": "Analysis details"
     },
     "editAnalysisPage": {
-      "title": "Редагувати аналіз"
+      "title": "Edit analysis"
+    },
+    "singleDoctorPage": {
+      "doctorName": "Name:",
+      "doctorPosition": "Specialty",
+      "doctorEducation": "Education",
+      "doctorExperience": "Work experience",
+      "makeAnAppointment": "Make an appointment",
+      "doctorDescription": "The Department of Pediatrics strives to improve the well-being of all children. We will be recognized by UNMC, the region, and the country as a center of excellence and innovation in healthcare, science, education, service, and advocacy. Our faculty will continually improve their abilities through the support and opportunities provided by the department and UNMC.",
+      "doctorAccordion": {
+        "review": {
+          "title": "Review",
+          "content": {
+            "programs": {
+              "title": "Programs and specialties",
+              "content": "Medicine for newborns"
+            },
+            "scienceInterests": {
+              "title": "Research interests",
+              "content": "Pulmonary hypertension in newborns"
+            },
+            "training": {
+              "title": "Training + Education",
+              "content": "State University of New York at Buffalo"
+            },
+            "certificates": {
+              "title": "Certificates",
+              "content": "Pediatrics"
+            },
+            "insurances": {
+              "title": "Insurance",
+              "content": "MTPL, CASCO"
+            }
+          }
+        },
+        "awards": {
+          "title": "Awards",
+          "content": "Senior general surgeon and head of the bariatric surgery department. A premium private hospital providing the highest quality medical care and individual treatment from the country's leading specialists in the shortest possible time. Specialization - general and bariatric surgery, all minimally invasive methods. Senior general surgeon and head of the bariatric surgery department. A premium private hospital providing the highest quality medical care and individualized treatment from the country's leading specialists in the shortest possible time."
+        },
+        "membership": {
+          "title": "Professional membership",
+          "content": "Specializes in general and bariatric surgery, all minimally invasive techniques. Senior general surgeon and head of the bariatric surgery department. A premium private hospital providing the highest quality medical care and individualized treatment from the country's leading specialists in the shortest possible time."
+        }
+      },
+      "review": "Reviews",
+      "aboutDoctor": "About the doctor",
+      "years": "{years, plural, =0 {# years} one {# year} few {# years} many {# years} other {# years}}"
     },
     "notFound": {
       "title": "404 Page not found",
