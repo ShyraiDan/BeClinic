@@ -26,7 +26,7 @@ const SingleBlogPage = async ({ params }: SingleBlogPageProps) => {
           <div>
             {isAuth && (
               <StyledLinkButton variant='icon' href={`/blog/${blog?._id}/edit`}>
-                <Pencil size={16} className='dark:fill-grey-600' />
+                <Pencil size={16} />
               </StyledLinkButton>
             )}
           </div>

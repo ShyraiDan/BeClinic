@@ -209,6 +209,17 @@ declare const messages: {
     "addAppointmentPage": {
       "title": "Add appointment"
     },
+    "singleAppointmentPage": {
+      "appointmentTo": " Visit to { position }",
+      "appointmentDoctor": "Doctor: { name }",
+      "appointmentDate": "Date of visit:",
+      "appointmentCentre": "Medical center",
+      "seeOnMap": "See on the map",
+      "appointmentReason": "Reason for visit",
+      "appointmentDetails": "Additional details",
+      "appointmentAnalyzes": "Analyzes",
+      "additionalFiles": "Additional files"
+    },
     "notFound": {
       "title": "404 Page not found",
       "subtitle": "Oops! This page cannot be found.",

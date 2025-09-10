@@ -206,6 +206,17 @@
     "addAppointmentPage": {
       "title": "Додати прийом"
     },
+    "singleAppointmentPage": {
+      "appointmentTo": "Візит до { position }a",
+      "appointmentDoctor": "Лікар: { name }",
+      "appointmentDate": "Дата візиту:",
+      "appointmentCentre": "Медичний центр",
+      "seeOnMap": "Подивитись на карті",
+      "appointmentReason": "Причина візиту",
+      "appointmentDetails": "Додаткові деталі",
+      "appointmentAnalyzes": "Аналізи",
+      "additionalFiles": "Додаткові файли"
+    },
     "notFound": {
       "title": "404 Сторінка не знайдена",
       "subtitle": "Упс! Цю сторінку неможливо знайти.",
