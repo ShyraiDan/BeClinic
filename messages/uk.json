@@ -227,6 +227,9 @@
       "analysisDate": "Дата аналізу:",
       "analysisDetails": "Опис аналізу"
     },
+    "editAnalysisPage": {
+      "title": "Edit analysis"
+    },
     "notFound": {
       "title": "404 Сторінка не знайдена",
       "subtitle": "Упс! Цю сторінку неможливо знайти.",

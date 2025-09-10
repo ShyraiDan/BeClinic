@@ -230,6 +230,9 @@ declare const messages: {
       "analysisDate": "Analysis date:",
       "analysisDetails": "Analysis details"
     },
+    "editAnalysisPage": {
+      "title": "Редагувати аналіз"
+    },
     "notFound": {
       "title": "404 Page not found",
       "subtitle": "Oops! This page cannot be found.",
