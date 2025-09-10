@@ -195,7 +195,7 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
       <div className='mt-4 w-full'>
         <Label>{t('appointmentForm.appointmentFiles.label')}</Label>
         <Controller
-          name='description'
+          name='fileName'
           control={control}
           render={({ fieldState }) => (
             <>
