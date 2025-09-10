@@ -209,6 +209,9 @@ declare const messages: {
     "addAppointmentPage": {
       "title": "Add appointment"
     },
+    "editAppointmentPage": {
+      "title": "Edit appointment"
+    },
     "singleAppointmentPage": {
       "appointmentTo": " Visit to { position }",
       "appointmentDoctor": "Doctor: { name }",
