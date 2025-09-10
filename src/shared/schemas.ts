@@ -142,3 +142,10 @@ export const selectOptionSchema = z.object({
   value: z.string(),
   label: z.string()
 })
+
+export const analysisFormValuesSchema = analysesSchema.pick({
+  analysisName: true,
+  date: true,
+  description: true,
+  fileName: true
+})
