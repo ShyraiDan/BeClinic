@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl'
 
 import { PageHeading } from '@/components/PageHeading/PageHeading'
-import { AnalyzesTab } from '@/components/patientTabs/AnalyzesTab'
+import { AnalysesTab } from '@/components/patientTabs/AnalysesTab'
 import { AppointmentTab } from '@/components/patientTabs/AppointmentTab'
 import { BillingTab } from '@/components/patientTabs/BillingTab'
 import { SkeletonAvatar } from '@/components/skeletons/SkeletonAvatar'
@@ -16,7 +16,7 @@ import { mockPatient } from '@/mocks/mockedPatient.mock'
 
 const TABS_ENUM = {
   APPOINTMENTS: 'appointments',
-  ANALYZES: 'analyzes',
+  ANALYZES: 'analyses',
   BILLING: 'billing'
 }
 
@@ -174,7 +174,7 @@ const PatientProfile = ({ params }: PatientProfileProps) => {
 
 const tabs = [
   { id: TABS_ENUM.APPOINTMENTS, label: 'profile.patient.appointments', content: <AppointmentTab /> },
-  { id: TABS_ENUM.ANALYZES, label: 'profile.patient.analyzes', content: <AnalyzesTab /> },
+  { id: TABS_ENUM.ANALYZES, label: 'profile.patient.analyses', content: <AnalysesTab /> },
   { id: TABS_ENUM.BILLING, label: 'profile.patient.billing', content: <BillingTab /> }
 ]
 

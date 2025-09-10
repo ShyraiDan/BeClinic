@@ -189,9 +189,9 @@
         "paymentCardTitle": "Оплата: Візит до { doctorPosition }a { doctorName }",
         "needToPay": "До сплати: { money }",
         "no": "Ні",
-        "analyzes": "Аналізи",
-        "addAnalyzes": "Додати аналіз",
-        "noAnalyzes": "Аналізи відсутні",
+        "analyses": "Аналізи",
+        "addAnalysis": "Додати аналіз",
+        "noAnalyses": "Аналізи відсутні",
         "appointments": "Записи на прийом",
         "makeAnAppointment": "Записатися на прийом",
         "historyAppointments": "Попередні прийоми",
@@ -217,7 +217,7 @@
       "seeOnMap": "Подивитись на карті",
       "appointmentReason": "Причина візиту",
       "appointmentDetails": "Додаткові деталі",
-      "appointmentAnalyzes": "Аналізи",
+      "appointmentAnalyses": "Аналізи",
       "additionalFiles": "Додаткові файли"
     },
     "notFound": {
@@ -269,7 +269,7 @@
         "label": "Додаткова інформація",
         "placeholder": "Введіть додаткову інформацію"
       },
-      "appointmentAnalyzes": {
+      "appointmentAnalyses": {
         "label": "Аналізи",
         "button": "Додати аналіз"
       },

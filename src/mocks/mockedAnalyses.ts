@@ -1,6 +1,6 @@
 import { Analysis } from '@/shared/types'
 
-export const mockedAnalyzes: Analysis[] = [
+export const mockedAnalyses: Analysis[] = [
   {
     _id: '66f11b2a0a1b2c3d4e5f7001',
     patientId: '66f10a9e0b1c2d3e4f5b7001',
