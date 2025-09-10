@@ -1,6 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 import { useRef } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 
@@ -13,7 +14,6 @@ import { Label } from '@/components/ui/label'
 import { TextArea } from '@/components/ui/textarea'
 import { analysisFormValuesSchema } from '@/shared/schemas'
 import { Analysis, AnalysisFormValues } from '@/shared/types'
-import { useTranslations } from 'next-intl'
 
 interface AnalysisFormProps {
   analysis?: Analysis
