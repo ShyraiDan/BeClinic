@@ -226,6 +226,10 @@ declare const messages: {
       "appointmentAnalyses": "Analyses",
       "additionalFiles": "Additional files"
     },
+    "singleAnalysisPage": {
+      "analysisDate": "Analysis date:",
+      "analysisDetails": "Analysis details"
+    },
     "notFound": {
       "title": "404 Page not found",
       "subtitle": "Oops! This page cannot be found.",
@@ -280,8 +284,8 @@ declare const messages: {
         "button": "Add analyses"
       },
       "appointmentFiles": {
-        "label": "Files",
-        "button": "Add files"
+        "label": "File",
+        "button": "View file"
       }
     },
     "analysisForm": {
