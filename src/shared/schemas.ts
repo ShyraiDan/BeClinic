@@ -163,3 +163,30 @@ export const reviewSchema = z.object({
   userPosition: z.string(),
   review: z.string()
 })
+
+export const patientSignInFormValuesSchema = z.object({
+  email: z.string(),
+  password: z.string()
+})
+
+export const patientSignUpFormValuesSchema = z.object({
+  email: z.string(),
+  userName: z.string(),
+  password: z.string(),
+  confirmPassword: z.string()
+})
+
+export const doctorSignInFormValuesSchema = z.object({
+  email: z.string(),
+  password: z.string()
+})
+
+export const doctorSignUpFormValuesSchema = z.object({
+  email: z.string(),
+  doctorName: z.string(),
+  password: z.string(),
+  confirmPassword: z.string(),
+  verificationCode: z.string(),
+  position: z.string(),
+  phone: z.string()
+})
