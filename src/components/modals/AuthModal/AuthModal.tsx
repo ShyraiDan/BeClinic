@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import { Dispatch, SetStateAction, useState } from 'react'
 
-import { PatientSignInForm } from '@/components/forms/PatientSignInForm/PatientSignInForm'
-import { PatientSignUpForm } from '@/components/forms/PatientSignUpForm/PatientSignUpForm'
 import { DoctorSignInForm } from '@/components/forms/DoctorSignInForm/DoctorSignInForm'
 import { DoctorSignUpForm } from '@/components/forms/DoctorSignUpForm/DoctorSignUpForm'
+import { PatientSignInForm } from '@/components/forms/PatientSignInForm/PatientSignInForm'
+import { PatientSignUpForm } from '@/components/forms/PatientSignUpForm/PatientSignUpForm'
 import { StyledModal } from '@/components/StyledModal/StyledModal'
 import { Button } from '@/components/ui/button'
 import { DialogTitle } from '@/components/ui/dialog'

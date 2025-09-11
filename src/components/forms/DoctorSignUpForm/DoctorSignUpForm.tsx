@@ -1,11 +1,11 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { InputMask } from '@react-input/mask'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 
-import { StyledPhoneInput } from '@/components/StyledPhoneInput/StyledPhoneInput'
 import { StyledSelect } from '@/components/StyledSelect/StyledSelect'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
@@ -13,7 +13,6 @@ import { Label } from '@/components/ui/label'
 import { doctorSpecialties } from '@/mocks/shared'
 import { doctorSignUpFormValuesSchema } from '@/shared/schemas'
 import { DoctorSignUpFormValues } from '@/shared/types'
-import { InputMask } from '@react-input/mask'
 
 export const DoctorSignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false)
