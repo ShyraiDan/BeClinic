@@ -7,8 +7,8 @@ import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { HeaderBurger } from '@/components/HeaderBurger/HeaderBurger'
+import { AuthModal } from '@/components/modals/AuthModal/AuthModal'
 import { StyledLink } from '@/components/ui/styledLink'
-import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { cn } from '@/lib/utils'
 
 const HEADER_ANIMATION_HEIGHT = 220
@@ -112,9 +112,11 @@ export const Header = () => {
           </div>
 
           <div className='flex items-center gap-4 ml-4'>
-            <StyledLinkButton variant='outline-white' href='#' className='hover:bg-blue-200 hover:border-blue-200'>
+            <AuthModal />
+
+            {/* <StyledLinkButton variant='outline-white' href='#' className='hover:bg-blue-200 hover:border-blue-200'>
               {t('button.signIn')}
-            </StyledLinkButton>
+            </StyledLinkButton> */}
 
             <div className='lg:hidden'>
               <HeaderBurger />

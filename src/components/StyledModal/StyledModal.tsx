@@ -1,4 +1,5 @@
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { cn } from '@/lib/utils'
 
 interface StyledModalProps {
   triggerButton: React.ReactNode
@@ -10,7 +11,7 @@ export const StyledModal = ({ triggerButton, contentClassName, children }: Style
   return (
     <Dialog>
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
-      <DialogContent className={contentClassName}>{children}</DialogContent>
+      <DialogContent className={cn('border-none', contentClassName)}>{children}</DialogContent>
     </Dialog>
   )
 }
