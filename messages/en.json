@@ -384,6 +384,54 @@
         "placeholder": "Confirm password"
       }
     },
+    "editPatientForm": {
+      "patientName": {
+        "label": "Patient name",
+        "placeholder": "Enter patient name"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "dateOfBirth": {
+        "label": "Date of birth",
+        "placeholder": "Enter date of birth"
+      },
+      "phoneNumber": {
+        "label": "Phone number"
+      },
+      "bloodType": {
+        "label": "Blood type",
+        "placeholder": "Select blood type"
+      },
+      "diabetes": {
+        "label": "Diabetes",
+        "placeholder": "Diabetes"
+      },
+      "rhFactor": {
+        "label": "Rh factor",
+        "placeholder": "Rh factor"
+      },
+      "bloodTransfusion": {
+        "label": "Blood transfusion",
+        "placeholder": "Blood transfusion"
+      },
+      "intoleranceToMedicines": {
+        "label": "Intolerance to medicines",
+        "placeholder": "Intolerance to medicines"
+      },
+      "infectiousDiseases": {
+        "label": "Infectious diseases",
+        "placeholder": "Infectious diseases"
+      },
+      "surgicalInterventions": {
+        "label": "Surgical interventions",
+        "placeholder": "Surgical interventions"
+      },
+      "allergies": {
+        "label": "Allergies",
+        "placeholder": "Allergies"
+      }
+    },
     "login": "Login",
     "download": "Download",
     "cancel": "Cancel",

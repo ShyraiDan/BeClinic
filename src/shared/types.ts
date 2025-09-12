@@ -23,7 +23,8 @@ import {
   patientSignInFormValuesSchema,
   patientSignUpFormValuesSchema,
   doctorSignInFormValuesSchema,
-  doctorSignUpFormValuesSchema
+  doctorSignUpFormValuesSchema,
+  editPatientFormValuesSchema
 } from './schemas'
 
 export type SupportedLocales = (typeof SUPPORTED_LOCALES)[number]
@@ -50,3 +51,4 @@ export type PatientSignInFormValues = z.infer<typeof patientSignInFormValuesSche
 export type PatientSignUpFormValues = z.infer<typeof patientSignUpFormValuesSchema>
 export type DoctorSignInFormValues = z.infer<typeof doctorSignInFormValuesSchema>
 export type DoctorSignUpFormValues = z.infer<typeof doctorSignUpFormValuesSchema>
+export type EditPatientFormValues = z.infer<typeof editPatientFormValuesSchema>
