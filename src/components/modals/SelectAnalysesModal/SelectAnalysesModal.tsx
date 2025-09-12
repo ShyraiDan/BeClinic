@@ -62,27 +62,25 @@ export const SelectAnalysesModal = ({ appendData, selectedAnalyses, locale, remo
 
   return (
     <StyledModal triggerButton={<Button>{t('appointmentForm.appointmentAnalyses.button')}</Button>}>
-      <>
-        <DialogHeader>
-          <DialogTitle>{t('appointmentForm.appointmentAnalyses.label')}</DialogTitle>
-        </DialogHeader>
-        <div className='grid grid-cols-1 gap-4 mt-4 max-h-[500px] overflow-y-auto'>
-          {[...mockedAnalyses, ...mockedAnalyses].map((analysis) => (
-            <AnalysesCard
-              key={analysis._id}
-              analysis={analysis}
-              onSelect={() => handleSelectItem(analysis)}
-              selected={selectedAnalyses.some((item) => item._id === analysis._id)}
-              locale={locale}
-            />
-          ))}
-        </div>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button type='submit'>{t('save')}</Button>
-          </DialogClose>
-        </DialogFooter>
-      </>
+      <DialogHeader>
+        <DialogTitle>{t('appointmentForm.appointmentAnalyses.label')}</DialogTitle>
+      </DialogHeader>
+      <div className='grid grid-cols-1 gap-4 mt-4 max-h-[500px] overflow-y-auto'>
+        {[...mockedAnalyses, ...mockedAnalyses].map((analysis) => (
+          <AnalysesCard
+            key={analysis._id}
+            analysis={analysis}
+            onSelect={() => handleSelectItem(analysis)}
+            selected={selectedAnalyses.some((item) => item._id === analysis._id)}
+            locale={locale}
+          />
+        ))}
+      </div>
+      <DialogFooter>
+        <DialogClose asChild>
+          <Button type='submit'>{t('save')}</Button>
+        </DialogClose>
+      </DialogFooter>
     </StyledModal>
   )
 }
