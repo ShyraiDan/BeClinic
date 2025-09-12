@@ -384,6 +384,54 @@
         "placeholder": "Підтвердіть пароль"
       }
     },
+    "editPatientForm": {
+      "patientName": {
+        "label": "Ім'я",
+        "placeholder": "Введіть ім'я"
+      },
+      "email": {
+        "label": "Електронна пошта"
+      },
+      "dateOfBirth": {
+        "label": "Дата народження",
+        "placeholder": "Введіть дату народження"
+      },
+      "phoneNumber": {
+        "label": "Номер телефону"
+      },
+      "bloodType": {
+        "label": "Група крові",
+        "placeholder": "Оберіть групу крові"
+      },
+      "diabetes": {
+        "label": "Діабет",
+        "placeholder": "Діабет"
+      },
+      "rhFactor": {
+        "label": "Резус фактор",
+        "placeholder": "Резус фактор"
+      },
+      "bloodTransfusion": {
+        "label": "Переливання крові",
+        "placeholder": "Переливання крові"
+      },
+      "intoleranceToMedicines": {
+        "label": "Непереносимість ліків",
+        "placeholder": "Непереносимість ліків"
+      },
+      "infectiousDiseases": {
+        "label": "Інфекційні захворювання",
+        "placeholder": "Інфекційні захворювання"
+      },
+      "surgicalInterventions": {
+        "label": "Хірургічні втручання",
+        "placeholder": "Хірургічні втручання"
+      },
+      "allergies": {
+        "label": "Алергії",
+        "placeholder": "Алергії"
+      }
+    },
     "login": "Увійти",
     "download": "Завантажити",
     "cancel": "Скасувати",

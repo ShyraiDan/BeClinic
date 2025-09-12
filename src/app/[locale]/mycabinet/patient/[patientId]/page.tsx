@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 
+import { EditPatientModal } from '@/components/modals/EditPatientModal/EditPatientModal'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { AnalysesTab } from '@/components/patientTabs/AnalysesTab'
 import { AppointmentTab } from '@/components/patientTabs/AppointmentTab'
@@ -33,7 +34,7 @@ const PatientProfile = ({ params }: PatientProfileProps) => {
   return (
     <div className='shadow-custom-right bg-white py-[30px] px-4'>
       <div className='mt-12 flex flex-col items-center justify-center relative lg:mt-6'>
-        {/* {patientProfile && <EditProfileModal patient={patientProfile} />} */}
+        {patient && <EditPatientModal patient={patient} />}
 
         <SkeletonAvatar />
 

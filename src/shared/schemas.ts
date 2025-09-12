@@ -190,3 +190,19 @@ export const doctorSignUpFormValuesSchema = z.object({
   position: z.string(),
   phone: z.string()
 })
+
+export const editPatientFormValuesSchema = patientSchema.pick({
+  email: true,
+  userName: true,
+  dateOfBirth: true,
+  phoneNumber: true,
+  bloodType: true,
+  diabetes: true,
+  rhFactor: true,
+  bloodTransfusion: true,
+  intoleranceToMedicines: true,
+  infectiousDiseases: true,
+  surgicalInterventions: true,
+  allergies: true,
+  image: true
+})
