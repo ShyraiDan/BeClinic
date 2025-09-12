@@ -76,7 +76,7 @@ export const PatientSignInForm = () => {
       />
 
       <Button className='w-full' type='submit'>
-        {t('authForm.login')}
+        {t('login')}
       </Button>
     </form>
   )
