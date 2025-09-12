@@ -447,6 +447,12 @@ declare const messages: {
     "editPatient": {
       "title": "Edit patient"
     },
+    "deleteBlog": {
+      "title": "Delete blog",
+      "reallyDelete": "Are you sure you want to delete this blog?",
+      "delete": "Delete",
+      "cancel": "Cancel"
+    },
     "auth": {
       "welcomePatient": "Welcome back, patient!",
       "welcomeDoctor": "Welcome back, doctor!",
