@@ -443,6 +443,23 @@ declare const messages: {
     "save": "Save",
     "create": "Create"
   },
+  "modals": {
+    "auth": {
+      "welcomePatient": "Welcome back, patient!",
+      "welcomeDoctor": "Welcome back, doctor!",
+      "enterData": "Please enter your data to log in.",
+      "enterDoctorData": "Please enter your data to register.",
+      "newPatient": "Hi, patient!",
+      "newDoctor": "Hi, doctor!",
+      "signInAsDoctor": "Are you working in a medical center?",
+      "signUpAsDoctor": "New employee in BeClinic?",
+      "signInAsPatient": "Do you want to log in as a patient?",
+      "signIn": "Sign in",
+      "signUp": "Sign up",
+      "noAccount": "Don't have an account?",
+      "haveAccount": "Already have an account?"
+    }
+  },
   "footer": {
     "description": "Choosing the right hospital and physician are important factors to consider that significantly influence a patient’s treatment. The preferred choice for many patients is choosing private care.",
     "departments": {
