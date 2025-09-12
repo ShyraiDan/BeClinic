@@ -1,4 +1,5 @@
 import { Pencil } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { EditPatientForm } from '@/components/forms/EditPatientForm/EditPatientForm'
 import { StyledModal } from '@/components/StyledModal/StyledModal'
@@ -11,6 +12,8 @@ interface EditPatientModalProps {
 }
 
 export const EditPatientModal = ({ patient }: EditPatientModalProps) => {
+  const t = useTranslations('modals')
+
   return (
     <StyledModal
       triggerButton={
@@ -21,7 +24,7 @@ export const EditPatientModal = ({ patient }: EditPatientModalProps) => {
         </Button>
       }>
       <DialogHeader>
-        <DialogTitle>Редагувати профіль</DialogTitle>
+        <DialogTitle>{t('editPatient.title')}</DialogTitle>
       </DialogHeader>
       <EditPatientForm patient={patient} />
     </StyledModal>
