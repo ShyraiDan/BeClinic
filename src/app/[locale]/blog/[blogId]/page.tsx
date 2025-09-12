@@ -2,6 +2,7 @@ import { Pencil } from 'lucide-react'
 import Markdown from 'markdown-to-jsx'
 import Image from 'next/image'
 
+import { DeleteBlogButton } from '@/components/DeleteBlogButton/DeleteBlogButton'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { Container } from '@/components/ui/container'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
@@ -23,13 +24,15 @@ const SingleBlogPage = async ({ params }: SingleBlogPageProps) => {
       <PageHeading title={''}>
         <div className='flex items-center justify-between'>
           <H1 className='text-white mt-4 mb-1 text-[36px]'>{blog.title[locale]}</H1>
-          <div>
-            {isAuth && (
+
+          {isAuth && (
+            <div className='flex gap-2'>
               <StyledLinkButton variant='icon' href={`/blog/${blog?._id}/edit`}>
                 <Pencil size={16} />
               </StyledLinkButton>
-            )}
-          </div>
+              <DeleteBlogButton />
+            </div>
+          )}
         </div>
       </PageHeading>
 
