@@ -355,6 +355,39 @@ declare const messages: {
         "button": "Add files"
       }
     },
+    "authForm": {
+      "email": {
+        "label": "Email"
+      },
+      "patientName": {
+        "label": "Patient name",
+        "placeholder": "Enter patient name"
+      },
+      "doctorName": {
+        "label": "Doctor name",
+        "placeholder": "Enter doctor name"
+      },
+      "position": {
+        "label": "Speciality",
+        "placeholder": "Select option"
+      },
+      "phone": {
+        "label": "Phone"
+      },
+      "verificationCode": {
+        "label": "Verification code",
+        "placeholder": "Enter code"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Password"
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "Confirm password"
+      }
+    },
+    "login": "Login",
     "download": "Download",
     "cancel": "Cancel",
     "delete": "Delete",

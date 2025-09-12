@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 
@@ -14,6 +15,7 @@ import { PatientSignInFormValues } from '@/shared/types'
 
 export const PatientSignInForm = () => {
   const [showPassword, setShowPassword] = useState(false)
+  const t = useTranslations('forms')
 
   const { handleSubmit, control, reset } = useForm<PatientSignInFormValues>({
     mode: 'onSubmit',
@@ -33,7 +35,7 @@ export const PatientSignInForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>Електронна пошта</Label>
+            <Label>{t('authForm.email.label')}</Label>
             <Input type='email' placeholder='example@example.com' {...field} />
 
             {error?.message && <ErrorText>{error.message}</ErrorText>}
@@ -46,10 +48,10 @@ export const PatientSignInForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>Пароль</Label>
+            <Label>{t('authForm.password.label')}</Label>
 
             <div className='relative flex flex-col mt-1.5'>
-              <Input type='password' placeholder='Пароль' {...field} />
+              <Input type='password' placeholder={t('authForm.password.placeholder')} {...field} />
 
               <span
                 onClick={() => setShowPassword((state) => !state)}
@@ -74,7 +76,7 @@ export const PatientSignInForm = () => {
       />
 
       <Button className='w-full' type='submit'>
-        Увійти
+        {t('authForm.login')}
       </Button>
     </form>
   )
