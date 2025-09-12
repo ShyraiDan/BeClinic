@@ -352,6 +352,39 @@
         "button": "Додати файл"
       }
     },
+    "authForm": {
+      "email": {
+        "label": "Електронна пошта"
+      },
+      "patientName": {
+        "label": "Ім'я",
+        "placeholder": "Введіть ім'я"
+      },
+      "doctorName": {
+        "label": "Ім'я",
+        "placeholder": "Введіть ім'я"
+      },
+      "position": {
+        "label": "Спеціальність",
+        "placeholder": "Оберіть опцію"
+      },
+      "phone": {
+        "label": "Номер телефону"
+      },
+      "verificationCode": {
+        "label": "Верифікаційний код",
+        "placeholder": "Введіть код"
+      },
+      "password": {
+        "label": "Пароль",
+        "placeholder": "Пароль"
+      },
+      "confirmPassword": {
+        "label": "Підтвердіть пароль",
+        "placeholder": "Підтвердіть пароль"
+      }
+    },
+    "login": "Увійти",
     "download": "Завантажити",
     "cancel": "Скасувати",
     "delete": "Видалити",
