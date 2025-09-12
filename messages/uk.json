@@ -441,6 +441,9 @@
     "create": "Створити"
   },
   "modals": {
+    "editPatient": {
+      "title": "Редагувати профіль"
+    },
     "auth": {
       "welcomePatient": "З поверненням, пацієнте!",
       "welcomeDoctor": "З поверненням, лікарю!",

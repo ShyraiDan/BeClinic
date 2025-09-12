@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 import { DoctorSignInForm } from '@/components/forms/DoctorSignInForm/DoctorSignInForm'
@@ -9,7 +10,6 @@ import { StyledModal } from '@/components/StyledModal/StyledModal'
 import { Button } from '@/components/ui/button'
 import { DialogTitle } from '@/components/ui/dialog'
 import { P } from '@/components/ui/typography'
-import { useTranslations } from 'next-intl'
 
 enum AUTH_MODAL_ENUM {
   SIGNIN_PATIENT = 'signin-patient',

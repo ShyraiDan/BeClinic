@@ -444,6 +444,9 @@ declare const messages: {
     "create": "Create"
   },
   "modals": {
+    "editPatient": {
+      "title": "Edit patient"
+    },
     "auth": {
       "welcomePatient": "Welcome back, patient!",
       "welcomeDoctor": "Welcome back, doctor!",
