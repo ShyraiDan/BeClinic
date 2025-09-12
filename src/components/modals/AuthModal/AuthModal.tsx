@@ -165,37 +165,6 @@ export const AuthModal = () => {
           {modalType === AUTH_MODAL_ENUM.SIGNUP_PATIENT && <PatientSignUpModalContent setModalType={setModalType} />}
           {modalType === AUTH_MODAL_ENUM.SIGNIN_DOCTOR && <DoctorSignInModalContent setModalType={setModalType} />}
           {modalType === AUTH_MODAL_ENUM.SIGNUP_DOCTOR && <DoctorSignUpModalContent setModalType={setModalType} />}
-          {/* <div className='flex flex-col justify-between h-full my-5 lg:mt-0'>
-            <div className='flex flex-col'>
-              <DialogTitle className='font-bold font-primary mb-2 text-[32px]'>{getModalTitle(modalType)}</DialogTitle>
-              <P className='font-medium mb-2'>
-                {isSignInModal(modalType)
-                  ? 'Будь ласка, внесiть свої дані для входу.'
-                  : 'Будь ласка, внесiть свої дані для реєстрації.'}
-              </P>
-              <SignInForm />
-            </div>
-
-            <div className='flex flex-col'>
-              <P className='mb-2'>
-                Досі немає аккаунту?{' '}
-                <span
-                  className='text-[#0674d1] cursor-pointer'
-                  onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNUP_PATIENT)}>
-                  Зареєструватися
-                </span>
-              </P>
-
-              <P className='mb-2'>
-                Працюєте в медичному центрі?{' '}
-                <span
-                  className='text-[#0674d1] cursor-pointer'
-                  onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_DOCTOR)}>
-                  Увійти
-                </span>
-              </P>
-            </div>
-          </div> */}
         </div>
       </div>
     </StyledModal>
