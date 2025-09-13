@@ -195,7 +195,8 @@
         "appointments": "Записи на прийом",
         "makeAnAppointment": "Записатися на прийом",
         "historyAppointments": "Попередні прийоми",
-        "noAppointments": "Немає записів на прийом"
+        "noAppointments": "Немає записів на прийом",
+        "addAnalyses": "Додати аналіз"
       },
       "doctor": {
         "title": "Ваш профіль",
