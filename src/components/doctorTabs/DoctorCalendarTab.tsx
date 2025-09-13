@@ -9,6 +9,7 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import { isSameDay, parseISO } from 'date-fns'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { useMemo, useState } from 'react'
 
 import CalendarAppointmentCard from '@/components/CalendarAppointmentCard/CalendarAppointmentCard'
@@ -20,6 +21,8 @@ import { mockedAppointment } from '@/mocks/mockedAppointment'
 import { Appointment, SupportedLocales } from '@/shared/types'
 
 export const DoctorCalendarTab = () => {
+  const t = useTranslations('page')
+
   const params = useParams()
   const { doctorId, locale } = params
   const [selectedEvent, setSelectedEvent] = useState<Appointment | null>(null)
@@ -56,7 +59,7 @@ export const DoctorCalendarTab = () => {
     <div className='mt-6'>
       <div className='flex flex-col w-full justify-start items-start gap-8'>
         <div className='w-full h-[200px]'>
-          <H6>Прийоми на сьогодні</H6>
+          <H6>{t('profile.doctor.todaysAppointments')}</H6>
           <ul
             className={cn(
               'flex flex-col gap-4 mt-4 overflow-y-auto h-[170px]',
@@ -64,7 +67,7 @@ export const DoctorCalendarTab = () => {
             )}>
             {todayEvents.length === 0 && !isLoading && (
               <div className='flex flex-col items-center justify-center h-full'>
-                <P className='italic text-center text-gray-400'>Немає прийомів</P>
+                <P className='italic text-center text-gray-400'>{t('profile.doctor.noAppointments')}</P>
               </div>
             )}
 
@@ -73,11 +76,7 @@ export const DoctorCalendarTab = () => {
 
             {todayEvents.length > 0 &&
               todayEvents.map((event: EventApi) => {
-                return (
-                  <>
-                    <CalendarAppointmentCard event={event} locale={locale as SupportedLocales} />
-                  </>
-                )
+                return <CalendarAppointmentCard key={event.id} event={event} locale={locale as SupportedLocales} />
               })}
           </ul>
         </div>

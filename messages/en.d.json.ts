@@ -204,7 +204,12 @@ declare const messages: {
         "title": "My profile",
         "appointments": "Appointments",
         "calendar": "Calendar",
-        "speciality": "Speciality"
+        "speciality": "Speciality",
+        "todaysAppointments": "Today's appointments",
+        "noAppointments": "No appointments found",
+        "appointmentReason": "Reason for visit",
+        "appointmentDetails": "Additional details",
+        "moveToVisit": "Move to visit"
       },
       "personalInfo": "Personal data",
       "dateOfBirth": "Date of birth",
