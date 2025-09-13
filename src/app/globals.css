@@ -35,6 +35,10 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* shadow */
+  --inset-shadow-doctor-card: 5px 5px 50px 0px oklch(0.2295 0.0522 249.16 / 10.98%);
+  --inset-shadow-profile: 4px 0 8px -4px oklch(0.5443 0.0241 241.67 / 18.04%);
 }
 
 :root {
@@ -75,4 +79,68 @@
   --purple-100: oklch(54.16% 0.156 297.51);
   --red-100: oklch(63.07% 0.194 29.44);
   --green-100: oklch(64.15% 0.154 155.37);
+}
+
+/* Doctor calendar styles */
+
+.fc .fc-button-primary {
+  background: white;
+  border-color: #e5e7eb;
+  color: black;
+  transition: all 0.2s ease-in-out;
+}
+
+.fc .fc-button-primary:not(:disabled):active {
+  background: #2a93c91a;
+  box-shadow: none;
+  color: black;
+  border: #e5e7eb;
+}
+
+.fc .fc-button-primary:hover {
+  background: #2a93c91a;
+  border-color: #e5e7eb;
+  color: black;
+}
+
+.fc .fc-button-primary:not(:first-child):not(:last-child):hover {
+  background: #2a93c91a;
+  border-top-color: #e5e7eb;
+  border-bottom-color: #e5e7eb;
+}
+
+.fc .fc-button-primary:focus {
+  box-shadow: none;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active:focus {
+  box-shadow: none;
+}
+
+.fc .fc-button-primary:not(:disabled):focus:active {
+  box-shadow: none;
+  background: #2a93c91a;
+  border: 1px solid #e5e7eb;
+}
+
+.fc .fc-button-active {
+  background: rgb(42 147 201) !important;
+  border-color: rgb(42 147 201) !important;
+  color: white;
+}
+
+.fc .fc-toolbar-chunk .fc-today-button {
+  background: rgb(42 147 201);
+  border-color: rgb(42 147 201);
+  color: white;
+  margin-left: 0px;
+}
+
+.fc .fc-toolbar-chunk {
+  display: flex;
+  gap: 16px;
+}
+
+.fc .fc-toolbar-chunk .fc-today-button:hover {
+  color: white;
 }

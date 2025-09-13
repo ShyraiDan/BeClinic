@@ -197,7 +197,17 @@
         "historyAppointments": "Попередні прийоми",
         "noAppointments": "Немає записів на прийом"
       },
-      "doctor": {},
+      "doctor": {
+        "title": "Ваш профіль",
+        "appointments": "Прийоми",
+        "calendar": "Календар",
+        "speciality": "Спеціалізація",
+        "todaysAppointments": "Прийоми на сьогодні",
+        "noAppointments": "Немає прийомів ",
+        "appointmentReason": "Причина візиту",
+        "appointmentDetails": "Додаткові деталі",
+        "moveToVisit": "До візиту"
+      },
       "personalInfo": "Особисті дані",
       "dateOfBirth": "Дата народження",
       "phoneNumber": "Номер телефону",
@@ -432,6 +442,22 @@
         "placeholder": "Алергії"
       }
     },
+    "editDoctorForm": {
+      "doctorName": {
+        "label": "Ім'я",
+        "placeholder": "Введіть ім'я"
+      },
+      "email": {
+        "label": "Електронна пошта"
+      },
+      "position": {
+        "label": "Спеціальність",
+        "placeholder": "Оберіть опцію"
+      },
+      "phone": {
+        "label": "Номер телефону"
+      }
+    },
     "login": "Увійти",
     "download": "Завантажити",
     "cancel": "Скасувати",
@@ -442,6 +468,9 @@
   },
   "modals": {
     "editPatient": {
+      "title": "Редагувати профіль"
+    },
+    "editDoctor": {
       "title": "Редагувати профіль"
     },
     "deleteBlog": {

@@ -200,7 +200,17 @@ declare const messages: {
         "historyAppointments": "Previous appointments",
         "noAppointments": "No appointments found"
       },
-      "doctor": {},
+      "doctor": {
+        "title": "My profile",
+        "appointments": "Appointments",
+        "calendar": "Calendar",
+        "speciality": "Speciality",
+        "todaysAppointments": "Today's appointments",
+        "noAppointments": "No appointments found",
+        "appointmentReason": "Reason for visit",
+        "appointmentDetails": "Additional details",
+        "moveToVisit": "Move to visit"
+      },
       "personalInfo": "Personal data",
       "dateOfBirth": "Date of birth",
       "phoneNumber": "Phone number",
@@ -435,6 +445,22 @@ declare const messages: {
         "placeholder": "Allergies"
       }
     },
+    "editDoctorForm": {
+      "doctorName": {
+        "label": "Doctor name",
+        "placeholder": "Enter doctor name"
+      },
+      "position": {
+        "label": "Speciality",
+        "placeholder": "Select option"
+      },
+      "phone": {
+        "label": "Phone"
+      },
+      "email": {
+        "label": "Email"
+      }
+    },
     "login": "Login",
     "download": "Download",
     "cancel": "Cancel",
@@ -445,7 +471,10 @@ declare const messages: {
   },
   "modals": {
     "editPatient": {
-      "title": "Edit patient"
+      "title": "Edit profile"
+    },
+    "editDoctor": {
+      "title": "Edit profile"
     },
     "deleteBlog": {
       "title": "Delete blog",
