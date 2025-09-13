@@ -442,6 +442,22 @@
         "placeholder": "Алергії"
       }
     },
+    "editDoctorForm": {
+      "doctorName": {
+        "label": "Ім'я",
+        "placeholder": "Введіть ім'я"
+      },
+      "email": {
+        "label": "Електронна пошта"
+      },
+      "position": {
+        "label": "Спеціальність",
+        "placeholder": "Оберіть опцію"
+      },
+      "phone": {
+        "label": "Номер телефону"
+      }
+    },
     "login": "Увійти",
     "download": "Завантажити",
     "cancel": "Скасувати",

@@ -206,3 +206,11 @@ export const editPatientFormValuesSchema = patientSchema.pick({
   allergies: true,
   image: true
 })
+
+export const editDoctorFormValuesSchema = doctorSchema.pick({
+  email: true,
+  doctorName: true,
+  position: true,
+  image: true,
+  phone: true
+})

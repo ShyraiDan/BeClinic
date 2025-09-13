@@ -445,6 +445,22 @@ declare const messages: {
         "placeholder": "Allergies"
       }
     },
+    "editDoctorForm": {
+      "doctorName": {
+        "label": "Doctor name",
+        "placeholder": "Enter doctor name"
+      },
+      "position": {
+        "label": "Speciality",
+        "placeholder": "Select option"
+      },
+      "phone": {
+        "label": "Phone"
+      },
+      "email": {
+        "label": "Email"
+      }
+    },
     "login": "Login",
     "download": "Download",
     "cancel": "Cancel",

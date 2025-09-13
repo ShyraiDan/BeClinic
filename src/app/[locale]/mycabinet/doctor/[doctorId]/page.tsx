@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { H2, H6, P } from '@/components/ui/typography'
 import { mockedDoctors } from '@/mocks/mockedDoctors'
+import { EditDoctorModal } from '@/components/modals/EditDoctorModal/EditDoctorModal'
 
 const TABS_ENUM = {
   APPOINTMENTS: 'appointments',
@@ -31,7 +32,7 @@ const DoctorProfile = ({ params }: DoctorProfileProps) => {
   return (
     <div className='shadow-custom-right bg-white py-[30px] px-4'>
       <div className='mt-12 flex flex-col items-center justify-center relative lg:mt-6'>
-        {/* {doctorProfile && <EditDoctorModal doctor={doctorProfile} />} */}
+        {mockedDoctor && <EditDoctorModal doctor={mockedDoctor} />}
 
         <SkeletonAvatar />
         {/* {isLoading ? (
