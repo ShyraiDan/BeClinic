@@ -1,12 +1,28 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
+import { DoctorAppointmentTab } from '@/components/doctorTabs/DoctorAppointmentTab'
+import { DoctorCalendarTab } from '@/components/doctorTabs/DoctorCalendarTab'
+import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { SkeletonAvatar } from '@/components/skeletons/SkeletonAvatar'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
+import { StyledTab } from '@/components/StyledTab/StyledTab'
 import { Button } from '@/components/ui/button'
+import { Container } from '@/components/ui/container'
 import { H2, H6, P } from '@/components/ui/typography'
 import { mockedDoctors } from '@/mocks/mockedDoctors'
 
-const DoctorProfile = () => {
+const TABS_ENUM = {
+  APPOINTMENTS: 'appointments',
+  CALENDAR: 'calendar'
+}
+
+interface DoctorProfileProps {
+  params: Promise<{ doctorId: string }>
+}
+
+const DoctorProfile = ({ params }: DoctorProfileProps) => {
   const isLoading = true
   const mockedDoctor = mockedDoctors[0]
 
@@ -77,4 +93,31 @@ const DoctorProfile = () => {
   )
 }
 
-export default DoctorProfile
+const tabs = [
+  { id: TABS_ENUM.APPOINTMENTS, label: 'Прийоми', content: <DoctorAppointmentTab /> },
+  { id: TABS_ENUM.CALENDAR, label: 'Календар', content: <DoctorCalendarTab /> }
+]
+
+interface DoctorProfilePageProps {
+  params: Promise<{ doctorId: string }>
+}
+
+const DoctorProfilePage = ({ params }: DoctorProfilePageProps) => {
+  const t = useTranslations('page')
+
+  return (
+    <>
+      <PageHeading title='Ваш профіль' />
+      <Container className='lg:grid lg:grid-cols-[1fr_270px] lg:gap-4 xl:grid-cols-[1fr_320px]'>
+        <div className='mb-[30px] lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:mb-0'>
+          <DoctorProfile params={params} />
+        </div>
+        <div className='lg:col-start-1 lg:col-end-2 lg:row-start-1'>
+          <StyledTab tabs={tabs} defaultValue={tabs[0].id} />
+        </div>
+      </Container>
+    </>
+  )
+}
+
+export default DoctorProfilePage

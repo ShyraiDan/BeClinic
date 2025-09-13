@@ -179,11 +179,11 @@ const tabs = [
   { id: TABS_ENUM.BILLING, label: 'profile.patient.billing', content: <BillingTab /> }
 ]
 
-interface PatientProfileProps {
+interface PatientProfilePageProps {
   params: Promise<{ patientId: string }>
 }
 
-const PatientProfilePage = ({ params }: PatientProfileProps) => {
+const PatientProfilePage = ({ params }: PatientProfilePageProps) => {
   const t = useTranslations('page')
 
   return (
