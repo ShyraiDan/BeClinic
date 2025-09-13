@@ -198,7 +198,8 @@ declare const messages: {
         "appointments": "Appointments",
         "makeAnAppointment": "Make an appointment",
         "historyAppointments": "Previous appointments",
-        "noAppointments": "No appointments found"
+        "noAppointments": "No appointments found",
+        "addAnalyses": "Add analyses"
       },
       "doctor": {
         "title": "My profile",

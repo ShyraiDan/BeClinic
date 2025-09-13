@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { P } from '@/components/ui/typography'
 import { SUPPORTED_LOCALES } from '@/shared/constants'
 import { blogFormValuesSchema } from '@/shared/schemas'
 import { Blog, BlogFormValues } from '@/shared/types'
@@ -51,8 +52,13 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('blogForm.blogTitle.label', { locale })}</Label>
-              <Input placeholder={t('blogForm.blogTitle.placeholder', { locale })} {...field} />
+              <Label htmlFor={`title.${locale}`}>{t('blogForm.blogTitle.label', { locale })}</Label>
+              <Input
+                type='text'
+                id={`title.${locale}`}
+                placeholder={t('blogForm.blogTitle.placeholder', { locale })}
+                {...field}
+              />
               {error?.message && <ErrorText>{error.message}</ErrorText>}
             </div>
           )}
@@ -64,7 +70,7 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
         control={control}
         render={({ fieldState: { error } }) => (
           <div className='flex mb-4 flex-col'>
-            <Label>{t('blogForm.image.label')}</Label>
+            <P className='font-medium mb-2'>{t('blogForm.image.label')}</P>
 
             <div className='relative h-[200px] w-[300px] rounded-sm bg-[#2a41e812] shadow-md flex items-center justify-center text-blue-200 mb-4'>
               {/* {watch('image') ? (
@@ -147,9 +153,9 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('blogForm.blogDescription.label', { locale })}</Label>
+              <Label htmlFor={`description.${locale}`}>{t('blogForm.blogDescription.label', { locale })}</Label>
               <div data-color-mode='light'>
-                <MDEditor height={200} {...field} />
+                <MDEditor id={`description.${locale}`} height={200} {...field} />
               </div>
               {error?.message && <ErrorText className='text-red text-sm my-1'>Блог має містити текст</ErrorText>}
             </div>

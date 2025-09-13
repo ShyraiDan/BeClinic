@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { P } from '@/components/ui/typography'
 import { editPatientFormValuesSchema } from '@/shared/schemas'
 import { EditPatientFormValues, Patient } from '@/shared/types'
 
@@ -80,8 +81,8 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editPatientForm.patientName.label')}</Label>
-              <Input type='text' placeholder={t('editPatientForm.patientName.placeholder')} {...field} />
+              <Label htmlFor='userName'>{t('editPatientForm.patientName.label')}</Label>
+              <Input id='userName' type='text' placeholder={t('editPatientForm.patientName.placeholder')} {...field} />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
             </div>
@@ -93,8 +94,8 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editPatientForm.email.label')}</Label>
-              <Input type='email' placeholder='example@example.com' {...field} />
+              <Label htmlFor='email'>{t('editPatientForm.email.label')}</Label>
+              <Input id='email' type='email' placeholder='example@example.com' {...field} />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
             </div>
@@ -106,7 +107,7 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editPatientForm.dateOfBirth.label')}</Label>
+              <P className='mb-2 font-medium'>{t('editPatientForm.dateOfBirth.label')}</P>
               <StyledDatePicker placeholder={t('editPatientForm.dateOfBirth.placeholder')} {...field} />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
@@ -119,8 +120,10 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editPatientForm.dateOfBirth.label')}</Label>
+              <Label htmlFor='phoneNumber'>{t('editPatientForm.dateOfBirth.label')}</Label>
               <InputMask
+                id='phoneNumber'
+                type='tel'
                 component={Input}
                 mask='+38 (0__) ___-__-__'
                 placeholder='+38 (0__) ___-__-__'
@@ -138,7 +141,7 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editPatientForm.bloodType.label')}</Label>
+              <P className='mb-2 font-medium'>{t('editPatientForm.bloodType.label')}</P>
               <StyledSelect
                 options={bloodOptions}
                 placeholder={t('editPatientForm.bloodType.placeholder')}
@@ -155,8 +158,8 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editPatientForm.diabetes.label')}</Label>
-              <Input type='text' placeholder={t('editPatientForm.diabetes.placeholder')} {...field} />
+              <Label htmlFor='diabetes'>{t('editPatientForm.diabetes.label')}</Label>
+              <Input id='diabetes' type='text' placeholder={t('editPatientForm.diabetes.placeholder')} {...field} />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
             </div>
@@ -168,7 +171,7 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editPatientForm.rhFactor.label')}</Label>
+              <P className='mb-2 font-medium'>{t('editPatientForm.rhFactor.label')}</P>
               <StyledSelect options={rhOptions} placeholder={t('editPatientForm.rhFactor.placeholder')} {...field} />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
@@ -181,8 +184,13 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editPatientForm.bloodTransfusion.label')}</Label>
-              <Input type='text' placeholder={t('editPatientForm.bloodTransfusion.placeholder')} {...field} />
+              <Label htmlFor='bloodTransfusion'>{t('editPatientForm.bloodTransfusion.label')}</Label>
+              <Input
+                id='bloodTransfusion'
+                type='text'
+                placeholder={t('editPatientForm.bloodTransfusion.placeholder')}
+                {...field}
+              />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
             </div>
@@ -194,8 +202,13 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editPatientForm.intoleranceToMedicines.label')}</Label>
-              <Input type='text' placeholder={t('editPatientForm.intoleranceToMedicines.placeholder')} {...field} />
+              <Label htmlFor='intoleranceToMedicines'>{t('editPatientForm.intoleranceToMedicines.label')}</Label>
+              <Input
+                id='intoleranceToMedicines'
+                type='text'
+                placeholder={t('editPatientForm.intoleranceToMedicines.placeholder')}
+                {...field}
+              />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
             </div>
@@ -207,8 +220,13 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editPatientForm.infectiousDiseases.label')}</Label>
-              <Input type='text' placeholder={t('editPatientForm.infectiousDiseases.placeholder')} {...field} />
+              <Label htmlFor='infectiousDiseases'>{t('editPatientForm.infectiousDiseases.label')}</Label>
+              <Input
+                id='infectiousDiseases'
+                type='text'
+                placeholder={t('editPatientForm.infectiousDiseases.placeholder')}
+                {...field}
+              />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
             </div>
@@ -220,8 +238,13 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editPatientForm.surgicalInterventions.label')}</Label>
-              <Input type='text' placeholder={t('editPatientForm.surgicalInterventions.placeholder')} {...field} />
+              <Label htmlFor='surgicalInterventions'>{t('editPatientForm.surgicalInterventions.label')}</Label>
+              <Input
+                id='surgicalInterventions'
+                type='text'
+                placeholder={t('editPatientForm.surgicalInterventions.placeholder')}
+                {...field}
+              />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
             </div>
@@ -233,8 +256,8 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editPatientForm.allergies.label')}</Label>
-              <Input type='text' placeholder={t('editPatientForm.allergies.placeholder')} {...field} />
+              <Label htmlFor='allergies'>{t('editPatientForm.allergies.label')}</Label>
+              <Input id='allergies' type='text' placeholder={t('editPatientForm.allergies.placeholder')} {...field} />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
             </div>

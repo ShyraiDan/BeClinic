@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { P } from '@/components/ui/typography'
 import { doctorSpecialties } from '@/mocks/shared'
 import { editDoctorFormValuesSchema } from '@/shared/schemas'
 import { Doctor, EditDoctorFormValues } from '@/shared/types'
@@ -43,8 +44,8 @@ export const EditDoctorForm = ({ doctor }: EditDoctorFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editDoctorForm.doctorName.label')}</Label>
-              <Input type='text' placeholder={t('editDoctorForm.doctorName.placeholder')} {...field} />
+              <Label htmlFor='doctorName'>{t('editDoctorForm.doctorName.label')}</Label>
+              <Input id='doctorName' type='text' placeholder={t('editDoctorForm.doctorName.placeholder')} {...field} />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
             </div>
@@ -56,8 +57,8 @@ export const EditDoctorForm = ({ doctor }: EditDoctorFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editDoctorForm.email.label')}</Label>
-              <Input type='email' placeholder='example@example.com' {...field} />
+              <Label htmlFor='email'>{t('editDoctorForm.email.label')}</Label>
+              <Input id='email' type='email' placeholder='example@example.com' {...field} />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
             </div>
@@ -69,7 +70,7 @@ export const EditDoctorForm = ({ doctor }: EditDoctorFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editDoctorForm.position.label')}</Label>
+              <P className='mb-2 font-medium'>{t('editDoctorForm.position.label')}</P>
               <StyledSelect
                 options={doctorSpecialties}
                 placeholder={t('editDoctorForm.position.placeholder')}
@@ -86,8 +87,10 @@ export const EditDoctorForm = ({ doctor }: EditDoctorFormProps) => {
           control={control}
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
-              <Label>{t('editDoctorForm.phone.label')}</Label>
+              <Label htmlFor='phone'>{t('editDoctorForm.phone.label')}</Label>
               <InputMask
+                id='phone'
+                type='tel'
                 component={Input}
                 mask='+38 (0__) ___-__-__'
                 placeholder='+38 (0__) ___-__-__'

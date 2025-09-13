@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { P } from '@/components/ui/typography'
 import { doctorSpecialties } from '@/mocks/shared'
 import { doctorSignUpFormValuesSchema } from '@/shared/schemas'
 import { DoctorSignUpFormValues } from '@/shared/types'
@@ -43,8 +44,8 @@ export const DoctorSignUpForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('authForm.email.label')}</Label>
-            <Input type='email' placeholder='example@example.com' {...field} />
+            <Label htmlFor='email'>{t('authForm.email.label')}</Label>
+            <Input id='email' type='email' placeholder='example@example.com' {...field} />
 
             {error?.message && <ErrorText>{error.message}</ErrorText>}
           </div>
@@ -56,8 +57,8 @@ export const DoctorSignUpForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('authForm.doctorName.label')}</Label>
-            <Input type='text' placeholder={t('authForm.doctorName.placeholder')} {...field} />
+            <Label htmlFor='doctorName'>{t('authForm.doctorName.label')}</Label>
+            <Input id='doctorName' type='text' placeholder={t('authForm.doctorName.placeholder')} {...field} />
 
             {error?.message && <ErrorText>{error.message}</ErrorText>}
           </div>
@@ -69,7 +70,7 @@ export const DoctorSignUpForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('authForm.position.label')}</Label>
+            <P className='mb-2 font-medium'>{t('authForm.position.label')}</P>
             <StyledSelect options={doctorSpecialties} placeholder={t('authForm.position.placeholder')} {...field} />
 
             {error?.message && <ErrorText>{error.message}</ErrorText>}
@@ -82,8 +83,10 @@ export const DoctorSignUpForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('authForm.phone.label')}</Label>
+            <Label htmlFor='phone'>{t('authForm.phone.label')}</Label>
             <InputMask
+              id='phone'
+              type='tel'
               component={Input}
               mask='+38 (0__) ___-__-__'
               placeholder='+38 (0__) ___-__-__'
@@ -101,8 +104,13 @@ export const DoctorSignUpForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('authForm.verificationCode.label')}</Label>
-            <Input type='text' placeholder={t('authForm.verificationCode.placeholder')} {...field} />
+            <Label htmlFor='verificationCode'>{t('authForm.verificationCode.label')}</Label>
+            <Input
+              id='verificationCode'
+              type='text'
+              placeholder={t('authForm.verificationCode.placeholder')}
+              {...field}
+            />
 
             {error?.message && <ErrorText>{error.message}</ErrorText>}
           </div>
@@ -114,10 +122,15 @@ export const DoctorSignUpForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('authForm.password.label')}</Label>
+            <Label htmlFor='password'>{t('authForm.password.label')}</Label>
 
             <div className='relative flex flex-col mt-1.5'>
-              <Input type='password' placeholder={t('authForm.password.placeholder')} {...field} />
+              <Input
+                id='password'
+                type={showPassword ? 'text' : 'password'}
+                placeholder={t('authForm.password.placeholder')}
+                {...field}
+              />
 
               <span
                 onClick={() => setShowPassword((state) => !state)}
@@ -146,10 +159,15 @@ export const DoctorSignUpForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('authForm.confirmPassword.label')}</Label>
+            <Label htmlFor='confirmPassword'>{t('authForm.confirmPassword.label')}</Label>
 
             <div className='relative flex flex-col mt-1.5'>
-              <Input type='password' placeholder={t('authForm.confirmPassword.placeholder')} {...field} />
+              <Input
+                id='confirmPassword'
+                type={showPassword ? 'text' : 'password'}
+                placeholder={t('authForm.confirmPassword.placeholder')}
+                {...field}
+              />
 
               <span
                 onClick={() => setShowPassword((state) => !state)}

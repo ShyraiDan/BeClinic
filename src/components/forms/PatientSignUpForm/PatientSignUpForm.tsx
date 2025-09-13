@@ -37,8 +37,8 @@ export const PatientSignUpForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('authForm.email.label')}</Label>
-            <Input type='email' placeholder='example@example.com' {...field} />
+            <Label htmlFor='email'>{t('authForm.email.label')}</Label>
+            <Input id='email' type='email' placeholder='example@example.com' {...field} />
 
             {error?.message && <ErrorText>{error.message}</ErrorText>}
           </div>
@@ -50,8 +50,8 @@ export const PatientSignUpForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('authForm.patientName.label')}</Label>
-            <Input type='text' placeholder={t('authForm.patientName.placeholder')} {...field} />
+            <Label htmlFor='userName'>{t('authForm.patientName.label')}</Label>
+            <Input id='userName' type='text' placeholder={t('authForm.patientName.placeholder')} {...field} />
 
             {error?.message && <ErrorText>{error.message}</ErrorText>}
           </div>
@@ -63,10 +63,15 @@ export const PatientSignUpForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('authForm.password.label')}</Label>
+            <Label htmlFor='password'>{t('authForm.password.label')}</Label>
 
             <div className='relative flex flex-col mt-1.5'>
-              <Input type='password' placeholder={t('authForm.password.placeholder')} {...field} />
+              <Input
+                id='password'
+                type={showPassword ? 'text' : 'password'}
+                placeholder={t('authForm.password.placeholder')}
+                {...field}
+              />
 
               <span
                 onClick={() => setShowPassword((state) => !state)}
@@ -95,10 +100,15 @@ export const PatientSignUpForm = () => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('authForm.confirmPassword.label')}</Label>
+            <Label htmlFor='confirmPassword'>{t('authForm.confirmPassword.label')}</Label>
 
             <div className='relative flex flex-col mt-1.5'>
-              <Input type='password' placeholder={t('authForm.confirmPassword.placeholder')} {...field} />
+              <Input
+                id='confirmPassword'
+                type={showPassword ? 'text' : 'password'}
+                placeholder={t('authForm.confirmPassword.placeholder')}
+                {...field}
+              />
 
               <span
                 onClick={() => setShowPassword((state) => !state)}

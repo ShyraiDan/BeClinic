@@ -16,6 +16,7 @@ import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { TextArea } from '@/components/ui/textarea'
+import { P } from '@/components/ui/typography'
 import { cn } from '@/lib/utils'
 import { doctorSpecialties } from '@/mocks/shared'
 import { appointmentFormValuesSchema } from '@/shared/schemas'
@@ -83,8 +84,13 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('appointmentForm.appointmentReason.label')}</Label>
-            <Input placeholder={t('appointmentForm.appointmentReason.placeholder')} {...field} />
+            <Label htmlFor='reason'>{t('appointmentForm.appointmentReason.label')}</Label>
+            <Input
+              type='text'
+              id='reason'
+              placeholder={t('appointmentForm.appointmentReason.placeholder')}
+              {...field}
+            />
             {error?.message && <ErrorText>{error.message}</ErrorText>}
           </div>
         )}
@@ -95,7 +101,7 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('appointmentForm.appointmentSpecialization.label')}</Label>
+            <P className='font-medium mb-2'>{t('appointmentForm.appointmentSpecialization.label')}</P>
             <StyledSelect
               options={doctorSpecialties}
               placeholder={t('appointmentForm.appointmentSpecialization.placeholder')}
@@ -111,7 +117,7 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label>{t('appointmentForm.appointmentDoctor.label')}</Label>
+            <P className='font-medium mb-2'>{t('appointmentForm.appointmentDoctor.label')}</P>
             <StyledSelect
               options={doctorSpecialties}
               disabled={!getValues('specialty')}
@@ -125,12 +131,12 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
 
       <div className='sm:flex sm:justify-between sm:gap-4 mb-4'>
         <div className='mb-4 w-full sm:mb-0'>
-          <Label>{t('appointmentForm.appointmentDate.label')}</Label>
           <Controller
             name='startTime'
             control={control}
             render={({ field: { value, onChange }, fieldState }) => (
               <>
+                <P className='font-medium mb-2'>{t('appointmentForm.appointmentDate.label')}</P>
                 <StyledDatePicker
                   initialDate={value}
                   onChange={onChange}
@@ -142,12 +148,12 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
           />
         </div>
         <div className='w-full'>
-          <Label>{t('appointmentForm.appointmentTime.label')}</Label>
           <Controller
             name='startTimeHours'
             control={control}
             render={({ field, fieldState }) => (
               <>
+                <P className='font-medium mb-2'>{t('appointmentForm.appointmentTime.label')}</P>
                 <StyledSelect
                   options={timeOptions}
                   placeholder={t('appointmentForm.appointmentTime.placeholder')}
@@ -160,13 +166,17 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
         </div>
       </div>
       <div className='mt-1.5 w-full'>
-        <Label>{t('appointmentForm.appointmentDescription.label')}</Label>
         <Controller
           name='description'
           control={control}
           render={({ field, fieldState }) => (
             <>
-              <TextArea placeholder={t('appointmentForm.appointmentDescription.placeholder')} {...field} />
+              <Label htmlFor='description'>{t('appointmentForm.appointmentDescription.label')}</Label>
+              <TextArea
+                id='description'
+                placeholder={t('appointmentForm.appointmentDescription.placeholder')}
+                {...field}
+              />
               {fieldState.error && <ErrorText>{fieldState.error.message}</ErrorText>}
             </>
           )}
@@ -174,7 +184,7 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
       </div>
 
       <div className='mt-4'>
-        <Label>{t('appointmentForm.appointmentAnalyses.label')}</Label>
+        <P className='font-medium mb-2'>{t('appointmentForm.appointmentAnalyses.label')}</P>
 
         <div className='grid grid-cols-1 gap-4 mt-4'>
           {analyses.map((analysis) => (
@@ -193,12 +203,12 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
       </div>
 
       <div className='mt-4 w-full'>
-        <Label>{t('appointmentForm.appointmentFiles.label')}</Label>
         <Controller
           name='fileName'
           control={control}
           render={({ fieldState }) => (
             <>
+              <Label htmlFor='fileName'>{t('appointmentForm.appointmentFiles.label')}</Label>
               <div className='flex items-center gap-3'>
                 {!fileName && (
                   <Button
@@ -226,7 +236,7 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
                   ref={fileInputRef}
                   type='file'
                   name='file'
-                  id='file'
+                  id='fileName'
                   accept='image/jpg, image/jpeg, image/png, application/pdf'
                   className='hidden'
                   onChange={(e) => void handleUploadFile(e.target.files![0])}
