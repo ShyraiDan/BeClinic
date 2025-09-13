@@ -11,15 +11,22 @@ import { dateLocaleMap } from '@/utils/dateLocaleMap'
 interface AppointmentInfoModalProps {
   appointment: Appointment
   open: boolean
+  handleClose: () => void
 }
 
-export const AppointmentInfoModal = ({ appointment, open }: AppointmentInfoModalProps) => {
+export const AppointmentInfoModal = ({ handleClose, appointment, open }: AppointmentInfoModalProps) => {
   const { locale } = useParams()
 
   const dateLocale = dateLocaleMap[locale as SupportedLocales] ?? enUS
 
+  const handleOpenChange = () => {
+    if (open) {
+      handleClose()
+    }
+  }
+
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={() => handleOpenChange()}>
       <DialogContent className='border-none'>
         <div className='flex flex-col w-full '>
           <H6>{appointment.patient.userName}</H6>

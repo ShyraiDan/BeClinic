@@ -109,7 +109,13 @@ export const DoctorCalendarTab = () => {
         </div>
       </div>
 
-      {selectedEvent && <AppointmentInfoModal open={!!selectedEvent} appointment={selectedEvent} />}
+      {selectedEvent && (
+        <AppointmentInfoModal
+          open={!!selectedEvent}
+          appointment={selectedEvent}
+          handleClose={handleEventInfoModalClose}
+        />
+      )}
     </div>
   )
 }
