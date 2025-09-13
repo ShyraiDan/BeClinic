@@ -200,7 +200,12 @@ declare const messages: {
         "historyAppointments": "Previous appointments",
         "noAppointments": "No appointments found"
       },
-      "doctor": {},
+      "doctor": {
+        "title": "My profile",
+        "appointments": "Appointments",
+        "calendar": "Calendar",
+        "speciality": "Speciality"
+      },
       "personalInfo": "Personal data",
       "dateOfBirth": "Date of birth",
       "phoneNumber": "Phone number",

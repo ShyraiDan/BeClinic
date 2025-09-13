@@ -23,6 +23,8 @@ interface DoctorProfileProps {
 }
 
 const DoctorProfile = ({ params }: DoctorProfileProps) => {
+  const t = useTranslations('page')
+
   const isLoading = true
   const mockedDoctor = mockedDoctors[0]
 
@@ -55,10 +57,10 @@ const DoctorProfile = ({ params }: DoctorProfileProps) => {
           <P className='px-4 line-clamp-2 text-lg font-bold mt-2'>{mockedDoctor?.doctorName}</P>
         )}
         <div className='w-full'>
-          <H2 className='text-lg mb-4 mt-6'>Особисті дані</H2>
+          <H2 className='text-lg mb-4 mt-6'>{t('profile.personalInfo')}</H2>
           <ul className='flex flex-col gap-3 md:grid md:grid-cols-3 lg:grid-cols-1'>
             <li>
-              <P className='mb-1 text-xs'>Cпеціалізація</P>
+              <P className='mb-1 text-xs'>{t('profile.doctor.speciality')}</P>
               {isLoading ? (
                 <SkeletonText className='h-5 w-[180px] mt-2 mb-1' />
               ) : (
@@ -75,7 +77,7 @@ const DoctorProfile = ({ params }: DoctorProfileProps) => {
               )}
             </li>
             <li>
-              <P className='mb-1 text-xs'>Номер телефону</P>
+              <P className='mb-1 text-xs'>{t('profile.phoneNumber')}</P>
 
               {isLoading ? (
                 <SkeletonText className='h-5 w-[180px] mt-2 mb-1' />
@@ -86,7 +88,7 @@ const DoctorProfile = ({ params }: DoctorProfileProps) => {
           </ul>
         </div>
         <div className='w-full'>
-          <Button className='mt-8 bg-red'>Вийти з акаунту</Button>
+          <Button className='mt-8 bg-red'>{t('profile.leave')}</Button>
         </div>
       </div>
     </div>
@@ -94,8 +96,8 @@ const DoctorProfile = ({ params }: DoctorProfileProps) => {
 }
 
 const tabs = [
-  { id: TABS_ENUM.APPOINTMENTS, label: 'Прийоми', content: <DoctorAppointmentTab /> },
-  { id: TABS_ENUM.CALENDAR, label: 'Календар', content: <DoctorCalendarTab /> }
+  { id: TABS_ENUM.APPOINTMENTS, label: 'profile.doctor.appointments', content: <DoctorAppointmentTab /> },
+  { id: TABS_ENUM.CALENDAR, label: 'profile.doctor.calendar', content: <DoctorCalendarTab /> }
 ]
 
 interface DoctorProfilePageProps {
@@ -107,7 +109,7 @@ const DoctorProfilePage = ({ params }: DoctorProfilePageProps) => {
 
   return (
     <>
-      <PageHeading title='Ваш профіль' />
+      <PageHeading title={t('profile.doctor.title')} />
       <Container className='lg:grid lg:grid-cols-[1fr_270px] lg:gap-4 xl:grid-cols-[1fr_320px]'>
         <div className='mb-[30px] lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:mb-0'>
           <DoctorProfile params={params} />
