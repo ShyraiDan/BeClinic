@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 
 import { DoctorAppointmentTab } from '@/components/doctorTabs/DoctorAppointmentTab'
 import { DoctorCalendarTab } from '@/components/doctorTabs/DoctorCalendarTab'
+import { EditDoctorModal } from '@/components/modals/EditDoctorModal/EditDoctorModal'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { SkeletonAvatar } from '@/components/skeletons/SkeletonAvatar'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
@@ -12,7 +13,6 @@ import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { H2, H6, P } from '@/components/ui/typography'
 import { mockedDoctors } from '@/mocks/mockedDoctors'
-import { EditDoctorModal } from '@/components/modals/EditDoctorModal/EditDoctorModal'
 
 const TABS_ENUM = {
   APPOINTMENTS: 'appointments',
