@@ -471,7 +471,10 @@ declare const messages: {
   },
   "modals": {
     "editPatient": {
-      "title": "Edit patient"
+      "title": "Edit profile"
+    },
+    "editDoctor": {
+      "title": "Edit profile"
     },
     "deleteBlog": {
       "title": "Delete blog",

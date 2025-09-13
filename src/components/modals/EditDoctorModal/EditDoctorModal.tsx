@@ -24,7 +24,7 @@ export const EditDoctorModal = ({ doctor }: EditDoctorModalProps) => {
         </Button>
       }>
       <DialogHeader>
-        <DialogTitle>{t('editPatient.title')}</DialogTitle>
+        <DialogTitle>{t('editDoctor.title')}</DialogTitle>
       </DialogHeader>
       <EditDoctorForm doctor={doctor} />
     </StyledModal>
