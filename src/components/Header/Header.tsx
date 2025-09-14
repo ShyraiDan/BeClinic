@@ -8,6 +8,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { HeaderBurger } from '@/components/HeaderBurger/HeaderBurger'
 import { AuthModal } from '@/components/modals/AuthModal/AuthModal'
+import LanguageModal from '@/components/modals/LanguageModal/LanguageModal'
 import { StyledLink } from '@/components/ui/styledLink'
 import { cn } from '@/lib/utils'
 
@@ -112,6 +113,9 @@ export const Header = () => {
           </div>
 
           <div className='flex items-center gap-4 ml-4'>
+            <div className='ml-2'>
+              <LanguageModal />
+            </div>
             <AuthModal />
 
             {/* <StyledLinkButton variant='outline-white' href='#' className='hover:bg-blue-200 hover:border-blue-200'>
