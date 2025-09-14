@@ -38,7 +38,6 @@ interface RootLayoutProps {
 const RootLayout = async ({ children }: RootLayoutProps) => {
   const locale = await getLocale()
   const messages = await getMessages()
-
   setRequestLocale(locale)
 
   return (
@@ -46,7 +45,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
       <body className={`${roboto.variable} ${jost.variable} bg-[#f7f7f7] antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
-          {children}
+          <main>{children}</main>
           <Footer />
         </NextIntlClientProvider>
       </body>

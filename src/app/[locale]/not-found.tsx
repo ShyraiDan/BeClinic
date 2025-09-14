@@ -9,7 +9,7 @@ import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { H1, P } from '@/components/ui/typography'
 import { useRouter } from '@/i18n/navigation'
 
-export default function NotFoundPage() {
+const NotFoundPage = () => {
   const router = useRouter()
 
   const t = useTranslations('page')
@@ -45,3 +45,5 @@ export default function NotFoundPage() {
     </>
   )
 }
+
+export default NotFoundPage
