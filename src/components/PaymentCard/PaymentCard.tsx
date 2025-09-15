@@ -3,7 +3,7 @@ import { enUS } from 'date-fns/locale'
 import { useTranslations } from 'next-intl'
 
 import { H6, P } from '@/components/ui/typography'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/utils'
 import { SupportedLocales, Payment } from '@/shared/types'
 import { dateLocaleMap } from '@/utils/dateLocaleMap'
 

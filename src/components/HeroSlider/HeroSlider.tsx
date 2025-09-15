@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { H2, H6 } from '@/components/ui/typography'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/utils'
 
 import 'swiper/css'
 import 'swiper/css/navigation'

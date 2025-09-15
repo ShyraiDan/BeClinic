@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import Link from 'next/link'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/utils'
 
 const styledLinkVariants = cva('flex font-primary text-blue-300 transition-all duration-300 ease-in-out ', {
   variants: {

@@ -1,6 +1,6 @@
 import { ComponentProps } from 'react'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/utils'
 
 export const H1 = ({ children, className }: ComponentProps<'h1'>) => {
   return <h1 className={cn('font-bold font-primary text-[22px] text-primary xl:text-[36px]', className)}>{children}</h1>
