@@ -18,7 +18,7 @@ export const PaymentCard = ({ payment, isUnPayed, locale }: PaymentCardProps) =>
   const t = useTranslations('page')
 
   return (
-    <div className='flex shadow-custom-right bg-white w-full'>
+    <div className='flex inset-shadow-profile bg-white w-full'>
       <div className={cn('w-2 bg-blue-100', isUnPayed && 'bg-orange-400')} />
       <div className='py-4 pr-4 pl-3 flex flex-col w-full'>
         <H6>

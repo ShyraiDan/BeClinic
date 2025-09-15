@@ -34,7 +34,7 @@ const DepartmentsItem = ({ item }: { item: Department }) => {
   const t = useTranslations('page')
 
   return (
-    <div className='mx-4 px-2.5 mt-4 pt-[27px] pb-[30px] flex flex-col items-center justify-center transition duration-300 hover:shadow-doctor-card'>
+    <div className='mx-4 px-2.5 mt-4 pt-[27px] pb-[30px] flex flex-col items-center justify-center'>
       <Image src={item.icon} alt={item.title} className='mb-4' width={90} height={90} />
       <H6 className='mt-4 mb-2.5 text-xl text-center'>{t(item.title)}</H6>
       <P className='text-black-200 font-light text-center'>{t(item.description)}</P>

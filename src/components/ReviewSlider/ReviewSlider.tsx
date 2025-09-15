@@ -38,7 +38,7 @@ export const ReviewSlider = ({ reviews }: ReviewSliderProps) => {
         {reviews.map((item) => {
           return (
             <SwiperSlide key={item._id}>
-              <div className='bg-white shadow-custom-right p-4 mb-12 h-[260px] flex flex-col justify-between'>
+              <div className='bg-white inset-shadow-profile p-4 mb-12 h-[260px] flex flex-col justify-between'>
                 <P className='mb-5 text-[#42474C] italic text-[20px] line-clamp-3'>{item.review}</P>
                 <div className='flex'>
                   <Image
