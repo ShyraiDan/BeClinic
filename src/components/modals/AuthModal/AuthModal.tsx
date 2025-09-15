@@ -1,4 +1,7 @@
+'use client'
+
 import Image from 'next/image'
+import { SessionProvider } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction, useState } from 'react'
 
@@ -189,7 +192,9 @@ export const AuthModal = () => {
               className='absolute -top-6 -left-6 -bottom-6 w-full h-[700px] rounded-l-lg'
             />
           </div>
-          <FormComponent modalType={modalType} setModalType={setModalType} />
+          <SessionProvider>
+            <FormComponent modalType={modalType} setModalType={setModalType} />
+          </SessionProvider>
         </div>
       </div>
     </StyledModal>

@@ -1,10 +1,13 @@
 import { Jost, Roboto } from 'next/font/google'
+import { SessionProvider } from 'next-auth/react'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages, setRequestLocale } from 'next-intl/server'
 import { ReactNode } from 'react'
 
+import { auth } from '@/auth'
 import Footer from '@/components/Footer/Footer'
 import { Header } from '@/components/Header/Header'
+import { Toaster } from '@/components/ui/sonner'
 
 import type { Metadata } from 'next'
 
@@ -39,15 +42,20 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
   const locale = await getLocale()
   const messages = await getMessages()
   setRequestLocale(locale)
+  const session = await auth()
 
   return (
     <html lang={locale}>
       <body className={`${roboto.variable} ${jost.variable} bg-[#f7f7f7] antialiased`}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </NextIntlClientProvider>
+        <SessionProvider session={session}>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <Header session={session} />
+            <main>{children}</main>
+            <Footer />
+
+            <Toaster richColors />
+          </NextIntlClientProvider>
+        </SessionProvider>
       </body>
     </html>
   )

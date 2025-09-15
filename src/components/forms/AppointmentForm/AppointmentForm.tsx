@@ -17,10 +17,10 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { TextArea } from '@/components/ui/textarea'
 import { P } from '@/components/ui/typography'
-import { cn } from '@/utils/utils'
 import { doctorSpecialties } from '@/mocks/shared'
 import { appointmentFormValuesSchema } from '@/shared/schemas'
 import { Appointment, AppointmentFormValues, SelectOption, SupportedLocales } from '@/shared/types'
+import { cn } from '@/utils/utils'
 
 // TODO: Add validation
 

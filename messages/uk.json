@@ -5,7 +5,9 @@
       "doctors": "Лікарі",
       "blog": "Блог",
       "contacts": "Контакти",
-      "faqs": "ЧАПи"
+      "faqs": "ЧАПи",
+      "appointment": "Візити до лікаря",
+      "analyzes": "Аналізи"
     },
     "button": { "signIn": "Увійти" }
   },
@@ -465,7 +467,24 @@
     "delete": "Видалити",
     "edit": "Редагувати",
     "save": "Зберегти",
-    "create": "Створити"
+    "create": "Створити",
+    "validation": {
+      "userExists": "Користувач вже існує",
+      "unexpectedError": "Невідома помилка. Будь ласка, спробуєте ще раз",
+      "passwordRequired": "Пароль є обов'язковим",
+      "emailRequired": "Електронна пошта є обов'язковим полем",
+      "emailInvalid": "Введіть існуючу електронну пошту",
+      "passwordMinLength": "Пароль повинен містити не менше 8 символів",
+      "passwordMaxLength": "Пароль повинен містити не більше 20 символів",
+      "confirmPasswordMismatch": "Паролі повинні співпадати",
+      "verificationCodeMismatch": "Код перевірки не співпадає",
+      "verificationCodeRequired": "Код перевірки є обов'язковим",
+      "positionRequired": "Спеціальність є обов'язковою",
+      "phoneRequired": "Номер телефону є обов'язковим",
+      "nameRequired": "Ім'я користувача є обов'язковим полем",
+      "nameMinLength": "Ім'я користувача повинно містити не менше 3 символів",
+      "nameMaxLength": "Ім'я користувача повинно містити не більше 20 символів"
+    }
   },
   "modals": {
     "editPatient": {

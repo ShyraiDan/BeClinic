@@ -1,5 +1,6 @@
 'use client'
 
+import { User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -10,12 +11,19 @@ import { HeaderBurger } from '@/components/HeaderBurger/HeaderBurger'
 import { AuthModal } from '@/components/modals/AuthModal/AuthModal'
 import LanguageModal from '@/components/modals/LanguageModal/LanguageModal'
 import { StyledLink } from '@/components/ui/styledLink'
+import { UserRoles } from '@/shared/types'
 import { cn } from '@/utils/utils'
 
-const HEADER_ANIMATION_HEIGHT = 220
-const HEADER_ANIMATION_HEIGHT_HERO = 550
+import type { Session } from 'next-auth'
 
-const links: { id: string; href: string; label: string; prefetch?: boolean }[] = [
+interface HeaderLinkProps {
+  id?: string
+  href: string
+  label: string
+  prefetch?: boolean
+}
+
+const links: HeaderLinkProps[] = [
   {
     id: 'header-link-1',
     href: '/doctors',
@@ -38,10 +46,35 @@ const links: { id: string; href: string; label: string; prefetch?: boolean }[] =
   }
 ]
 
-export const Header = () => {
+interface HeaderProps {
+  session: Session | null
+}
+
+const HeaderLink = ({ id, href, label, prefetch, currentPath }: HeaderLinkProps & { currentPath: string }) => {
   const t = useTranslations('header')
+
+  return (
+    <li className='p-2.5 flex' key={id}>
+      <StyledLink
+        prefetch={prefetch}
+        href={href}
+        className={cn(
+          'text-white text-lg hover:text-blue-400 transition-all duration-300 ease-in-out',
+          currentPath === href && 'text-blue-400'
+        )}>
+        {t(label)}
+      </StyledLink>
+    </li>
+  )
+}
+
+const HEADER_ANIMATION_HEIGHT = 220
+const HEADER_ANIMATION_HEIGHT_HERO = 550
+
+export const Header = ({ session }: HeaderProps) => {
   const path = usePathname()
   const [scrolled, setScrolled] = useState(false)
+  const isPatient = session?.user?.role === UserRoles.PATIENT
 
   const threshold = useMemo(() => (path === '/' ? HEADER_ANIMATION_HEIGHT_HERO : HEADER_ANIMATION_HEIGHT), [path])
 
@@ -97,17 +130,23 @@ export const Header = () => {
 
           <div className='hidden lg:block'>
             <ul className='flex items-center gap-5'>
-              {links.map(({ id, label, href }) => (
-                <li className='p-2.5 flex' key={id}>
-                  <StyledLink
-                    href={href}
-                    className={cn(
-                      'text-white text-lg hover:text-blue-400 transition-all duration-300 ease-in-out',
-                      path === href && 'text-blue-400'
-                    )}>
-                    {t(label)}
-                  </StyledLink>
-                </li>
+              {isPatient && (
+                <>
+                  <HeaderLink
+                    href={`/mycabinet/patient/${session.user.id}?tab=appointments`}
+                    label='links.appointment'
+                    currentPath={path}
+                  />
+                  <HeaderLink
+                    href={`/mycabinet/patient/${session.user.id}?tab=analyzes`}
+                    label='links.analyzes'
+                    currentPath={path}
+                  />
+                </>
+              )}
+
+              {links.map((link) => (
+                <HeaderLink key={link.id} {...link} currentPath={path} />
               ))}
             </ul>
           </div>
@@ -116,14 +155,33 @@ export const Header = () => {
             <div className='ml-2'>
               <LanguageModal />
             </div>
-            <AuthModal />
+            {session ? (
+              <Link href={`/mycabinet/${session.user.role}/${session.user.id}?tab=appointments`}>
+                {/* {session.image ? (
+                  <Image
+                    src={`${BUCKET_URL}/custom/avatars/${session.image}`}
+                    alt='user avatar'
+                    className='w-10 h-10 rounded-full'
+                    width={40}
+                    height={40}
+                    unoptimized
+                  />
+                ) : (
+                  <div className='w-10 h-10 flex items-center justify-center bg-white rounded-full'>
+                    <FaUser className='fill-blue-100' />
+                  </div>
+                )} */}
 
-            {/* <StyledLinkButton variant='outline-white' href='#' className='hover:bg-blue-200 hover:border-blue-200'>
-              {t('button.signIn')}
-            </StyledLinkButton> */}
+                <div className='w-10 h-10 flex items-center justify-center bg-white rounded-full'>
+                  <User className='text-blue-100' />
+                </div>
+              </Link>
+            ) : (
+              <AuthModal />
+            )}
 
             <div className='lg:hidden'>
-              <HeaderBurger />
+              <HeaderBurger session={session} />
             </div>
           </div>
         </div>

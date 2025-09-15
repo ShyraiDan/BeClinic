@@ -16,9 +16,9 @@ import CalendarAppointmentCard from '@/components/CalendarAppointmentCard/Calend
 import { AppointmentInfoModal } from '@/components/modals/AppointmentInfoModal/AppointmentInfoModal'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { H6, P } from '@/components/ui/typography'
-import { cn } from '@/utils/utils'
 import { mockedAppointment } from '@/mocks/mockedAppointment'
 import { Appointment, SupportedLocales } from '@/shared/types'
+import { cn } from '@/utils/utils'
 
 export const DoctorCalendarTab = () => {
   const t = useTranslations('page')

@@ -5,19 +5,24 @@ import { Eye, EyeOff } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
+import { handleCredentialLogin } from '@/app/actions'
 import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useRouter } from '@/i18n/navigation'
 import { patientSignInFormValuesSchema } from '@/shared/schemas'
-import { PatientSignInFormValues } from '@/shared/types'
+import { PatientSignInFormValues, UserRoles } from '@/shared/types'
 
 export const PatientSignInForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const t = useTranslations('forms')
 
-  const { handleSubmit, control, reset } = useForm<PatientSignInFormValues>({
+  const router = useRouter()
+
+  const { handleSubmit, control } = useForm<PatientSignInFormValues>({
     mode: 'onSubmit',
     resolver: zodResolver(patientSignInFormValuesSchema),
     defaultValues: {
@@ -26,7 +31,36 @@ export const PatientSignInForm = () => {
     }
   })
 
-  const onSubmit: SubmitHandler<PatientSignInFormValues> = async (values) => {}
+  const onSubmit: SubmitHandler<PatientSignInFormValues> = async (values) => {
+    try {
+      const formData = new FormData()
+
+      Object.entries({
+        email: values.email,
+        password: values.password,
+        role: UserRoles.PATIENT
+      }).forEach(([key, value]) => {
+        formData.append(key, value)
+      })
+
+      const response = await handleCredentialLogin(formData)
+
+      if (!response.ok && response.error) {
+        toast.error(t(response.error.message))
+        return
+      }
+
+      if (response.ok) {
+        router.refresh()
+      }
+    } catch (error) {
+      console.error(error)
+
+      if (error instanceof Error) {
+        toast.error(t(error.message))
+      }
+    }
+  }
 
   return (
     <form className='mt-5' onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
@@ -38,7 +72,7 @@ export const PatientSignInForm = () => {
             <Label htmlFor='email'>{t('authForm.email.label')}</Label>
             <Input id='email' type='email' placeholder='example@example.com' {...field} />
 
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />
@@ -69,7 +103,7 @@ export const PatientSignInForm = () => {
               </span>
             </div>
 
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />

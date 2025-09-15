@@ -6,13 +6,13 @@ import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { StyledLink } from '@/components/ui/styledLink'
 import { H1, P, H5 } from '@/components/ui/typography'
 import { Link } from '@/i18n/navigation'
-import { cn } from '@/utils/utils'
 import {
   mockedContactsItems,
   mockedAdvantageItems,
   mockedOfficeItems,
   mockedWorkingHours
 } from '@/mocks/ContactsPage.mock'
+import { cn } from '@/utils/utils'
 
 import type { ContactsItem, ContactsOfficeItem, ContactsAdvantageItem, WorkingHoursItem } from '@/shared/types'
 

@@ -8,7 +8,9 @@ declare const messages: {
       "doctors": "Doctors",
       "blog": "Blog",
       "contacts": "Contacts",
-      "faqs": "FAQs"
+      "faqs": "FAQs",
+      "appointment": "Appointments",
+      "analyzes": "Analyzes"
     },
     "button": { "signIn": "Sign in" }
   },
@@ -468,7 +470,24 @@ declare const messages: {
     "delete": "Delete",
     "edit": "Edit",
     "save": "Save",
-    "create": "Create"
+    "create": "Create",
+    "validation": {
+      "userExists": "User already exists",
+      "unexpectedError": "Unexpected error. Please try again",
+      "passwordRequired": "Password is required",
+      "emailRequired": "Email is required field",
+      "emailInvalid": "Email is not valid",
+      "passwordMinLength": "Password must be at least 8 characters",
+      "passwordMaxLength": "Password must be less than 20 characters",
+      "confirmPasswordMismatch": "Passwords must be equal",
+      "verificationCodeMismatch": "Verification code is not valid",
+      "verificationCodeRequired": "Verification code is required",
+      "positionRequired": "Speciality is required field",
+      "phoneRequired": "Phone is required field",
+      "nameRequired": "User name is required field",
+      "nameMinLength": "User name must be at least 3 characters",
+      "nameMaxLength": "User name must be less than 20 characters"
+    }
   },
   "modals": {
     "editPatient": {

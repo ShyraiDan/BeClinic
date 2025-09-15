@@ -165,31 +165,91 @@ export const reviewSchema = z.object({
 })
 
 export const patientSignInFormValuesSchema = z.object({
-  email: z.string(),
-  password: z.string()
+  email: z.email('validation.emailInvalid').nonempty('validation.emailRequired'),
+  password: z
+    .string()
+    .nonempty('validation.passwordRequired')
+    .min(8, 'validation.passwordMinLength')
+    .max(20, 'passwordMaxLength')
 })
 
-export const patientSignUpFormValuesSchema = z.object({
-  email: z.string(),
-  userName: z.string(),
-  password: z.string(),
-  confirmPassword: z.string()
-})
+export const patientSignUpFormValuesSchema = z
+  .object({
+    email: z.email('validation.emailInvalid').nonempty('validation.emailRequired'),
+    userName: z
+      .string()
+      .nonempty('validation.nameRequired')
+      .min(3, 'validation.nameMinLength')
+      .max(50, 'validation.nameMaxLength'),
+    password: z
+      .string()
+      .nonempty('validation.passwordRequired')
+      .min(8, 'validation.passwordMinLength')
+      .max(20, 'validation.passwordMaxLength'),
+    confirmPassword: z
+      .string()
+      .nonempty('validation.passwordRequired')
+      .min(8, 'validation.passwordMinLength')
+      .max(20, 'validation.passwordMaxLength')
+  })
+  .superRefine(({ password, confirmPassword }, ctx) => {
+    if (password !== confirmPassword) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['confirmPassword'],
+        message: 'validation.confirmPasswordMismatch'
+      })
+    }
+  })
 
 export const doctorSignInFormValuesSchema = z.object({
-  email: z.string(),
-  password: z.string()
+  email: z.email('validation.emailInvalid').nonempty('validation.emailRequired'),
+  password: z
+    .string()
+    .nonempty('validation.passwordRequired')
+    .min(8, 'validation.passwordMinLength')
+    .max(20, 'validation.passwordMaxLength')
 })
 
-export const doctorSignUpFormValuesSchema = z.object({
-  email: z.string(),
-  doctorName: z.string(),
-  password: z.string(),
-  confirmPassword: z.string(),
-  verificationCode: z.string(),
-  position: z.string(),
-  phone: z.string()
-})
+export const doctorSignUpFormValuesSchema = z
+  .object({
+    email: z.email('validation.emailInvalid').nonempty('validation.emailRequired'),
+    doctorName: z
+      .string()
+      .nonempty('validation.nameRequired')
+      .min(3, 'validation.nameMinLength')
+      .max(50, 'validation.nameMaxLength'),
+    password: z
+      .string()
+      .nonempty('validation.passwordRequired')
+      .min(8, 'validation.passwordMinLength')
+      .max(20, 'validation.passwordMaxLength'),
+    confirmPassword: z
+      .string()
+      .nonempty('validation.passwordRequired')
+      .min(8, 'validation.passwordMinLength')
+      .max(20, 'validation.passwordMaxLength'),
+    verificationCode: z.string().nonempty('validation.verificationCodeRequired'),
+    position: z.string().nonempty('pvalidation.ositionRequired'),
+    phone: z.string().nonempty('validation.phoneRequired')
+  })
+  .superRefine(({ password, confirmPassword, verificationCode }, ctx) => {
+    if (password !== confirmPassword) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['confirmPassword'],
+        message: 'validation.confirmPasswordMismatch'
+      })
+    }
+
+    if (verificationCode !== process.env.NEXT_PUBLIC_DOCTOR_SIGNUP_VERIFICATION_CODE) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['verificationCode'],
+        message: 'validation.verificationCodeMismatch'
+      })
+    }
+  })
 
 export const editPatientFormValuesSchema = patientSchema.pick({
   email: true,
@@ -213,4 +273,9 @@ export const editDoctorFormValuesSchema = doctorSchema.pick({
   position: true,
   image: true,
   phone: true
+})
+
+export const dbErrorSchema = z.object({
+  code: z.string(),
+  message: z.string()
 })

@@ -39,6 +39,7 @@
     "mongoose": "^8.18.0",
     "nanoid": "^5.1.5",
     "next": "15.3.4",
+    "next-auth": "^5.0.0-beta.29",
     "next-intl": "^4.1.0",
     "react": "^19.0.0",
     "react-day-picker": "^9.9.0",
@@ -54,6 +55,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/bcrypt": "^6.0.0",
     "@types/google.maps": "^3.58.1",
     "@types/node": "^20",
     "@types/react": "^19",
