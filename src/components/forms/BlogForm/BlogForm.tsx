@@ -83,13 +83,12 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
                   src=""
                 />
               ) : (
-                <ImageIcon className='dark:fill-grey-600' />
+                <ImageIcon  />
               )} */}
-              <ImageIcon className='dark:fill-grey-600' />
+              <ImageIcon />
               <div className='flex items-center justify-center absolute right-[-25px] top-0'>
                 <Pencil
                   size={16}
-                  className='dark:fill-grey-600'
                   onClick={() => {
                     setIsEditImage(true)
                   }}
