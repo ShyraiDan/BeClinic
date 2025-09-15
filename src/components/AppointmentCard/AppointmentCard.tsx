@@ -3,9 +3,9 @@ import { enUS } from 'date-fns/locale'
 import Link from 'next/link'
 
 import { H6, P } from '@/components/ui/typography'
-import { cn } from '@/utils/utils'
 import { Appointment, SupportedLocales } from '@/shared/types'
 import { dateLocaleMap } from '@/utils/dateLocaleMap'
+import { cn } from '@/utils/utils'
 
 interface AppointmentCardProps {
   appointment: Appointment

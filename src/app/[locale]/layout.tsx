@@ -5,6 +5,7 @@ import { ReactNode } from 'react'
 
 import Footer from '@/components/Footer/Footer'
 import { Header } from '@/components/Header/Header'
+import { Toaster } from '@/components/ui/sonner'
 
 import type { Metadata } from 'next'
 
@@ -47,6 +48,8 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
           <Header />
           <main>{children}</main>
           <Footer />
+
+          <Toaster richColors />
         </NextIntlClientProvider>
       </body>
     </html>

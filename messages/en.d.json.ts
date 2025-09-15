@@ -468,7 +468,12 @@ declare const messages: {
     "delete": "Delete",
     "edit": "Edit",
     "save": "Save",
-    "create": "Create"
+    "create": "Create",
+    "validation": {
+      "userExists": "User already exists",
+      "unexpectedError": "Unexpected error. Please try again",
+      "passwordRequired": "Password is required"
+    }
   },
   "modals": {
     "editPatient": {

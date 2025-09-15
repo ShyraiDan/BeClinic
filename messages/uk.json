@@ -465,7 +465,12 @@
     "delete": "Видалити",
     "edit": "Редагувати",
     "save": "Зберегти",
-    "create": "Створити"
+    "create": "Створити",
+    "validation": {
+      "userExists": "Користувач вже існує",
+      "unexpectedError": "Невідома помилка. Будь ласка, спробуєте ще раз",
+      "passwordRequired": "Пароль є обов'язковим"
+    }
   },
   "modals": {
     "editPatient": {

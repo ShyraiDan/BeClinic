@@ -5,19 +5,21 @@ import { Eye, EyeOff } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { Controller, useForm, type SubmitHandler } from 'react-hook-form'
+import { toast } from 'sonner'
 
+import { handlePatientSignUp } from '@/app/actions'
 import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { patientSignUpFormValuesSchema } from '@/shared/schemas'
-import { PatientSignUpFormValues } from '@/shared/types'
+import { PatientSignUpFormValues, UserRoles } from '@/shared/types'
 
 export const PatientSignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const t = useTranslations('forms')
 
-  const { handleSubmit, control, reset } = useForm<PatientSignUpFormValues>({
+  const { handleSubmit, control } = useForm<PatientSignUpFormValues>({
     mode: 'onSubmit',
     resolver: zodResolver(patientSignUpFormValuesSchema),
     defaultValues: {
@@ -28,7 +30,35 @@ export const PatientSignUpForm = () => {
     }
   })
 
-  const onSubmit: SubmitHandler<PatientSignUpFormValues> = async (values) => {}
+  const onSubmit: SubmitHandler<PatientSignUpFormValues> = async (values) => {
+    try {
+      const formData = new FormData()
+
+      Object.entries({
+        userName: values.userName,
+        email: values.email,
+        password: values.password,
+        role: UserRoles.PATIENT
+      }).forEach(([key, value]) => {
+        formData.append(key, value)
+      })
+
+      const res = await handlePatientSignUp(formData)
+
+      if (!res.ok && res.error) {
+        console.log('here', res.error)
+
+        toast.error(t(res.error.message))
+        return
+      }
+    } catch (error) {
+      console.error(error)
+
+      if (error instanceof Error) {
+        toast.error(t(error.message))
+      }
+    }
+  }
 
   return (
     <form className='mt-5' onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
