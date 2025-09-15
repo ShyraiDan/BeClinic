@@ -25,8 +25,17 @@ export const handleCredentialLogin = async (
     })
 
     return { ok: true }
-  } catch (err) {
-    throw new Error('Login or password incorrect')
+  } catch (error) {
+    console.error(error)
+
+    const { code } = mapMongoError(error)
+
+    switch (code) {
+      case 'DUPLICATE_KEY':
+        return { ok: false, error: { message: 'validation.userExists' } }
+    }
+
+    return { ok: false, error: { message: 'validation.unexpectedError' } }
   }
 }
 

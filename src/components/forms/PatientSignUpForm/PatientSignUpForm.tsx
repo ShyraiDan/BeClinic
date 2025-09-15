@@ -49,13 +49,11 @@ export const PatientSignUpForm = () => {
       const res = await handlePatientSignUp(formData)
 
       if (!res.ok && res.error) {
-        console.log('here', res.error)
-
         toast.error(t(res.error.message))
         return
       }
 
-      if (res?.ok) {
+      if (res.ok) {
         router.refresh()
       }
     } catch (error) {

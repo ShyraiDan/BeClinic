@@ -5,6 +5,7 @@ import { Eye, EyeOff } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import { handleCredentialLogin } from '@/app/actions'
 import { Button } from '@/components/ui/button'
@@ -44,10 +45,21 @@ export const PatientSignInForm = () => {
 
       const response = await handleCredentialLogin(formData)
 
+      if (!response.ok && response.error) {
+        toast.error(t(response.error.message))
+        return
+      }
+
       if (response.ok) {
         router.refresh()
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error(error)
+
+      if (error instanceof Error) {
+        toast.error(t(error.message))
+      }
+    }
   }
 
   return (
