@@ -10,7 +10,7 @@ import { HeaderBurger } from '@/components/HeaderBurger/HeaderBurger'
 import { AuthModal } from '@/components/modals/AuthModal/AuthModal'
 import LanguageModal from '@/components/modals/LanguageModal/LanguageModal'
 import { StyledLink } from '@/components/ui/styledLink'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/utils'
 
 const HEADER_ANIMATION_HEIGHT = 220
 const HEADER_ANIMATION_HEIGHT_HERO = 550

@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/utils'
 
 export const TextArea = ({ children, className, rows = 5, ...props }: React.ComponentProps<'textarea'>) => {
   return (

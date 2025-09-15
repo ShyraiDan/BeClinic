@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { BurgerMenu } from '@/components/ui/burgerMenu'
 import { Button } from '@/components/ui/button'
 import { StyledLink } from '@/components/ui/styledLink'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/utils'
 import { removeScrollBar } from '@/utils/removeScrollBar'
 
 interface BurgerMenuContentProps {

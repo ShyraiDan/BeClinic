@@ -6,7 +6,7 @@ import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { StyledLink } from '@/components/ui/styledLink'
 import { H1, P, H5 } from '@/components/ui/typography'
 import { Link } from '@/i18n/navigation'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/utils'
 import {
   mockedContactsItems,
   mockedAdvantageItems,

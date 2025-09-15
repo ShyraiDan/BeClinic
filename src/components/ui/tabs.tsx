@@ -3,7 +3,7 @@
 import * as TabsPrimitive from '@radix-ui/react-tabs'
 import * as React from 'react'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/utils'
 
 const Tabs = ({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Root>) => {
   return <TabsPrimitive.Root data-slot='tabs' className={cn('flex flex-col gap-2', className)} {...props} />
@@ -24,7 +24,7 @@ const TabsTrigger = ({ className, ...props }: React.ComponentProps<typeof TabsPr
     <TabsPrimitive.Trigger
       data-slot='tabs-trigger'
       className={cn(
-        "data-[state=active]:bg-background dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 border border-transparent font-medium whitespace-nowrap focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 min-w-[168px] w-full px-4 py-2 bg-transparent border-none transition-all duration-300 ease-in-out text-black text-base rounded-none h-10 hover:bg-[#2a93c91a] data-[state=active]:bg-blue-100 data-[state=active]:text-white data-[state=active]:hover:bg-blue-100",
+        "data-[state=active]:bg-background dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex flex-1 items-center justify-center gap-1.5 border border-transparent font-medium whitespace-nowrap focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 min-w-[168px] w-full px-4 py-2 bg-transparent border-none transition-all duration-300 ease-in-out text-black text-base rounded-none h-10 cursor-pointer hover:bg-[#2a93c91a] data-[state=active]:bg-blue-100 data-[state=active]:text-white data-[state=active]:hover:bg-blue-100 data-[state=active]:cursor-default",
         className
       )}
       {...props}

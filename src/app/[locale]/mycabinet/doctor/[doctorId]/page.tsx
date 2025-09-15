@@ -89,7 +89,7 @@ const DoctorProfile = ({ params }: DoctorProfileProps) => {
           </ul>
         </div>
         <div className='w-full'>
-          <Button className='mt-8 bg-red'>{t('profile.leave')}</Button>
+          <Button className='mt-8 bg-red-100'>{t('profile.leave')}</Button>
         </div>
       </div>
     </div>

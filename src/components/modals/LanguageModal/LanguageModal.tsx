@@ -6,7 +6,7 @@ import { useLocale } from 'next-intl'
 import { useEffect, useRef, useState, useTransition } from 'react'
 
 import { usePathname, useRouter } from '@/i18n/navigation'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/utils'
 
 interface LanguageOptionProps {
   currentLocale: string
