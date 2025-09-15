@@ -115,7 +115,7 @@ export const HeaderBurger = ({ session }: HeaderBurgerProps) => {
           aria-label='Open menu'
           onClick={() => showModal()}
           aria-expanded={isBurgerShow}
-          className='m-0 bg-transparent border-none relative rounded-2xl p-0 w-10 h-10 text-black ml-2 lg:!hidden hover:!bg-[#E6EAF0]'>
+          className='m-0 bg-transparent border-none relative rounded-2xl p-0 w-10 h-10 text-black lg:!hidden hover:text-blue-100'>
           <Menu size={30} className='text-white' />
         </Button>
       }
