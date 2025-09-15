@@ -22,7 +22,7 @@ const DoctorInfo = ({ doctor }: DoctorInfoProps) => {
   const t = useTranslations('page')
 
   return (
-    <div className='bg-white shadow-custom-right px-4 py-[30px]'>
+    <div className='bg-white inset-shadow-profile px-4 py-[30px]'>
       <H3 className='text-black text-[26px] mb-5'>{t('singleDoctorPage.aboutDoctor')}</H3>
       <ul>
         <li className='py-3 border-b border-solid border-[#e1e5e3]'>

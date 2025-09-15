@@ -16,7 +16,7 @@ export const AnalysisCard = ({ analysis, locale }: AnalysisCardProps) => {
 
   return (
     <Link href={`/analyses/${analysis._id}`}>
-      <div className='flex shadow-custom-right bg-white'>
+      <div className='flex inset-shadow-profile bg-white'>
         <div className='w-2 bg-blue-100' />
         <div className='py-4 pr-4 pl-3 flex flex-col'>
           <H6>{analysis.analysisName}</H6>

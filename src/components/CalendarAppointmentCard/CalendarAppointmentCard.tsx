@@ -17,7 +17,7 @@ const CalendarAppointmentCard = ({ locale, event }: CalendarAppointmentCardProps
 
   return (
     <Link href={`/appointments/${event.id}`}>
-      <div className='flex shadow-custom-right bg-white'>
+      <div className='flex inset-shadow-profile bg-white'>
         <div className='w-2 bg-orange-400' />
         <div className='py-4 pr-4 pl-3 flex flex-col'>
           <H6>{event.title}.</H6>

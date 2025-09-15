@@ -24,7 +24,7 @@ const AnalysesCard = ({ analysis, onSelect, selected, locale }: CustomAnalysesCa
   const dateLocale = dateLocaleMap[locale] ?? enUS
 
   return (
-    <div className='flex shadow-custom-right bg-white relative cursor-pointer' onClick={onSelect}>
+    <div className='flex inset-shadow-profile bg-white relative cursor-pointer' onClick={onSelect}>
       <div className='w-2 bg-blue-100' />
       <div className='py-4 pr-4 pl-3 flex flex-col'>
         <H6>{analysis.analysisName}</H6>

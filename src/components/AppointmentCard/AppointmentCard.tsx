@@ -18,7 +18,7 @@ const AppointmentCard = ({ appointment, isIncoming, locale }: AppointmentCardPro
 
   return (
     <Link href={`/appointments/${appointment._id}`}>
-      <div className='flex shadow-custom-right bg-white'>
+      <div className='flex inset-shadow-profile bg-white'>
         <div className={cn('w-2 bg-blue-100', isIncoming && 'bg-orange-400')} />
         <div className='py-4 pr-4 pl-3 flex flex-col'>
           <H6>

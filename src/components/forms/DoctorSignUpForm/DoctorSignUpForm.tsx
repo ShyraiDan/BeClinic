@@ -136,15 +136,9 @@ export const DoctorSignUpForm = () => {
                 onClick={() => setShowPassword((state) => !state)}
                 className='absolute top-2.5 right-2.5 cursor-pointer'>
                 {showPassword ? (
-                  <Eye
-                    size={16}
-                    className='transition-all duration-200 text-grey-700 dark:text-white-100 dark:hover:text-purple-100'
-                  />
+                  <Eye size={16} className='transition-all duration-200 text-grey-700' />
                 ) : (
-                  <EyeOff
-                    size={16}
-                    className='transition-all duration-200 text-grey-700 dark:text-white-100 dark:hover:text-purple-100'
-                  />
+                  <EyeOff size={16} className='transition-all duration-200 text-grey-700' />
                 )}
               </span>
             </div>
@@ -173,15 +167,9 @@ export const DoctorSignUpForm = () => {
                 onClick={() => setShowPassword((state) => !state)}
                 className='absolute top-2.5 right-2.5 cursor-pointer'>
                 {showPassword ? (
-                  <Eye
-                    size={16}
-                    className='transition-all duration-200 text-grey-700 dark:text-white-100 dark:hover:text-purple-100'
-                  />
+                  <Eye size={16} className='transition-all duration-200 text-grey-700' />
                 ) : (
-                  <EyeOff
-                    size={16}
-                    className='transition-all duration-200 text-grey-700 dark:text-white-100 dark:hover:text-purple-100'
-                  />
+                  <EyeOff size={16} className='transition-all duration-200 text-grey-700' />
                 )}
               </span>
             </div>

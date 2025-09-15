@@ -30,7 +30,7 @@ const DoctorProfile = ({ params }: DoctorProfileProps) => {
   const mockedDoctor = mockedDoctors[0]
 
   return (
-    <div className='shadow-custom-right bg-white py-[30px] px-4'>
+    <div className='inset-shadow-profile bg-white py-[30px] px-4'>
       <div className='mt-12 flex flex-col items-center justify-center relative lg:mt-6'>
         {mockedDoctor && <EditDoctorModal doctor={mockedDoctor} />}
 
