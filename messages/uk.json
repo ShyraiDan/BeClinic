@@ -5,7 +5,9 @@
       "doctors": "Лікарі",
       "blog": "Блог",
       "contacts": "Контакти",
-      "faqs": "ЧАПи"
+      "faqs": "ЧАПи",
+      "appointment": "Візити до лікаря",
+      "analyzes": "Аналізи"
     },
     "button": { "signIn": "Увійти" }
   },

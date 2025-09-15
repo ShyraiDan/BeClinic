@@ -6,12 +6,15 @@ import { useState } from 'react'
 import { BurgerMenu } from '@/components/ui/burgerMenu'
 import { Button } from '@/components/ui/button'
 import { StyledLink } from '@/components/ui/styledLink'
+import { UserRoles } from '@/shared/types'
 import { removeScrollBar } from '@/utils/removeScrollBar'
 import { cn } from '@/utils/utils'
 
+import type { Session } from 'next-auth'
+
 interface BurgerMenuContentProps {
   showModal: () => void
-  isAuth: boolean
+  session: Session | null
 }
 
 const links = [
@@ -37,9 +40,10 @@ const links = [
   }
 ]
 
-const BurgerMenuContent = ({ showModal, isAuth }: BurgerMenuContentProps) => {
+const BurgerMenuContent = ({ showModal, session }: BurgerMenuContentProps) => {
   const path = usePathname()
   const t = useTranslations('header')
+  const isPatient = session?.user?.role === UserRoles.PATIENT
 
   return (
     <>
@@ -64,13 +68,39 @@ const BurgerMenuContent = ({ showModal, isAuth }: BurgerMenuContentProps) => {
               </StyledLink>
             </li>
           ))}
+          {isPatient && (
+            <>
+              <li className='py-2.5 flex'>
+                <StyledLink
+                  href={`/mycabinet/patient/${session.user.id}?tab=appointments`}
+                  variant='burger'
+                  className={cn(path === `/mycabinet/patient/${session.user.id}?tab=appointments` && 'text-blue-200')}
+                  onClick={() => showModal()}>
+                  {t('links.appointment')}
+                </StyledLink>
+              </li>
+              <li className='py-2.5 flex'>
+                <StyledLink
+                  href={`/mycabinet/patient/${session.user.id}?tab=analyzes`}
+                  variant='burger'
+                  className={cn(path === `/mycabinet/patient/${session.user.id}?tab=analyzes` && 'text-blue-200')}
+                  onClick={() => showModal()}>
+                  {t('links.analyzes')}
+                </StyledLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </>
   )
 }
 
-export const HeaderBurger = () => {
+interface HeaderBurgerProps {
+  session: Session | null
+}
+
+export const HeaderBurger = ({ session }: HeaderBurgerProps) => {
   const [isBurgerShow, setBurgerShow] = useState(false)
 
   const showModal = () => {
@@ -90,7 +120,7 @@ export const HeaderBurger = () => {
         </Button>
       }
       showModal={showModal}
-      content={<BurgerMenuContent showModal={showModal} isAuth={false} />}
+      content={<BurgerMenuContent showModal={showModal} session={session} />}
       isOpen={isBurgerShow}
     />
   )

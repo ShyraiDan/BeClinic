@@ -134,12 +134,12 @@ export const Header = ({ session }: HeaderProps) => {
                 <>
                   <HeaderLink
                     href={`/mycabinet/patient/${session.user.id}?tab=appointments`}
-                    label='Візити до лікаря'
+                    label='links.appointment'
                     currentPath={path}
                   />
                   <HeaderLink
                     href={`/mycabinet/patient/${session.user.id}?tab=analyzes`}
-                    label='Аналізи'
+                    label='links.analyzes'
                     currentPath={path}
                   />
                 </>
@@ -181,7 +181,7 @@ export const Header = ({ session }: HeaderProps) => {
             )}
 
             <div className='lg:hidden'>
-              <HeaderBurger />
+              <HeaderBurger session={session} />
             </div>
           </div>
         </div>

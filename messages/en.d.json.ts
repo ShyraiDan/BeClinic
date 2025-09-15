@@ -8,7 +8,9 @@ declare const messages: {
       "doctors": "Doctors",
       "blog": "Blog",
       "contacts": "Contacts",
-      "faqs": "FAQs"
+      "faqs": "FAQs",
+      "appointment": "Appointments",
+      "analyzes": "Analyzes"
     },
     "button": { "signIn": "Sign in" }
   },
