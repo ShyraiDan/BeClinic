@@ -12,6 +12,8 @@ import LanguageModal from '@/components/modals/LanguageModal/LanguageModal'
 import { StyledLink } from '@/components/ui/styledLink'
 import { cn } from '@/utils/utils'
 
+import type { Session } from 'next-auth'
+
 const HEADER_ANIMATION_HEIGHT = 220
 const HEADER_ANIMATION_HEIGHT_HERO = 550
 
@@ -38,7 +40,11 @@ const links: { id: string; href: string; label: string; prefetch?: boolean }[] =
   }
 ]
 
-export const Header = () => {
+interface HeaderProps {
+  session: Session | null
+}
+
+export const Header = ({ session }: HeaderProps) => {
   const t = useTranslations('header')
   const path = usePathname()
   const [scrolled, setScrolled] = useState(false)

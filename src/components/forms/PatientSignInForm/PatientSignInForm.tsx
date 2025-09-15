@@ -6,16 +6,20 @@ import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 
+import { handleCredentialLogin } from '@/app/actions'
 import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useRouter } from '@/i18n/navigation'
 import { patientSignInFormValuesSchema } from '@/shared/schemas'
-import { PatientSignInFormValues } from '@/shared/types'
+import { PatientSignInFormValues, UserRoles } from '@/shared/types'
 
 export const PatientSignInForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const t = useTranslations('forms')
+
+  const router = useRouter()
 
   const { handleSubmit, control, reset } = useForm<PatientSignInFormValues>({
     mode: 'onSubmit',
@@ -26,7 +30,25 @@ export const PatientSignInForm = () => {
     }
   })
 
-  const onSubmit: SubmitHandler<PatientSignInFormValues> = async (values) => {}
+  const onSubmit: SubmitHandler<PatientSignInFormValues> = async (values) => {
+    try {
+      const formData = new FormData()
+
+      Object.entries({
+        email: values.email,
+        password: values.password,
+        role: UserRoles.PATIENT
+      }).forEach(([key, value]) => {
+        formData.append(key, value)
+      })
+
+      const response = await handleCredentialLogin(formData)
+
+      if (response.ok) {
+        router.refresh()
+      }
+    } catch (error) {}
+  }
 
   return (
     <form className='mt-5' onSubmit={(e) => void handleSubmit(onSubmit)(e)}>

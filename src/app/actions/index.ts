@@ -13,6 +13,23 @@ export const handleLogout = async () => {
   await signOut({ redirectTo: '/' })
 }
 
+export const handleCredentialLogin = async (
+  formData: FormData
+): Promise<{ ok: boolean; error?: { message: string } }> => {
+  try {
+    await signIn('credentials', {
+      email: formData.get('email'),
+      password: formData.get('password'),
+      role: formData.get('role'),
+      redirect: false
+    })
+
+    return { ok: true }
+  } catch (err) {
+    throw new Error('Login or password incorrect')
+  }
+}
+
 export const handlePatientSignUp = async (
   formData: FormData
 ): Promise<{ ok: boolean; error?: { message: string } }> => {
@@ -38,20 +55,16 @@ export const handlePatientSignUp = async (
       userName: values.userName
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const response = await signIn('credentials', {
+    await signIn('credentials', {
       email: formData.get('email'),
       password: formData.get('password'),
       role: formData.get('role'),
       redirect: false
     })
 
-    console.log('handlePatientSignUp', response)
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return response
+    return { ok: true }
   } catch (error) {
-    console.log('error', error)
+    console.error(error)
 
     const { code } = mapMongoError(error)
 

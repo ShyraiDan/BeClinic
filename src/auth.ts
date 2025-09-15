@@ -19,9 +19,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         role: {}
       },
       async authorize(credentials) {
-        try {
-          if (credentials === null) return null
+        if (credentials === null) return null
 
+        try {
           await connectMongoDB()
 
           if (credentials.role === 'patient') {
@@ -75,7 +75,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user.role === UserRoles.PATIENT) {
+      if (user && user.role === UserRoles.PATIENT) {
         const patient = await PatientModel.findOne({ email: token.email! })
 
         if (!patient) {
@@ -91,7 +91,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       return token
     },
-    session({ session, token }) {
+    async session({ session, token }) {
       return {
         ...session,
         user: {
