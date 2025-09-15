@@ -21,7 +21,7 @@ export const PatientSignInForm = () => {
 
   const router = useRouter()
 
-  const { handleSubmit, control, reset } = useForm<PatientSignInFormValues>({
+  const { handleSubmit, control } = useForm<PatientSignInFormValues>({
     mode: 'onSubmit',
     resolver: zodResolver(patientSignInFormValuesSchema),
     defaultValues: {
@@ -60,7 +60,7 @@ export const PatientSignInForm = () => {
             <Label htmlFor='email'>{t('authForm.email.label')}</Label>
             <Input id='email' type='email' placeholder='example@example.com' {...field} />
 
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />
@@ -91,7 +91,7 @@ export const PatientSignInForm = () => {
               </span>
             </div>
 
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />

@@ -77,7 +77,7 @@ export const PatientSignUpForm = () => {
             <Label htmlFor='email'>{t('authForm.email.label')}</Label>
             <Input id='email' type='email' placeholder='example@example.com' {...field} />
 
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />
@@ -90,7 +90,7 @@ export const PatientSignUpForm = () => {
             <Label htmlFor='userName'>{t('authForm.patientName.label')}</Label>
             <Input id='userName' type='text' placeholder={t('authForm.patientName.placeholder')} {...field} />
 
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />
@@ -121,7 +121,7 @@ export const PatientSignUpForm = () => {
               </span>
             </div>
 
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />
@@ -152,7 +152,7 @@ export const PatientSignUpForm = () => {
               </span>
             </div>
 
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />
