@@ -127,8 +127,6 @@ export const analysesSchema = z.object({
 
 export const appointmentSchema = z.object({
   _id: z.string(),
-  patient: patientSchema,
-  doctor: doctorSchema,
   reason: z.string(),
   startTime: z.string(),
   endTime: z.string(),
@@ -136,6 +134,20 @@ export const appointmentSchema = z.object({
   analyses: z.array(analysesSchema),
   fileName: z.string().optional()
 })
+
+export const patientAppointmentSchema = appointmentSchema
+  .pick({
+    _id: true,
+    reason: true,
+    startTime: true,
+    endTime: true,
+    description: true,
+    analyses: true,
+    fileName: true
+  })
+  .extend({
+    doctor: doctorSchema
+  })
 
 export const paymentSchema = z.object({
   _id: z.string(),

@@ -17,7 +17,7 @@ export const getPatient = async (id: string): Promise<{ ok: boolean; data?: Pati
 
   try {
     await connectMongoDB()
-    const patient = await PatientModel.findById(id)
+    const patient = await PatientModel.findById(id).lean()
 
     return { ok: true, data: JSON.parse(JSON.stringify(patient)) as Patient }
   } catch (error) {
@@ -56,7 +56,7 @@ export const updatePatient = async (
         image: data.image ?? ''
       },
       { new: true }
-    )
+    ).lean()
 
     if (!updatedPatient) return NextResponse.json({ ok: false, error: { message: 'Update failed' } }, { status: 400 })
 

@@ -3,23 +3,36 @@
 import { isAfter, isBefore, parseISO } from 'date-fns'
 import { Plus } from 'lucide-react'
 import { useParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
+import useSWR from 'swr'
 
 import AppointmentCard from '@/components/AppointmentCard/AppointmentCard'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { P, H6 } from '@/components/ui/typography'
-import { mockedAppointment } from '@/mocks/mockedAppointment'
-import { SupportedLocales } from '@/shared/types'
+import { PatientAppointment, SupportedLocales } from '@/shared/types'
+import { fetcher } from '@/utils/fetcher'
 
 export const AppointmentTab = () => {
   const params = useParams()
+  const { data: session } = useSession()
   const { locale } = params
 
   const t = useTranslations('page')
-  const appointments = mockedAppointment
-  const isLoading = false
+
+  const { data: appointments, isLoading } = useSWR<PatientAppointment[]>(
+    `/api/appointments/patient/${session?.user?.id}`,
+    fetcher,
+    {
+      shouldRetryOnError: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      refreshWhenHidden: false,
+      refreshWhenOffline: false
+    }
+  )
 
   const futureAppointments = useMemo(
     () => appointments?.filter((appointment) => isAfter(parseISO(appointment.endTime), new Date())) || [],

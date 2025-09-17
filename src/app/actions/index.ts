@@ -13,6 +13,8 @@ export const handleLogout = async () => {
   await signOut({ redirectTo: '/' })
 }
 
+// TODO: Try to add next response here
+
 export const handleCredentialLogin = async (
   formData: FormData
 ): Promise<{ ok: boolean; error?: { message: string } }> => {
