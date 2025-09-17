@@ -1,6 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { NextResponse } from 'next/server'
 
 import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
@@ -11,7 +12,7 @@ export const getPatient = async (id: string): Promise<{ ok: boolean; data?: Pati
   const session = await auth()
 
   if (session?.user.id !== id) {
-    return { ok: false, error: { message: 'No access' } }
+    return NextResponse.json({ ok: false, error: { message: 'No access' } }, { status: 403 })
   }
 
   try {
@@ -22,7 +23,7 @@ export const getPatient = async (id: string): Promise<{ ok: boolean; data?: Pati
   } catch (error) {
     console.error(error)
 
-    return { ok: false, error: { message: 'Unexpected error' } }
+    return NextResponse.json({ ok: false, error: { message: 'Unexpected error' } }, { status: 500 })
   }
 }
 
@@ -33,7 +34,7 @@ export const updatePatient = async (
   const session = await auth()
 
   if (session?.user.id !== id) {
-    return { ok: false, error: { message: 'No access' } }
+    return NextResponse.json({ ok: false, error: { message: 'No access' } }, { status: 403 })
   }
 
   try {
@@ -57,7 +58,7 @@ export const updatePatient = async (
       { new: true }
     )
 
-    if (!updatedPatient) return { ok: false, error: { message: 'Update failed' } }
+    if (!updatedPatient) return NextResponse.json({ ok: false, error: { message: 'Update failed' } }, { status: 400 })
 
     revalidatePath('[locale]/mycabinet/patient/[id]', 'page')
 
@@ -65,6 +66,6 @@ export const updatePatient = async (
   } catch (error) {
     console.error(error)
 
-    return { ok: false, error: { message: 'Unexpected error' } }
+    return NextResponse.json({ ok: false, error: { message: 'Unexpected error' } }, { status: 500 })
   }
 }

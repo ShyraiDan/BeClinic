@@ -1,6 +1,6 @@
 'use server'
 
-import mongoose, { HydratedDocument, InferSchemaType, Model, Schema } from 'mongoose'
+import { HydratedDocument, InferSchemaType, Model, Schema, models, model } from 'mongoose'
 
 const mongoPatientSchema = new Schema(
   {
@@ -37,5 +37,5 @@ const mongoPatientSchema = new Schema(
 export type Patient = InferSchemaType<typeof mongoPatientSchema>
 export type PatientDoc = HydratedDocument<Patient>
 
-const PatientModel = (mongoose.models.Patients as Model<Patient>) || mongoose.model('Patients', mongoPatientSchema)
+const PatientModel = (models.Patients as Model<Patient>) || model('Patients', mongoPatientSchema)
 export default PatientModel
