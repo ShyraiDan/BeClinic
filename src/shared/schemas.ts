@@ -1,3 +1,4 @@
+import { endOfToday, isAfter } from 'date-fns'
 import { z } from 'zod'
 
 import { SUPPORTED_LOCALES } from '@/shared/constants'
@@ -69,18 +70,35 @@ export const blogFormValuesSchema = blogSchema.pick({
 
 export const patientSchema = z.object({
   _id: z.string(),
-  email: z.email(),
-  userName: z.string(),
-  dateOfBirth: z.string(),
-  phoneNumber: z.string(),
-  bloodType: z.string(),
-  diabetes: z.string(),
-  rhFactor: z.string(),
-  bloodTransfusion: z.string(),
-  intoleranceToMedicines: z.string(),
-  infectiousDiseases: z.string(),
-  surgicalInterventions: z.string(),
-  allergies: z.string(),
+  email: z.email('validation.emailInvalid').nonempty('validation.emailRequired'),
+  userName: z
+    .string()
+    .nonempty('validation.nameRequired')
+    .min(3, 'validation.nameMinLength')
+    .max(50, 'validation.nameMaxLength'),
+  // dateOfBirth: z
+  //   .string()
+  //   .optional()
+  //   .transform((s) => parseISO(s ?? ''))
+  //   .refine((d) => !isAfter(d, endOfToday()), {
+  //     message: 'validation.futureDate'
+  //   }), // ISO string
+
+  dateOfBirth: z
+    .date()
+    .optional()
+    .refine((d) => !isAfter(d ?? new Date(), endOfToday()), {
+      message: 'validation.futureDate'
+    }),
+  phoneNumber: z.string().optional(),
+  bloodType: z.string().optional(),
+  diabetes: z.string().optional(),
+  rhFactor: z.string().optional(),
+  bloodTransfusion: z.string().optional(),
+  intoleranceToMedicines: z.string().optional(),
+  infectiousDiseases: z.string().optional(),
+  surgicalInterventions: z.string().optional(),
+  allergies: z.string().optional(),
   image: z.string().optional()
 })
 

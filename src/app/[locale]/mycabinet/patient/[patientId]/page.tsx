@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import { User } from 'lucide-react'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
@@ -65,7 +66,9 @@ const PatientProfile = async ({ patientId }: PatientProfileProps) => {
             <li>
               <P className='mb-1 text-xs'>{t('profile.dateOfBirth')}</P>
 
-              <H6 className='text-lg'>{patient?.data.dateOfBirth || '-'}</H6>
+              <H6 className='text-lg'>
+                {patient?.data.dateOfBirth ? format(patient?.data.dateOfBirth, 'dd.MM.yyyy') : '-'}
+              </H6>
             </li>
             <li>
               <P className='mb-1 text-xs'>E-mail</P>

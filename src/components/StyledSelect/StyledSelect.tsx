@@ -1,16 +1,18 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Option } from '@/shared/types'
 
-interface StyledSelectProps {
+import type { SelectProps } from '@radix-ui/react-select'
+
+interface StyledSelectProps extends SelectProps {
   placeholder: string
   options: Option[]
   triggerClassName?: string
   disabled?: boolean
 }
 
-export const StyledSelect = ({ options, triggerClassName, placeholder, disabled }: StyledSelectProps) => {
+export const StyledSelect = ({ options, triggerClassName, placeholder, disabled, ...props }: StyledSelectProps) => {
   return (
-    <Select>
+    <Select {...props}>
       <SelectTrigger className={triggerClassName}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

@@ -1,7 +1,8 @@
 'use client'
 
+import { format } from 'date-fns'
 import { ChevronDownIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, ReactNode } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
@@ -10,11 +11,13 @@ import { cn } from '@/utils/utils'
 
 interface StyledDatePickerProps {
   placeholder: string
-  initialDate?: string
+  hintFormat: string
+  initialDate?: Date
   calendarModalStyles?: string
   showOutsideDays?: boolean
   disabled?: boolean
   onChange?: (date: Date) => void
+  errorText?: ReactNode | null
 }
 
 export const StyledDatePicker = ({
@@ -23,7 +26,9 @@ export const StyledDatePicker = ({
   onChange,
   calendarModalStyles,
   showOutsideDays,
-  placeholder
+  placeholder,
+  hintFormat,
+  errorText = null
 }: StyledDatePickerProps) => {
   const [open, setOpen] = useState(false)
   const [date, setDate] = useState<Date | undefined>(initialDate ? new Date(initialDate) : undefined)
@@ -31,7 +36,6 @@ export const StyledDatePicker = ({
   useEffect(() => {
     if (onChange) {
       if (!date) return
-
       onChange(date)
     }
   }, [date, onChange])
@@ -56,6 +60,7 @@ export const StyledDatePicker = ({
             setDate(date)
             setOpen(false)
           }}
+          footer={errorText ?? (date ? `You picked ${format(date, hintFormat)}.` : 'Please pick a date.')}
         />
       </PopoverContent>
     </Popover>

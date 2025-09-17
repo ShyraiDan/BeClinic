@@ -486,7 +486,8 @@ declare const messages: {
       "phoneRequired": "Phone is required field",
       "nameRequired": "User name is required field",
       "nameMinLength": "User name must be at least 3 characters",
-      "nameMaxLength": "User name must be less than 20 characters"
+      "nameMaxLength": "User name must be less than 20 characters",
+      "futureDate": "Date must be in the past"
     }
   },
   "modals": {

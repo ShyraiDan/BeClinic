@@ -1,5 +1,8 @@
+'use client'
+
 import { Pencil } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useState } from 'react'
 
 import { EditPatientForm } from '@/components/forms/EditPatientForm/EditPatientForm'
 import { StyledModal } from '@/components/StyledModal/StyledModal'
@@ -13,12 +16,16 @@ interface EditPatientModalProps {
 
 export const EditPatientModal = ({ patient }: EditPatientModalProps) => {
   const t = useTranslations('modals')
+  const [open, setOpen] = useState(false)
 
   return (
     <StyledModal
+      open={open}
+      onOpenChange={setOpen}
       triggerButton={
         <Button
           variant='icon'
+          onClick={() => setOpen(true)}
           className='absolute top-[-20px] right-0 bg-transparent lg:top-[-25px] p-0 m-0 w-4 h-4 hover:bg-transparent hover:text-blue-200'>
           <Pencil size={16} />
         </Button>
@@ -26,7 +33,7 @@ export const EditPatientModal = ({ patient }: EditPatientModalProps) => {
       <DialogHeader>
         <DialogTitle>{t('editPatient.title')}</DialogTitle>
       </DialogHeader>
-      <EditPatientForm patient={patient} />
+      <EditPatientForm allowedAction={() => setOpen(false)} patient={patient} />
     </StyledModal>
   )
 }
