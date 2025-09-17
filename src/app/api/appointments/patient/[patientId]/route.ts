@@ -2,10 +2,10 @@
 
 import { NextResponse } from 'next/server'
 
+import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import AppointmentModel from '@/shared/models/appointment'
 import { Doctor } from '@/shared/types'
-import { auth } from '@/auth'
 
 interface GetPatientAppointmentsParams {
   patientId: string
@@ -22,8 +22,9 @@ interface GetPatientAppointmentsDbResponse {
   fileName: string
 }
 
-export const GET = async (req: Request, { params }: { params: GetPatientAppointmentsParams }) => {
-  const { patientId } = params
+export const GET = async (req: Request, { params }: { params: Promise<GetPatientAppointmentsParams> }) => {
+  const { patientId } = await params
+
   const session = await auth()
 
   if (!session || session.user.id !== patientId) {
@@ -35,8 +36,6 @@ export const GET = async (req: Request, { params }: { params: GetPatientAppointm
     const appointments = await AppointmentModel.find({ patient: patientId })
       .populate('doctor', 'doctorName position')
       .lean<GetPatientAppointmentsDbResponse[]>()
-
-    console.log('appointments', appointments)
 
     if (!appointments) {
       return NextResponse.json({ ok: false, error: { message: 'Update failed' } }, { status: 404 })
