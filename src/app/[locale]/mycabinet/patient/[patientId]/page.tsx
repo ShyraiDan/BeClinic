@@ -9,8 +9,8 @@ import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { AnalysesTab } from '@/components/patientTabs/AnalysesTab'
 import { AppointmentTab } from '@/components/patientTabs/AppointmentTab'
 import { BillingTab } from '@/components/patientTabs/BillingTab'
+import { SignOutButton } from '@/components/SignOutButton/SignOutButton'
 import { StyledTab } from '@/components/StyledTab/StyledTab'
-import { Button } from '@/components/ui/button'
 import { Container, LoadingContainer } from '@/components/ui/container'
 import { P, H2, H6, H4 } from '@/components/ui/typography'
 import { getPatient } from '@/lib/patient'
@@ -122,7 +122,7 @@ const PatientProfile = async ({ patientId }: PatientProfileProps) => {
           </ul>
         </div>
         <div className='w-full'>
-          <Button className='mt-8 bg-red-100'>{t('profile.leave')}</Button>
+          <SignOutButton />
         </div>
       </div>
     </div>
