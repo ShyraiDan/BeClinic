@@ -28,14 +28,14 @@ interface PatientProfileProps {
 const PatientProfile = async ({ patientId }: PatientProfileProps) => {
   const patient = await getPatient(patientId)
 
-  if (!patient.ok || !patient.data) return notFound()
+  if (!patient) return notFound()
 
   const t = await getTranslations('page')
 
   return (
     <div className='inset-shadow-profile bg-white py-[30px] px-4'>
       <div className='mt-12 flex flex-col items-center justify-center relative lg:mt-6'>
-        {patient.data && <EditPatientModal patient={patient.data} />}
+        {patient && <EditPatientModal patient={patient} />}
 
         <div className='flex items-center justify-center w-[80px] h-[80px] bg-blue-100 rounded-full'>
           <User size={24} className='text-white' />
@@ -58,7 +58,7 @@ const PatientProfile = async ({ patientId }: PatientProfileProps) => {
           </div>
         )} */}
 
-        <P className='px-4 line-clamp-2 text-lg font-bold mt-2'>{patient?.data.userName}</P>
+        <P className='px-4 line-clamp-2 text-lg font-bold mt-2'>{patient.userName}</P>
 
         <div className='w-full'>
           <H2 className='text-lg mb-4 mt-6'>{t('profile.personalInfo')}</H2>
@@ -66,19 +66,17 @@ const PatientProfile = async ({ patientId }: PatientProfileProps) => {
             <li>
               <P className='mb-1 text-xs'>{t('profile.dateOfBirth')}</P>
 
-              <H6 className='text-lg'>
-                {patient?.data.dateOfBirth ? format(patient?.data.dateOfBirth, 'dd.MM.yyyy') : '-'}
-              </H6>
+              <H6 className='text-lg'>{patient.dateOfBirth ? format(patient.dateOfBirth, 'dd.MM.yyyy') : '-'}</H6>
             </li>
             <li>
               <P className='mb-1 text-xs'>E-mail</P>
 
-              <H6 className='text-lg'>{patient?.data.email}</H6>
+              <H6 className='text-lg'>{patient.email}</H6>
             </li>
             <li>
               <P className='mb-1 text-xs'>{t('profile.phoneNumber')}</P>
 
-              <H6 className='text-lg'>{patient?.data.phoneNumber || '-'}</H6>
+              <H6 className='text-lg'>{patient.phoneNumber || '-'}</H6>
             </li>
           </ul>
         </div>
@@ -87,37 +85,37 @@ const PatientProfile = async ({ patientId }: PatientProfileProps) => {
           <ul className='grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-2'>
             <li>
               <P className='mb-1 text-xs'>{t('profile.patient.bloodType')}</P>
-              <P className='font-medium'>{patient?.data.bloodType || '-'}</P>
+              <P className='font-medium'>{patient.bloodType || '-'}</P>
             </li>
             <li>
               <P className='mb-1 text-xs'>{t('profile.patient.diabetes')}</P>
-              <P className='font-medium'>{patient?.data.diabetes || t('profile.patient.no')}</P>
+              <P className='font-medium'>{patient.diabetes || t('profile.patient.no')}</P>
             </li>
             <li>
               <P className='mb-1 text-xs'>{t('profile.patient.rhFactor')}</P>
-              <P className='font-medium'>{patient?.data.rhFactor || '-'}</P>
+              <P className='font-medium'>{patient.rhFactor || '-'}</P>
             </li>
             <li>
               <P className='mb-1 text-xs'>{t('profile.patient.bloodTransfusion')}</P>
-              <P className='font-medium'>{patient?.data.bloodTransfusion || t('profile.patient.no')}</P>
+              <P className='font-medium'>{patient.bloodTransfusion || t('profile.patient.no')}</P>
             </li>
           </ul>
           <ul className='flex flex-col gap-3 mt-6 md:grid md:grid-cols-2 lg:grid-cols-1'>
             <li>
               <P className='mb-1 text-xs'>{t('profile.patient.intoleranceToMedicines')}</P>
-              <P className='font-medium'>{patient?.data.intoleranceToMedicines || t('profile.patient.no')}</P>
+              <P className='font-medium'>{patient.intoleranceToMedicines || t('profile.patient.no')}</P>
             </li>
             <li>
               <P className='mb-1 text-xs'>{t('profile.patient.infectiousDiseases')}</P>
-              <P className='font-medium'>{patient?.data.infectiousDiseases || t('profile.patient.no')}</P>
+              <P className='font-medium'>{patient.infectiousDiseases || t('profile.patient.no')}</P>
             </li>
             <li>
               <P className='mb-1 text-xs'>{t('profile.patient.surgicalInterventions')}</P>
-              <P className='font-medium'>{patient?.data.surgicalInterventions || t('profile.patient.no')}</P>
+              <P className='font-medium'>{patient.surgicalInterventions || t('profile.patient.no')}</P>
             </li>
             <li>
               <P className='mb-1 text-xs'>{t('profile.patient.allergies')}</P>
-              <P className='font-medium'>{patient?.data.allergies || t('profile.patient.no')}</P>
+              <P className='font-medium'>{patient.allergies || t('profile.patient.no')}</P>
             </li>
           </ul>
         </div>

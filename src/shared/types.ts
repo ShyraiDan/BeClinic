@@ -54,14 +54,6 @@ declare module 'next-auth' {
   }
 }
 
-export interface DefaultResponse<T> {
-  ok: boolean
-  error?: {
-    message: string
-  }
-  data?: T
-}
-
 export type SupportedLocales = (typeof SUPPORTED_LOCALES)[number]
 
 export type Option = z.infer<typeof optionSchema>

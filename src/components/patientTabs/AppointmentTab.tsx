@@ -6,14 +6,13 @@ import { useParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
-import useSWR from 'swr'
 
+import { usePatientAppointmentsQuery } from '@/client/appointment'
 import AppointmentCard from '@/components/AppointmentCard/AppointmentCard'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { P, H6 } from '@/components/ui/typography'
-import { PatientAppointment, SupportedLocales } from '@/shared/types'
-import { fetcher } from '@/utils/fetcher'
+import { SupportedLocales } from '@/shared/types'
 
 export const AppointmentTab = () => {
   const params = useParams()
@@ -22,17 +21,7 @@ export const AppointmentTab = () => {
 
   const t = useTranslations('page')
 
-  const { data: appointments, isLoading } = useSWR<PatientAppointment[]>(
-    `/api/appointments/patient/${session?.user?.id}`,
-    fetcher,
-    {
-      shouldRetryOnError: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-      refreshWhenHidden: false,
-      refreshWhenOffline: false
-    }
-  )
+  const { data: appointments, isLoading } = usePatientAppointmentsQuery(session?.user?.id || '')
 
   const futureAppointments = useMemo(
     () => appointments?.filter((appointment) => isAfter(appointment.endTime, new Date())) || [],

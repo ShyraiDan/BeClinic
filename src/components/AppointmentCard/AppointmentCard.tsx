@@ -22,7 +22,7 @@ const AppointmentCard = ({ appointment, isIncoming, locale }: AppointmentCardPro
         <div className={cn('w-2 bg-blue-100', isIncoming && 'bg-orange-400')} />
         <div className='py-4 pr-4 pl-3 flex flex-col'>
           <H6>
-            {appointment.doctor.doctorName}. {appointment.doctor.position}
+            {appointment.doctorName}. {appointment.doctorPosition}
           </H6>
           <P className='capitalize'>
             {format(appointment.startTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}

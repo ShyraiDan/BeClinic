@@ -1,7 +1,6 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
-import { NextResponse } from 'next/server'
+import { InferSchemaType } from 'mongoose'
 
 import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
@@ -9,18 +8,15 @@ import AppointmentModel from '@/shared/models/appointment'
 import {
   Appointment,
   PatientAppointment,
-  DefaultResponse,
   PatientCreateAppointmentFormValuesDto,
   PatientEditAppointmentFormValuesDto
 } from '@/shared/types'
 
-export const getPatientAppointments = async (
-  patientId: string
-): Promise<NextResponse<DefaultResponse<PatientAppointment[]>>> => {
+export const getPatientAppointments = async (patientId: string): Promise<PatientAppointment[]> => {
   const session = await auth()
 
   if (!session || session.user.id !== patientId) {
-    return NextResponse.json({ ok: false, error: { message: 'No access' } }, { status: 403 })
+    throw new Error('No access')
   }
 
   try {
@@ -30,7 +26,7 @@ export const getPatientAppointments = async (
       .lean<Appointment[]>()
 
     if (!appointments) {
-      return NextResponse.json({ ok: false, error: { message: 'Update failed' } }, { status: 404 })
+      throw new Error('Update failed')
     }
 
     const appointmentDto = appointments.map((appointment) => ({
@@ -45,20 +41,21 @@ export const getPatientAppointments = async (
       reason: appointment.reason
     }))
 
-    return NextResponse.json({ ok: true, data: appointmentDto }, { status: 200 })
+    return appointmentDto
   } catch (error) {
-    return NextResponse.json({ ok: false, error: { message: 'Unexpected error' } }, { status: 500 })
+    console.error('Error: ', error)
+    throw new Error('Unexpected error')
   }
 }
 
 export const getSinglePatientAppointment = async (
   patientId: string,
   appointmentId: string
-): Promise<NextResponse<DefaultResponse<PatientAppointment>>> => {
+): Promise<PatientAppointment> => {
   const session = await auth()
 
   if (!session || session.user.id !== patientId) {
-    return NextResponse.json({ ok: false, error: { message: 'No access' } }, { status: 403 })
+    throw new Error('No access')
   }
 
   try {
@@ -68,32 +65,27 @@ export const getSinglePatientAppointment = async (
       .lean<Appointment>()
 
     if (!appointment) {
-      return NextResponse.json({ ok: false, error: { message: 'Update failed' } }, { status: 404 })
+      throw new Error('Update failed')
     }
 
     if (appointment?.patient._id.toString() !== patientId) {
-      return NextResponse.json({ ok: false, error: { message: 'No access' } }, { status: 403 })
+      throw new Error('No access')
     }
 
-    return NextResponse.json(
-      {
-        ok: true,
-        data: {
-          _id: appointment._id,
-          doctorName: appointment.doctor.doctorName,
-          doctorPosition: appointment.doctor.position,
-          startTime: appointment.startTime,
-          endTime: appointment.endTime,
-          description: appointment.description,
-          analyses: appointment.analyses,
-          fileName: appointment.fileName,
-          reason: appointment.reason
-        }
-      },
-      { status: 200 }
-    )
+    return {
+      _id: appointment._id,
+      doctorName: appointment.doctor.doctorName,
+      doctorPosition: appointment.doctor.position,
+      startTime: appointment.startTime,
+      endTime: appointment.endTime,
+      description: appointment.description,
+      analyses: appointment.analyses,
+      fileName: appointment.fileName,
+      reason: appointment.reason
+    }
   } catch (error) {
-    return NextResponse.json({ ok: false, error: { message: 'Unexpected error' } }, { status: 500 })
+    console.error('Error: ', error)
+    throw new Error('Unexpected error')
   }
 }
 
@@ -101,11 +93,11 @@ export const getSinglePatientAppointment = async (
 export const createPatientAppointment = async (
   patientId: string,
   data: PatientCreateAppointmentFormValuesDto
-): Promise<NextResponse<DefaultResponse<PatientAppointment>>> => {
+): Promise<InferSchemaType<PatientAppointment>> => {
   const session = await auth()
 
   if (session?.user.id !== patientId) {
-    return NextResponse.json({ ok: false, error: { message: 'No access' } }, { status: 403 })
+    throw new Error('No access')
   }
 
   try {
@@ -115,16 +107,10 @@ export const createPatientAppointment = async (
       ...data
     })
 
-    revalidatePath('[locale]/appointments/[id]', 'page')
-
-    return NextResponse.json(
-      { ok: true, data: JSON.parse(JSON.stringify(appointment)) as PatientAppointment },
-      { status: 200 }
-    )
+    return appointment
   } catch (error) {
-    console.error(error)
-
-    return NextResponse.json({ ok: false, error: { message: 'Unexpected error' } }, { status: 500 })
+    console.error('Error: ', error)
+    throw new Error('Unexpected error')
   }
 }
 
@@ -132,11 +118,11 @@ export const createPatientAppointment = async (
 export const updatePatientAppointment = async (
   patientId: string,
   data: PatientEditAppointmentFormValuesDto
-): Promise<NextResponse<DefaultResponse<PatientAppointment>>> => {
+): Promise<InferSchemaType<PatientAppointment>> => {
   const session = await auth()
 
   if (session?.user.id !== patientId) {
-    return NextResponse.json({ ok: false, error: { message: 'No access' } }, { status: 403 })
+    throw new Error('No access')
   }
 
   try {
@@ -149,15 +135,13 @@ export const updatePatientAppointment = async (
       }
     ).lean()
 
-    revalidatePath('[locale]/appointments/[id]', 'page')
+    if (!appointment) {
+      throw new Error('Update failed')
+    }
 
-    return NextResponse.json(
-      { ok: true, data: JSON.parse(JSON.stringify(appointment)) as PatientAppointment },
-      { status: 200 }
-    )
+    return appointment
   } catch (error) {
-    console.error(error)
-
-    return NextResponse.json({ ok: false, error: { message: 'Unexpected error' } }, { status: 500 })
+    console.error('Error: ', error)
+    throw new Error('Unexpected error')
   }
 }
