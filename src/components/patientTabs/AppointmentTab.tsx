@@ -1,6 +1,6 @@
 'use client'
 
-import { isAfter, isBefore, parseISO } from 'date-fns'
+import { isAfter, isBefore } from 'date-fns'
 import { Plus } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
@@ -35,12 +35,12 @@ export const AppointmentTab = () => {
   )
 
   const futureAppointments = useMemo(
-    () => appointments?.filter((appointment) => isAfter(parseISO(appointment.endTime), new Date())) || [],
+    () => appointments?.filter((appointment) => isAfter(appointment.endTime, new Date())) || [],
     [appointments]
   )
 
   const pastAppointments = useMemo(
-    () => appointments?.filter((appointment) => isBefore(parseISO(appointment.endTime), new Date())) || [],
+    () => appointments?.filter((appointment) => isBefore(appointment.endTime, new Date())) || [],
     [appointments]
   )
 

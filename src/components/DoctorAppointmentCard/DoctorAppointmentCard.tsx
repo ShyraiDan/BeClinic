@@ -1,4 +1,4 @@
-import { format, parseISO } from 'date-fns'
+import { format } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import Link from 'next/link'
 
@@ -25,8 +25,8 @@ export const DoctorAppointmentCard = ({ appointment, locale, isIncoming }: Docto
             {appointment.patient.userName}. {appointment.doctor.position}
           </H6>
           <P className='capitalize'>
-            {format(parseISO(appointment.startTime), 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}
-            {format(parseISO(appointment.endTime), 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
+            {format(appointment.startTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}
+            {format(appointment.endTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
           </P>
         </div>
       </div>

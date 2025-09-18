@@ -1,4 +1,4 @@
-import { format, isAfter, isBefore, parseISO } from 'date-fns'
+import { format, isAfter, isBefore } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import { Pencil } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -183,15 +183,15 @@ const SingleAppointmentPage = async ({ params }: SingleAppointmentPageProps) => 
               <P className='text-white'>
                 {t('singleAppointmentPage.appointmentDate')}{' '}
                 <span className='capitalize'>
-                  {format(parseISO(appointmentData.startTime), 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}
-                  {format(parseISO(appointmentData.endTime), 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
+                  {format(appointmentData.startTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}
+                  {format(appointmentData.endTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
                 </span>
               </P>
             )}
           </div>
 
           <div className='flex gap-4 text-white'>
-            {isAfter(parseISO(appointmentData?.endTime), new Date()) && (
+            {isAfter(appointmentData?.endTime, new Date()) && (
               <StyledLinkButton variant='icon' href={`/appointments/${appointmentData?._id}/edit`}>
                 <Pencil size={16} />
               </StyledLinkButton>
@@ -200,11 +200,11 @@ const SingleAppointmentPage = async ({ params }: SingleAppointmentPageProps) => 
         </div>
       </PageHeading>
       <Container>
-        {isAfter(parseISO(appointmentData?.endTime), new Date()) && appointmentData && (
+        {isAfter(appointmentData?.endTime, new Date()) && appointmentData && (
           <UpcomingAppointment appointmentData={appointmentData} locale={locale} />
         )}
 
-        {isBefore(parseISO(appointmentData?.endTime), new Date()) && appointmentData && (
+        {isBefore(appointmentData?.endTime, new Date()) && appointmentData && (
           <PastAppointment appointmentData={appointmentData} locale={locale} />
         )}
       </Container>

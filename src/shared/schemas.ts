@@ -110,7 +110,7 @@ export const analysesSchema = z.object({
   _id: z.string(),
   patientId: z.string(),
   analysisName: z.string(),
-  date: z.string(),
+  date: z.date(),
   description: z.string().optional(),
   fileName: z.string().optional(),
   createdAt: z.date(),
