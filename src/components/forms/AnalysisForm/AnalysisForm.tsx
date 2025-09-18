@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { TextArea } from '@/components/ui/textarea'
 import { P } from '@/components/ui/typography'
+import { useRouter } from '@/i18n/navigation'
 import { saveFileToBucket } from '@/lib/bucket'
 import { analysisFormValuesSchema } from '@/shared/schemas'
 import { Analysis, AnalysisFormValues } from '@/shared/types'
@@ -27,6 +28,7 @@ interface AnalysisFormProps {
 export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
   const t = useTranslations('forms')
   const { data: session } = useSession()
+  const router = useRouter()
 
   const isEditMode = !!analysis?._id
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -61,11 +63,12 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
       })
 
       if (result) {
-        toast.success('notifications.analysisUpdateSuccess')
+        toast.success(t('notifications.analysisUpdateSuccess'))
 
         // router.push()
+        router.push(`/analyses/${result._id}`)
       } else {
-        toast.error('notifications.analysisUpdateError')
+        toast.error(t('notifications.analysisUpdateError'))
       }
     } else {
       const newAnalysis: AnalysisFormValues = {
@@ -77,12 +80,14 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
         data: newAnalysis
       })
 
-      if (result) {
-        toast.success('notifications.analysisCreateSuccess')
+      console.log('result', result)
 
-        // router.push()
+      if (result._id) {
+        toast.success(t('notifications.analysisCreateSuccess'))
+
+        router.push(`/analyses/${result._id}`)
       } else {
-        toast.error('notifications.analysisCreateError')
+        toast.error(t('notifications.analysisCreateError'))
       }
     }
   }

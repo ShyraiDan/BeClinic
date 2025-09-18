@@ -1,7 +1,8 @@
 import { skipToken, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { getAnalyses, getSingleAnalysis, createAnalysis, updateAnalysis } from '@/lib/analysis'
-import { AnalysisFormValues } from '@/shared/types'
+import { analysesSchema } from '@/shared/schemas'
+import { AnalysisFormValues, Analysis } from '@/shared/types'
 
 export const useGetAnalysisQuery = (patientId: string) => {
   const { data, isLoading, isFetching, isError } = useQuery({
@@ -23,13 +24,20 @@ export const useGetSingleAnalysisQuery = (patientId: string, analysisId: string)
   return { data, isLoading, isFetching, isError }
 }
 
+interface CreateAnalysisParams {
+  patientId: string
+  data: AnalysisFormValues
+}
+
 export const useCreateAnalysisMutation = (patientId: string) => {
   const queryClient = useQueryClient()
 
-  return useMutation({
+  return useMutation<Analysis, Error, CreateAnalysisParams>({
     mutationKey: ['analysis'],
-    mutationFn: async ({ patientId, data }: { patientId: string; data: AnalysisFormValues }) => {
-      return await createAnalysis(patientId, data)
+    mutationFn: async ({ patientId, data }: CreateAnalysisParams) => {
+      const result = await createAnalysis(patientId, data)
+
+      return analysesSchema.parse(result)
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['analysis', patientId] })
@@ -37,21 +45,21 @@ export const useCreateAnalysisMutation = (patientId: string) => {
   })
 }
 
+interface UpdateAnalysisParams {
+  patientId: string
+  analysisId: string
+  data: AnalysisFormValues
+}
+
 export const useUpdateAnalysisMutation = (patientId: string, analysisId: string) => {
   const queryClient = useQueryClient()
 
-  return useMutation({
+  return useMutation<Analysis, Error, UpdateAnalysisParams>({
     mutationKey: ['analysis', analysisId],
-    mutationFn: async ({
-      patientId,
-      analysisId,
-      data
-    }: {
-      patientId: string
-      analysisId: string
-      data: AnalysisFormValues
-    }) => {
-      return await updateAnalysis(patientId, analysisId, data)
+    mutationFn: async ({ patientId, analysisId, data }: UpdateAnalysisParams) => {
+      const result = await updateAnalysis(patientId, analysisId, data)
+
+      return analysesSchema.parse(result)
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['analysis', patientId] })

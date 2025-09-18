@@ -67,14 +67,15 @@ export const createAnalysis = async (
     await connectMongoDB()
 
     const newAnalysis = await AnalysisModel.create({
-      ...data
+      ...data,
+      patientId
     })
 
     if (!newAnalysis) {
       throw new Error('Update failed')
     }
 
-    return newAnalysis
+    return JSON.parse(JSON.stringify(newAnalysis))
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')

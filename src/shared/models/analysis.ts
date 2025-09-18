@@ -21,5 +21,5 @@ const mongoAnalysisSchema = new Schema({
 export type Analysis = InferSchemaType<typeof mongoAnalysisSchema>
 export type AnalysisDoc = HydratedDocument<Analysis>
 
-const AnalysisModel = (models.Patients as Model<Analysis>) || model('Analyses', mongoAnalysisSchema)
+const AnalysisModel = (models.Analyses as Model<Analysis>) || model('Analyses', mongoAnalysisSchema)
 export default AnalysisModel
