@@ -1,10 +1,13 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useRef } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
+import { useCreateAnalysisMutation, useUpdateAnalysisMutation } from '@/client/analysis'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
 import { StyledDatePicker } from '@/components/StyledDatePicker/StyledDatePicker'
 import { Button } from '@/components/ui/button'
@@ -13,6 +16,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { TextArea } from '@/components/ui/textarea'
 import { P } from '@/components/ui/typography'
+import { saveFileToBucket } from '@/lib/bucket'
 import { analysisFormValuesSchema } from '@/shared/schemas'
 import { Analysis, AnalysisFormValues } from '@/shared/types'
 
@@ -22,11 +26,15 @@ interface AnalysisFormProps {
 
 export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
   const t = useTranslations('forms')
+  const { data: session } = useSession()
 
   const isEditMode = !!analysis?._id
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const { control, reset, handleSubmit, watch, setValue } = useForm<AnalysisFormValues>({
+  const { mutateAsync: createAnalysis } = useCreateAnalysisMutation(session?.user?.id || '')
+  const { mutateAsync: updateAnalysis } = useUpdateAnalysisMutation(session?.user?.id || '', analysis?._id || '')
+
+  const { control, handleSubmit, watch, setValue } = useForm<AnalysisFormValues>({
     mode: 'onSubmit',
     resolver: zodResolver(analysisFormValuesSchema),
     defaultValues: {
@@ -37,9 +45,55 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
     }
   })
 
-  const onSubmit: SubmitHandler<AnalysisFormValues> = async (values) => {}
+  const onSubmit: SubmitHandler<AnalysisFormValues> = async (values) => {
+    if (!session?.user.id) return
 
-  const handleUploadFile = async (file: File) => {}
+    if (isEditMode) {
+      const editAnalysis: AnalysisFormValues = {
+        ...analysis,
+        ...values
+      }
+
+      const result = await updateAnalysis({
+        patientId: session.user.id,
+        analysisId: analysis._id,
+        data: editAnalysis
+      })
+
+      if (result) {
+        toast.success('notifications.analysisUpdateSuccess')
+
+        // router.push()
+      } else {
+        toast.error('notifications.analysisUpdateError')
+      }
+    } else {
+      const newAnalysis: AnalysisFormValues = {
+        ...values
+      }
+
+      const result = await createAnalysis({
+        patientId: session.user.id,
+        data: newAnalysis
+      })
+
+      if (result) {
+        toast.success('notifications.analysisCreateSuccess')
+
+        // router.push()
+      } else {
+        toast.error('notifications.analysisCreateError')
+      }
+    }
+  }
+
+  const handleUploadFile = async (file: File) => {
+    const timestamp = Date.now()
+    const extension = file.name.split('.').pop()
+
+    const fileName = await saveFileToBucket(file, `analyses_${timestamp}.${extension}`, 'beclinic/custom/files')
+    setValue('fileName', fileName)
+  }
 
   const fileName = watch('fileName') ?? ''
 
@@ -58,7 +112,7 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
                 placeholder={t('analysisForm.analysisName.placeholder')}
                 {...field}
               />
-              {error && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -68,7 +122,7 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
         <Controller
           name='date'
           control={control}
-          render={({ field: { value, onChange }, fieldState }) => (
+          render={({ field: { value, onChange }, fieldState: { error } }) => (
             <>
               <P className='font-medium mb-2'>{t('analysisForm.analysisDate.label')}</P>
               <StyledDatePicker
@@ -77,7 +131,7 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
                 onChange={onChange}
                 placeholder={t('analysisForm.analysisDate.placeholder')}
               />
-              {fieldState.error && <ErrorText>{fieldState.error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </>
           )}
         />
@@ -87,11 +141,11 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
         <Controller
           name='description'
           control={control}
-          render={({ field, fieldState }) => (
+          render={({ field, fieldState: { error } }) => (
             <>
               <Label htmlFor='description'>{t('analysisForm.analysisDescription.label')}</Label>
               <TextArea id='description' placeholder={t('analysisForm.analysisDescription.placeholder')} {...field} />
-              {fieldState.error && <ErrorText>{fieldState.error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </>
           )}
         />
@@ -101,7 +155,7 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
         <Controller
           name='fileName'
           control={control}
-          render={({ fieldState }) => (
+          render={({ fieldState: { error } }) => (
             <>
               <Label htmlFor='fileName'>{t('analysisForm.analysisFiles.label')}</Label>
               <div className='flex items-center gap-3'>
@@ -138,7 +192,7 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
                 />
               </div>
 
-              {fieldState.error && <ErrorText>{fieldState.error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </>
           )}
         />

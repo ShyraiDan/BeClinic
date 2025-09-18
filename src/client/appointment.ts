@@ -1,7 +1,12 @@
 import { skipToken, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { getPatientAppointments, getSinglePatientAppointment, createPatientAppointment } from '@/lib/appointment'
-import { PatientCreateAppointmentFormValuesDto } from '@/shared/types'
+import {
+  getPatientAppointments,
+  getSinglePatientAppointment,
+  createPatientAppointment,
+  updatePatientAppointment
+} from '@/lib/appointment'
+import { PatientCreateAppointmentFormValuesDto, PatientEditAppointmentFormValuesDto } from '@/shared/types'
 
 export const usePatientAppointmentsQuery = (patientId: string) => {
   const { data, isLoading, isFetching, isError } = useQuery({
@@ -38,13 +43,21 @@ export const useCreateAppointmentMutation = (patientId: string) => {
   })
 }
 
-export const useUpdateAppointmentMutation = (patientId: string) => {
+export const useUpdateAppointmentMutation = (patientId: string, appointmentId: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationKey: ['appointment'],
-    mutationFn: async ({ patientId, data }: { patientId: string; data: PatientCreateAppointmentFormValuesDto }) => {
-      return await createPatientAppointment(patientId, data)
+    mutationKey: ['appointment', appointmentId],
+    mutationFn: async ({
+      patientId,
+      appointmentId,
+      data
+    }: {
+      patientId: string
+      appointmentId: string
+      data: PatientEditAppointmentFormValuesDto
+    }) => {
+      return await updatePatientAppointment(patientId, appointmentId, data)
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['appointments', patientId] })
