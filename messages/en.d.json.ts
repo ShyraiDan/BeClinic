@@ -471,6 +471,12 @@ declare const messages: {
     "edit": "Edit",
     "save": "Save",
     "create": "Create",
+    "notifications": {
+      "visitCreateSuccess": "Visit created successfully",
+      "visitUpdateSuccess": "Visit updated successfully",
+      "visitCreateError": "Error creating visit",
+      "visitUpdateError": "Error updating visit"
+    },
     "validation": {
       "userExists": "User already exists",
       "unexpectedError": "Unexpected error. Please try again",
@@ -487,7 +493,12 @@ declare const messages: {
       "nameRequired": "User name is required field",
       "nameMinLength": "User name must be at least 3 characters",
       "nameMaxLength": "User name must be less than 20 characters",
-      "futureDate": "Date must be in the past"
+      "futureDate": "Date must be in the past",
+      "reasonRequired": "Reason is required field",
+      "startTimeRequired": "Date is required field",
+      "doctorIdRequired": "Doctor is required field",
+      "specialtyRequired": "Specialty is required field",
+      "startTimeHoursRequired": "Time is required field"
     }
   },
   "modals": {

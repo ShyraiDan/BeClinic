@@ -2,7 +2,7 @@
 
 import { format } from 'date-fns'
 import { ChevronDownIcon } from 'lucide-react'
-import { useEffect, useState, ReactNode } from 'react'
+import { useState, ReactNode } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
@@ -12,11 +12,11 @@ import { cn } from '@/utils/utils'
 interface StyledDatePickerProps {
   placeholder: string
   hintFormat: string
+  onChange: (date: Date) => void
   initialDate?: Date
   calendarModalStyles?: string
   showOutsideDays?: boolean
   disabled?: boolean
-  onChange?: (date: Date) => void
   errorText?: ReactNode | null
 }
 
@@ -33,12 +33,18 @@ export const StyledDatePicker = ({
   const [open, setOpen] = useState(false)
   const [date, setDate] = useState<Date | undefined>(initialDate ? new Date(initialDate) : undefined)
 
-  useEffect(() => {
-    if (onChange) {
-      if (!date) return
-      onChange(date)
+  const handleSelect = (value: Date) => {
+    if (value) {
+      onChange(value)
     }
-  }, [date, onChange])
+
+    setDate(value)
+  }
+
+  const handleOpenChange = () => {
+    if (disabled) return
+    setOpen((state) => !state)
+  }
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -56,11 +62,9 @@ export const StyledDatePicker = ({
           selected={date}
           captionLayout='dropdown'
           showOutsideDays={showOutsideDays}
-          onSelect={(date) => {
-            setDate(date)
-            setOpen(false)
-          }}
+          onSelect={handleSelect}
           footer={errorText ?? (date ? `You picked ${format(date, hintFormat)}.` : 'Please pick a date.')}
+          required={true}
         />
       </PopoverContent>
     </Popover>

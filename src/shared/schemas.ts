@@ -76,14 +76,6 @@ export const patientSchema = z.object({
     .nonempty('validation.nameRequired')
     .min(3, 'validation.nameMinLength')
     .max(50, 'validation.nameMaxLength'),
-  // dateOfBirth: z
-  //   .string()
-  //   .optional()
-  //   .transform((s) => parseISO(s ?? ''))
-  //   .refine((d) => !isAfter(d, endOfToday()), {
-  //     message: 'validation.futureDate'
-  //   }), // ISO string
-
   dateOfBirth: z
     .date()
     .optional()
@@ -127,9 +119,11 @@ export const analysesSchema = z.object({
 
 export const appointmentSchema = z.object({
   _id: z.string(),
-  reason: z.string(),
-  startTime: z.string(),
-  endTime: z.string(),
+  reason: z.string('validation.reasonRequired'),
+  startTime: z.date('validation.startTimeRequired'),
+  patient: patientSchema,
+  doctor: doctorSchema,
+  endTime: z.date(),
   description: z.string().optional(),
   analyses: z.array(analysesSchema),
   fileName: z.string().optional()
@@ -159,7 +153,7 @@ export const paymentSchema = z.object({
   updatedAt: z.date()
 })
 
-export const appointmentFormValuesSchema = appointmentSchema
+export const patientAppointmentFormValuesSchema = appointmentSchema
   .pick({
     reason: true,
     startTime: true,
@@ -169,10 +163,34 @@ export const appointmentFormValuesSchema = appointmentSchema
     fileName: true
   })
   .extend({
-    doctorId: z.string(),
-    specialty: z.string(),
-    startTimeHours: z.string()
+    doctorId: z.string(), // required
+    specialty: z.string(), // required
+    startTimeHours: z.string() // required
   })
+
+export const patientEditAppointmentFormValuesDtoSchema = patientAppointmentFormValuesSchema
+  .pick({
+    reason: true,
+    startTime: true,
+    endTime: true,
+    description: true,
+    analyses: true,
+    fileName: true,
+    doctorId: true
+  })
+  .extend({
+    _id: z.string()
+  })
+
+export const patientCreateAppointmentFormValuesDtoSchema = patientAppointmentFormValuesSchema.pick({
+  reason: true,
+  startTime: true,
+  endTime: true,
+  description: true,
+  analyses: true,
+  fileName: true,
+  doctorId: true
+})
 
 export const selectOptionSchema = z.object({
   value: z.string(),
