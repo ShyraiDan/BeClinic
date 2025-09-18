@@ -1,25 +1,128 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
-import { NextResponse } from 'next/server'
+import { InferSchemaType } from 'mongoose'
 
 import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import AppointmentModel from '@/shared/models/appointment'
 import {
   Appointment,
-  PatientCreateAppointmentFormValuesDtoSchema,
-  PatientEditAppointmentFormValuesDtoSchema
+  PatientAppointment,
+  PatientCreateAppointmentFormValuesDto,
+  PatientEditAppointmentFormValuesDto
 } from '@/shared/types'
 
-export const updateAppointmentByPatientId = async (
+export const getPatientAppointments = async (patientId: string): Promise<PatientAppointment[]> => {
+  const session = await auth()
+
+  if (!session || session.user.id !== patientId) {
+    throw new Error('No access')
+  }
+
+  try {
+    await connectMongoDB()
+    const appointments = await AppointmentModel.find({ patient: patientId })
+      .populate('doctor', 'doctorName position')
+      .lean<Appointment[]>()
+
+    if (!appointments) {
+      throw new Error('Update failed')
+    }
+
+    const appointmentDto = appointments.map((appointment) => ({
+      _id: appointment._id,
+      doctorName: appointment.doctor.doctorName,
+      doctorPosition: appointment.doctor.position,
+      startTime: appointment.startTime,
+      endTime: appointment.endTime,
+      description: appointment.description,
+      analyses: appointment.analyses,
+      fileName: appointment.fileName,
+      reason: appointment.reason
+    }))
+
+    return appointmentDto
+  } catch (error) {
+    console.error('Error: ', error)
+    throw new Error('Unexpected error')
+  }
+}
+
+export const getSinglePatientAppointment = async (
   patientId: string,
-  data: PatientEditAppointmentFormValuesDtoSchema
-) => {
+  appointmentId: string
+): Promise<PatientAppointment> => {
+  const session = await auth()
+
+  if (!session || session.user.id !== patientId) {
+    throw new Error('No access')
+  }
+
+  try {
+    await connectMongoDB()
+    const appointment = await AppointmentModel.findById(appointmentId)
+      .populate('doctor', 'doctorName position')
+      .lean<Appointment>()
+
+    if (!appointment) {
+      throw new Error('Update failed')
+    }
+
+    if (appointment?.patient._id.toString() !== patientId) {
+      throw new Error('No access')
+    }
+
+    return {
+      _id: appointment._id,
+      doctorName: appointment.doctor.doctorName,
+      doctorPosition: appointment.doctor.position,
+      startTime: appointment.startTime,
+      endTime: appointment.endTime,
+      description: appointment.description,
+      analyses: appointment.analyses,
+      fileName: appointment.fileName,
+      reason: appointment.reason
+    }
+  } catch (error) {
+    console.error('Error: ', error)
+    throw new Error('Unexpected error')
+  }
+}
+
+// TODO: Test this endpoint
+export const createPatientAppointment = async (
+  patientId: string,
+  data: PatientCreateAppointmentFormValuesDto
+): Promise<InferSchemaType<PatientAppointment>> => {
   const session = await auth()
 
   if (session?.user.id !== patientId) {
-    return NextResponse.json({ ok: false, error: { message: 'No access' } }, { status: 403 })
+    throw new Error('No access')
+  }
+
+  try {
+    await connectMongoDB()
+
+    const appointment = await AppointmentModel.create({
+      ...data
+    })
+
+    return appointment
+  } catch (error) {
+    console.error('Error: ', error)
+    throw new Error('Unexpected error')
+  }
+}
+
+// TODO: Test this endpoint
+export const updatePatientAppointment = async (
+  patientId: string,
+  data: PatientEditAppointmentFormValuesDto
+): Promise<InferSchemaType<PatientAppointment>> => {
+  const session = await auth()
+
+  if (session?.user.id !== patientId) {
+    throw new Error('No access')
   }
 
   try {
@@ -32,45 +135,13 @@ export const updateAppointmentByPatientId = async (
       }
     ).lean()
 
-    revalidatePath('[locale]/appointments/[id]', 'page')
+    if (!appointment) {
+      throw new Error('Update failed')
+    }
 
-    return NextResponse.json(
-      { ok: true, data: JSON.parse(JSON.stringify(appointment)) as Appointment },
-      { status: 200 }
-    )
+    return appointment
   } catch (error) {
-    console.error(error)
-
-    return NextResponse.json({ ok: false, error: { message: 'Unexpected error' } }, { status: 500 })
-  }
-}
-
-export const createAppointmentByPatientId = async (
-  patientId: string,
-  data: PatientCreateAppointmentFormValuesDtoSchema
-) => {
-  const session = await auth()
-
-  if (session?.user.id !== patientId) {
-    return NextResponse.json({ ok: false, error: { message: 'No access' } }, { status: 403 })
-  }
-
-  try {
-    await connectMongoDB()
-
-    const appointment = await AppointmentModel.create({
-      ...data
-    })
-
-    revalidatePath('[locale]/appointments/[id]', 'page')
-
-    return NextResponse.json(
-      { ok: true, data: JSON.parse(JSON.stringify(appointment)) as Appointment },
-      { status: 200 }
-    )
-  } catch (error) {
-    console.error(error)
-
-    return NextResponse.json({ ok: false, error: { message: 'Unexpected error' } }, { status: 500 })
+    console.error('Error: ', error)
+    throw new Error('Unexpected error')
   }
 }

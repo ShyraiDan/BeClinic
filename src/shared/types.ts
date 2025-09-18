@@ -82,5 +82,5 @@ export type EditPatientFormValues = z.infer<typeof editPatientFormValuesSchema>
 export type EditDoctorFormValues = z.infer<typeof editDoctorFormValuesSchema>
 export type DbError = z.infer<typeof dbErrorSchema>
 export type PatientAppointment = z.infer<typeof patientAppointmentSchema>
-export type PatientEditAppointmentFormValuesDtoSchema = z.infer<typeof patientEditAppointmentFormValuesDtoSchema>
-export type PatientCreateAppointmentFormValuesDtoSchema = z.infer<typeof patientCreateAppointmentFormValuesDtoSchema>
+export type PatientEditAppointmentFormValuesDto = z.infer<typeof patientEditAppointmentFormValuesDtoSchema>
+export type PatientCreateAppointmentFormValuesDto = z.infer<typeof patientCreateAppointmentFormValuesDtoSchema>

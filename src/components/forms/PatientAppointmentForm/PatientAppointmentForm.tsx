@@ -7,8 +7,9 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useMemo, useRef } from 'react'
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import useSWR from 'swr'
 
+import { useCreateAppointmentMutation, useUpdateAppointmentMutation } from '@/client/appointment'
+import { useSearchDoctorQuery } from '@/client/doctor'
 import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
 import { SelectAnalysesModal } from '@/components/modals/SelectAnalysesModal/SelectAnalysesModal'
@@ -21,7 +22,7 @@ import { Label } from '@/components/ui/label'
 import { TextArea } from '@/components/ui/textarea'
 import { P } from '@/components/ui/typography'
 import { useRouter } from '@/i18n/navigation'
-import { createAppointmentByPatientId, updateAppointmentByPatientId } from '@/lib/appointment'
+// import { createAppointmentByPatientId, updateAppointmentByPatientId } from '@/lib/appointment'
 import { saveFileToBucket } from '@/lib/bucket'
 import { doctorSpecialties } from '@/mocks/shared'
 import { patientAppointmentFormValuesSchema } from '@/shared/schemas'
@@ -30,11 +31,10 @@ import {
   PatientAppointmentFormValues,
   SelectOption,
   SupportedLocales,
-  PatientEditAppointmentFormValuesDtoSchema,
-  PatientCreateAppointmentFormValuesDtoSchema,
-  Doctor
+  Doctor,
+  PatientEditAppointmentFormValuesDto,
+  PatientCreateAppointmentFormValuesDto
 } from '@/shared/types'
-import { fetcher } from '@/utils/fetcher'
 import { cn } from '@/utils/utils'
 
 interface AppointmentFormProps {
@@ -67,29 +67,33 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
       endTime: appointment?.endTime,
       description: appointment?.description ?? '',
       analyses: appointment?.analyses ?? [],
-      doctorId: appointment?.doctor._id ?? '',
+      //  TODO: Fix doctorId
+      doctorId: appointment?.doctorName ?? '',
       fileName: appointment?.fileName ?? '',
       startTimeHours: `${appointment?.startTime ? getHours(appointment.startTime) : 10}:00`,
-      specialty: appointment?.doctor.position ?? ''
+      specialty: appointment?.doctorPosition ?? ''
     }
   })
 
-  const { data: doctors } = useSWR<Doctor[]>(
-    watch('specialty') ? `/api/searchTerms/doctor?search=${encodeURIComponent(watch('specialty'))}` : null,
-    fetcher,
-    {
-      shouldRetryOnError: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-      refreshWhenHidden: false,
-      refreshWhenOffline: false
-    }
-  )
+  // const { data: doctors } = useSWR<Doctor[]>(
+  //   watch('specialty') ? `/api/searchTerms/doctor?search=${encodeURIComponent(watch('specialty'))}` : null,
+  //   fetcher,
+  //   {
+  //     shouldRetryOnError: false,
+  //     revalidateOnFocus: false,
+  //     revalidateOnReconnect: false,
+  //     refreshWhenHidden: false,
+  //     refreshWhenOffline: false
+  //   }
+  // )
 
-  console.log('doctors', doctors)
+  const { data: doctors } = useSearchDoctorQuery(watch('specialty'))
+
+  const { mutateAsync: createAppointment } = useCreateAppointmentMutation(session?.user?.id || '')
+  const { mutateAsync: updateAppointment } = useUpdateAppointmentMutation(session?.user?.id || '')
 
   const doctorOptions = useMemo(() => {
-    return doctors ? doctors.map((doctor: Doctor) => ({ value: doctor._id, label: doctor.doctorName })) : []
+    return doctors?.map((doctor: Doctor) => ({ value: doctor._id, label: doctor.doctorName })) || []
   }, [doctors])
 
   console.log('errors', errors)
@@ -101,7 +105,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
     if (!session?.user.id) return
 
     if (isEditMode) {
-      const editAppointment: PatientEditAppointmentFormValuesDtoSchema = {
+      const editAppointment: PatientEditAppointmentFormValuesDto = {
         ...appointment,
         ...values,
         startTime: addHours(new Date(values.startTime), getHours(values.startTimeHours)),
@@ -110,11 +114,14 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
 
       console.log('editAppointment', editAppointment)
 
-      const result = await updateAppointmentByPatientId(session.user.id, editAppointment)
+      const result = await updateAppointment({
+        patientId: session.user.id,
+        data: editAppointment
+      })
 
       console.log('result', result)
 
-      if (result.ok) {
+      if (result) {
         toast.success(t('notifications.visitUpdateSuccess'))
 
         // router.push(`/appointments/${result.}`)
@@ -122,7 +129,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
         toast.success(t('notifications.visitUpdateError'))
       }
     } else {
-      const createAppointment: PatientCreateAppointmentFormValuesDtoSchema = {
+      const newAppointment: PatientCreateAppointmentFormValuesDto = {
         ...values,
         startTime: addHours(new Date(values.startTime), getHours(values.startTimeHours)),
         endTime: addHours(new Date(values.startTime), getHours(values.startTimeHours + 1))
@@ -130,11 +137,14 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
 
       console.log('createAppointment', createAppointment)
 
-      const result = await createAppointmentByPatientId(session.user.id, createAppointment)
+      const result = await createAppointment({
+        patientId: session.user.id,
+        data: newAppointment
+      })
 
       console.log('result', result)
 
-      if (result.ok) {
+      if (result) {
         toast.success(t('notifications.visitCreateSuccess'))
 
         // router.push(`/appointments/${result.}`)

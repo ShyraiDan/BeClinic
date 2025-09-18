@@ -140,7 +140,8 @@ export const patientAppointmentSchema = appointmentSchema
     fileName: true
   })
   .extend({
-    doctor: doctorSchema
+    doctorName: z.string(),
+    doctorPosition: z.string()
   })
 
 export const paymentSchema = z.object({

@@ -76,15 +76,15 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
   })
 
   const onSubmit: SubmitHandler<EditPatientFormValues> = async (values) => {
-    const { data } = await updatePatient(patient._id, values)
+    const updatedPatient = await updatePatient(patient._id, values)
 
     const newSession = {
       ...session,
       user: {
         ...session?.user,
-        name: data?.userName,
-        email: data?.email,
-        image: data?.image
+        name: updatedPatient?.userName,
+        email: updatedPatient?.email,
+        image: updatedPatient?.image
       }
     }
 

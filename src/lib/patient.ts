@@ -1,40 +1,39 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { NextResponse } from 'next/server'
 
 import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import PatientModel from '@/shared/models/patient'
 import { EditPatientFormValues, Patient } from '@/shared/types'
 
-export const getPatient = async (id: string): Promise<{ ok: boolean; data?: Patient; error?: { message: string } }> => {
+export const getPatient = async (id: string): Promise<Patient> => {
   const session = await auth()
 
   if (session?.user.id !== id) {
-    return NextResponse.json({ ok: false, error: { message: 'No access' } }, { status: 403 })
+    throw new Error('No access')
   }
 
   try {
     await connectMongoDB()
-    const patient = await PatientModel.findById(id).lean()
+    const patient = await PatientModel.findById(id).lean<Patient>()
 
-    return { ok: true, data: JSON.parse(JSON.stringify(patient)) as Patient }
+    if (!patient) {
+      throw new Error('No patient found')
+    }
+
+    return patient
   } catch (error) {
     console.error(error)
-
-    return NextResponse.json({ ok: false, error: { message: 'Unexpected error' } }, { status: 500 })
+    throw new Error('Unexpected error')
   }
 }
 
-export const updatePatient = async (
-  id: string,
-  data: EditPatientFormValues
-): Promise<{ ok: boolean; data?: Patient; error?: { message: string } }> => {
+export const updatePatient = async (id: string, data: EditPatientFormValues): Promise<Patient> => {
   const session = await auth()
 
   if (session?.user.id !== id) {
-    return NextResponse.json({ ok: false, error: { message: 'No access' } }, { status: 403 })
+    throw new Error('No access')
   }
 
   try {
@@ -56,16 +55,15 @@ export const updatePatient = async (
         image: data.image ?? ''
       },
       { new: true }
-    ).lean()
+    ).lean<Patient>()
 
-    if (!updatedPatient) return NextResponse.json({ ok: false, error: { message: 'Update failed' } }, { status: 400 })
+    if (!updatedPatient) throw new Error('Update failed')
 
     revalidatePath('[locale]/mycabinet/patient/[id]', 'page')
 
-    return { ok: true, data: JSON.parse(JSON.stringify(updatedPatient)) as Patient }
+    return updatedPatient
   } catch (error) {
     console.error(error)
-
-    return NextResponse.json({ ok: false, error: { message: 'Unexpected error' } }, { status: 500 })
+    throw new Error('Unexpected error')
   }
 }
