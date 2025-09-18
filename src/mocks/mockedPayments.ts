@@ -11,7 +11,7 @@ export const mockedPayments: Payment[] = [
       _id: '66f007a5c9c4a1f2b3d4aa01',
       email: 'olivia.morris@example.com',
       userName: 'Olivia Morris',
-      dateOfBirth: '1991-06-12',
+      dateOfBirth: new Date('2025-08-29T08:30:00.000Z'),
       phoneNumber: '+1 (415) 555-0132',
       bloodType: 'O',
       diabetes: 'none',
@@ -29,7 +29,7 @@ export const mockedPayments: Payment[] = [
         _id: '66f007a5c9c4a1f2b3d4aa01',
         email: 'olivia.morris@example.com',
         userName: 'Olivia Morris',
-        dateOfBirth: '1991-06-12',
+        dateOfBirth: new Date('2025-08-29T08:30:00.000Z'),
         phoneNumber: '+1 (415) 555-0132',
         bloodType: 'O',
         diabetes: 'none',
@@ -53,8 +53,8 @@ export const mockedPayments: Payment[] = [
         updatedAt: new Date('2025-01-20T08:10:00Z')
       },
       reason: 'Annual check-up',
-      startTime: '2025-09-10T09:00:00.000Z',
-      endTime: '2025-09-10T10:00:00.000Z',
+      startTime: new Date('2025-08-29T08:30:00.000Z'),
+      endTime: new Date('2025-08-29T08:30:00.000Z'),
       description: 'Routine annual exam. ECG if time allows.',
       analyses: []
     }
@@ -69,7 +69,7 @@ export const mockedPayments: Payment[] = [
       _id: '66f007a5c9c4a1f2b3d4aa02',
       email: 'denys.kovalenko@example.com',
       userName: 'Denys Kovalenko',
-      dateOfBirth: '1987-02-23',
+      dateOfBirth: new Date('2025-08-29T08:30:00.000Z'),
       phoneNumber: '+380 (67) 555-0101',
       bloodType: 'A',
       diabetes: 'type 2 (diet controlled)',
@@ -86,7 +86,7 @@ export const mockedPayments: Payment[] = [
         _id: '66f007a5c9c4a1f2b3d4aa02',
         email: 'denys.kovalenko@example.com',
         userName: 'Denys Kovalenko',
-        dateOfBirth: '1987-02-23',
+        dateOfBirth: new Date('2025-08-29T08:30:00.000Z'),
         phoneNumber: '+380 (67) 555-0101',
         bloodType: 'A',
         diabetes: 'type 2 (diet controlled)',
@@ -109,8 +109,8 @@ export const mockedPayments: Payment[] = [
         updatedAt: new Date('2025-01-20T08:10:00Z')
       },
       reason: 'Cough and mild fever',
-      startTime: '2025-09-08T14:30:00.000Z',
-      endTime: '2025-09-08T15:00:00.000Z',
+      startTime: new Date('2025-08-29T08:30:00.000Z'),
+      endTime: new Date('2025-08-29T08:30:00.000Z'),
       description: 'Suspected viral infection. Recommend rest and fluids.',
       analyses: []
     }
@@ -125,7 +125,7 @@ export const mockedPayments: Payment[] = [
       _id: '66f007a5c9c4a1f2b3d4aa03',
       email: 'marta.ivanova@example.com',
       userName: 'Marta Ivanova',
-      dateOfBirth: '1995-11-05',
+      dateOfBirth: new Date('2025-08-29T08:30:00.000Z'),
       phoneNumber: '+380 (63) 555-0222',
       bloodType: 'B',
       diabetes: 'none',
@@ -142,7 +142,7 @@ export const mockedPayments: Payment[] = [
         _id: '66f007a5c9c4a1f2b3d4aa03',
         email: 'marta.ivanova@example.com',
         userName: 'Marta Ivanova',
-        dateOfBirth: '1995-11-05',
+        dateOfBirth: new Date('2025-08-29T08:30:00.000Z'),
         phoneNumber: '+380 (63) 555-0222',
         bloodType: 'B',
         diabetes: 'none',
@@ -165,8 +165,8 @@ export const mockedPayments: Payment[] = [
         updatedAt: new Date('2025-01-20T08:10:00Z')
       },
       reason: 'Acne consultation + treatment plan',
-      startTime: '2025-09-12T12:00:00.000Z',
-      endTime: '2025-09-12T12:45:00.000Z',
+      startTime: new Date('2025-08-29T08:30:00.000Z'),
+      endTime: new Date('2025-08-29T08:30:00.000Z'),
       analyses: []
     }
   }

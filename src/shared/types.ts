@@ -16,7 +16,7 @@ import {
   analysesSchema,
   doctorSchema,
   paymentSchema,
-  appointmentFormValuesSchema,
+  patientAppointmentFormValuesSchema,
   selectOptionSchema,
   analysisFormValuesSchema,
   reviewSchema,
@@ -26,7 +26,10 @@ import {
   doctorSignUpFormValuesSchema,
   editPatientFormValuesSchema,
   editDoctorFormValuesSchema,
-  dbErrorSchema
+  dbErrorSchema,
+  patientAppointmentSchema,
+  patientEditAppointmentFormValuesDtoSchema,
+  patientCreateAppointmentFormValuesDtoSchema
 } from './schemas'
 
 import type { DefaultSession } from 'next-auth'
@@ -67,7 +70,7 @@ export type Appointment = z.infer<typeof appointmentSchema>
 export type Analysis = z.infer<typeof analysesSchema>
 export type Doctor = z.infer<typeof doctorSchema>
 export type Payment = z.infer<typeof paymentSchema>
-export type AppointmentFormValues = z.infer<typeof appointmentFormValuesSchema>
+export type PatientAppointmentFormValues = z.infer<typeof patientAppointmentFormValuesSchema>
 export type SelectOption = z.infer<typeof selectOptionSchema>
 export type AnalysisFormValues = z.infer<typeof analysisFormValuesSchema>
 export type Review = z.infer<typeof reviewSchema>
@@ -78,3 +81,6 @@ export type DoctorSignUpFormValues = z.infer<typeof doctorSignUpFormValuesSchema
 export type EditPatientFormValues = z.infer<typeof editPatientFormValuesSchema>
 export type EditDoctorFormValues = z.infer<typeof editDoctorFormValuesSchema>
 export type DbError = z.infer<typeof dbErrorSchema>
+export type PatientAppointment = z.infer<typeof patientAppointmentSchema>
+export type PatientEditAppointmentFormValuesDtoSchema = z.infer<typeof patientEditAppointmentFormValuesDtoSchema>
+export type PatientCreateAppointmentFormValuesDtoSchema = z.infer<typeof patientCreateAppointmentFormValuesDtoSchema>

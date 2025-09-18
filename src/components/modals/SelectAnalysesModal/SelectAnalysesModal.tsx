@@ -1,4 +1,4 @@
-import { format, parseISO } from 'date-fns'
+import { format } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import { Check } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -8,19 +8,19 @@ import { Button } from '@/components/ui/button'
 import { DialogClose, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { H6, P } from '@/components/ui/typography'
 import { mockedAnalyses } from '@/mocks/mockedAnalyses'
-import { Analysis, AppointmentFormValues, SupportedLocales } from '@/shared/types'
+import { Analysis, PatientAppointmentFormValues, SupportedLocales } from '@/shared/types'
 import { dateLocaleMap } from '@/utils/dateLocaleMap'
 
 import type { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form'
 
-interface CustomAnalysesCardProps {
+interface AnalysesCardProps {
   analysis: Analysis
   onSelect: () => void
   selected: boolean
   locale: SupportedLocales
 }
 
-const AnalysesCard = ({ analysis, onSelect, selected, locale }: CustomAnalysesCardProps) => {
+const AnalysesCard = ({ analysis, onSelect, selected, locale }: AnalysesCardProps) => {
   const dateLocale = dateLocaleMap[locale] ?? enUS
 
   return (
@@ -28,7 +28,7 @@ const AnalysesCard = ({ analysis, onSelect, selected, locale }: CustomAnalysesCa
       <div className='w-2 bg-blue-100' />
       <div className='py-4 pr-4 pl-3 flex flex-col'>
         <H6>{analysis.analysisName}</H6>
-        <P className='capitalize'>{format(parseISO(analysis.date), 'MMM dd, yyyy', { locale: dateLocale })}</P>
+        <P className='capitalize'>{format(analysis.date, 'MMM dd, yyyy', { locale: dateLocale })}</P>
       </div>
 
       {selected && (
@@ -42,7 +42,7 @@ const AnalysesCard = ({ analysis, onSelect, selected, locale }: CustomAnalysesCa
 
 interface SelectAnalysesModalProps {
   selectedAnalyses: Analysis[]
-  appendData: UseFieldArrayAppend<AppointmentFormValues, 'analyses'>
+  appendData: UseFieldArrayAppend<PatientAppointmentFormValues, 'analyses'>
   removeData: UseFieldArrayRemove
   locale: SupportedLocales
 }

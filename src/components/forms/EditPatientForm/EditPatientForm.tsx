@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { InputMask } from '@react-input/mask'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 
@@ -12,11 +13,13 @@ import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { P } from '@/components/ui/typography'
+import { updatePatient } from '@/lib/patient'
 import { editPatientFormValuesSchema } from '@/shared/schemas'
 import { EditPatientFormValues, Patient } from '@/shared/types'
 
 interface EditPatientFormProps {
   patient: Patient
+  allowedAction?: () => void
 }
 
 const bloodOptions = [
@@ -49,8 +52,9 @@ const rhOptions = [
   }
 ]
 
-export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
+export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps) => {
   const t = useTranslations('forms')
+  const { data: session, update } = useSession()
 
   const { handleSubmit, control } = useForm<EditPatientFormValues>({
     mode: 'onSubmit',
@@ -71,7 +75,22 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
     }
   })
 
-  const onSubmit: SubmitHandler<EditPatientFormValues> = async (values) => {}
+  const onSubmit: SubmitHandler<EditPatientFormValues> = async (values) => {
+    const { data } = await updatePatient(patient._id, values)
+
+    const newSession = {
+      ...session,
+      user: {
+        ...session?.user,
+        name: data?.userName,
+        email: data?.email,
+        image: data?.image
+      }
+    }
+
+    await update(newSession)
+    allowedAction?.()
+  }
 
   return (
     <form onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
@@ -108,7 +127,13 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
           render={({ field, fieldState: { error } }) => (
             <div className='mb-4'>
               <P className='mb-2 font-medium'>{t('editPatientForm.dateOfBirth.label')}</P>
-              <StyledDatePicker placeholder={t('editPatientForm.dateOfBirth.placeholder')} {...field} />
+              <StyledDatePicker
+                initialDate={field.value}
+                hintFormat='dd/MM/yyyy'
+                placeholder={t('editPatientForm.dateOfBirth.placeholder')}
+                errorText={(error?.message && <ErrorText>{error.message}</ErrorText>) || null}
+                {...field}
+              />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}
             </div>
@@ -125,8 +150,8 @@ export const EditPatientForm = ({ patient }: EditPatientFormProps) => {
                 id='phoneNumber'
                 type='tel'
                 component={Input}
-                mask='+38 (0__) ___-__-__'
-                placeholder='+38 (0__) ___-__-__'
+                mask='___ (___) ___-__-__'
+                placeholder='+38 (___) ___-__-__'
                 replacement='_'
                 {...field}
               />

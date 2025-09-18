@@ -1,4 +1,4 @@
-import { format, parseISO } from 'date-fns'
+import { format } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import { Pencil } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
@@ -41,9 +41,7 @@ const SingleAnalysisPage = async ({ params }: SingleAnalysisPageProps) => {
           ) : (
             <P className='text-white'>
               {t('singleAnalysisPage.analysisDate')}{' '}
-              <span className='capitalize'>
-                {format(parseISO(analyses?.date), 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
-              </span>
+              <span className='capitalize'>{format(analyses?.date, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}</span>
             </P>
           )}
 

@@ -31,7 +31,7 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
     resolver: zodResolver(analysisFormValuesSchema),
     defaultValues: {
       analysisName: analysis?.analysisName || '',
-      date: analysis?.date || '',
+      date: analysis?.date,
       description: analysis?.description || '',
       fileName: analysis?.fileName || ''
     }
@@ -73,6 +73,7 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
               <P className='font-medium mb-2'>{t('analysisForm.analysisDate.label')}</P>
               <StyledDatePicker
                 initialDate={value}
+                hintFormat='dd/MM/yyyy'
                 onChange={onChange}
                 placeholder={t('analysisForm.analysisDate.placeholder')}
               />

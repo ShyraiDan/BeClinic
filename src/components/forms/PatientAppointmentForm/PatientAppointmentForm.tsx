@@ -1,10 +1,13 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { parseISO, getHours, getDay } from 'date-fns'
+import { getHours, getDay, addHours } from 'date-fns'
+import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useMemo, useRef } from 'react'
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import useSWR from 'swr'
 
 import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
@@ -17,44 +20,137 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { TextArea } from '@/components/ui/textarea'
 import { P } from '@/components/ui/typography'
+import { useRouter } from '@/i18n/navigation'
+import { createAppointmentByPatientId, updateAppointmentByPatientId } from '@/lib/appointment'
+import { saveFileToBucket } from '@/lib/bucket'
 import { doctorSpecialties } from '@/mocks/shared'
-import { appointmentFormValuesSchema } from '@/shared/schemas'
-import { Appointment, AppointmentFormValues, SelectOption, SupportedLocales } from '@/shared/types'
+import { patientAppointmentFormValuesSchema } from '@/shared/schemas'
+import {
+  PatientAppointment,
+  PatientAppointmentFormValues,
+  SelectOption,
+  SupportedLocales,
+  PatientEditAppointmentFormValuesDtoSchema,
+  PatientCreateAppointmentFormValuesDtoSchema,
+  Doctor
+} from '@/shared/types'
+import { fetcher } from '@/utils/fetcher'
 import { cn } from '@/utils/utils'
 
-// TODO: Add validation
-
 interface AppointmentFormProps {
-  appointment?: Appointment
+  appointment?: PatientAppointment
 }
 
-export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
+export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) => {
+  const { data: session } = useSession()
+  const router = useRouter()
+
   const isEditMode = !!appointment?._id
   const locale = useLocale()
   const t = useTranslations('forms')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const { control, reset, handleSubmit, watch, getValues, setValue } = useForm<AppointmentFormValues>({
+  const {
+    control,
+    reset,
+    handleSubmit,
+    watch,
+    getValues,
+    setValue,
+    formState: { errors }
+  } = useForm<PatientAppointmentFormValues>({
     mode: 'onSubmit',
-    resolver: zodResolver(appointmentFormValuesSchema),
+    resolver: zodResolver(patientAppointmentFormValuesSchema),
     defaultValues: {
       reason: appointment?.reason ?? '',
-      startTime: appointment?.startTime ?? '',
-      endTime: appointment?.endTime ?? '',
+      startTime: appointment?.startTime,
+      endTime: appointment?.endTime,
       description: appointment?.description ?? '',
       analyses: appointment?.analyses ?? [],
       doctorId: appointment?.doctor._id ?? '',
       fileName: appointment?.fileName ?? '',
-      startTimeHours: `${appointment?.startTime ? getHours(parseISO(appointment.startTime)) : 10}:00`
+      startTimeHours: `${appointment?.startTime ? getHours(appointment.startTime) : 10}:00`,
+      specialty: appointment?.doctor.position ?? ''
     }
   })
+
+  const { data: doctors } = useSWR<Doctor[]>(
+    watch('specialty') ? `/api/searchTerms/doctor?search=${encodeURIComponent(watch('specialty'))}` : null,
+    fetcher,
+    {
+      shouldRetryOnError: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      refreshWhenHidden: false,
+      refreshWhenOffline: false
+    }
+  )
+
+  console.log('doctors', doctors)
+
+  const doctorOptions = useMemo(() => {
+    return doctors ? doctors.map((doctor: Doctor) => ({ value: doctor._id, label: doctor.doctorName })) : []
+  }, [doctors])
+
+  console.log('errors', errors)
 
   const fileName = watch('fileName') ?? ''
   const startTime = watch('startTime')
 
-  const onSubmit: SubmitHandler<AppointmentFormValues> = async (values) => {}
+  const onSubmit: SubmitHandler<PatientAppointmentFormValues> = async (values) => {
+    if (!session?.user.id) return
 
-  const handleUploadFile = async (file: File) => {}
+    if (isEditMode) {
+      const editAppointment: PatientEditAppointmentFormValuesDtoSchema = {
+        ...appointment,
+        ...values,
+        startTime: addHours(new Date(values.startTime), getHours(values.startTimeHours)),
+        endTime: addHours(new Date(values.startTime), getHours(values.startTimeHours + 1))
+      }
+
+      console.log('editAppointment', editAppointment)
+
+      const result = await updateAppointmentByPatientId(session.user.id, editAppointment)
+
+      console.log('result', result)
+
+      if (result.ok) {
+        toast.success(t('notifications.visitUpdateSuccess'))
+
+        // router.push(`/appointments/${result.}`)
+      } else {
+        toast.success(t('notifications.visitUpdateError'))
+      }
+    } else {
+      const createAppointment: PatientCreateAppointmentFormValuesDtoSchema = {
+        ...values,
+        startTime: addHours(new Date(values.startTime), getHours(values.startTimeHours)),
+        endTime: addHours(new Date(values.startTime), getHours(values.startTimeHours + 1))
+      }
+
+      console.log('createAppointment', createAppointment)
+
+      const result = await createAppointmentByPatientId(session.user.id, createAppointment)
+
+      console.log('result', result)
+
+      if (result.ok) {
+        toast.success(t('notifications.visitCreateSuccess'))
+
+        // router.push(`/appointments/${result.}`)
+      } else {
+        toast.success(t('notifications.visitCreateError'))
+      }
+    }
+  }
+
+  const handleUploadFile = async (file: File) => {
+    const timestamp = Date.now()
+    const extension = file.name.split('.').pop()
+
+    const fileName = await saveFileToBucket(file, `appointment_${timestamp}.${extension}`, 'beclinic/custom/files')
+    setValue('fileName', fileName)
+  }
 
   const timeOptions = useMemo(() => {
     if (!startTime || getDay(startTime) === 0) return []
@@ -72,13 +168,13 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
     fields: analyses,
     append: appendAnalyses,
     remove: removeAnalyses
-  } = useFieldArray<AppointmentFormValues>({
+  } = useFieldArray<PatientAppointmentFormValues>({
     control,
     name: 'analyses'
   })
 
   return (
-    <form onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
+    <form onSubmit={(e) => void handleSubmit(onSubmit)(e)} onError={(e) => console.log(e)}>
       <Controller
         name='reason'
         control={control}
@@ -119,8 +215,8 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
           <div className='mb-4'>
             <P className='font-medium mb-2'>{t('appointmentForm.appointmentDoctor.label')}</P>
             <StyledSelect
-              options={doctorSpecialties}
-              disabled={!getValues('specialty')}
+              options={doctorOptions}
+              disabled={!watch('specialty')}
               placeholder={t('appointmentForm.appointmentDoctor.placeholder')}
               {...field}
             />
@@ -134,20 +230,22 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
           <Controller
             name='startTime'
             control={control}
-            render={({ field: { value, onChange }, fieldState }) => (
+            render={({ field, fieldState: { error } }) => (
               <>
                 <P className='font-medium mb-2'>{t('appointmentForm.appointmentDate.label')}</P>
                 <StyledDatePicker
-                  initialDate={value}
-                  onChange={onChange}
+                  initialDate={field.value}
+                  hintFormat='dd/MM/yyyy'
                   placeholder={t('appointmentForm.appointmentDate.placeholder')}
+                  errorText={(error?.message && <ErrorText>{error.message}</ErrorText>) || null}
+                  {...field}
                 />
-                {fieldState.error && <ErrorText>{fieldState.error.message}</ErrorText>}
+                {error?.message && <ErrorText>{error.message}</ErrorText>}
               </>
             )}
           />
         </div>
-        <div className='w-full'>
+        <div className='w-full h-full'>
           <Controller
             name='startTimeHours'
             control={control}
@@ -155,6 +253,8 @@ export const AppointmentForm = ({ appointment }: AppointmentFormProps) => {
               <>
                 <P className='font-medium mb-2'>{t('appointmentForm.appointmentTime.label')}</P>
                 <StyledSelect
+                  disabled={!watch('startTime')}
+                  triggerClassName='h-[38px]'
                   options={timeOptions}
                   placeholder={t('appointmentForm.appointmentTime.placeholder')}
                   {...field}

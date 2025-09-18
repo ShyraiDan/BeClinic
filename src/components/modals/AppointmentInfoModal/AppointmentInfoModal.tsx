@@ -1,4 +1,4 @@
-import { format, parseISO } from 'date-fns'
+import { format } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -33,8 +33,8 @@ export const AppointmentInfoModal = ({ handleClose, appointment, open }: Appoint
         <div className='flex flex-col w-full '>
           <H6>{appointment.patient.userName}</H6>
           <P className='capitalize'>
-            {format(parseISO(appointment.startTime), 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}
-            {format(parseISO(appointment.endTime), 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
+            {format(appointment.startTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}
+            {format(appointment.endTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
           </P>
           <div className='my-2'>
             <H6>{t('profile.doctor.appointmentReason')}</H6>

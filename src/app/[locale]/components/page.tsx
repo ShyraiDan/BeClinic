@@ -40,7 +40,7 @@ export default function Home() {
 
       <StyledLinkButton href='/'>Styled Link</StyledLinkButton>
 
-      <StyledSelect options={mockedValues} triggerClassName='w-80' placeholder='Select an option' />
+      <StyledSelect onChange={() => {}} options={mockedValues} triggerClassName='w-80' placeholder='Select an option' />
 
       <StyledModal triggerButton={<Button>Open Modal</Button>}>
         <>

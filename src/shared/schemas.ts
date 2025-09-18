@@ -1,3 +1,4 @@
+import { endOfToday, isAfter } from 'date-fns'
 import { z } from 'zod'
 
 import { SUPPORTED_LOCALES } from '@/shared/constants'
@@ -69,18 +70,27 @@ export const blogFormValuesSchema = blogSchema.pick({
 
 export const patientSchema = z.object({
   _id: z.string(),
-  email: z.email(),
-  userName: z.string(),
-  dateOfBirth: z.string(),
-  phoneNumber: z.string(),
-  bloodType: z.string(),
-  diabetes: z.string(),
-  rhFactor: z.string(),
-  bloodTransfusion: z.string(),
-  intoleranceToMedicines: z.string(),
-  infectiousDiseases: z.string(),
-  surgicalInterventions: z.string(),
-  allergies: z.string(),
+  email: z.email('validation.emailInvalid').nonempty('validation.emailRequired'),
+  userName: z
+    .string()
+    .nonempty('validation.nameRequired')
+    .min(3, 'validation.nameMinLength')
+    .max(50, 'validation.nameMaxLength'),
+  dateOfBirth: z
+    .date()
+    .optional()
+    .refine((d) => !isAfter(d ?? new Date(), endOfToday()), {
+      message: 'validation.futureDate'
+    }),
+  phoneNumber: z.string().optional(),
+  bloodType: z.string().optional(),
+  diabetes: z.string().optional(),
+  rhFactor: z.string().optional(),
+  bloodTransfusion: z.string().optional(),
+  intoleranceToMedicines: z.string().optional(),
+  infectiousDiseases: z.string().optional(),
+  surgicalInterventions: z.string().optional(),
+  allergies: z.string().optional(),
   image: z.string().optional()
 })
 
@@ -100,7 +110,7 @@ export const analysesSchema = z.object({
   _id: z.string(),
   patientId: z.string(),
   analysisName: z.string(),
-  date: z.string(),
+  date: z.date(),
   description: z.string().optional(),
   fileName: z.string().optional(),
   createdAt: z.date(),
@@ -109,15 +119,29 @@ export const analysesSchema = z.object({
 
 export const appointmentSchema = z.object({
   _id: z.string(),
+  reason: z.string('validation.reasonRequired'),
+  startTime: z.date('validation.startTimeRequired'),
   patient: patientSchema,
   doctor: doctorSchema,
-  reason: z.string(),
-  startTime: z.string(),
-  endTime: z.string(),
+  endTime: z.date(),
   description: z.string().optional(),
   analyses: z.array(analysesSchema),
   fileName: z.string().optional()
 })
+
+export const patientAppointmentSchema = appointmentSchema
+  .pick({
+    _id: true,
+    reason: true,
+    startTime: true,
+    endTime: true,
+    description: true,
+    analyses: true,
+    fileName: true
+  })
+  .extend({
+    doctor: doctorSchema
+  })
 
 export const paymentSchema = z.object({
   _id: z.string(),
@@ -129,7 +153,7 @@ export const paymentSchema = z.object({
   updatedAt: z.date()
 })
 
-export const appointmentFormValuesSchema = appointmentSchema
+export const patientAppointmentFormValuesSchema = appointmentSchema
   .pick({
     reason: true,
     startTime: true,
@@ -139,10 +163,34 @@ export const appointmentFormValuesSchema = appointmentSchema
     fileName: true
   })
   .extend({
-    doctorId: z.string(),
-    specialty: z.string(),
-    startTimeHours: z.string()
+    doctorId: z.string(), // required
+    specialty: z.string(), // required
+    startTimeHours: z.string() // required
   })
+
+export const patientEditAppointmentFormValuesDtoSchema = patientAppointmentFormValuesSchema
+  .pick({
+    reason: true,
+    startTime: true,
+    endTime: true,
+    description: true,
+    analyses: true,
+    fileName: true,
+    doctorId: true
+  })
+  .extend({
+    _id: z.string()
+  })
+
+export const patientCreateAppointmentFormValuesDtoSchema = patientAppointmentFormValuesSchema.pick({
+  reason: true,
+  startTime: true,
+  endTime: true,
+  description: true,
+  analyses: true,
+  fileName: true,
+  doctorId: true
+})
 
 export const selectOptionSchema = z.object({
   value: z.string(),

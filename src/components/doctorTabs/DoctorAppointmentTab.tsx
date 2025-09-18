@@ -1,6 +1,6 @@
 'use client'
 
-import { isAfter, isBefore, parseISO } from 'date-fns'
+import { isAfter, isBefore } from 'date-fns'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
@@ -21,12 +21,12 @@ export const DoctorAppointmentTab = () => {
   const isLoading = false
 
   const futureAppointments = useMemo(
-    () => appointments?.filter((appointment) => isAfter(parseISO(appointment.endTime), new Date())) || [],
+    () => appointments?.filter((appointment) => isAfter(appointment.endTime, new Date())) || [],
     [appointments]
   )
 
   const pastAppointments = useMemo(
-    () => appointments?.filter((appointment) => isBefore(parseISO(appointment.endTime), new Date())) || [],
+    () => appointments?.filter((appointment) => isBefore(appointment.endTime, new Date())) || [],
     [appointments]
   )
 

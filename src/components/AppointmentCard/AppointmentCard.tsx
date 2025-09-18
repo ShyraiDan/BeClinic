@@ -1,14 +1,14 @@
-import { parseISO, format } from 'date-fns'
+import { format } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import Link from 'next/link'
 
 import { H6, P } from '@/components/ui/typography'
-import { Appointment, SupportedLocales } from '@/shared/types'
+import { PatientAppointment, SupportedLocales } from '@/shared/types'
 import { dateLocaleMap } from '@/utils/dateLocaleMap'
 import { cn } from '@/utils/utils'
 
 interface AppointmentCardProps {
-  appointment: Appointment
+  appointment: PatientAppointment
   locale: SupportedLocales
   isIncoming?: boolean
 }
@@ -25,8 +25,8 @@ const AppointmentCard = ({ appointment, isIncoming, locale }: AppointmentCardPro
             {appointment.doctor.doctorName}. {appointment.doctor.position}
           </H6>
           <P className='capitalize'>
-            {format(parseISO(appointment.startTime), 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}
-            {format(parseISO(appointment.endTime), 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
+            {format(appointment.startTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}
+            {format(appointment.endTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
           </P>
         </div>
       </div>

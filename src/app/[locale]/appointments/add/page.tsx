@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-import { AppointmentForm } from '@/components/forms/AppointmentForm/AppointmentForm'
+import { PatientAppointmentForm } from '@/components/forms/PatientAppointmentForm/PatientAppointmentForm'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { Container } from '@/components/ui/container'
 
@@ -11,7 +11,7 @@ const AddAppointmentPage = () => {
     <>
       <PageHeading title={t('addAppointmentPage.title')} />
       <Container>
-        <AppointmentForm />
+        <PatientAppointmentForm />
       </Container>
     </>
   )
