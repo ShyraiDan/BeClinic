@@ -65,7 +65,6 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
       if (result) {
         toast.success(t('notifications.analysisUpdateSuccess'))
 
-        // router.push()
         router.push(`/analyses/${result._id}`)
       } else {
         toast.error(t('notifications.analysisUpdateError'))
@@ -79,8 +78,6 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
         patientId: session.user.id,
         data: newAnalysis
       })
-
-      console.log('result', result)
 
       if (result._id) {
         toast.success(t('notifications.analysisCreateSuccess'))

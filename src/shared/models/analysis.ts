@@ -1,22 +1,27 @@
 import { HydratedDocument, InferSchemaType, Model, Schema, models, model } from 'mongoose'
 
-const mongoAnalysisSchema = new Schema({
-  patientId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Patients',
-    required: true
+const mongoAnalysisSchema = new Schema(
+  {
+    patientId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Patients',
+      required: true
+    },
+    analysisName: {
+      type: String,
+      required: true
+    },
+    description: String,
+    date: {
+      type: Date,
+      required: true
+    },
+    fileName: String
   },
-  analysisName: {
-    type: String,
-    required: true
-  },
-  description: String,
-  date: {
-    type: String,
-    required: true
-  },
-  fileName: String
-})
+  {
+    timestamps: true
+  }
+)
 
 export type Analysis = InferSchemaType<typeof mongoAnalysisSchema>
 export type AnalysisDoc = HydratedDocument<Analysis>

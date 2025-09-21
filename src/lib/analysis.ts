@@ -17,13 +17,17 @@ export const getAnalyses = async (patientId: string): Promise<Analysis[]> => {
   try {
     await connectMongoDB()
 
-    const analyses = await AnalysisModel.find({ patient: patientId }).lean<Analysis[]>()
+    const analyses = await AnalysisModel.find({ patientId }).lean<Analysis[]>()
 
     if (!analyses) {
       return []
     }
 
-    return analyses
+    return analyses.map((analysis) => ({
+      ...analysis,
+      _id: analysis._id.toString(),
+      patientId: analysis.patientId.toString()
+    }))
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -46,7 +50,11 @@ export const getSingleAnalysis = async (patientId: string, analysisId: string): 
       throw new Error('Error getting analysis')
     }
 
-    return analysis
+    return {
+      ...analysis,
+      _id: analysis._id.toString(),
+      patientId: analysis.patientId.toString()
+    }
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -66,16 +74,26 @@ export const createAnalysis = async (
   try {
     await connectMongoDB()
 
-    const newAnalysis = await AnalysisModel.create({
+    const newAnalysisDoc = await AnalysisModel.create({
       ...data,
       patientId
     })
 
-    if (!newAnalysis) {
-      throw new Error('Update failed')
+    if (!newAnalysisDoc) {
+      throw new Error('Creating failed')
     }
 
-    return JSON.parse(JSON.stringify(newAnalysis))
+    const newAnalysis = await AnalysisModel.findById(newAnalysisDoc._id).lean()
+
+    if (!newAnalysis) {
+      throw new Error('Creating failed')
+    }
+
+    return {
+      ...newAnalysis,
+      _id: newAnalysis._id.toString(),
+      patientId: newAnalysis.patientId.toString()
+    }
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')

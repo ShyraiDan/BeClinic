@@ -46,7 +46,7 @@ const SingleAnalysisPage = () => {
           ) : (
             <P className='text-white'>
               {t('singleAnalysisPage.analysisDate')}{' '}
-              <span className='capitalize'>{format(analyses.date, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}</span>
+              <span className='capitalize'>{format(analyses.date, 'MMM dd, yyyy', { locale: dateLocale })}</span>
             </P>
           )}
 
