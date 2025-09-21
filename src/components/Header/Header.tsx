@@ -16,8 +16,6 @@ import { BUCKET_URL } from '@/shared/constants'
 import { UserRoles } from '@/shared/types'
 import { cn } from '@/utils/utils'
 
-import type { Session } from 'next-auth'
-
 interface HeaderLinkProps {
   id?: string
   href: string
@@ -138,8 +136,8 @@ export const Header = () => {
                     currentPath={path}
                   />
                   <HeaderLink
-                    href={`/patient/${session.user.id}?tab=analyzes`}
-                    label='links.analyzes'
+                    href={`/patient/${session.user.id}?tab=analyses`}
+                    label='links.analyses'
                     currentPath={path}
                   />
                 </>
