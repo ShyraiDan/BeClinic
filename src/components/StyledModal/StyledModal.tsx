@@ -7,14 +7,23 @@ interface StyledModalProps extends DialogProps {
   triggerButton: React.ReactNode
   contentClassName?: string
   children: React.ReactNode
+  noDescription?: boolean
 }
-
-// eslint-disable-next-line @typescript-eslint/unbound-method
-export const StyledModal = ({ triggerButton, contentClassName, children, onOpenChange, open }: StyledModalProps) => {
+export const StyledModal = ({
+  noDescription,
+  triggerButton,
+  contentClassName,
+  children,
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  onOpenChange,
+  open
+}: StyledModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
-      <DialogContent className={cn('border-none', contentClassName)}>{children}</DialogContent>
+      <DialogContent aria-describedby={noDescription ? undefined : ''} className={cn('border-none', contentClassName)}>
+        {children}
+      </DialogContent>
     </Dialog>
   )
 }
