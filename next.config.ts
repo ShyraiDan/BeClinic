@@ -11,6 +11,15 @@ const withNextIntl = createNextIntlPlugin({
 const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: `${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_S3_REGION}.amazonaws.com`,
+        pathname: '/**'
+      }
+    ]
   }
 }
 

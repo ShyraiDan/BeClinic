@@ -91,7 +91,7 @@ export const patientSchema = z.object({
   infectiousDiseases: z.string().optional(),
   surgicalInterventions: z.string().optional(),
   allergies: z.string().optional(),
-  image: z.string().optional()
+  avatarUrl: z.string().optional()
 })
 
 export const doctorSchema = z.object({
@@ -313,7 +313,7 @@ export const editPatientFormValuesSchema = patientSchema.pick({
   infectiousDiseases: true,
   surgicalInterventions: true,
   allergies: true,
-  image: true
+  avatarUrl: true
 })
 
 export const editDoctorFormValuesSchema = doctorSchema.pick({

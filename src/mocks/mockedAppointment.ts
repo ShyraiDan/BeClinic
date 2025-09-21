@@ -18,7 +18,7 @@ export const mockedAppointment: Appointment[] = [
       infectiousDiseases: 'none',
       surgicalInterventions: 'appendectomy (2008)',
       allergies: 'pollen',
-      image: 'https://example.com/patients/olivia.jpg'
+      avatarUrl: 'https://example.com/patients/olivia.jpg'
     },
     doctor: {
       _id: '66e0c1a5b7f3c1d01a1b2c31',

@@ -21,7 +21,7 @@ export const mockedPayments: Payment[] = [
       infectiousDiseases: 'none',
       surgicalInterventions: 'appendectomy (2008)',
       allergies: 'pollen',
-      image: 'https://example.com/patients/olivia.jpg'
+      avatarUrl: 'https://example.com/patients/olivia.jpg'
     },
     appointment: {
       _id: '66f007a5c9c4a1f2b3d4bb01',
@@ -39,7 +39,7 @@ export const mockedPayments: Payment[] = [
         infectiousDiseases: 'none',
         surgicalInterventions: 'appendectomy (2008)',
         allergies: 'pollen',
-        image: 'https://example.com/patients/olivia.jpg'
+        avatarUrl: 'https://example.com/patients/olivia.jpg'
       },
       doctor: {
         _id: '66e0c1a5b7f3c1d01a1b2c31',

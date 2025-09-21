@@ -132,6 +132,7 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
                 hintFormat='dd/MM/yyyy'
                 onChange={onChange}
                 placeholder={t('analysisForm.analysisDate.placeholder')}
+                errorText={(error?.message && <ErrorText>{error.message}</ErrorText>) || null}
               />
               {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </>

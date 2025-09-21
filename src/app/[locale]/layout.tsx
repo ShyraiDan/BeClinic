@@ -49,7 +49,7 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
       <body className={`${roboto.variable} ${jost.variable} bg-[#f7f7f7] antialiased`}>
         <SessionProvider session={session}>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <Header session={session} />
+            <Header />
             <main>{children}</main>
             <Footer />
 
