@@ -14,5 +14,5 @@ export const mockPatient: Patient = {
   infectiousDiseases: 'COVID-19 (2021, mild)',
   surgicalInterventions: 'Appendectomy (2015)',
   allergies: 'Penicillin',
-  image: 'https://example.com/avatars/olena-hryn.jpg'
+  avatarUrl: 'https://example.com/avatars/olena-hryn.jpg'
 }

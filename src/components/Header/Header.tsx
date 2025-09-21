@@ -48,10 +48,6 @@ const links: HeaderLinkProps[] = [
   }
 ]
 
-interface HeaderProps {
-  session: Session | null
-}
-
 const HeaderLink = ({ id, href, label, prefetch, currentPath }: HeaderLinkProps & { currentPath: string }) => {
   const t = useTranslations('header')
 
