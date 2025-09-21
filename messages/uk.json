@@ -443,6 +443,10 @@
       "allergies": {
         "label": "Алергії",
         "placeholder": "Алергії"
+      },
+      "avatarUrl": {
+        "label": "Аватар",
+        "addAvatar": "Додати аватар"
       }
     },
     "editDoctorForm": {

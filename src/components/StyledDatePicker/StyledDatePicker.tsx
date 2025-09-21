@@ -47,7 +47,7 @@ export const StyledDatePicker = ({
   }
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
         <Button variant='date-picker' disabled={disabled} id='date' className='w-full justify-between font-normal'>
           {date ? date.toLocaleDateString() : placeholder}

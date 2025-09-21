@@ -4,6 +4,7 @@ import { User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
@@ -11,6 +12,7 @@ import { HeaderBurger } from '@/components/HeaderBurger/HeaderBurger'
 import { AuthModal } from '@/components/modals/AuthModal/AuthModal'
 import LanguageModal from '@/components/modals/LanguageModal/LanguageModal'
 import { StyledLink } from '@/components/ui/styledLink'
+import { BUCKET_URL } from '@/shared/constants'
 import { UserRoles } from '@/shared/types'
 import { cn } from '@/utils/utils'
 
@@ -71,7 +73,9 @@ const HeaderLink = ({ id, href, label, prefetch, currentPath }: HeaderLinkProps 
 const HEADER_ANIMATION_HEIGHT = 220
 const HEADER_ANIMATION_HEIGHT_HERO = 550
 
-export const Header = ({ session }: HeaderProps) => {
+export const Header = () => {
+  const { data: session } = useSession()
+
   const path = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const isPatient = session?.user?.role === UserRoles.PATIENT
@@ -157,9 +161,9 @@ export const Header = ({ session }: HeaderProps) => {
             </div>
             {session ? (
               <Link href={`/${session.user.role}/${session.user.id}?tab=appointments`}>
-                {/* {session.image ? (
+                {session.user.image ? (
                   <Image
-                    src={`${BUCKET_URL}/custom/avatars/${session.image}`}
+                    src={`${BUCKET_URL}/custom/avatars/${session.user.image}`}
                     alt='user avatar'
                     className='w-10 h-10 rounded-full'
                     width={40}
@@ -168,13 +172,9 @@ export const Header = ({ session }: HeaderProps) => {
                   />
                 ) : (
                   <div className='w-10 h-10 flex items-center justify-center bg-white rounded-full'>
-                    <FaUser className='fill-blue-100' />
+                    <User className='text-blue-100' />
                   </div>
-                )} */}
-
-                <div className='w-10 h-10 flex items-center justify-center bg-white rounded-full'>
-                  <User className='text-blue-100' />
-                </div>
+                )}
               </Link>
             ) : (
               <AuthModal />

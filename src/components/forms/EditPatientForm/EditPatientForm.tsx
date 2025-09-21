@@ -2,8 +2,11 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { InputMask } from '@react-input/mask'
+import { User } from 'lucide-react'
+import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
+import { useRef } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 
 import { StyledDatePicker } from '@/components/StyledDatePicker/StyledDatePicker'
@@ -13,7 +16,9 @@ import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { P } from '@/components/ui/typography'
+import { saveFileToBucket } from '@/lib/bucket'
 import { updatePatient } from '@/lib/patient'
+import { BUCKET_URL } from '@/shared/constants'
 import { editPatientFormValuesSchema } from '@/shared/schemas'
 import { EditPatientFormValues, Patient } from '@/shared/types'
 
@@ -55,8 +60,9 @@ const rhOptions = [
 export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps) => {
   const t = useTranslations('forms')
   const { data: session, update } = useSession()
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const { handleSubmit, control } = useForm<EditPatientFormValues>({
+  const { handleSubmit, control, watch, getValues, setValue } = useForm<EditPatientFormValues>({
     mode: 'onSubmit',
     resolver: zodResolver(editPatientFormValuesSchema),
     defaultValues: {
@@ -71,7 +77,8 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
       intoleranceToMedicines: patient.intoleranceToMedicines,
       infectiousDiseases: patient.infectiousDiseases,
       surgicalInterventions: patient.surgicalInterventions,
-      allergies: patient.allergies
+      allergies: patient.allergies,
+      avatarUrl: patient.avatarUrl
     }
   })
 
@@ -84,17 +91,101 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
         ...session?.user,
         name: updatedPatient?.userName,
         email: updatedPatient?.email,
-        image: updatedPatient?.image
+        image: updatedPatient?.avatarUrl
       }
     }
 
     await update(newSession)
+
     allowedAction?.()
+  }
+
+  const avatarUrl = watch('avatarUrl') ?? ''
+
+  const handleUploadFile = async (file: File) => {
+    const timestamp = Date.now()
+    const extension = file.name.split('.').pop()
+
+    const fileName = await saveFileToBucket(
+      file,
+      `${patient?._id}_${timestamp}.${extension}`,
+      'beclinic/custom/avatars'
+    )
+    setValue('avatarUrl', fileName)
   }
 
   return (
     <form onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
       <div className='mt-4 max-h-[500px] overflow-y-auto'>
+        <div className='mt-4 w-full'>
+          <Controller
+            name='avatarUrl'
+            control={control}
+            render={({ fieldState: { error } }) => (
+              <>
+                <Label htmlFor='fileName'>{t('editPatientForm.avatarUrl.label')}</Label>
+
+                <div className='flex items-center justify-center w-[80px] h-[80px] bg-blue-100 rounded-full'>
+                  {watch('avatarUrl') ? (
+                    <Image
+                      alt='User avatar'
+                      width={80}
+                      height={80}
+                      className='w-full h-full rounded-full'
+                      src={`${BUCKET_URL}/custom/avatars/${getValues('avatarUrl')}`}
+                    />
+                  ) : (
+                    <User size={24} className='text-white' />
+                  )}
+                </div>
+
+                <div className='flex items-center gap-3 mt-2 mb-4'>
+                  {!avatarUrl && (
+                    <Button
+                      type='button'
+                      onClick={() => {
+                        fileInputRef.current?.click()
+                      }}>
+                      {t('editPatientForm.avatarUrl.addAvatar')}
+                    </Button>
+                  )}
+
+                  {avatarUrl && (
+                    <>
+                      <Button
+                        type='button'
+                        onClick={() => {
+                          fileInputRef.current?.click()
+                        }}>
+                        {t('edit')}
+                      </Button>
+                      <Button
+                        type='button'
+                        variant='reset'
+                        onClick={() => {
+                          setValue('avatarUrl', '')
+                        }}>
+                        {t('cancel')}
+                      </Button>
+                    </>
+                  )}
+                  <input
+                    ref={fileInputRef}
+                    type='file'
+                    name='file'
+                    id='fileName'
+                    accept='image/jpg, image/jpeg, image/png'
+                    className='hidden'
+                    onChange={(e) => void handleUploadFile(e.target.files![0])}
+                  />
+                </div>
+
+                {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
+              </>
+            )}
+          />
+        </div>
+
         <Controller
           name='userName'
           control={control}
@@ -124,15 +215,15 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
         <Controller
           name='dateOfBirth'
           control={control}
-          render={({ field, fieldState: { error } }) => (
+          render={({ field: { value, onChange }, fieldState: { error } }) => (
             <div className='mb-4'>
               <P className='mb-2 font-medium'>{t('editPatientForm.dateOfBirth.label')}</P>
               <StyledDatePicker
-                initialDate={field.value}
+                initialDate={value}
                 hintFormat='dd/MM/yyyy'
                 placeholder={t('editPatientForm.dateOfBirth.placeholder')}
                 errorText={(error?.message && <ErrorText>{error.message}</ErrorText>) || null}
-                {...field}
+                onChange={onChange}
               />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}

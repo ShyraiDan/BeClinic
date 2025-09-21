@@ -16,7 +16,7 @@ export const getPatient = async (id: string): Promise<Patient> => {
 
   try {
     await connectMongoDB()
-    const patient = await PatientModel.findById(id).lean<Patient>()
+    const patient = await PatientModel.findById(id).lean<Patient>({ getters: true })
 
     if (!patient) {
       throw new Error('No patient found')
@@ -52,16 +52,19 @@ export const updatePatient = async (id: string, data: EditPatientFormValues): Pr
         infectiousDiseases: data.infectiousDiseases,
         surgicalInterventions: data.surgicalInterventions,
         allergies: data.allergies,
-        image: data.image ?? ''
+        avatarUrl: data.avatarUrl ?? ''
       },
       { new: true }
     ).lean<Patient>()
 
     if (!updatedPatient) throw new Error('Update failed')
 
-    revalidatePath('[locale]/mycabinet/patient/[id]', 'page')
+    revalidatePath('[locale]/patient/[id]', 'page')
 
-    return updatedPatient
+    return {
+      ...updatedPatient,
+      _id: updatedPatient._id.toString()
+    }
   } catch (error) {
     console.error(error)
     throw new Error('Unexpected error')

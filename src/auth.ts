@@ -41,7 +41,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               id: patient._id.toString(),
               name: patient.userName,
               email: patient.email,
-              image: patient.image,
+              image: patient.avatarUrl,
               role: UserRoles.PATIENT
             }
           } else {
@@ -74,7 +74,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     })
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
       if (user && user.role === UserRoles.PATIENT) {
         const patient = await PatientModel.findOne({ email: token.email! })
 
@@ -82,11 +82,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null
         }
 
-        token.id = user.id
-        token.name = user.name
-        token.email = user.email
-        token.image = user.image
+        token.id = patient._id.toString()
+        token.name = patient.userName
+        token.email = patient.email
+        token.image = patient.avatarUrl
         token.role = user.role
+      }
+
+      if (trigger === 'update') {
+        if (token.role === UserRoles.PATIENT) {
+          const patient = await PatientModel.findOne({ email: token.email! })
+
+          if (!patient) {
+            return null
+          }
+
+          token.id = patient._id.toString()
+          token.name = patient.userName
+          token.email = patient.email
+          token.image = patient.avatarUrl
+          token.role = 'patient'
+        }
       }
 
       return token

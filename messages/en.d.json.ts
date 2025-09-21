@@ -446,6 +446,10 @@ declare const messages: {
       "allergies": {
         "label": "Allergies",
         "placeholder": "Allergies"
+      },
+      "avatarUrl": {
+        "label": "Avatar",
+        "addAvatar": "Add avatar"
       }
     },
     "editDoctorForm": {

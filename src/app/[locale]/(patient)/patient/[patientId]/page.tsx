@@ -1,5 +1,6 @@
 import { format } from 'date-fns'
 import { User } from 'lucide-react'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { Suspense } from 'react'
@@ -14,6 +15,7 @@ import { StyledTab } from '@/components/StyledTab/StyledTab'
 import { Container, LoadingContainer } from '@/components/ui/container'
 import { P, H2, H6, H4 } from '@/components/ui/typography'
 import { getPatient } from '@/lib/patient'
+import { BUCKET_URL } from '@/shared/constants'
 
 const TABS_ENUM = {
   APPOINTMENTS: 'appointments',
@@ -37,15 +39,9 @@ const PatientProfile = async ({ patientId }: PatientProfileProps) => {
       <div className='mt-12 flex flex-col items-center justify-center relative lg:mt-6'>
         {patient && <EditPatientModal patient={patient} />}
 
-        <div className='flex items-center justify-center w-[80px] h-[80px] bg-blue-100 rounded-full'>
-          <User size={24} className='text-white' />
-        </div>
-
-        {/* {isLoading ? (
-          <SkeletonAvatar />
-        ) : patient?.image ? (
+        {patient?.avatarUrl ? (
           <Image
-            src={`${BUCKET_URL}/custom/avatars/${patient.image}`}
+            src={`${BUCKET_URL}/custom/avatars/${patient.avatarUrl}`}
             width={80}
             height={80}
             alt='User avatar'
@@ -54,9 +50,9 @@ const PatientProfile = async ({ patientId }: PatientProfileProps) => {
           />
         ) : (
           <div className='flex items-center justify-center w-[80px] h-[80px] bg-blue-100 rounded-full'>
-            <User size={24} fill='#fff' />
+            <User size={24} className='text-white' />
           </div>
-        )} */}
+        )}
 
         <P className='px-4 line-clamp-2 text-lg font-bold mt-2'>{patient.userName}</P>
 
