@@ -1,11 +1,13 @@
 'use client'
 
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 
 import { StyledModal } from '@/components/StyledModal/StyledModal'
 import { Button } from '@/components/ui/button'
+import { DialogTitle } from '@/components/ui/dialog'
 import { BUCKET_URL } from '@/shared/constants'
 
 interface AttachmentPreviewModalProps {
@@ -18,16 +20,32 @@ export const AttachmentPreviewModal = ({ attachment }: AttachmentPreviewModalPro
   const fileType = useMemo(() => attachment.split('.').pop(), [attachment])
 
   return (
-    <StyledModal triggerButton={<Button>{t('appointmentForm.appointmentFiles.button')}</Button>}>
+    <StyledModal
+      contentClassName='h-[calc(100%-60px)] w-full !max-w-[calc(100%-48px)] lg:max-w-[60%] lg:w-[60%]'
+      aria-describedby={undefined}
+      triggerButton={<Button>{t('appointmentForm.appointmentFiles.button')}</Button>}>
+      <VisuallyHidden>
+        <DialogTitle>Priview attachment</DialogTitle>
+      </VisuallyHidden>
+
       {fileType && ['jpg', 'jpeg', 'png'].includes(fileType) && (
-        <Image src={`${BUCKET_URL}/custom/files/${attachment}`} alt='' width={500} height={500} unoptimized />
+        <div className='w-full h-full flex justify-center my-4'>
+          <Image
+            src={`${BUCKET_URL}/custom/files/${attachment}`}
+            className=' h-[calc(100%-16px)] w-[100%] lg:max-w-[calc(1200px-32px)] object-contain'
+            alt=''
+            width={500}
+            height={500}
+            unoptimized
+          />
+        </div>
       )}
 
       {fileType?.includes('pdf') && (
-        <div className='w-full h-full flex items-center justify-center max-h-[800px] max-w-[900px]'>
+        <div className='w-full h-full flex justify-center my-4'>
           <iframe
             src={`${BUCKET_URL}/custom/files/${attachment}`}
-            className='h-[300px] w-[250px] sm:h-[450px] sm:w-[400px] md:h-[650px] md:w-[550px] lg:h-[750px] lg:w-[650px]'
+            className='h-[calc(100%-16px)] w-[100%] lg:h-[750px] lg:max-w-[calc(1200px-32px)]'
           />
         </div>
       )}

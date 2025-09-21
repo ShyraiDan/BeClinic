@@ -174,15 +174,13 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
 
                 {fileName && (
                   <Button
-                    className='border border-solid border-red bg-transparent text-red'
+                    variant='reset'
                     onClick={() => {
                       setValue('fileName', '')
                     }}>
                     {t('cancel')}
                   </Button>
                 )}
-
-                {/* TODO: Refactor this void function */}
                 <input
                   ref={fileInputRef}
                   type='file'

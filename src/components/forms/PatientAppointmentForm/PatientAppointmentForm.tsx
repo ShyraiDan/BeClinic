@@ -325,7 +325,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
 
                 {fileName && (
                   <Button
-                    className='border border-solid border-red bg-transparent text-red'
+                    variant='reset'
                     onClick={() => {
                       setValue('fileName', '')
                     }}>

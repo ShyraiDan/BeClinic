@@ -106,7 +106,6 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
                 </Button>
                 <Button
                   variant='reset'
-                  className='border-red-100 text-red-100 hover:border-red-700 hover:text-red-700'
                   onClick={() => {
                     setIsEditImage(false)
                   }}>

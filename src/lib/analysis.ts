@@ -125,7 +125,11 @@ export const updateAnalysis = async (
       throw new Error('Update failed')
     }
 
-    return updAnalysis
+    return {
+      ...updAnalysis,
+      _id: updAnalysis._id.toString(),
+      patientId: updAnalysis.patientId.toString()
+    }
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
