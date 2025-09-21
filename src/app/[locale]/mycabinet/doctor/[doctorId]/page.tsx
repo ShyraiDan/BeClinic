@@ -116,7 +116,7 @@ const DoctorProfilePage = ({ params }: DoctorProfilePageProps) => {
           <DoctorProfile params={params} />
         </div>
         <div className='lg:col-start-1 lg:col-end-2 lg:row-start-1'>
-          <StyledTab tabs={tabs} defaultValue={tabs[0].id} />
+          <StyledTab tabs={tabs} />
         </div>
       </Container>
     </>

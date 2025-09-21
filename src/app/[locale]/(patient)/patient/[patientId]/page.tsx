@@ -19,7 +19,7 @@ import { BUCKET_URL } from '@/shared/constants'
 
 const TABS_ENUM = {
   APPOINTMENTS: 'appointments',
-  ANALYZES: 'analyses',
+  ANALYSES: 'analyses',
   BILLING: 'billing'
 }
 
@@ -125,7 +125,7 @@ const PatientProfile = async ({ patientId }: PatientProfileProps) => {
 
 const tabs = [
   { id: TABS_ENUM.APPOINTMENTS, label: 'profile.patient.appointments', content: <AppointmentTab /> },
-  { id: TABS_ENUM.ANALYZES, label: 'profile.patient.analyses', content: <AnalysesTab /> },
+  { id: TABS_ENUM.ANALYSES, label: 'profile.patient.analyses', content: <AnalysesTab /> },
   { id: TABS_ENUM.BILLING, label: 'profile.patient.billing', content: <BillingTab /> }
 ]
 
@@ -146,7 +146,7 @@ const PatientProfilePage = async ({ params }: PatientProfilePageProps) => {
             <PatientProfile patientId={patientId} />
           </div>
           <div className='lg:col-start-1 lg:col-end-2 lg:row-start-1'>
-            <StyledTab tabs={tabs} defaultValue={tabs[0].id} />
+            <StyledTab tabs={tabs} />
           </div>
         </Container>
       </Suspense>

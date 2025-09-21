@@ -81,11 +81,11 @@ const BurgerMenuContent = ({ showModal, session }: BurgerMenuContentProps) => {
               </li>
               <li className='py-2.5 flex'>
                 <StyledLink
-                  href={`/mycabinet/patient/${session.user.id}?tab=analyzes`}
+                  href={`/mycabinet/patient/${session.user.id}?tab=analyses`}
                   variant='burger'
-                  className={cn(path === `/mycabinet/patient/${session.user.id}?tab=analyzes` && 'text-blue-200')}
+                  className={cn(path === `/mycabinet/patient/${session.user.id}?tab=analyses` && 'text-blue-200')}
                   onClick={() => showModal()}>
-                  {t('links.analyzes')}
+                  {t('links.analyses')}
                 </StyledLink>
               </li>
             </>
