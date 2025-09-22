@@ -1,10 +1,10 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Option } from '@/shared/types'
-import { useTranslations } from 'next-intl'
 
 import type { SelectProps } from '@radix-ui/react-select'
 
