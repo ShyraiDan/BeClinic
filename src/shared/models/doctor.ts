@@ -23,7 +23,7 @@ const mongoDoctorSchema = new Schema(
       type: String,
       required: true
     },
-    image: String,
+    avatarUrl: String,
     description: String
   },
   {

@@ -88,7 +88,7 @@ export const handlePatientSignUp = async (
   }
 }
 
-export const handleDoctorSignUp = async (formData: FormData) => {
+export const handleDoctorSignUp = async (formData: FormData): Promise<{ ok: boolean; error?: { message: string } }> => {
   try {
     const values = {
       email: formData.get('email') as string,
@@ -99,7 +99,7 @@ export const handleDoctorSignUp = async (formData: FormData) => {
       role: formData.get('role') as UserRoles
     }
 
-    if (!values.password) return { error: { message: 'Password is required' } }
+    if (!values.password) return { ok: false, error: { message: 'Password is required' } }
 
     await connectMongoDB()
 
@@ -115,22 +115,20 @@ export const handleDoctorSignUp = async (formData: FormData) => {
       phone: values.phone
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const response = await signIn('credentials', {
+    await signIn('credentials', {
       email: formData.get('email'),
       password: formData.get('password'),
       role: formData.get('role'),
       redirect: false
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return response
+    return { ok: true }
   } catch (error) {
     const { code } = mapMongoError(error)
 
     switch (code) {
       case 'DUPLICATE_KEY':
-        return { error: { message: 'validation.userExists' } }
+        return { ok: false, error: { message: 'validation.userExists' } }
     }
 
     throw error
