@@ -6,7 +6,7 @@ export const mockedDoctors: Doctor[] = [
     email: 'anna.petrenko@clinic.com',
     doctorName: 'Анна Петренко',
     position: 'Педіатр',
-    image: 'https://example.com/images/doctors/anna-petrenko.jpg',
+    avatarUrl: 'https://example.com/images/doctors/anna-petrenko.jpg',
     description:
       'Досвідчений педіатр з 10-річною практикою, спеціалізується на профілактиці та лікуванні дитячих хвороб.',
     phone: '+380501234567',
@@ -18,7 +18,7 @@ export const mockedDoctors: Doctor[] = [
     email: 'oleksandr.shevchenko@clinic.com',
     doctorName: 'Олександр Шевченко',
     position: 'Хірург',
-    image: 'https://example.com/images/doctors/oleksandr-shevchenko.jpg',
+    avatarUrl: 'https://example.com/images/doctors/oleksandr-shevchenko.jpg',
     description: 'Проводить оперативні втручання та спеціалізується на мінімально інвазивній хірургії.',
     phone: '+380671234568',
     createdAt: new Date('2023-08-05T11:30:00Z'),
@@ -48,7 +48,7 @@ export const mockedDoctors: Doctor[] = [
     email: 'sofia.melnyk@clinic.com',
     doctorName: 'Софія Мельник',
     position: 'Лікар-ендокринолог',
-    image: 'https://example.com/images/doctors/sofia-melnyk.jpg',
+    avatarUrl: 'https://example.com/images/doctors/sofia-melnyk.jpg',
     phone: '+380671234571',
     createdAt: new Date('2024-06-25T10:05:00Z'),
     updatedAt: new Date('2025-02-15T12:40:00Z')
