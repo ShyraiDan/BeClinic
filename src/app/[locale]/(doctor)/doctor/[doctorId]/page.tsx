@@ -6,10 +6,10 @@ import { DoctorAppointmentTab } from '@/components/doctorTabs/DoctorAppointmentT
 import { DoctorCalendarTab } from '@/components/doctorTabs/DoctorCalendarTab'
 import { EditDoctorModal } from '@/components/modals/EditDoctorModal/EditDoctorModal'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
+import { SignOutButton } from '@/components/SignOutButton/SignOutButton'
 import { SkeletonAvatar } from '@/components/skeletons/SkeletonAvatar'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { StyledTab } from '@/components/StyledTab/StyledTab'
-import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { H2, H6, P } from '@/components/ui/typography'
 import { mockedDoctors } from '@/mocks/mockedDoctors'
@@ -89,7 +89,7 @@ const DoctorProfile = ({ params }: DoctorProfileProps) => {
           </ul>
         </div>
         <div className='w-full'>
-          <Button className='mt-8 bg-red-100'>{t('profile.leave')}</Button>
+          <SignOutButton />
         </div>
       </div>
     </div>

@@ -99,7 +99,7 @@ export const handleDoctorSignUp = async (formData: FormData): Promise<{ ok: bool
       role: formData.get('role') as UserRoles
     }
 
-    if (!values.password) return { ok: false, error: { message: 'Password is required' } }
+    if (!values.password) return { ok: false, error: { message: 'validation.passwordRequired' } }
 
     await connectMongoDB()
 
@@ -124,6 +124,8 @@ export const handleDoctorSignUp = async (formData: FormData): Promise<{ ok: bool
 
     return { ok: true }
   } catch (error) {
+    console.error(error)
+
     const { code } = mapMongoError(error)
 
     switch (code) {
@@ -131,6 +133,6 @@ export const handleDoctorSignUp = async (formData: FormData): Promise<{ ok: bool
         return { ok: false, error: { message: 'validation.userExists' } }
     }
 
-    throw error
+    return { ok: false, error: { message: 'validation.unexpectedError' } }
   }
 }

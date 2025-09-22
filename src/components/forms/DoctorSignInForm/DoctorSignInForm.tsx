@@ -50,9 +50,7 @@ export const DoctorSignInForm = () => {
         return
       }
 
-      if (response.ok) {
-        router.refresh()
-      }
+      router.refresh()
     } catch (error) {
       console.error(error)
 

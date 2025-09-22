@@ -30,7 +30,7 @@ export const EditDoctorForm = ({ doctor }: EditDoctorFormProps) => {
       doctorName: doctor.doctorName,
       position: doctor.position,
       phone: doctor.phone,
-      image: doctor.image
+      avatarUrl: doctor.avatarUrl
     }
   })
 
@@ -92,7 +92,7 @@ export const EditDoctorForm = ({ doctor }: EditDoctorFormProps) => {
                 id='phone'
                 type='tel'
                 component={Input}
-                mask='+38 (0__) ___-__-__'
+                mask='___ (___) ___-__-__'
                 placeholder='+38 (0__) ___-__-__'
                 replacement='_'
                 {...field}

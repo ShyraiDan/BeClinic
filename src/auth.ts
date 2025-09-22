@@ -9,7 +9,7 @@ import { UserRoles } from '@/shared/types'
 
 import type { NextAuthConfig, Session } from 'next-auth'
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
   secret: process.env.AUTH_SECRET,
   providers: [
     CredentialsProvider({

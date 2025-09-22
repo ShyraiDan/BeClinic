@@ -61,9 +61,7 @@ export const DoctorSignUpForm = () => {
         return
       }
 
-      if (res.ok) {
-        router.refresh()
-      }
+      router.refresh()
     } catch (error) {
       console.error(error)
 

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 
-import { auth } from '@/auth'
+import { auth, unstable_update } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import PatientModel from '@/shared/models/patient'
 import { EditPatientFormValues, Patient } from '@/shared/types'
@@ -58,6 +58,8 @@ export const updatePatient = async (id: string, data: EditPatientFormValues): Pr
     ).lean<Patient>()
 
     if (!updatedPatient) throw new Error('Update failed')
+
+    await unstable_update({ user: { image: updatedPatient.avatarUrl } })
 
     revalidatePath('[locale]/patient/[id]', 'page')
 
