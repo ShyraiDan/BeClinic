@@ -1,82 +1,70 @@
 export const doctorSpecialties = [
   {
-    value: 'Терапевт',
-    label: 'Терапевт'
+    value: 'therapist',
+    label: 'specialtySelect.therapist'
   },
   {
-    value: 'Педіатр',
-    label: 'Педіатр'
+    value: 'pediatrician',
+    label: 'specialtySelect.pediatrician'
   },
   {
-    value: 'Хірург',
-    label: 'Хірург'
+    value: 'surgeon',
+    label: 'specialtySelect.surgeon'
   },
   {
-    value: 'Офтальмолог',
-    label: 'Офтальмолог'
+    value: 'ophthalmologist',
+    label: 'specialtySelect.ophthalmologist'
   },
   {
-    value: 'Стоматолог',
-    label: 'Стоматолог'
+    value: 'dentist',
+    label: 'specialtySelect.dentist'
   },
   {
-    value: 'Кардіолог',
-    label: 'Кардіолог'
+    value: 'cardiologist',
+    label: 'specialtySelect.cardiologist'
   },
   {
-    value: 'Невролог',
-    label: 'Невролог'
+    value: 'neurologist',
+    label: 'specialtySelect.neurologist'
   },
   {
-    value: 'Дерматолог',
-    label: 'Дерматолог'
+    value: 'dermatologist',
+    label: 'specialtySelect.dermatologist'
   },
   {
-    value: 'Отоларинголог',
-    label: 'Отоларинголог'
+    value: 'otolaryngologist',
+    label: 'specialtySelect.otolaryngologist'
   },
   {
-    value: 'Ендокринолог',
-    label: 'Ендокринолог'
+    value: 'endocrinologist',
+    label: 'specialtySelect.endocrinologist'
   },
   {
-    value: 'Гастроентеролог',
-    label: 'Гастроентеролог'
+    value: 'gastroenterologist',
+    label: 'specialtySelect.gastroenterologist'
   },
   {
-    value: 'Уролог',
-    label: 'Уролог'
+    value: 'urologist',
+    label: 'specialtySelect.urologist'
   },
   {
-    value: 'Гінеколог',
-    label: 'Гінеколог'
+    value: 'gynecologist',
+    label: 'specialtySelect.gynecologist'
   },
   {
-    value: 'Андролог',
-    label: 'Андролог'
+    value: 'andrologist',
+    label: 'specialtySelect.andrologist'
   },
   {
-    value: 'Психіатр',
-    label: 'Психіатр'
+    value: 'psychiatrist',
+    label: 'specialtySelect.psychiatrist'
   },
   {
-    value: 'Психотерапевт',
-    label: 'Психотерапевт'
+    value: 'psychotherapist',
+    label: 'specialtySelect.psychotherapist'
   },
   {
-    value: 'Інфекціоніст',
-    label: 'Інфекціоніст'
-  },
-  {
-    value: 'Ревматолог',
-    label: 'Ревматолог'
-  },
-  {
-    value: 'Травматолог-ортопед',
-    label: 'Травматолог-ортопед'
-  },
-  {
-    value: 'Алерголог-імунолог',
-    label: 'Алерголог-імунолог'
+    value: 'infectious',
+    label: 'specialtySelect.infectious'
   }
 ]

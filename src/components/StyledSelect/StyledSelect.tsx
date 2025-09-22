@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Option } from '@/shared/types'
+import { useTranslations } from 'next-intl'
 
 import type { SelectProps } from '@radix-ui/react-select'
 
@@ -13,6 +14,7 @@ interface StyledSelectProps extends SelectProps {
   options: Option[]
   triggerClassName?: string
   disabled?: boolean
+  localized?: boolean
 }
 
 export const StyledSelect = ({
@@ -20,10 +22,12 @@ export const StyledSelect = ({
   triggerClassName,
   placeholder,
   disabled,
+  localized,
   onChange,
   ...props
 }: StyledSelectProps) => {
   const [open, setOpen] = useState(false)
+  const t = useTranslations('forms')
 
   const handleSelect = (v: string) => {
     onChange(v)
@@ -34,6 +38,8 @@ export const StyledSelect = ({
     setOpen((state) => !state)
   }
 
+  console.log('localized', localized)
+
   return (
     <Select {...props} onOpenChange={handleOpenChange} open={open} onValueChange={handleSelect}>
       <SelectTrigger className={triggerClassName}>
@@ -43,7 +49,7 @@ export const StyledSelect = ({
         <SelectContent>
           {options.map((option: Option) => (
             <SelectItem key={option.value} value={option.value}>
-              {option.label}
+              {localized ? t(option.label) : option.label}
             </SelectItem>
           ))}
         </SelectContent>

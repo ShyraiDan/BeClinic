@@ -509,6 +509,25 @@ declare const messages: {
       "startTimeHoursRequired": "Time is required field",
       "analysisNameRequired": "Analysis name is required field",
       "analysisDateRequired": "Analysis date is required field"
+    },
+    "specialtySelect": {
+      "therapist": "Therapist",
+      "pediatrician": "Pediatrician",
+      "surgeon": "Surgeon",
+      "ophthalmologist": "Ophthalmologist",
+      "dentist": "Dentist",
+      "cardiologist": "Cardiologist",
+      "neurologist": "Neurologist",
+      "dermatologist": "Dermatologist",
+      "otolaryngologist": "Otolaryngologist",
+      "endocrinologist": "Endocrinologist",
+      "gastroenterologist": "Gastroenterologist",
+      "urologist": "Urologist",
+      "gynecologist": "Gynecologist",
+      "andrologist": "Andrologist",
+      "psychiatrist": "Psychiatrist",
+      "psychotherapist": "Psychotherapist",
+      "infectious": "Infectious disease specialist"
     }
   },
   "modals": {

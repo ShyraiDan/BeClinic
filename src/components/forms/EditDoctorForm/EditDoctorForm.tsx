@@ -75,6 +75,7 @@ export const EditDoctorForm = ({ doctor }: EditDoctorFormProps) => {
                 options={doctorSpecialties}
                 placeholder={t('editDoctorForm.position.placeholder')}
                 {...field}
+                localized
               />
 
               {error?.message && <ErrorText>{error.message}</ErrorText>}

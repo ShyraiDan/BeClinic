@@ -204,6 +204,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
               options={doctorSpecialties}
               placeholder={t('appointmentForm.appointmentSpecialization.placeholder')}
               {...field}
+              localized
             />
             {error?.message && <ErrorText>{error.message}</ErrorText>}
           </div>

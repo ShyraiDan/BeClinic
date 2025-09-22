@@ -98,14 +98,18 @@ export const DoctorSignUpForm = () => {
           </div>
         )}
       />
-
       <Controller
         name='position'
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
             <P className='mb-2 font-medium'>{t('authForm.position.label')}</P>
-            <StyledSelect options={doctorSpecialties} placeholder={t('authForm.position.placeholder')} {...field} />
+            <StyledSelect
+              options={doctorSpecialties}
+              placeholder={t('authForm.position.placeholder')}
+              {...field}
+              localized
+            />
 
             {error?.message && <ErrorText>{error.message}</ErrorText>}
           </div>
