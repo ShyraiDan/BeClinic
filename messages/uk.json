@@ -506,6 +506,25 @@
       "startTimeHoursRequired": "Час початку візиту є обов'язковим",
       "analysisNameRequired": "Назва аналізу є обов'язковою",
       "analysisDateRequired": "Дата аналізу є обов'язковою"
+    },
+    "specialtySelect": {
+      "therapist": "Терапевт",
+      "pediatrician": "Педіатр",
+      "surgeon": "Хірург",
+      "ophthalmologist": "Офтальмолог",
+      "dentist": "Стоматолог",
+      "cardiologist": "Кардіолог",
+      "neurologist": "Невролог",
+      "dermatologist": "Дерматолог",
+      "otolaryngologist": "Отоларинголог",
+      "endocrinologist": "Ендокринолог",
+      "gastroenterologist": "Гастроентеролог",
+      "urologist": "Уролог",
+      "gynecologist": "Гінеколог",
+      "andrologist": "Андролог",
+      "psychiatrist": "Психіатр",
+      "psychotherapist": "Психотерапевт",
+      "infectious": "Інфекціоніст"
     }
   },
   "modals": {

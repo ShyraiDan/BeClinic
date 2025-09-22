@@ -99,7 +99,7 @@ export const doctorSchema = z.object({
   email: z.email(),
   doctorName: z.string(),
   position: z.string(),
-  image: z.string().optional(),
+  avatarUrl: z.string().optional(),
   description: z.string().optional(),
   phone: z.string(),
   createdAt: z.date(),
@@ -320,7 +320,7 @@ export const editDoctorFormValuesSchema = doctorSchema.pick({
   email: true,
   doctorName: true,
   position: true,
-  image: true,
+  avatarUrl: true,
   phone: true
 })
 

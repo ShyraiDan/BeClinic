@@ -4,7 +4,6 @@ import { User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
@@ -15,6 +14,8 @@ import { StyledLink } from '@/components/ui/styledLink'
 import { BUCKET_URL } from '@/shared/constants'
 import { UserRoles } from '@/shared/types'
 import { cn } from '@/utils/utils'
+
+import type { Session } from 'next-auth'
 
 interface HeaderLinkProps {
   id?: string
@@ -67,9 +68,11 @@ const HeaderLink = ({ id, href, label, prefetch, currentPath }: HeaderLinkProps 
 const HEADER_ANIMATION_HEIGHT = 220
 const HEADER_ANIMATION_HEIGHT_HERO = 550
 
-export const Header = () => {
-  const { data: session } = useSession()
+interface HeaderProps {
+  session: Session | null
+}
 
+export const Header = ({ session }: HeaderProps) => {
   const path = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const isPatient = session?.user?.role === UserRoles.PATIENT

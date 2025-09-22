@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
@@ -17,6 +18,7 @@ import { patientSignInFormValuesSchema } from '@/shared/schemas'
 import { PatientSignInFormValues, UserRoles } from '@/shared/types'
 
 export const PatientSignInForm = () => {
+  const { update } = useSession()
   const [showPassword, setShowPassword] = useState(false)
   const t = useTranslations('forms')
 
@@ -50,9 +52,8 @@ export const PatientSignInForm = () => {
         return
       }
 
-      if (response.ok) {
-        router.refresh()
-      }
+      await update()
+      router.refresh()
     } catch (error) {
       console.error(error)
 

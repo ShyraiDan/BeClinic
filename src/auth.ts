@@ -9,7 +9,7 @@ import { UserRoles } from '@/shared/types'
 
 import type { NextAuthConfig, Session } from 'next-auth'
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth({
   secret: process.env.AUTH_SECRET,
   providers: [
     CredentialsProvider({
@@ -61,7 +61,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               id: doctor._id.toString(),
               name: doctor.doctorName,
               email: doctor.email,
-              image: doctor.image,
+              image: doctor.avatarUrl,
               role: UserRoles.DOCTOR
             }
           }
@@ -87,6 +87,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.email = patient.email
         token.image = patient.avatarUrl
         token.role = user.role
+      } else if (user && user.role === UserRoles.DOCTOR) {
+        const doctor = await DoctorModel.findOne({ email: token.email! })
+
+        if (!doctor) {
+          return null
+        }
+
+        token.id = doctor._id.toString()
+        token.name = doctor.doctorName
+        token.email = doctor.email
+        token.image = doctor.avatarUrl
+        token.role = user.role
       }
 
       if (trigger === 'update') {
@@ -102,6 +114,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.email = patient.email
           token.image = patient.avatarUrl
           token.role = 'patient'
+        } else if (token.role === UserRoles.DOCTOR) {
+          const doctor = await DoctorModel.findOne({ email: token.email! })
+
+          if (!doctor) {
+            return null
+          }
+
+          token.id = doctor._id.toString()
+          token.name = doctor.doctorName
+          token.email = doctor.email
+          token.image = doctor.avatarUrl
+          token.role = 'doctor'
         }
       }
 

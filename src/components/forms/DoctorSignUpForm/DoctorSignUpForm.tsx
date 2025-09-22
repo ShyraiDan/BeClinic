@@ -6,22 +6,26 @@ import { Eye, EyeOff } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
+import { handleDoctorSignUp } from '@/app/actions'
 import { StyledSelect } from '@/components/StyledSelect/StyledSelect'
 import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { P } from '@/components/ui/typography'
+import { useRouter } from '@/i18n/navigation'
 import { doctorSpecialties } from '@/mocks/shared'
 import { doctorSignUpFormValuesSchema } from '@/shared/schemas'
-import { DoctorSignUpFormValues } from '@/shared/types'
+import { DoctorSignUpFormValues, UserRoles } from '@/shared/types'
 
 export const DoctorSignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const t = useTranslations('forms')
+  const router = useRouter()
 
-  const { handleSubmit, control, reset } = useForm<DoctorSignUpFormValues>({
+  const { handleSubmit, control } = useForm<DoctorSignUpFormValues>({
     mode: 'onSubmit',
     resolver: zodResolver(doctorSignUpFormValuesSchema),
     defaultValues: {
@@ -35,7 +39,37 @@ export const DoctorSignUpForm = () => {
     }
   })
 
-  const onSubmit: SubmitHandler<DoctorSignUpFormValues> = async (values) => {}
+  const onSubmit: SubmitHandler<DoctorSignUpFormValues> = async (values) => {
+    try {
+      const formData = new FormData()
+
+      Object.entries({
+        doctorName: values.doctorName,
+        email: values.email,
+        position: values.position,
+        password: values.password,
+        phone: values.phone,
+        role: UserRoles.DOCTOR
+      }).forEach(([key, value]) => {
+        formData.append(key, value)
+      })
+
+      const res = await handleDoctorSignUp(formData)
+
+      if (!res.ok && res.error) {
+        toast.error(t(res.error.message))
+        return
+      }
+
+      router.refresh()
+    } catch (error) {
+      console.error(error)
+
+      if (error instanceof Error) {
+        toast.error(t(error.message))
+      }
+    }
+  }
 
   return (
     <form className='mt-5' onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
@@ -64,14 +98,18 @@ export const DoctorSignUpForm = () => {
           </div>
         )}
       />
-
       <Controller
         name='position'
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
             <P className='mb-2 font-medium'>{t('authForm.position.label')}</P>
-            <StyledSelect options={doctorSpecialties} placeholder={t('authForm.position.placeholder')} {...field} />
+            <StyledSelect
+              options={doctorSpecialties}
+              placeholder={t('authForm.position.placeholder')}
+              {...field}
+              localized
+            />
 
             {error?.message && <ErrorText>{error.message}</ErrorText>}
           </div>
@@ -88,7 +126,7 @@ export const DoctorSignUpForm = () => {
               id='phone'
               type='tel'
               component={Input}
-              mask='+38 (0__) ___-__-__'
+              mask='___ (___) ___-__-__'
               placeholder='+38 (0__) ___-__-__'
               replacement='_'
               {...field}
