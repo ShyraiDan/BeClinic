@@ -1,5 +1,7 @@
 import { HydratedDocument, InferSchemaType, Model, Schema, models, model } from 'mongoose'
 
+import { Medicine } from '@/shared/types'
+
 const mongoAppointmentSchema = new Schema(
   {
     patient: {
@@ -29,7 +31,10 @@ const mongoAppointmentSchema = new Schema(
       type: [Schema.Types.ObjectId],
       ref: 'Analyses'
     },
-    fileName: String
+    fileName: String,
+    diagnosis: String,
+    treatment: String,
+    medicine: Array<Medicine>
   },
   {
     timestamps: true

@@ -4,7 +4,8 @@ import {
   getPatientAppointments,
   getSinglePatientAppointment,
   createPatientAppointment,
-  updatePatientAppointment
+  updatePatientAppointment,
+  getDoctorAppointments
 } from '@/lib/appointment'
 import { patientAppointmentSchema } from '@/shared/schemas'
 import {
@@ -61,7 +62,7 @@ interface UpdateAppointmentParams {
   data: PatientEditAppointmentFormValuesDto
 }
 
-export const useUpdateAppointmentMutation = (patientId: string, appointmentId: string) => {
+export const usePatientUpdateAppointmentMutation = (patientId: string, appointmentId: string) => {
   const queryClient = useQueryClient()
 
   return useMutation<PatientAppointment, Error, UpdateAppointmentParams>({
@@ -75,4 +76,14 @@ export const useUpdateAppointmentMutation = (patientId: string, appointmentId: s
       await queryClient.invalidateQueries({ queryKey: ['appointments', patientId] })
     }
   })
+}
+
+export const useGetDoctorAppointmentsQuery = (doctorId: string) => {
+  const { data, isLoading, isFetching, isError } = useQuery({
+    queryKey: ['appointments', doctorId],
+    queryFn: doctorId ? async () => await getDoctorAppointments(doctorId) : skipToken,
+    enabled: !!doctorId
+  })
+
+  return { data, isLoading, isFetching, isError }
 }

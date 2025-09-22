@@ -117,6 +117,12 @@ export const analysesSchema = z.object({
   updatedAt: z.date()
 })
 
+export const medicineSchema = z.object({
+  medicineName: z.string(),
+  dosing: z.string(),
+  description: z.string()
+})
+
 export const appointmentSchema = z.object({
   _id: z.string(),
   reason: z.string('validation.reasonRequired'),
@@ -126,7 +132,12 @@ export const appointmentSchema = z.object({
   endTime: z.date(),
   description: z.string().optional(),
   analyses: z.array(analysesSchema),
-  fileName: z.string().optional()
+  fileName: z.string().optional(),
+  diagnosis: z.string().optional(),
+  treatment: z.string().optional(),
+  medicine: z.array(medicineSchema).optional(),
+  createdAt: z.date(),
+  updatedAt: z.date()
 })
 
 export const patientAppointmentSchema = appointmentSchema
@@ -137,12 +148,29 @@ export const patientAppointmentSchema = appointmentSchema
     endTime: true,
     description: true,
     analyses: true,
-    fileName: true
+    fileName: true,
+    diagnosis: true,
+    treatment: true,
+    medicine: true
   })
   .extend({
     doctorName: z.string(),
     doctorPosition: z.string()
   })
+
+export const doctorAppointmentSchema = appointmentSchema.pick({
+  _id: true,
+  diagnosis: true,
+  treatment: true,
+  startTime: true,
+  endTime: true,
+  medicine: true,
+  analyses: true,
+  fileName: true,
+  patient: true,
+  reason: true,
+  description: true
+})
 
 export const paymentSchema = z.object({
   _id: z.string(),

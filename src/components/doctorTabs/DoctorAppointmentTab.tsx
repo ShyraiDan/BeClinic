@@ -2,23 +2,24 @@
 
 import { isAfter, isBefore } from 'date-fns'
 import { useParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 
+import { useGetDoctorAppointmentsQuery } from '@/client/appointment'
 import { DoctorAppointmentCard } from '@/components/DoctorAppointmentCard/DoctorAppointmentCard'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { H6, P } from '@/components/ui/typography'
-import { mockedAppointment } from '@/mocks/mockedAppointment'
 import { SupportedLocales } from '@/shared/types'
 
 export const DoctorAppointmentTab = () => {
   const params = useParams()
   const { locale } = params
+  const { data: session } = useSession()
 
   const t = useTranslations('page')
 
-  const appointments = mockedAppointment
-  const isLoading = false
+  const { data: appointments, isLoading } = useGetDoctorAppointmentsQuery(session?.user?.id || '')
 
   const futureAppointments = useMemo(
     () => appointments?.filter((appointment) => isAfter(appointment.endTime, new Date())) || [],

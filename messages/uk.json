@@ -247,6 +247,7 @@
     },
     "singleAppointmentPage": {
       "appointmentTo": "Візит до { position }a",
+      "visit": "Візит для { patientName }",
       "appointmentDoctor": "Лікар: { name }",
       "appointmentDate": "Дата візиту:",
       "appointmentCentre": "Медичний центр",
@@ -254,7 +255,14 @@
       "appointmentReason": "Причина візиту",
       "appointmentDetails": "Додаткові деталі",
       "appointmentAnalyses": "Аналізи",
-      "additionalFiles": "Додаткові файли"
+      "additionalFiles": "Додаткові файли",
+      "patientDetails": "Деталі пацієнта",
+      "diagnosis": "Діагноз",
+      "treatment": "Лікування",
+      "medicine": "Препарат",
+      "dosage": "Доза",
+      "comment": "Коментар",
+      "doctorComment": "Коментар лікаря"
     },
     "singleAnalysisPage": {
       "analysisDate": "Дата аналізу:",
@@ -578,6 +586,19 @@
       "signUp": "Зареєструватися",
       "noAccount": "Досі немає аккаунту?",
       "haveAccount": "Вже маєте аккаунт?"
+    },
+    "patientDetails": {
+      "buttonTitle": "Iнформація пацієнта",
+      "dateOfBirth": "Дата народження",
+      "phoneNumber": "Номер телефону",
+      "bloodType": "Група крові",
+      "diabetes": "Діабет",
+      "rhFactor": "Rh фактор",
+      "bloodTransfusion": "Переливання крові",
+      "allergies": "Алергії",
+      "intoleranceToMedicines": "Непереносимість ліків",
+      "infectiousDiseases": "Інфекційні захворювання",
+      "surgicalInterventions": "Хірургічні втручання"
     }
   },
   "footer": {

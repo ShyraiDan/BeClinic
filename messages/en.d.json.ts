@@ -250,6 +250,7 @@ declare const messages: {
     },
     "singleAppointmentPage": {
       "appointmentTo": " Visit to { position }",
+      "visit": "Visit for { patientName }",
       "appointmentDoctor": "Doctor: { name }",
       "appointmentDate": "Date of visit:",
       "appointmentCentre": "Medical center",
@@ -257,7 +258,14 @@ declare const messages: {
       "appointmentReason": "Reason for visit",
       "appointmentDetails": "Additional details",
       "appointmentAnalyses": "Analyses",
-      "additionalFiles": "Additional files"
+      "additionalFiles": "Additional files",
+      "patientDetails": "Patient details",
+      "diagnosis": "Diagnosis",
+      "treatment": "Treatment",
+      "medicine": "Medicine",
+      "dosage": "Dosage",
+      "comment": "Comment",
+      "doctorComment": "Doctor's comment"
     },
     "singleAnalysisPage": {
       "analysisDate": "Analysis date:",
@@ -581,6 +589,19 @@ declare const messages: {
       "signUp": "Sign up",
       "noAccount": "Don't have an account?",
       "haveAccount": "Already have an account?"
+    },
+    "patientDetails": {
+      "buttonTitle": "Patient details",
+      "dateOfBirth": "Date of birth",
+      "phoneNumber": "Phone number",
+      "bloodType": "Blood type",
+      "diabetes": "Diabetes",
+      "rhFactor": "Rh factor",
+      "bloodTransfusion": "Blood transfusion",
+      "allergies": "Allergies",
+      "intoleranceToMedicines": "Intolerance to medicines",
+      "infectiousDiseases": "Infectious diseases",
+      "surgicalInterventions": "Surgical interventions"
     }
   },
   "footer": {
