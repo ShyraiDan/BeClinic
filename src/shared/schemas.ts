@@ -321,7 +321,8 @@ export const editDoctorFormValuesSchema = doctorSchema.pick({
   doctorName: true,
   position: true,
   avatarUrl: true,
-  phone: true
+  phone: true,
+  description: true
 })
 
 export const dbErrorSchema = z.object({

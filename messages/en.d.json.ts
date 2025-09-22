@@ -207,12 +207,32 @@ declare const messages: {
         "title": "My profile",
         "appointments": "Appointments",
         "calendar": "Calendar",
-        "speciality": "Speciality",
+        "specialty": "Speciality",
         "todaysAppointments": "Today's appointments",
         "noAppointments": "No appointments found",
         "appointmentReason": "Reason for visit",
         "appointmentDetails": "Additional details",
-        "moveToVisit": "Move to visit"
+        "moveToVisit": "Move to visit",
+        "specialties": {
+          "therapist": "Therapist",
+          "pediatrician": "Pediatrician",
+          "surgeon": "Surgeon",
+          "ophthalmologist": "Ophthalmologist",
+          "dentist": "Dentist",
+          "cardiologist": "Cardiologist",
+          "neurologist": "Neurologist",
+          "dermatologist": "Dermatologist",
+          "otolaryngologist": "Otolaryngologist",
+          "endocrinologist": "Endocrinologist",
+          "gastroenterologist": "Gastroenterologist",
+          "urologist": "Urologist",
+          "gynecologist": "Gynecologist",
+          "andrologist": "Andrologist",
+          "psychiatrist": "Psychiatrist",
+          "psychotherapist": "Psychotherapist",
+          "infectious": "Infectious disease specialist"
+        },
+        "description": "Description"
       },
       "personalInfo": "Personal data",
       "dateOfBirth": "Date of birth",
@@ -458,7 +478,7 @@ declare const messages: {
         "placeholder": "Enter doctor name"
       },
       "position": {
-        "label": "Speciality",
+        "label": "Specialty",
         "placeholder": "Select option"
       },
       "phone": {
@@ -466,6 +486,10 @@ declare const messages: {
       },
       "email": {
         "label": "Email"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Enter description"
       }
     },
     "login": "Login",

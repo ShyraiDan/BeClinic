@@ -204,12 +204,32 @@
         "title": "Ваш профіль",
         "appointments": "Прийоми",
         "calendar": "Календар",
-        "speciality": "Спеціалізація",
+        "specialty": "Спеціалізація",
         "todaysAppointments": "Прийоми на сьогодні",
         "noAppointments": "Немає прийомів ",
         "appointmentReason": "Причина візиту",
         "appointmentDetails": "Додаткові деталі",
-        "moveToVisit": "До візиту"
+        "moveToVisit": "До візиту",
+        "specialties": {
+          "therapist": "Терапевт",
+          "pediatrician": "Педіатр",
+          "surgeon": "Хірург",
+          "ophthalmologist": "Офтальмолог",
+          "dentist": "Стоматолог",
+          "cardiologist": "Кардіолог",
+          "neurologist": "Невролог",
+          "dermatologist": "Дерматолог",
+          "otolaryngologist": "Отоларинголог",
+          "endocrinologist": "Ендокринолог",
+          "gastroenterologist": "Гастроентеролог",
+          "urologist": "Уролог",
+          "gynecologist": "Гінеколог",
+          "andrologist": "Андролог",
+          "psychiatrist": "Психіатр",
+          "psychotherapist": "Психотерапевт",
+          "infectious": "Інфекціоніст"
+        },
+        "description": "Опис"
       },
       "personalInfo": "Особисті дані",
       "dateOfBirth": "Дата народження",
@@ -463,6 +483,10 @@
       },
       "phone": {
         "label": "Номер телефону"
+      },
+      "description": {
+        "label": "Опис",
+        "placeholder": "Введіть опис"
       }
     },
     "login": "Увійти",
