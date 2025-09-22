@@ -22,7 +22,10 @@ export const getPatient = async (id: string): Promise<Patient> => {
       throw new Error('No patient found')
     }
 
-    return patient
+    return {
+      ...patient,
+      _id: patient._id.toString()
+    }
   } catch (error) {
     console.error(error)
     throw new Error('Unexpected error')

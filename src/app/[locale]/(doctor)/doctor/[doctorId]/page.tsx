@@ -57,19 +57,20 @@ const DoctorProfile = async ({ doctorId }: DoctorProfileProps) => {
           <H2 className='text-lg mb-4 mt-6'>{t('profile.personalInfo')}</H2>
           <ul className='flex flex-col gap-3 md:grid md:grid-cols-3 lg:grid-cols-1'>
             <li>
-              <P className='mb-1 text-xs'>{t('profile.doctor.speciality')}</P>
-
-              <H6 className='text-lg'>{doctor?.position || '-'}</H6>
+              <P className='mb-1 text-xs'>{t('profile.doctor.specialty')}</P>
+              <H6 className='text-lg'>{t(`profile.doctor.specialties.${doctor?.position}`) || '-'}</H6>
             </li>
             <li>
               <P className='mb-1 text-xs'>E-mail</P>
-
               <H6 className='text-lg'>{doctor?.email || '-'}</H6>
             </li>
             <li>
               <P className='mb-1 text-xs'>{t('profile.phoneNumber')}</P>
-
               <H6 className='text-lg'>{doctor?.phone || '-'}</H6>
+            </li>
+            <li>
+              <P className='mb-1 text-xs'>{t('profile.doctor.description')}</P>
+              <H6 className='text-lg'>{doctor?.description || '-'}</H6>
             </li>
           </ul>
         </div>

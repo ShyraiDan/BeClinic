@@ -38,8 +38,6 @@ export const StyledSelect = ({
     setOpen((state) => !state)
   }
 
-  console.log('localized', localized)
-
   return (
     <Select {...props} onOpenChange={handleOpenChange} open={open} onValueChange={handleSelect}>
       <SelectTrigger className={triggerClassName}>
