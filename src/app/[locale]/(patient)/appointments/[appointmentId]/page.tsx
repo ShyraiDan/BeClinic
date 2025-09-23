@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 
 import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
+import { MedicineCard } from '@/components/MedicineCard/MedicineCard'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
@@ -53,16 +54,16 @@ const PastAppointment = ({ locale, appointmentData }: PastAppointmentProps) => {
 
       <Separator className='bg-[#D1D1D1]' />
 
-      {/* <H4 className='mb-2'>Діагноз</H4>
-      <P>{appointmentData?.diagnosis || '-'}</P> 
-      <Separator className='bg-[#D1D1D1]' /> */}
+      <H4 className='mb-2'>{t('singleAppointmentPage.diagnosis')}</H4>
+      <P>{appointmentData?.diagnosis || '-'}</P>
+      <Separator className='bg-[#D1D1D1]' />
 
-      {/* <H4 className='mb-2'>Призначені препарати</H4>
+      <H4 className='mb-2'>{t('singleAppointmentPage.treatment')}</H4>
       <div className='flex flex-col gap-4'>
         <div className='px-4 w-full grid gap-4 grid-cols-[100px_75px_1fr] sm:grid-cols-[100px_100px_1fr]'>
-          <P className='text-xs'>Препарат</P>
-          <P className='text-xs'>Приймати, днів</P>
-          <P className='text-xs'>Коментар</P>
+          <P className='text-xs'>{t('singleAppointmentPage.medicine')}</P>
+          <P className='text-xs'>{t('singleAppointmentPage.dosage')}</P>
+          <P className='text-xs'>{t('singleAppointmentPage.comment')}</P>
         </div>
         {appointmentData?.medicine && appointmentData.medicine.length > 0 ? (
           appointmentData.medicine.map((medicine) => <MedicineCard key={medicine.medicineName} medicine={medicine} />)
@@ -70,12 +71,12 @@ const PastAppointment = ({ locale, appointmentData }: PastAppointmentProps) => {
           <P>-</P>
         )}
       </div>
-      <Separator className='bg-[#D1D1D1]' /> */}
+      <Separator className='bg-[#D1D1D1]' />
 
       {appointmentData?.fileName && <AttachmentPreviewModal attachment={appointmentData.fileName} />}
 
-      {/* <H4>Коментар лікаря</H4>
-      <P>{appointmentData?.treatment || '-'}</P> */}
+      <H4>{t('singleAppointmentPage.doctorComment')}</H4>
+      <P>{appointmentData?.treatment || '-'}</P>
     </>
   )
 }

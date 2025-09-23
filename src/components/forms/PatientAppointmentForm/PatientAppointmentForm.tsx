@@ -22,7 +22,6 @@ import { Label } from '@/components/ui/label'
 import { TextArea } from '@/components/ui/textarea'
 import { P } from '@/components/ui/typography'
 import { useRouter } from '@/i18n/navigation'
-// import { createAppointmentByPatientId, updateAppointmentByPatientId } from '@/lib/appointment'
 import { saveFileToBucket } from '@/lib/bucket'
 import { doctorSpecialties } from '@/mocks/shared'
 import { patientAppointmentFormValuesSchema } from '@/shared/schemas'
@@ -36,6 +35,7 @@ import {
   PatientCreateAppointmentFormValuesDto
 } from '@/shared/types'
 import { cn } from '@/utils/utils'
+import { useGetAnalysisQuery } from '@/client/analysis'
 
 interface AppointmentFormProps {
   appointment?: PatientAppointment
@@ -52,10 +52,8 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
 
   const {
     control,
-    reset,
     handleSubmit,
     watch,
-    getValues,
     setValue,
     formState: { errors }
   } = useForm<PatientAppointmentFormValues>({
@@ -64,18 +62,16 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
     defaultValues: {
       reason: appointment?.reason ?? '',
       startTime: appointment?.startTime,
-      endTime: appointment?.endTime,
       description: appointment?.description ?? '',
       analyses: appointment?.analyses ?? [],
-      //  TODO: Fix doctorId
       doctorId: appointment?.doctorName ?? '',
       fileName: appointment?.fileName ?? '',
-      startTimeHours: `${appointment?.startTime ? getHours(appointment.startTime) : 10}:00`,
       specialty: appointment?.doctorPosition ?? ''
     }
   })
 
   const { data: doctors } = useSearchDoctorQuery(watch('specialty'))
+  const { data: analysesData } = useGetAnalysisQuery(session?.user?.id || '')
 
   const { mutateAsync: createAppointment } = useCreateAppointmentMutation(session?.user?.id || '')
   const { mutateAsync: updateAppointment } = usePatientUpdateAppointmentMutation(
@@ -103,43 +99,35 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
         endTime: addHours(new Date(values.startTime), getHours(values.startTimeHours + 1))
       }
 
-      console.log('editAppointment', editAppointment)
-
       const result = await updateAppointment({
         patientId: session.user.id,
         appointmentId: appointment._id,
         data: editAppointment
       })
 
-      console.log('result', result)
-
       if (result) {
         toast.success(t('notifications.visitUpdateSuccess'))
 
-        // router.push(`/appointments/${result.}`)
+        router.push(`/appointments/${result._id}`)
       } else {
         toast.error(t('notifications.visitUpdateError'))
       }
     } else {
       const newAppointment: PatientCreateAppointmentFormValuesDto = {
         ...values,
-        startTime: addHours(new Date(values.startTime), getHours(values.startTimeHours)),
-        endTime: addHours(new Date(values.startTime), getHours(values.startTimeHours + 1))
+        startTime: addHours(new Date(values.startTime), Number(values.startTimeHours.split(':')[0])),
+        endTime: addHours(new Date(values.startTime), Number(values.startTimeHours.split(':')[0]) + 1)
       }
-
-      console.log('createAppointment', createAppointment)
 
       const result = await createAppointment({
         patientId: session.user.id,
         data: newAppointment
       })
 
-      console.log('result', result)
-
       if (result) {
         toast.success(t('notifications.visitCreateSuccess'))
 
-        // router.push(`/appointments/${result.}`)
+        router.push(`/appointments/${result._id}`)
       } else {
         toast.success(t('notifications.visitCreateError'))
       }
@@ -297,12 +285,21 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
       </div>
 
       <div className={cn(analyses.length > 0 && 'mt-4')}>
-        <SelectAnalysesModal
-          appendData={appendAnalyses}
-          removeData={removeAnalyses}
-          selectedAnalyses={analyses}
-          locale={locale as SupportedLocales}
-        />
+        {!analysesData ? (
+          <div
+            className='inline-block h-6 w-6 animate-spin rounded-full border-2 border-blue-100 border-r-transparent align-[-0.125em]'
+            role='status'
+            aria-label='loading'
+          />
+        ) : (
+          <SelectAnalysesModal
+            analyses={analysesData}
+            appendData={appendAnalyses}
+            removeData={removeAnalyses}
+            selectedAnalyses={analyses}
+            locale={locale as SupportedLocales}
+          />
+        )}
       </div>
 
       <div className='mt-4 w-full'>
@@ -334,7 +331,6 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
                   </Button>
                 )}
 
-                {/* TODO: Refactor this void function */}
                 <input
                   ref={fileInputRef}
                   type='file'

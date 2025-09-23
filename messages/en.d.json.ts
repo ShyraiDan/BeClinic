@@ -436,8 +436,8 @@ declare const messages: {
         "placeholder": "Enter doctor name"
       },
       "position": {
-        "label": "Speciality",
-        "placeholder": "Select option"
+        "label": "Specialty",
+        "placeholder": "Select specialty"
       },
       "phone": {
         "label": "Phone"

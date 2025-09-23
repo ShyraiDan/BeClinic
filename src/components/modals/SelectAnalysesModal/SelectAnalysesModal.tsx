@@ -7,7 +7,6 @@ import { StyledModal } from '@/components/StyledModal/StyledModal'
 import { Button } from '@/components/ui/button'
 import { DialogClose, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { H6, P } from '@/components/ui/typography'
-import { mockedAnalyses } from '@/mocks/mockedAnalyses'
 import { Analysis, PatientAppointmentFormValues, SupportedLocales } from '@/shared/types'
 import { dateLocaleMap } from '@/utils/dateLocaleMap'
 
@@ -33,7 +32,7 @@ const AnalysesCard = ({ analysis, onSelect, selected, locale }: AnalysesCardProp
 
       {selected && (
         <div className='absolute top-0 right-5 w-5 h-5 bg-green-600 flex items-center justify-center shadow-md'>
-          <Check className='fill-white' />
+          <Check className='text-white' />
         </div>
       )}
     </div>
@@ -41,13 +40,20 @@ const AnalysesCard = ({ analysis, onSelect, selected, locale }: AnalysesCardProp
 }
 
 interface SelectAnalysesModalProps {
+  analyses: Analysis[]
   selectedAnalyses: Analysis[]
   appendData: UseFieldArrayAppend<PatientAppointmentFormValues, 'analyses'>
   removeData: UseFieldArrayRemove
   locale: SupportedLocales
 }
 
-export const SelectAnalysesModal = ({ appendData, selectedAnalyses, locale, removeData }: SelectAnalysesModalProps) => {
+export const SelectAnalysesModal = ({
+  analyses,
+  appendData,
+  selectedAnalyses,
+  locale,
+  removeData
+}: SelectAnalysesModalProps) => {
   const t = useTranslations('forms')
 
   const handleSelectItem = (analyses: Analysis) => {
@@ -66,7 +72,7 @@ export const SelectAnalysesModal = ({ appendData, selectedAnalyses, locale, remo
         <DialogTitle>{t('appointmentForm.appointmentAnalyses.label')}</DialogTitle>
       </DialogHeader>
       <div className='grid grid-cols-1 gap-4 mt-4 max-h-[500px] overflow-y-auto'>
-        {[...mockedAnalyses, ...mockedAnalyses].map((analysis) => (
+        {analyses.map((analysis) => (
           <AnalysesCard
             key={analysis._id}
             analysis={analysis}

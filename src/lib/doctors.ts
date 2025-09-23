@@ -19,7 +19,10 @@ export const searchDoctors = async (position: string): Promise<Doctor[]> => {
       return []
     }
 
-    return doctors
+    return doctors.map((doctor) => ({
+      ...doctor,
+      _id: doctor._id.toString()
+    }))
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Internal server error')
