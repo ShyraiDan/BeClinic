@@ -8,6 +8,7 @@ import { useMemo, useRef } from 'react'
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
+import { useGetAnalysisQuery } from '@/client/analysis'
 import { useCreateAppointmentMutation, usePatientUpdateAppointmentMutation } from '@/client/appointment'
 import { useSearchDoctorQuery } from '@/client/doctor'
 import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
@@ -35,7 +36,6 @@ import {
   PatientCreateAppointmentFormValuesDto
 } from '@/shared/types'
 import { cn } from '@/utils/utils'
-import { useGetAnalysisQuery } from '@/client/analysis'
 
 interface AppointmentFormProps {
   appointment?: PatientAppointment
