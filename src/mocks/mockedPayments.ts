@@ -56,7 +56,9 @@ export const mockedPayments: Payment[] = [
       startTime: new Date('2025-08-29T08:30:00.000Z'),
       endTime: new Date('2025-08-29T08:30:00.000Z'),
       description: 'Routine annual exam. ECG if time allows.',
-      analyses: []
+      analyses: [],
+      createdAt: new Date('2025-08-29T08:30:00.000Z'),
+      updatedAt: new Date('2025-08-29T08:30:00.000Z')
     }
   },
   {
@@ -112,7 +114,9 @@ export const mockedPayments: Payment[] = [
       startTime: new Date('2025-08-29T08:30:00.000Z'),
       endTime: new Date('2025-08-29T08:30:00.000Z'),
       description: 'Suspected viral infection. Recommend rest and fluids.',
-      analyses: []
+      analyses: [],
+      createdAt: new Date('2025-08-29T08:30:00.000Z'),
+      updatedAt: new Date('2025-08-29T08:30:00.000Z')
     }
   },
   {
@@ -167,7 +171,9 @@ export const mockedPayments: Payment[] = [
       reason: 'Acne consultation + treatment plan',
       startTime: new Date('2025-08-29T08:30:00.000Z'),
       endTime: new Date('2025-08-29T08:30:00.000Z'),
-      analyses: []
+      analyses: [],
+      createdAt: new Date('2025-08-29T08:30:00.000Z'),
+      updatedAt: new Date('2025-08-29T08:30:00.000Z')
     }
   }
 ]
