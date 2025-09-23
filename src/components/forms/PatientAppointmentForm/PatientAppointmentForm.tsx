@@ -50,13 +50,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
   const t = useTranslations('forms')
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const {
-    control,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors }
-  } = useForm<PatientAppointmentFormValues>({
+  const { control, handleSubmit, watch, setValue } = useForm<PatientAppointmentFormValues>({
     mode: 'onSubmit',
     resolver: zodResolver(patientAppointmentFormValuesSchema),
     defaultValues: {
@@ -82,8 +76,6 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
   const doctorOptions = useMemo(() => {
     return doctors?.map((doctor: Doctor) => ({ value: doctor._id, label: doctor.doctorName })) || []
   }, [doctors])
-
-  console.log('errors', errors)
 
   const fileName = watch('fileName') ?? ''
   const startTime = watch('startTime')
@@ -164,7 +156,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
   })
 
   return (
-    <form onSubmit={(e) => void handleSubmit(onSubmit)(e)} onError={(e) => console.log(e)}>
+    <form onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
       <Controller
         name='reason'
         control={control}
