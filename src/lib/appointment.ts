@@ -72,6 +72,7 @@ export const getSinglePatientAppointment = async (
     await connectMongoDB()
     const appointment = await AppointmentModel.findById(appointmentId)
       .populate('doctor', 'doctorName position')
+      .populate('analyses', 'patientId analysisName description date fileName')
       .lean<Appointment>()
 
     if (!appointment) {
@@ -83,13 +84,15 @@ export const getSinglePatientAppointment = async (
     }
 
     return {
-      _id: appointment._id,
+      _id: appointment._id.toString(),
       doctorName: appointment.doctor.doctorName,
       doctorPosition: appointment.doctor.position,
       startTime: appointment.startTime,
       endTime: appointment.endTime,
       description: appointment.description,
-      analyses: appointment.analyses,
+      analyses: appointment.analyses.map((analysis) => {
+        return { ...analysis, _id: analysis._id.toString() }
+      }),
       fileName: appointment.fileName,
       reason: appointment.reason
     }
