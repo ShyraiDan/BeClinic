@@ -221,6 +221,15 @@ export const patientCreateAppointmentFormValuesDtoSchema = patientAppointmentFor
   doctorId: true
 })
 
+export const doctorEditAppointmentFormValuesSchema = doctorAppointmentSchema
+  .pick({
+    diagnosis: true,
+    treatment: true,
+    medicine: true
+  })
+  .required()
+  .partial({ treatment: true, medicine: true })
+
 export const selectOptionSchema = z.object({
   value: z.string(),
   label: z.string()

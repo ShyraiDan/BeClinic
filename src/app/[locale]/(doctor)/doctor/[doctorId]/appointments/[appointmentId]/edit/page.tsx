@@ -1,20 +1,45 @@
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import { Suspense } from 'react'
 
-import { PatientAppointmentForm } from '@/components/forms/PatientAppointmentForm/PatientAppointmentForm'
+import { DoctorAppointmentForm } from '@/components/forms/DoctorAppointmentForm/DoctorAppointmentForm'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
-import { Container } from '@/components/ui/container'
+import { Container, LoadingContainer } from '@/components/ui/container'
+import { getSingleDoctorAppointment } from '@/lib/appointment'
 
-const EditAppointmentPage = () => {
-  const t = useTranslations('page')
+interface EditAppointmentPageProps {
+  doctorId: string
+  appointmentId: string
+}
+
+const EditAppointmentPage = async ({ doctorId, appointmentId }: EditAppointmentPageProps) => {
+  const appointment = await getSingleDoctorAppointment(doctorId, appointmentId)
 
   return (
     <>
-      <PageHeading title={t('editAppointmentPage.title')} />
       <Container>
-        <PatientAppointmentForm />
+        <DoctorAppointmentForm appointment={appointment} />
       </Container>
     </>
   )
 }
 
-export default EditAppointmentPage
+interface WrapperEditAppointmentPageProps {
+  params: Promise<{ doctorId: string; appointmentId: string }>
+}
+
+const WrapperEditAppointmentPage = async ({ params }: WrapperEditAppointmentPageProps) => {
+  const { doctorId, appointmentId } = await params
+
+  const t = await getTranslations('page')
+
+  return (
+    <>
+      <PageHeading title={t('editAppointmentPage.title')} />
+      <Suspense fallback={<LoadingContainer />}>
+        <EditAppointmentPage doctorId={doctorId} appointmentId={appointmentId} />
+      </Suspense>
+    </>
+  )
+}
+
+export default WrapperEditAppointmentPage

@@ -376,6 +376,33 @@ declare const messages: {
       "appointmentFiles": {
         "label": "File",
         "button": "View file"
+      },
+      "diagnosis": {
+        "label": "Diagnosis",
+        "placeholder": "Enter diagnosis"
+      },
+      "treatment": {
+        "label": "Treatment",
+        "placeholder": "Enter treatment"
+      },
+      "medicine": {
+        "label": "Medicine",
+        "button": "Add medicine",
+        "fields": {
+          "medicineName": {
+            "label": "Medicine name",
+            "placeholder": "Enter medicine"
+          },
+          "medicineDosing": {
+            "label": "Medicine dose",
+            "placeholder": "Enter medicine dose"
+          },
+          "medicineDescription": {
+            "label": "Medicine description",
+            "placeholder": "Enter medicine description"
+          },
+          "button": "Add medicine"
+        }
       }
     },
     "analysisForm": {

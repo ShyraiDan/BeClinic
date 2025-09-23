@@ -8,6 +8,7 @@ import AppointmentModel from '@/shared/models/appointment'
 import {
   Appointment,
   DoctorAppointment,
+  DoctorEditAppointmentFormValues,
   PatientAppointment,
   PatientCreateAppointmentFormValuesDto,
   PatientEditAppointmentFormValuesDto
@@ -237,6 +238,36 @@ export const getSingleDoctorAppointment = async (
       reason: appointment.reason,
       description: appointment.description
     }
+  } catch (error) {
+    console.error('Error: ', error)
+    throw new Error('Unexpected error')
+  }
+}
+
+export const updateDoctorAppointment = async (
+  doctorId: string,
+  appointmentId: string,
+  data: DoctorEditAppointmentFormValues
+): Promise<InferSchemaType<DoctorAppointment>> => {
+  const session = await auth()
+
+  if (session?.user.id !== doctorId) {
+    throw new Error('No access')
+  }
+
+  try {
+    await connectMongoDB()
+
+    const appointment = await AppointmentModel.findOneAndUpdate(
+      { _id: appointmentId },
+      { $set: { diagnosis: data.diagnosis, treatment: data.treatment, medicine: data.medicine } }
+    ).lean<Appointment>()
+
+    if (!appointment) {
+      throw new Error('Update failed')
+    }
+
+    return appointment
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
