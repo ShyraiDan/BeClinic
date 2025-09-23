@@ -35,7 +35,9 @@ export const mockedAppointment: Appointment[] = [
     startTime: new Date('2025-08-29T08:30:00.000Z'),
     endTime: new Date('2025-08-29T09:10:00.000Z'),
     description: 'Post-annual exam follow-up; review ECG.',
-    analyses: []
+    analyses: [],
+    createdAt: new Date('2023-08-05T11:30:00Z'),
+    updatedAt: new Date('2025-01-20T08:10:00Z')
   },
 
   // PAST — 2025-09-01
@@ -70,7 +72,9 @@ export const mockedAppointment: Appointment[] = [
     reason: 'Thyroid panel follow-up',
     startTime: new Date('2025-09-01T08:30:00.000Z'),
     endTime: new Date('2025-09-01T09:15:00.000Z'),
-    analyses: []
+    analyses: [],
+    createdAt: new Date('2023-08-05T11:30:00Z'),
+    updatedAt: new Date('2025-01-20T08:10:00Z')
   },
 
   // PAST — 2025-09-08
@@ -106,7 +110,9 @@ export const mockedAppointment: Appointment[] = [
     startTime: new Date('2025-09-01T08:30:00.000Z'),
     endTime: new Date('2025-09-01T09:15:00.000Z'),
     description: 'Viral syndrome suspected; supportive care.',
-    analyses: []
+    analyses: [],
+    createdAt: new Date('2023-08-05T11:30:00Z'),
+    updatedAt: new Date('2025-01-20T08:10:00Z')
   },
 
   // FUTURE — 2025-09-10
@@ -141,7 +147,9 @@ export const mockedAppointment: Appointment[] = [
     reason: 'Sore throat and ear pain',
     startTime: new Date('2025-09-01T08:30:00.000Z'),
     endTime: new Date('2025-09-01T09:15:00.000Z'),
-    analyses: []
+    analyses: [],
+    createdAt: new Date('2023-08-05T11:30:00Z'),
+    updatedAt: new Date('2025-01-20T08:10:00Z')
   },
 
   // FUTURE — 2025-09-12
@@ -176,6 +184,8 @@ export const mockedAppointment: Appointment[] = [
     reason: 'Acne consultation + treatment plan',
     startTime: new Date('2025-09-01T08:30:00.000Z'),
     endTime: new Date('2025-09-01T09:15:00.000Z'),
-    analyses: []
+    analyses: [],
+    createdAt: new Date('2023-08-05T11:30:00Z'),
+    updatedAt: new Date('2025-01-20T08:10:00Z')
   }
 ]
