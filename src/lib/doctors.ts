@@ -49,12 +49,6 @@ export const getDoctors = async (): Promise<Doctor[]> => {
 }
 
 export const getSingleDoctor = async (id: string): Promise<Doctor> => {
-  const session = await auth()
-
-  if (session?.user.id !== id) {
-    throw new Error('No access')
-  }
-
   try {
     await connectMongoDB()
     const doctor = await DoctorModel.findById(id).lean<Doctor>({ getters: true })
