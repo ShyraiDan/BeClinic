@@ -186,15 +186,15 @@ export const patientAppointmentFormValuesSchema = appointmentSchema
   .pick({
     reason: true,
     startTime: true,
-    endTime: true,
     description: true,
     analyses: true,
     fileName: true
   })
   .extend({
-    doctorId: z.string(), // required
-    specialty: z.string(), // required
-    startTimeHours: z.string() // required
+    doctorId: z.string(),
+    specialty: z.string(),
+    startTimeHours: z.string(),
+    doctorName: z.string().optional()
   })
 
 export const patientEditAppointmentFormValuesDtoSchema = patientAppointmentFormValuesSchema
@@ -208,18 +208,23 @@ export const patientEditAppointmentFormValuesDtoSchema = patientAppointmentFormV
     doctorId: true
   })
   .extend({
-    _id: z.string()
+    _id: z.string(),
+    endTime: true
   })
 
-export const patientCreateAppointmentFormValuesDtoSchema = patientAppointmentFormValuesSchema.pick({
-  reason: true,
-  startTime: true,
-  endTime: true,
-  description: true,
-  analyses: true,
-  fileName: true,
-  doctorId: true
-})
+export const patientCreateAppointmentFormValuesDtoSchema = patientAppointmentFormValuesSchema
+  .pick({
+    reason: true,
+    startTime: true,
+    endTime: true,
+    description: true,
+    analyses: true,
+    fileName: true,
+    doctorId: true
+  })
+  .extend({
+    endTime: true
+  })
 
 export const doctorEditAppointmentFormValuesSchema = doctorAppointmentSchema
   .pick({

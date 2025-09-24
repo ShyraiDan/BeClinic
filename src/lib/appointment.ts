@@ -5,6 +5,7 @@ import { InferSchemaType } from 'mongoose'
 import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import AppointmentModel from '@/shared/models/appointment'
+import { patientAppointmentSchema } from '@/shared/schemas'
 import {
   Appointment,
   DoctorAppointment,
@@ -27,20 +28,23 @@ export const getPatientAppointments = async (patientId: string): Promise<Patient
     await connectMongoDB()
     const appointments = await AppointmentModel.find({ patient: patientId })
       .populate('doctor', 'doctorName position')
+      .populate('analyses', 'patientId analysisName description date fileName')
       .lean<Appointment[]>()
 
     if (!appointments) {
-      throw new Error('Update failed')
+      throw new Error('Error getting appointments')
     }
 
     const appointmentDto = appointments.map((appointment) => ({
-      _id: appointment._id,
+      _id: appointment._id.toString(),
       doctorName: appointment.doctor.doctorName,
       doctorPosition: appointment.doctor.position,
       startTime: appointment.startTime,
       endTime: appointment.endTime,
       description: appointment.description,
-      analyses: appointment.analyses,
+      analyses: appointment.analyses.map((analysis) => {
+        return { ...analysis, _id: analysis._id.toString() }
+      }),
       fileName: appointment.fileName,
       reason: appointment.reason,
       medicine: appointment.medicine,
@@ -68,6 +72,7 @@ export const getSinglePatientAppointment = async (
     await connectMongoDB()
     const appointment = await AppointmentModel.findById(appointmentId)
       .populate('doctor', 'doctorName position')
+      .populate('analyses', 'patientId analysisName description date fileName')
       .lean<Appointment>()
 
     if (!appointment) {
@@ -79,13 +84,15 @@ export const getSinglePatientAppointment = async (
     }
 
     return {
-      _id: appointment._id,
+      _id: appointment._id.toString(),
       doctorName: appointment.doctor.doctorName,
       doctorPosition: appointment.doctor.position,
       startTime: appointment.startTime,
       endTime: appointment.endTime,
       description: appointment.description,
-      analyses: appointment.analyses,
+      analyses: appointment.analyses.map((analysis) => {
+        return { ...analysis, _id: analysis._id.toString() }
+      }),
       fileName: appointment.fileName,
       reason: appointment.reason
     }
@@ -109,15 +116,34 @@ export const createPatientAppointment = async (
   try {
     await connectMongoDB()
 
-    const appointment = await AppointmentModel.create({
-      ...data
+    const newAppointmentDoc = await AppointmentModel.create({
+      ...data,
+      doctor: data.doctorId,
+      patient: patientId,
+      analyses: data.analyses.map((analysis) => analysis._id)
     })
 
-    if (!appointment) {
-      throw new Error('Update failed')
+    if (!newAppointmentDoc) {
+      throw new Error('Creating appointment failed')
     }
 
-    return appointment
+    const newAppointment = await AppointmentModel.findById(newAppointmentDoc._id)
+      .populate('doctor', 'doctorName position')
+      .populate('analyses', 'patientId analysisName description date fileName')
+      .lean<Appointment>()
+
+    if (!newAppointment) {
+      throw new Error('Creating appointment failed')
+    }
+
+    return patientAppointmentSchema.parse({
+      ...newAppointment,
+      _id: newAppointment._id.toString(),
+      doctorName: newAppointment.doctor.doctorName,
+      doctorPosition: newAppointment.doctor.position,
+      startTime: new Date(newAppointment.startTime),
+      endTime: new Date(newAppointment.endTime)
+    })
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')

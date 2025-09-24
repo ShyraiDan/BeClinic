@@ -33,7 +33,7 @@ const SingleAnalysisPage = () => {
 
   return (
     <>
-      <PageHeading title=''>
+      <PageHeading>
         {isLoading ? (
           <SkeletonText className='h-10 mb-2.5 mt-5.5 w-[270px] bg-white opacity-10' />
         ) : (
