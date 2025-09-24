@@ -35,7 +35,7 @@ const SingleBlogPage = async ({ params }: SingleBlogPageProps) => {
               <StyledLinkButton variant='icon' href={`/blog/${blog?._id}/edit`}>
                 <Pencil size={16} />
               </StyledLinkButton>
-              <DeleteBlogButton />
+              <DeleteBlogButton blogId={blogId} />
             </div>
           )}
         </div>

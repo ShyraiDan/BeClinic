@@ -165,7 +165,11 @@
       "title": "Blog",
       "findPosts": "{count, plural, =0 {No posts found} one {# post found} other {# posts found}}",
       "readMore": "Read more",
-      "noBlogs": "No blogs found"
+      "noBlogs": "No blogs found",
+      "notifications": {
+        "blogDeleteSuccess": "Blog deleted successfully",
+        "blogDeleteError": "Error deleting blog"
+      }
     },
     "addBlogPage": {
       "title": "Add blog"
