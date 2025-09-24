@@ -29,7 +29,26 @@ export const searchDoctors = async (position: string): Promise<Doctor[]> => {
   }
 }
 
-export const getDoctor = async (id: string): Promise<Doctor> => {
+export const getDoctors = async (): Promise<Doctor[]> => {
+  try {
+    await connectMongoDB()
+    const doctors = await DoctorModel.find().lean<Doctor[]>()
+
+    if (!doctors) {
+      return []
+    }
+
+    return doctors.map((doctor) => ({
+      ...doctor,
+      _id: doctor._id.toString()
+    }))
+  } catch (error) {
+    console.error(error)
+    throw new Error('Unexpected error')
+  }
+}
+
+export const getSingleDoctor = async (id: string): Promise<Doctor> => {
   const session = await auth()
 
   if (session?.user.id !== id) {

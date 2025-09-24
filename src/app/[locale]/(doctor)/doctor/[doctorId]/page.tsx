@@ -12,7 +12,7 @@ import { SignOutButton } from '@/components/SignOutButton/SignOutButton'
 import { StyledTab } from '@/components/StyledTab/StyledTab'
 import { Container, LoadingContainer } from '@/components/ui/container'
 import { H2, H6, P } from '@/components/ui/typography'
-import { getDoctor } from '@/lib/doctors'
+import { getSingleDoctor } from '@/lib/doctors'
 import { BUCKET_URL } from '@/shared/constants'
 
 const TABS_ENUM = {
@@ -25,7 +25,7 @@ interface DoctorProfileProps {
 }
 
 const DoctorProfile = async ({ doctorId }: DoctorProfileProps) => {
-  const doctor = await getDoctor(doctorId)
+  const doctor = await getSingleDoctor(doctorId)
 
   if (!doctor) return notFound()
 
