@@ -23,16 +23,16 @@ export const AttachmentPreviewModal = ({ attachment }: AttachmentPreviewModalPro
     <StyledModal
       contentClassName='h-[calc(100%-60px)] w-full !max-w-[calc(100%-48px)] lg:max-w-[60%] lg:w-[60%]'
       aria-describedby={undefined}
-      triggerButton={<Button>{t('appointmentForm.appointmentFiles.button')}</Button>}>
+      triggerButton={<Button>{t('appointmentForm.appointmentFiles.viewButton')}</Button>}>
       <VisuallyHidden>
-        <DialogTitle>Priview attachment</DialogTitle>
+        <DialogTitle>{t('appointmentForm.appointmentFiles.previewAttachment')}</DialogTitle>
       </VisuallyHidden>
 
       {fileType && ['jpg', 'jpeg', 'png'].includes(fileType) && (
         <div className='w-full h-full flex justify-center my-4'>
           <Image
             src={`${BUCKET_URL}/custom/files/${attachment}`}
-            className=' h-[calc(100%-16px)] w-[100%] lg:max-w-[calc(1200px-32px)] object-contain'
+            className='h-[calc(100%-16px)] w-[100%] max-w-[750px] max-h-[750px] object-contain'
             alt=''
             width={500}
             height={500}

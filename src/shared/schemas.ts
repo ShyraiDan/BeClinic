@@ -191,9 +191,10 @@ export const patientAppointmentFormValuesSchema = appointmentSchema
     fileName: true
   })
   .extend({
-    doctorId: z.string(), // required
-    specialty: z.string(), // required
-    startTimeHours: z.string() // required
+    doctorId: z.string(),
+    specialty: z.string(),
+    startTimeHours: z.string(),
+    doctorName: z.string().optional()
   })
 
 export const patientEditAppointmentFormValuesDtoSchema = patientAppointmentFormValuesSchema

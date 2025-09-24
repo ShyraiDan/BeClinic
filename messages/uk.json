@@ -368,11 +368,14 @@
       },
       "appointmentAnalyses": {
         "label": "Аналізи",
-        "button": "Додати аналіз"
+        "button": "Додати аналіз",
+        "noAnalyses": "Немає аналізів"
       },
       "appointmentFiles": {
         "label": "Додаткові файли",
-        "button": "Переглянути файл"
+        "addButton": "Додати файл",
+        "viewButton": "Переглянути файл",
+        "previewAttachment": "Переглянути файл"
       },
       "diagnosis": {
         "label": "Діагноз",

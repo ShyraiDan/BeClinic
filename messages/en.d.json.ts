@@ -371,11 +371,14 @@ declare const messages: {
       },
       "appointmentAnalyses": {
         "label": "Analyses",
-        "button": "Add analyses"
+        "button": "Add analyses",
+        "noAnalyses": "No analyses found"
       },
       "appointmentFiles": {
         "label": "File",
-        "button": "View file"
+        "addButton": "Add file",
+        "viewButton": "View file",
+        "previewAttachment": "Preview attachment"
       },
       "diagnosis": {
         "label": "Diagnosis",

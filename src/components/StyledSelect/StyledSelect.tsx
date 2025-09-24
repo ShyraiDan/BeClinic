@@ -39,19 +39,18 @@ export const StyledSelect = ({
   }
 
   return (
-    <Select {...props} onOpenChange={handleOpenChange} open={open} onValueChange={handleSelect}>
+    <Select {...props} onOpenChange={handleOpenChange} open={open} onValueChange={handleSelect} disabled={disabled}>
       <SelectTrigger className={triggerClassName}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
-      {!disabled && (
-        <SelectContent>
-          {options.map((option: Option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {localized ? t(option.label) : option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      )}
+
+      <SelectContent>
+        {options.map((option: Option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {localized ? t(option.label) : option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
     </Select>
   )
 }

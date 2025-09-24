@@ -60,7 +60,8 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
       analyses: appointment?.analyses ?? [],
       doctorId: appointment?.doctorName ?? '',
       fileName: appointment?.fileName ?? '',
-      specialty: appointment?.doctorPosition ?? ''
+      specialty: appointment?.doctorPosition ?? '',
+      startTimeHours: isEditMode ? `${getHours(appointment?.startTime)}:00` : undefined
     }
   })
 
@@ -169,7 +170,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
               placeholder={t('appointmentForm.appointmentReason.placeholder')}
               {...field}
             />
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />
@@ -181,12 +182,13 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
           <div className='mb-4'>
             <P className='font-medium mb-2'>{t('appointmentForm.appointmentSpecialization.label')}</P>
             <StyledSelect
+              disabled={isEditMode}
               options={doctorSpecialties}
               placeholder={t('appointmentForm.appointmentSpecialization.placeholder')}
               {...field}
               localized
             />
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />
@@ -197,13 +199,21 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
             <P className='font-medium mb-2'>{t('appointmentForm.appointmentDoctor.label')}</P>
-            <StyledSelect
-              options={doctorOptions}
-              disabled={!watch('specialty')}
-              placeholder={t('appointmentForm.appointmentDoctor.placeholder')}
-              {...field}
-            />
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+
+            {isEditMode ? (
+              <div className='flex w-full items-center justify-between gap-2 font-regular opacity-90 px-3 py-1.5 rounded border border-grey-400 bg-white'>
+                {appointment.doctorName}
+              </div>
+            ) : (
+              <StyledSelect
+                options={doctorOptions}
+                disabled={!watch('specialty')}
+                placeholder={t('appointmentForm.appointmentDoctor.placeholder')}
+                {...field}
+              />
+            )}
+
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />
@@ -215,15 +225,17 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
             control={control}
             render={({ field, fieldState: { error } }) => (
               <>
+                {/* {field.value} */}
                 <P className='font-medium mb-2'>{t('appointmentForm.appointmentDate.label')}</P>
                 <StyledDatePicker
+                  disabled={isEditMode}
                   initialDate={field.value}
                   hintFormat='dd/MM/yyyy'
                   placeholder={t('appointmentForm.appointmentDate.placeholder')}
-                  errorText={(error?.message && <ErrorText>{error.message}</ErrorText>) || null}
+                  errorText={(error?.message && <ErrorText>{t(error.message)}</ErrorText>) || null}
                   {...field}
                 />
-                {error?.message && <ErrorText>{error.message}</ErrorText>}
+                {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
               </>
             )}
           />
@@ -232,17 +244,17 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
           <Controller
             name='startTimeHours'
             control={control}
-            render={({ field, fieldState }) => (
+            render={({ field, fieldState: { error } }) => (
               <>
                 <P className='font-medium mb-2'>{t('appointmentForm.appointmentTime.label')}</P>
                 <StyledSelect
-                  disabled={!watch('startTime')}
+                  disabled={isEditMode || !watch('startTime')}
                   triggerClassName='h-[38px]'
                   options={timeOptions}
                   placeholder={t('appointmentForm.appointmentTime.placeholder')}
                   {...field}
                 />
-                {fieldState.error && <ErrorText>{fieldState.error.message}</ErrorText>}
+                {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
               </>
             )}
           />
@@ -252,7 +264,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
         <Controller
           name='description'
           control={control}
-          render={({ field, fieldState }) => (
+          render={({ field, fieldState: { error } }) => (
             <>
               <Label htmlFor='description'>{t('appointmentForm.appointmentDescription.label')}</Label>
               <TextArea
@@ -260,7 +272,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
                 placeholder={t('appointmentForm.appointmentDescription.placeholder')}
                 {...field}
               />
-              {fieldState.error && <ErrorText>{fieldState.error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </>
           )}
         />
@@ -298,16 +310,17 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
         <Controller
           name='fileName'
           control={control}
-          render={({ fieldState }) => (
+          render={({ fieldState: { error } }) => (
             <>
               <Label htmlFor='fileName'>{t('appointmentForm.appointmentFiles.label')}</Label>
               <div className='flex items-center gap-3'>
                 {!fileName && (
                   <Button
+                    type='button'
                     onClick={() => {
                       fileInputRef.current?.click()
                     }}>
-                    {t('appointmentForm.appointmentFiles.button')}
+                    {t('appointmentForm.appointmentFiles.addButton')}
                   </Button>
                 )}
 
@@ -315,6 +328,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
 
                 {fileName && (
                   <Button
+                    type='button'
                     variant='reset'
                     onClick={() => {
                       setValue('fileName', '')
@@ -334,7 +348,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
                 />
               </div>
 
-              {fieldState.error && <ErrorText>{fieldState.error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </>
           )}
         />

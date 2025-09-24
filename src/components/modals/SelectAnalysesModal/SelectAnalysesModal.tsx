@@ -71,20 +71,28 @@ export const SelectAnalysesModal = ({
       <DialogHeader>
         <DialogTitle>{t('appointmentForm.appointmentAnalyses.label')}</DialogTitle>
       </DialogHeader>
-      <div className='grid grid-cols-1 gap-4 mt-4 max-h-[500px] overflow-y-auto'>
-        {analyses.map((analysis) => (
-          <AnalysesCard
-            key={analysis._id}
-            analysis={analysis}
-            onSelect={() => handleSelectItem(analysis)}
-            selected={selectedAnalyses.some((item) => item._id === analysis._id)}
-            locale={locale}
-          />
-        ))}
-      </div>
+
+      {analyses.length === 0 ? (
+        <P>{t('appointmentForm.appointmentAnalyses.noAnalyses')}</P>
+      ) : (
+        <div className='grid grid-cols-1 gap-4 mt-4 max-h-[500px] overflow-y-auto'>
+          {analyses.map((analysis) => (
+            <AnalysesCard
+              key={analysis._id}
+              analysis={analysis}
+              onSelect={() => handleSelectItem(analysis)}
+              selected={selectedAnalyses.some((item) => item._id === analysis._id)}
+              locale={locale}
+            />
+          ))}
+        </div>
+      )}
+
       <DialogFooter>
         <DialogClose asChild>
-          <Button type='submit'>{t('save')}</Button>
+          <Button className='w-full h-10' type='submit'>
+            {t('save')}
+          </Button>
         </DialogClose>
       </DialogFooter>
     </StyledModal>

@@ -154,7 +154,7 @@ const DoctorSingleAppointmentPage = async ({ params }: SingleAppointmentPageProp
 
   return (
     <>
-      <PageHeading title=''>
+      <PageHeading>
         <H2 className='text-white mt-4 mb-1'>
           {t('singleAppointmentPage.visit', { patientName: appointment?.patient.userName })}
         </H2>
