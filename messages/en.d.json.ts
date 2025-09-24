@@ -167,7 +167,8 @@ declare const messages: {
     "blog": {
       "title": "Blog",
       "findPosts": "{count, plural, =0 {No posts found} one {# post found} other {# posts found}}",
-      "readMore": "Read more"
+      "readMore": "Read more",
+      "noBlogs": "No blogs found"
     },
     "addBlogPage": {
       "title": "Add blog"
@@ -546,7 +547,11 @@ declare const messages: {
       "analysisCreateSuccess": "Analysis created successfully",
       "analysisUpdateSuccess": "Analysis updated successfully",
       "analysisCreateError": "Error creating analysis",
-      "analysisUpdateError": "Error updating analysis"
+      "analysisUpdateError": "Error updating analysis",
+      "blogCreateSuccess": "Blog created successfully",
+      "blogUpdateSuccess": "Blog updated successfully",
+      "blogCreateError": "Error creating blog",
+      "blogUpdateError": "Error updating blog"
     },
     "validation": {
       "userExists": "User already exists",

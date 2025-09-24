@@ -22,5 +22,5 @@ const mongoBlogSchema = new Schema({
 
 type Blog = InferSchemaType<typeof mongoBlogSchema>
 
-const BlogModel = (models.Appointments as Model<Blog>) || model('Blog', mongoBlogSchema)
+const BlogModel = (models.Blog as Model<Blog>) || model('Blog', mongoBlogSchema)
 export default BlogModel
