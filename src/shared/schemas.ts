@@ -68,6 +68,21 @@ export const blogFormValuesSchema = blogSchema.pick({
   image: true
 })
 
+export const createBlogFormDTOSchema = blogSchema.pick({
+  title: true,
+  description: true,
+  image: true,
+  authorId: true
+})
+
+export const editBlogFormDTOSchema = blogSchema.pick({
+  _id: true,
+  title: true,
+  description: true,
+  image: true,
+  authorId: true
+})
+
 export const patientSchema = z.object({
   _id: z.string(),
   email: z.email('validation.emailInvalid').nonempty('validation.emailRequired'),

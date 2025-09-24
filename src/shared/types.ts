@@ -32,7 +32,9 @@ import {
   patientCreateAppointmentFormValuesDtoSchema,
   medicineSchema,
   doctorAppointmentSchema,
-  doctorEditAppointmentFormValuesSchema
+  doctorEditAppointmentFormValuesSchema,
+  createBlogFormDTOSchema,
+  editBlogFormDTOSchema
 } from './schemas'
 
 import type { DefaultSession } from 'next-auth'
@@ -90,3 +92,5 @@ export type PatientCreateAppointmentFormValuesDto = z.infer<typeof patientCreate
 export type Medicine = z.infer<typeof medicineSchema>
 export type DoctorAppointment = z.infer<typeof doctorAppointmentSchema>
 export type DoctorEditAppointmentFormValues = z.infer<typeof doctorEditAppointmentFormValuesSchema>
+export type CreateBlogFormDTO = z.infer<typeof createBlogFormDTOSchema>
+export type EditBlogFormDTO = z.infer<typeof editBlogFormDTOSchema>
