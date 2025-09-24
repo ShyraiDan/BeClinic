@@ -1,8 +1,9 @@
 import { getYear } from 'date-fns'
 import { Facebook, Twitter, Linkedin, Mail } from 'lucide-react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
+import { auth } from '@/auth'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { ReviewSlider } from '@/components/ReviewSlider/ReviewSlider'
 import { StyledAccordion } from '@/components/StyledAccordion/StyledAccordion'
@@ -10,16 +11,18 @@ import { Container } from '@/components/ui/container'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { H3, H6, P } from '@/components/ui/typography'
 import { Link } from '@/i18n/navigation'
-import { mockedDoctors } from '@/mocks/mockedDoctors'
+import { getSingleDoctor } from '@/lib/doctors'
 import { mockedReviews } from '@/mocks/Reviews.mocks'
-import { Doctor } from '@/shared/types'
+import { BUCKET_URL } from '@/shared/constants'
+import { Doctor, UserRoles } from '@/shared/types'
 
 interface DoctorInfoProps {
   doctor: Doctor
 }
 
-const DoctorInfo = ({ doctor }: DoctorInfoProps) => {
-  const t = useTranslations('page')
+const DoctorInfo = async ({ doctor }: DoctorInfoProps) => {
+  const t = await getTranslations('page')
+  const session = await auth()
 
   return (
     <div className='bg-white inset-shadow-profile px-4 py-[30px]'>
@@ -50,34 +53,35 @@ const DoctorInfo = ({ doctor }: DoctorInfoProps) => {
           </P>
         </li>
       </ul>
-      <div className='mt-[55px]'>
-        <StyledLinkButton href='/appointments/add' className='w-full text-center bg-blue-100 text-white'>
-          {t('singleDoctorPage.makeAnAppointment')}
-        </StyledLinkButton>
-      </div>
+      {session?.user.id && session?.user.role === UserRoles.PATIENT && (
+        <div className='mt-[55px]'>
+          <StyledLinkButton href='/appointments/add' className='w-full text-center bg-blue-100 text-white'>
+            {t('singleDoctorPage.makeAnAppointment')}
+          </StyledLinkButton>
+        </div>
+      )}
     </div>
   )
 }
 
-const SingleDoctorPage = () => {
-  const doctor = mockedDoctors[0]
-  const t = useTranslations('page')
+interface SingleDoctorPageProps {
+  params: Promise<{ doctorId: string }>
+}
+
+const SingleDoctorPage = async ({ params }: SingleDoctorPageProps) => {
+  const { doctorId } = await params
+
+  const doctor = await getSingleDoctor(doctorId)
+  const t = await getTranslations('page')
 
   return (
     <>
       <PageHeading title={doctor?.doctorName} />
       <Container className='my-12 md:grid md:grid-cols-[3fr_2fr] md:gap-7 lg:grid-cols-[1fr_360px]'>
         <section>
-          <Image
-            src='/no-image.jpg'
-            alt='doctor'
-            className='w-full h-full max-h-[440px] mb-10 object-cover'
-            width={730}
-            height={440}
-          />
-          {/* {doctor?.image ? (
+          {doctor?.avatarUrl ? (
             <Image
-              src={`${BUCKET_URL}/custom/avatars/${doctor.image}`}
+              src={`${BUCKET_URL}/custom/avatars/${doctor.avatarUrl}`}
               alt='doctor'
               unoptimized
               className='w-full h-full max-h-[440px] mb-10 object-cover'
@@ -92,7 +96,7 @@ const SingleDoctorPage = () => {
               width={730}
               height={440}
             />
-          )} */}
+          )}
           <div>
             <div className='flex items-center justify-start'>
               <div className='border border-solid border-[#56b0d2] w-[65px]' />
@@ -210,78 +214,6 @@ const SingleDoctorPage = () => {
               ]}
             />
 
-            {/* <Accordion
-              items={[
-                {
-                  id: 'review',
-                  title: t('singleDoctorPage.doctorAccordion.review.title'),
-                  content: (
-                    <div className='pt-2.5 pb-5 px-4'>
-                      <ul className='mt-2.5'>
-                        <li>
-                          <span className='font-primary font-bold text-primary'>
-                            {t('singleDoctorPage.doctorAccordion.review.content.programs.title')}
-                          </span>
-                          <span className='ml-2 font-light text-primary'>
-                            {t('singleDoctorPage.doctorAccordion.review.content.programs.content')}
-                          </span>
-                        </li>
-                        <li>
-                          <span className='font-primary font-bold text-primary'>
-                            {t('singleDoctorPage.doctorAccordion.review.content.scienceInterests.title')}
-                          </span>
-                          <span className='ml-2 font-light text-primary'>
-                            {t('singleDoctorPage.doctorAccordion.review.content.scienceInterests.content')}
-                          </span>
-                        </li>
-                        <li>
-                          <span className='font-primary font-bold text-primary'>
-                            {t('singleDoctorPage.doctorAccordion.review.content.training.title')}
-                          </span>
-                          <span className='ml-2 font-light text-primary'>
-                            {t('singleDoctorPage.doctorAccordion.review.content.training.content')}
-                          </span>
-                        </li>
-                        <li>
-                          <span className='font-primary font-bold text-primary'>
-                            {t('singleDoctorPage.doctorAccordion.review.content.certificates.title')}
-                          </span>
-                          <span className='ml-2 font-light text-primary'>
-                            {t('singleDoctorPage.doctorAccordion.review.content.certificates.content')}
-                          </span>
-                        </li>
-                        <li>
-                          <span className='font-primary font-bold text-primary'>
-                            {t('singleDoctorPage.doctorAccordion.review.content.insurances.title')}
-                          </span>
-                          <span className='ml-2 font-light text-primary'>
-                            {t('singleDoctorPage.doctorAccordion.review.content.insurances.content')}
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-                  )
-                },
-                {
-                  id: 'awards',
-                  title: t('singleDoctorPage.doctorAccordion.awards.title'),
-                  content: (
-                    <div className='py-5 px-4'>
-                      <P className='font-light'>{t('singleDoctorPage.doctorAccordion.awards.content')}</P>
-                    </div>
-                  )
-                },
-                {
-                  id: 'membership',
-                  title: t('singleDoctorPage.doctorAccordion.membership.title'),
-                  content: (
-                    <div className='py-5 px-4'>
-                      <P className='font-light'>{t('singleDoctorPage.doctorAccordion.membership.content')}</P>
-                    </div>
-                  )
-                }
-              ]}
-            /> */}
             <H6 className='mb-5 mt-12 text-[26px]'>{t('singleDoctorPage.review')}</H6>
             <div className='md:max-w-[500px] md:mx-auto'>
               <ReviewSlider reviews={mockedReviews} />
