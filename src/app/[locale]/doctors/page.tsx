@@ -1,10 +1,13 @@
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import { Suspense } from 'react'
 
+import DoctorCard from '@/components/DoctorCard/DoctorCard'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { DoctorCardSkeleton } from '@/components/skeletons/DoctorCardSkeletons'
 import { Container } from '@/components/ui/container'
 import { H2, P } from '@/components/ui/typography'
+import { getDoctors } from '@/lib/doctors'
 
 const mockedCertificates = [
   {
@@ -48,14 +51,15 @@ const Certificate = ({ certificate }: CertificateProps) => {
   )
 }
 
-const DoctorsPage = () => {
-  const t = useTranslations('page')
+const DoctorsPage = async () => {
+  const doctors = await getDoctors()
+  const t = await getTranslations('page')
 
   return (
     <>
       <PageHeading title={t('doctors.title')} />
       <section className='md:grid md:grid-cols-2'>
-        <div className=" bg-[url('/department-single-img5.jpg')] bg-cover bg-no-repeat w-full h-[240px] bg-center md:h-[440px] md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2" />
+        <div className="bg-[url('/department-single-img5.jpg')] bg-cover bg-no-repeat w-full h-[240px] bg-center md:h-[440px] md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2" />
         <div className='py-[60px] px-4 lg:max-w-[600px] lg:ml-auto'>
           <H2 className='mb-5 text-center text-[26px] md:text-left xl:text-[26px]'>{t('doctors.ourTeam')}</H2>
           <div className='flex items-center justify-center md:justify-start'>
@@ -73,9 +77,22 @@ const DoctorsPage = () => {
           </div>
         </section>
         <section className='py-4 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-[30px] lg:grid-cols-4'>
-          {Array.from({ length: 4 }).map((_, index) => (
-            <DoctorCardSkeleton key={index} />
-          ))}
+          <Suspense
+            fallback={Array.from({ length: 4 }).map((_, index) => (
+              <DoctorCardSkeleton key={index} />
+            ))}>
+            {doctors.length === 0 ? (
+              <P>{t('doctors.noDoctors')}</P>
+            ) : (
+              <>
+                {doctors.map((doctor) => (
+                  <DoctorCard key={doctor._id} doctor={doctor} />
+                ))}
+              </>
+            )}
+          </Suspense>
+
+          {}
         </section>
         <section className='pt-[50px] mb-9'>
           <H2 className='mb-5 text-center text-[26px] md:text-left xl:text-[26px]'>

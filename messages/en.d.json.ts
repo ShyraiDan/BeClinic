@@ -84,7 +84,8 @@ declare const messages: {
       "achievements": {
         "title": "Our Achievements",
         "description": "Medical Center has been a medical service provider in all fields of medicine for the Diplomats and their families for the past twenty years and keeps on maintaining a successful cooperation between the two bodies."
-      }
+      },
+      "noDoctors": "No doctors found"
     },
     "contacts": {
       "title": "Contacts",
