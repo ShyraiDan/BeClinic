@@ -1,13 +1,23 @@
 import { InferSchemaType, Model, Schema, models, model } from 'mongoose'
 
+import { SUPPORTED_LOCALES } from '@/shared/constants'
+
 const mongoBlogSchema = new Schema({
   title: {
-    type: String,
-    required: true
+    type: SUPPORTED_LOCALES.map((locale) => ({
+      [locale]: {
+        type: String,
+        required: true
+      }
+    }))
   },
   description: {
-    type: String,
-    required: true
+    type: SUPPORTED_LOCALES.map((locale) => ({
+      [locale]: {
+        type: String,
+        required: true
+      }
+    }))
   },
   image: {
     type: String,
