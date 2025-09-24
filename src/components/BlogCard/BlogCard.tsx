@@ -1,6 +1,5 @@
 'use client'
 
-import { format } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import { CalendarDays } from 'lucide-react'
 import Image from 'next/image'
@@ -37,7 +36,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         <div className='flex items-center'>
           <CalendarDays size={16} className='mr-2 text-[#56b0d2]' />
           <span className='text-[#8f9395] text-sm px-[3px] capitalize'>
-            {format(blog.updatedAt ?? blog.createdAt, 'MMMM d, yyyy', { locale: dateLocale })}
+            {/* {format(blog.updatedAt ?? blog.createdAt, 'MMMM d, yyyy', { locale: dateLocale })} */}
           </span>
         </div>
         <H3 className='text-[#949494] mt-[5px]'>{blog.title[locale]}</H3>

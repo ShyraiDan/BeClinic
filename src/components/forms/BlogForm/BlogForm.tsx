@@ -79,11 +79,11 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
       const result = await updateBlog(blog._id, editBlog)
 
       if (result) {
-        toast.success('notifications.blogUpdateSuccess')
+        toast.success(t('notifications.blogUpdateSuccess'))
 
         router.push(`/blog/${result._id}`)
       } else {
-        toast.success('notifications.blogUpdateError')
+        toast.success(t('notifications.blogUpdateError'))
       }
     } else {
       const descriptions: Record<SupportedLocales, string> = {
@@ -111,11 +111,11 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
       const result = await createBlog(newBlog)
 
       if (result) {
-        toast.success('notifications.blogCreateSuccess')
+        toast.success(t('notifications.blogCreateSuccess'))
 
         router.push(`/blog/${result._id}`)
       } else {
-        toast.success('notifications.blogCreateError')
+        toast.success(t('notifications.blogCreateError'))
       }
     }
   }

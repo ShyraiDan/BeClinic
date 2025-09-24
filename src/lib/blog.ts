@@ -5,7 +5,7 @@ import connectMongoDB from '@/lib/mongodb'
 import BlogModel from '@/shared/models/blog'
 import { Blog, CreateBlogFormDTO, EditBlogFormDTO } from '@/shared/types'
 
-export const getBlogById = async (blogId: string): Promise<Blog> => {
+export const getSingleBlog = async (blogId: string): Promise<Blog> => {
   try {
     await connectMongoDB()
     const blog = await BlogModel.findById(blogId).lean<Blog>()
@@ -122,7 +122,7 @@ export const deleteBlog = async (blogId: string): Promise<boolean> => {
   try {
     await connectMongoDB()
 
-    const blog = await getBlogById(blogId)
+    const blog = await getSingleBlog(blogId)
 
     if (blog.authorId !== session.user.id) {
       throw new Error('No access')
