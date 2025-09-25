@@ -10,7 +10,7 @@ import { P, H6 } from '@/components/ui/typography'
 import { mockedPayments } from '@/mocks/mockedPayments'
 import { SupportedLocales } from '@/shared/types'
 
-export const BillingTab = () => {
+export const PaymentTab = () => {
   const params = useParams()
   const { locale } = params
   const t = useTranslations('page')
@@ -24,7 +24,7 @@ export const BillingTab = () => {
   return (
     <>
       {unPayedServices.length === 0 && payedServices.length === 0 && !isLoading && (
-        <P>{t('profile.patient.noBillingHistory')}</P>
+        <P>{t('profile.patient.noPaymentHistory')}</P>
       )}
 
       {isLoading && (
@@ -51,7 +51,7 @@ export const BillingTab = () => {
 
       {payedServices.length > 0 && (
         <div className='mt-6'>
-          <H6>{t('profile.patient.billingHistory')}</H6>
+          <H6>{t('profile.patient.paymentHistory')}</H6>
 
           {payedServices.length > 0 && (
             <div className='grid grid-cols-1 gap-4 mt-4'>

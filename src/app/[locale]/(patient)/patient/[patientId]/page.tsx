@@ -9,7 +9,7 @@ import { EditPatientModal } from '@/components/modals/EditPatientModal/EditPatie
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { AnalysesTab } from '@/components/patientTabs/AnalysesTab'
 import { AppointmentTab } from '@/components/patientTabs/AppointmentTab'
-import { BillingTab } from '@/components/patientTabs/BillingTab'
+import { PaymentTab } from '@/components/patientTabs/PaymentTab'
 import { SignOutButton } from '@/components/SignOutButton/SignOutButton'
 import { StyledTab } from '@/components/StyledTab/StyledTab'
 import { Container, LoadingContainer } from '@/components/ui/container'
@@ -20,7 +20,7 @@ import { BUCKET_URL } from '@/shared/constants'
 const TABS_ENUM = {
   APPOINTMENTS: 'appointments',
   ANALYSES: 'analyses',
-  BILLING: 'billing'
+  PAYMENT: 'payment'
 }
 
 interface PatientProfileProps {
@@ -126,7 +126,7 @@ const PatientProfile = async ({ patientId }: PatientProfileProps) => {
 const tabs = [
   { id: TABS_ENUM.APPOINTMENTS, label: 'profile.patient.appointments', content: <AppointmentTab /> },
   { id: TABS_ENUM.ANALYSES, label: 'profile.patient.analyses', content: <AnalysesTab /> },
-  { id: TABS_ENUM.BILLING, label: 'profile.patient.billing', content: <BillingTab /> }
+  { id: TABS_ENUM.PAYMENT, label: 'profile.patient.payment', content: <PaymentTab /> }
 ]
 
 interface PatientProfilePageProps {
