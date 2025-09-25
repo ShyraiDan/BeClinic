@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
+import { useUpdateDoctorAppointmentMutation } from '@/client/appointment'
 import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
 import { MedicineForm } from '@/components/forms/MedicineForm/MedicineForm'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
@@ -16,7 +17,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { H4, P } from '@/components/ui/typography'
-import { updateDoctorAppointment } from '@/lib/appointment'
+import { useRouter } from '@/i18n/navigation'
 import { doctorEditAppointmentFormValuesSchema } from '@/shared/schemas'
 import { DoctorAppointment, DoctorEditAppointmentFormValues, SupportedLocales } from '@/shared/types'
 
@@ -29,6 +30,7 @@ export const DoctorAppointmentForm = ({ appointment }: DoctorAppointmentFormProp
   const tForm = useTranslations('forms')
   const locale = useLocale()
   const { data: session } = useSession()
+  const router = useRouter()
 
   const { control, handleSubmit } = useForm<DoctorEditAppointmentFormValues>({
     mode: 'onSubmit',
@@ -40,15 +42,24 @@ export const DoctorAppointmentForm = ({ appointment }: DoctorAppointmentFormProp
     }
   })
 
+  const { mutateAsync: updateAppointment } = useUpdateDoctorAppointmentMutation(
+    session?.user?.id || '',
+    appointment?._id || ''
+  )
+
   const onSubmit: SubmitHandler<DoctorEditAppointmentFormValues> = async (values) => {
     if (!session?.user.id) return
 
-    const result = await updateDoctorAppointment(session.user.id, appointment._id, values)
+    const result = await updateAppointment({
+      doctorId: session.user.id,
+      appointmentId: appointment._id,
+      data: values
+    })
 
     if (result) {
       toast.success(t('notifications.visitUpdateSuccess'))
 
-      // router.push()
+      router.push(`/doctor/${session?.user.id}/appointments/${result._id}`)
     } else {
       toast.error(t('notifications.visitUpdateError'))
     }
