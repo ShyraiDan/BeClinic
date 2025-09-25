@@ -15,8 +15,6 @@ import {
   PatientEditAppointmentFormValuesDto
 } from '@/shared/types'
 
-// TODO: Review error messages
-
 export const getPatientAppointments = async (patientId: string): Promise<PatientAppointment[]> => {
   const session = await auth()
 
@@ -76,7 +74,7 @@ export const getSinglePatientAppointment = async (
       .lean<Appointment>()
 
     if (!appointment) {
-      throw new Error('Update failed')
+      throw new Error('Error getting appointment')
     }
 
     if (appointment?.patient._id.toString() !== patientId) {
@@ -102,7 +100,6 @@ export const getSinglePatientAppointment = async (
   }
 }
 
-// TODO: Test this endpoint
 export const createPatientAppointment = async (
   patientId: string,
   data: PatientCreateAppointmentFormValuesDto
@@ -150,7 +147,6 @@ export const createPatientAppointment = async (
   }
 }
 
-// TODO: Test this endpoint
 export const updatePatientAppointment = async (
   patientId: string,
   appointmentId: string,
@@ -173,7 +169,7 @@ export const updatePatientAppointment = async (
     ).lean()
 
     if (!appointment) {
-      throw new Error('Update failed')
+      throw new Error('Update appointment failed')
     }
 
     return appointment
@@ -200,7 +196,7 @@ export const getDoctorAppointments = async (doctorId: string): Promise<DoctorApp
       .lean<Appointment[]>()
 
     if (!appointments) {
-      throw new Error('Update failed')
+      throw new Error('Update appointment failed')
     }
 
     const appointmentDto = appointments.map((appointment) => ({
@@ -244,7 +240,7 @@ export const getSingleDoctorAppointment = async (
       .lean<Appointment>()
 
     if (!appointment) {
-      throw new Error('Update failed')
+      throw new Error('Update appointment appointment')
     }
 
     if (appointment?.doctor._id.toString() !== doctorId) {
@@ -290,7 +286,7 @@ export const updateDoctorAppointment = async (
     ).lean<Appointment>()
 
     if (!appointment) {
-      throw new Error('Update failed')
+      throw new Error('Update appointment failed')
     }
 
     return appointment

@@ -88,7 +88,7 @@ export const updateDoctor = async (id: string, data: EditDoctorFormValues): Prom
       { new: true }
     ).lean<Doctor>()
 
-    if (!updatedDoctor) throw new Error('Update failed')
+    if (!updatedDoctor) throw new Error('Update doctor failed')
 
     await unstable_update({ user: { image: updatedDoctor.avatarUrl } })
 

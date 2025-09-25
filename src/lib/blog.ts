@@ -66,7 +66,7 @@ export const createBlog = async (blogData: CreateBlogFormDTO): Promise<Blog> => 
     const newBlog = await BlogModel.findById(newBlogDoc._id).lean<Blog>()
 
     if (!newBlog) {
-      throw new Error('Creating failed')
+      throw new Error('Creating blog failed')
     }
 
     return {

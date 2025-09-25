@@ -80,13 +80,13 @@ export const createAnalysis = async (
     })
 
     if (!newAnalysisDoc) {
-      throw new Error('Creating failed')
+      throw new Error('Creating analysis failed')
     }
 
     const newAnalysis = await AnalysisModel.findById(newAnalysisDoc._id).lean()
 
     if (!newAnalysis) {
-      throw new Error('Creating failed')
+      throw new Error('Creating analysis failed')
     }
 
     return {
@@ -122,7 +122,7 @@ export const updateAnalysis = async (
     ).lean()
 
     if (!updAnalysis) {
-      throw new Error('Update failed')
+      throw new Error('Update analysis failed')
     }
 
     return {
