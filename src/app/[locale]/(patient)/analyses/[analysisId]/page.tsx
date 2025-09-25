@@ -6,15 +6,18 @@ import { Pencil } from 'lucide-react'
 import { notFound, useParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
+import { toast } from 'sonner'
 
-import { useGetSingleAnalysisQuery } from '@/client/analysis'
+import { useDeleteAnalysisMutation, useGetSingleAnalysisQuery } from '@/client/analysis'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
+import { DeleteAnalysisModal } from '@/components/modals/DeleteAnalysisModal/DeleteAnalysisModal'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { Container } from '@/components/ui/container'
 import { Separator } from '@/components/ui/separator'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { H2, H4, P } from '@/components/ui/typography'
+import { useRouter } from '@/i18n/navigation'
 import { dateLocaleMap } from '@/utils/dateLocaleMap'
 
 const SingleAnalysisPage = () => {
@@ -22,13 +25,25 @@ const SingleAnalysisPage = () => {
   const { data: session } = useSession()
   const params = useParams<{ locale: string; analysisId: string }>()
   const { locale, analysisId } = params
+  const router = useRouter()
 
   const { data: analyses, isLoading } = useGetSingleAnalysisQuery(session?.user.id || '', analysisId)
-
+  const { mutateAsync: deleteAnalysis } = useDeleteAnalysisMutation(analysisId)
   const dateLocale = dateLocaleMap[locale] ?? enUS
 
   if (!analyses && !isLoading) {
     notFound()
+  }
+
+  const handleDeleteAnalysis = async () => {
+    const res = await deleteAnalysis({ analysisId })
+
+    if (res) {
+      toast.success('singleAnalysisPage.notifications.deleteAnalysisSuccess')
+      router.push(`/patient/${session?.user.id}?tab=analyses`)
+    } else {
+      toast.error('singleAnalysisPage.notifications.deleteAnalysisError')
+    }
   }
 
   return (
@@ -54,6 +69,7 @@ const SingleAnalysisPage = () => {
             <StyledLinkButton variant='icon' href={`/analyses/${analyses?._id}/edit`}>
               <Pencil size={16} />
             </StyledLinkButton>
+            <DeleteAnalysisModal allowedAction={handleDeleteAnalysis} />
           </div>
         </div>
       </PageHeading>

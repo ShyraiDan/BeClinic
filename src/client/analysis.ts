@@ -1,6 +1,6 @@
 import { skipToken, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { getAnalyses, getSingleAnalysis, createAnalysis, updateAnalysis } from '@/lib/analysis'
+import { getAnalyses, getSingleAnalysis, createAnalysis, updateAnalysis, deleteAnalysis } from '@/lib/analysis'
 import { analysesSchema } from '@/shared/schemas'
 import { AnalysisFormValues, Analysis } from '@/shared/types'
 
@@ -63,6 +63,15 @@ export const useUpdateAnalysisMutation = (patientId: string, analysisId: string)
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['analysis', patientId] })
+    }
+  })
+}
+
+export const useDeleteAnalysisMutation = (analysisId: string) => {
+  return useMutation({
+    mutationKey: ['analysis', analysisId],
+    mutationFn: async ({ analysisId }: { analysisId: string }) => {
+      return await deleteAnalysis(analysisId)
     }
   })
 }

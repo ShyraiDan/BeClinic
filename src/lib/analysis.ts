@@ -135,3 +135,27 @@ export const updateAnalysis = async (
     throw new Error('Unexpected error')
   }
 }
+
+export const deleteAnalysis = async (analysisId: string): Promise<boolean> => {
+  const session = await auth()
+
+  if (!session) {
+    throw new Error('No access')
+  }
+
+  try {
+    await connectMongoDB()
+
+    const analysis = await getSingleAnalysis(session.user.id, analysisId)
+
+    if (analysis.patientId !== session.user.id) {
+      throw new Error('No access')
+    }
+
+    await AnalysisModel.findByIdAndDelete(analysisId)
+    return true
+  } catch (error) {
+    console.error('Error: ', error)
+    throw new Error('Unexpected error')
+  }
+}

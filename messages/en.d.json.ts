@@ -275,7 +275,11 @@ declare const messages: {
     },
     "singleAnalysisPage": {
       "analysisDate": "Analysis date:",
-      "analysisDetails": "Analysis details"
+      "analysisDetails": "Analysis details",
+      "notifications": {
+        "deleteAnalysisSuccess": "Analysis deleted successfully",
+        "deleteAnalysisError": "Error deleting analysis"
+      }
     },
     "editAnalysisPage": {
       "title": "Edit analysis"
@@ -615,6 +619,12 @@ declare const messages: {
     "deleteBlog": {
       "title": "Delete blog",
       "reallyDelete": "Are you sure you want to delete this blog?",
+      "delete": "Delete",
+      "cancel": "Cancel"
+    },
+    "deleteAnalysis": {
+      "title": "Delete analysis",
+      "reallyDelete": "Are you sure you want to delete this analysis?",
       "delete": "Delete",
       "cancel": "Cancel"
     },
