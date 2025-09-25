@@ -573,7 +573,10 @@
       "specialtyRequired": "Спеціальність є обов'язковою",
       "startTimeHoursRequired": "Час початку візиту є обов'язковим",
       "analysisNameRequired": "Назва аналізу є обов'язковою",
-      "analysisDateRequired": "Дата аналізу є обов'язковою"
+      "analysisDateRequired": "Дата аналізу є обов'язковою",
+      "blogTitleMinLength": "Заголовок блогу повинен містити не менше 20 символів",
+      "blogDescriptionMinLength": "Опис блогу повинен містити не менше 40 символів",
+      "blogImageRequired": "Зображення блогу є обов'язковим"
     },
     "specialtySelect": {
       "therapist": "Терапевт",

@@ -568,7 +568,7 @@ declare const messages: {
       "confirmPasswordMismatch": "Passwords must be equal",
       "verificationCodeMismatch": "Verification code is not valid",
       "verificationCodeRequired": "Verification code is required",
-      "positionRequired": "Speciality is required field",
+      "positionRequired": "Specialty is required field",
       "phoneRequired": "Phone is required field",
       "nameRequired": "User name is required field",
       "nameMinLength": "User name must be at least 3 characters",
@@ -580,7 +580,10 @@ declare const messages: {
       "specialtyRequired": "Specialty is required field",
       "startTimeHoursRequired": "Time is required field",
       "analysisNameRequired": "Analysis name is required field",
-      "analysisDateRequired": "Analysis date is required field"
+      "analysisDateRequired": "Analysis date is required field",
+      "blogTitleMinLength": "Blog title must be at least 20 characters",
+      "blogDescriptionMinLength": "Blog description must be at least 40 characters",
+      "blogImageRequired": "Blog image is required field"
     },
     "specialtySelect": {
       "therapist": "Therapist",

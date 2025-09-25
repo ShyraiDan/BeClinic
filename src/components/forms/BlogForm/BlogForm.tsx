@@ -122,11 +122,7 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
 
   const handleUploadImage = async (file: File) => {
     const extension = file.name.split('.').pop()
-
     const fileName = await saveFileToBucket(file, `blog_${session?.user.id}.${extension}`, 'beclinic/custom/files')
-
-    console.log('fileName', fileName)
-
     setValue('image', fileName)
   }
 
@@ -146,7 +142,7 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
                 placeholder={t('blogForm.blogTitle.placeholder', { locale })}
                 {...field}
               />
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -226,7 +222,7 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
               </div>
             )}
 
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />
@@ -242,7 +238,7 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
               <div data-color-mode='light'>
                 <MDEditor id={`description.${locale}`} height={200} {...field} />
               </div>
-              {error?.message && <ErrorText className='text-red text-sm my-1'>Блог має містити текст</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
