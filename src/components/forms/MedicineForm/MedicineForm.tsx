@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { P } from '@/components/ui/typography'
+import { H4, P } from '@/components/ui/typography'
 import { DoctorEditAppointmentFormValues } from '@/shared/types'
 
 interface MedicineFormProps {
@@ -28,17 +28,17 @@ export const MedicineForm = ({ control }: MedicineFormProps) => {
   return (
     <fieldset>
       <legend>
-        <P className='font-medium mb-2'>{t('appointmentForm.medicine.label')}</P>
+        <H4>{t('appointmentForm.medicine.label')}</H4>
       </legend>
       <div className='flex flex-col gap-4'>
         {medicines.map((medicine, index) => (
-          <section key={medicine.id}>
+          <section key={medicine.id} className='bg-white shadow-custom-right p-4 rounded-md'>
             <Controller
               name={`medicine.${index}.medicineName`}
               control={control}
               render={({ field, fieldState: { error } }) => (
                 <div className='mb-4'>
-                  <div className='flex justify-between items-center'>
+                  <div className='flex justify-between items-center mb-4'>
                     <Label htmlFor={`medicine.${index}.medicineName`}>
                       {t('appointmentForm.medicine.fields.medicineName.label')}
                     </Label>
@@ -47,7 +47,7 @@ export const MedicineForm = ({ control }: MedicineFormProps) => {
                       className='!px-2 !py-0 h-7 w-7 rounded-lg bg-blue-200 enabled:hover:bg-purple-100'
                       type='button'
                       onClick={() => removeMedicines(index)}>
-                      <Trash2 className='fill-white-100' size={14} />
+                      <Trash2 className='text-white' size={14} />
                     </Button>
                   </div>
 

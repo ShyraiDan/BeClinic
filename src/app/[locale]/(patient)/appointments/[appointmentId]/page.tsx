@@ -88,7 +88,6 @@ const UpcomingAppointment = ({ appointmentData, locale }: UpcomingAppointmentPro
       <div className='flex justify-between'>
         <div>
           <H4>{t('singleAppointmentPage.appointmentCentre')}</H4>
-          <P>Вінниця</P>
         </div>
         <div>
           <StyledLinkButton

@@ -216,7 +216,7 @@ export const getDoctorAppointments = async (doctorId: string): Promise<DoctorApp
     const appointments = await AppointmentModel.find({ doctor: doctorId })
       .populate(
         'patient',
-        'userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
+        'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
       )
       .transform((docs) =>
         docs.map((d) => ({
@@ -261,7 +261,7 @@ export const getSingleDoctorAppointment = async (
     const appointment = await AppointmentModel.findById(appointmentId)
       .populate(
         'patient',
-        'userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
+        'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
       )
       .transform((docs) => ({
         ...docs,
@@ -321,9 +321,13 @@ export const updateDoctorAppointment = async (
           ...docs?.patient,
           _id: docs?.patient._id.toString()
         },
-        createdAt: docs?.createdAt?.toISOString(),
-        updatedAt: docs?.updatedAt?.toISOString()
+        createdAt: docs?.createdAt instanceof Date ? docs?.createdAt?.toISOString() : docs?.createdAt,
+        updatedAt: docs?.updatedAt instanceof Date ? docs?.updatedAt?.toISOString() : docs?.updatedAt
       }))
+      .populate(
+        'patient',
+        'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
+      )
       .lean<Appointment>()
 
     if (!appointment) {
