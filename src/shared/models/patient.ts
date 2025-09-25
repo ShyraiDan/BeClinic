@@ -15,7 +15,7 @@ const mongoPatientSchema = new Schema(
       type: String,
       required: true
     },
-    dateOfBirth: Date,
+    dateOfBirth: String,
     phoneNumber: String,
     bloodType: String,
     diabetes: String,

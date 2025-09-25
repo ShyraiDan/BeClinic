@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { auth, unstable_update } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import PatientModel from '@/shared/models/patient'
+import { patientSchema } from '@/shared/schemas'
 import { EditPatientFormValues, Patient } from '@/shared/types'
 
 export const getPatient = async (id: string): Promise<Patient> => {
@@ -16,16 +17,22 @@ export const getPatient = async (id: string): Promise<Patient> => {
 
   try {
     await connectMongoDB()
-    const patient = await PatientModel.findById(id).lean<Patient>({ getters: true })
+    const patient = await PatientModel.findById(id)
+      .transform((docs) => {
+        return {
+          ...docs,
+          _id: docs?._id.toString(),
+          createdAt: docs?.createdAt?.toISOString(),
+          updatedAt: docs?.updatedAt?.toISOString()
+        }
+      })
+      .lean<Patient>({ getters: true })
 
     if (!patient) {
       throw new Error('No patient found')
     }
 
-    return {
-      ...patient,
-      _id: patient._id.toString()
-    }
+    return patientSchema.parse(patient)
   } catch (error) {
     console.error(error)
     throw new Error('Unexpected error')
@@ -43,22 +50,33 @@ export const updatePatient = async (id: string, data: EditPatientFormValues): Pr
     const updatedPatient = await PatientModel.findByIdAndUpdate(
       { _id: id },
       {
-        email: data.email,
-        userName: data.userName,
-        dateOfBirth: data.dateOfBirth,
-        phoneNumber: data.phoneNumber,
-        bloodType: data.bloodType,
-        diabetes: data.diabetes,
-        rhFactor: data.rhFactor,
-        bloodTransfusion: data.bloodTransfusion,
-        intoleranceToMedicines: data.intoleranceToMedicines,
-        infectiousDiseases: data.infectiousDiseases,
-        surgicalInterventions: data.surgicalInterventions,
-        allergies: data.allergies,
-        avatarUrl: data.avatarUrl ?? ''
+        $set: {
+          email: data.email,
+          userName: data.userName,
+          dateOfBirth: data.dateOfBirth,
+          phoneNumber: data.phoneNumber,
+          bloodType: data.bloodType,
+          diabetes: data.diabetes,
+          rhFactor: data.rhFactor,
+          bloodTransfusion: data.bloodTransfusion,
+          intoleranceToMedicines: data.intoleranceToMedicines,
+          infectiousDiseases: data.infectiousDiseases,
+          surgicalInterventions: data.surgicalInterventions,
+          allergies: data.allergies,
+          avatarUrl: data.avatarUrl
+        }
       },
       { new: true }
-    ).lean<Patient>()
+    )
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          createdAt: doc?.createdAt instanceof Date ? doc?.createdAt?.toISOString() : doc?.createdAt,
+          updatedAt: doc?.updatedAt instanceof Date ? doc?.updatedAt?.toISOString() : doc?.updatedAt
+        }
+      })
+      .lean<Patient>()
 
     if (!updatedPatient) throw new Error('Update patient failed')
 
@@ -66,10 +84,7 @@ export const updatePatient = async (id: string, data: EditPatientFormValues): Pr
 
     revalidatePath('[locale]/patient/[id]', 'page')
 
-    return {
-      ...updatedPatient,
-      _id: updatedPatient._id.toString()
-    }
+    return patientSchema.parse(updatedPatient)
   } catch (error) {
     console.error(error)
     throw new Error('Unexpected error')
