@@ -6,7 +6,7 @@ import { Pencil, Image as ImageIcon } from 'lucide-react'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form'
 import { toast } from 'sonner'
 
@@ -17,6 +17,7 @@ import { Label } from '@/components/ui/label'
 import { P } from '@/components/ui/typography'
 import { useRouter } from '@/i18n/navigation'
 import { createBlog, updateBlog } from '@/lib/blog'
+import { getMarkdownFromS3 } from '@/lib/blogFiles'
 import { saveFileToBucket } from '@/lib/bucket'
 import { BUCKET_URL, SUPPORTED_LOCALES } from '@/shared/constants'
 import { blogFormValuesSchema } from '@/shared/schemas'
@@ -28,8 +29,6 @@ import { toLocalizedDefaults } from '@/utils/toLocalizedDefaults'
 interface BlogFormProps {
   blog?: Blog
 }
-
-// TODO: add validation
 
 export const BlogForm = ({ blog }: BlogFormProps) => {
   const [isEditImage, setIsEditImage] = useState(false)
@@ -48,6 +47,21 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
       image: blog?.image ?? ''
     }
   })
+
+  const fetchMarkdowns = async (fileName: string, locale: SupportedLocales) => {
+    const post = await getMarkdownFromS3(fileName)
+
+    setValue(`description.${locale}`, post.content)
+  }
+
+  useEffect(() => {
+    if (isEditMode && blog) {
+      for (const locale in getValues('description')) {
+        void fetchMarkdowns(blog?.description[locale as SupportedLocales] ?? '', locale as SupportedLocales)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEditMode, blog])
 
   const onSubmit: SubmitHandler<BlogFormValues> = async (values) => {
     if (!session?.user.id) return
@@ -246,7 +260,7 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
 
       <div className='flex gap-4'>
         <Button className='mt-5 w-full' type='submit'>
-          {t(isEditMode ? 'update' : 'create')}
+          {t(isEditMode ? 'edit' : 'create')}
         </Button>
 
         <Button variant='reset' onClick={() => reset()} className='mt-5 w-full' type='reset'>

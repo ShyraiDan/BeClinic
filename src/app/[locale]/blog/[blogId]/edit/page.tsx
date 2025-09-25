@@ -1,20 +1,49 @@
-import { useTranslations } from 'next-intl'
+import { notFound } from 'next/navigation'
+import { getTranslations } from 'next-intl/server'
+import { Suspense } from 'react'
 
 import { BlogForm } from '@/components/forms/BlogForm/BlogForm'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
-import { Container } from '@/components/ui/container'
+import { Container, LoadingContainer } from '@/components/ui/container'
+import { getSingleBlog } from '@/lib/blog'
 
-const EditBlogPage = () => {
-  const t = useTranslations('page')
+interface EditBlogPageProps {
+  blogId: string
+}
+
+const EditBlogPage = async ({ blogId }: EditBlogPageProps) => {
+  const blog = await getSingleBlog(blogId)
+
+  if (!blog) {
+    notFound()
+  }
 
   return (
     <>
-      <PageHeading title={t('editBlogPage.title')} />
       <Container>
-        <BlogForm />
+        <BlogForm blog={blog} />
       </Container>
     </>
   )
 }
 
-export default EditBlogPage
+interface EditBlogPageWrapperProps {
+  params: Promise<{ blogId: string }>
+}
+
+const EditBlogPageWrapper = async ({ params }: EditBlogPageWrapperProps) => {
+  const { blogId } = await params
+
+  const t = await getTranslations('page')
+
+  return (
+    <>
+      <PageHeading title={t('editBlogPage.title')} />
+      <Suspense fallback={<LoadingContainer />}>
+        <EditBlogPage blogId={blogId} />
+      </Suspense>
+    </>
+  )
+}
+
+export default EditBlogPageWrapper

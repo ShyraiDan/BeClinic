@@ -4,13 +4,14 @@ import Image from 'next/image'
 import { Suspense } from 'react'
 
 import { auth } from '@/auth'
-import { DeleteBlogButton } from '@/components/DeleteBlogButton/DeleteBlogButton'
+import { DeleteBlogModal } from '@/components/modals/DeleteBlogModal/DeleteBlogModal'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { Container, LoadingContainer } from '@/components/ui/container'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { H1 } from '@/components/ui/typography'
 import { getSingleBlog } from '@/lib/blog'
 import { getMarkdownFromS3 } from '@/lib/blogFiles'
+import { BUCKET_URL } from '@/shared/constants'
 import { SupportedLocales } from '@/shared/types'
 
 interface SingleBlogPageProps {
@@ -35,7 +36,7 @@ const SingleBlogPage = async ({ params }: SingleBlogPageProps) => {
               <StyledLinkButton variant='icon' href={`/blog/${blog?._id}/edit`}>
                 <Pencil size={16} />
               </StyledLinkButton>
-              <DeleteBlogButton blogId={blogId} />
+              <DeleteBlogModal blogId={blogId} />
             </div>
           )}
         </div>
@@ -44,8 +45,8 @@ const SingleBlogPage = async ({ params }: SingleBlogPageProps) => {
         <Container>
           <article className='markdown-body'>
             <Image
-              src='/no-image.jpg'
-              alt='doctor'
+              src={`${BUCKET_URL}/custom/files/${blog.image}`}
+              alt={blog.title[locale]}
               unoptimized
               className='w-full h-full max-h-[440px] mb-10 object-cover'
               width={730}
