@@ -30,8 +30,6 @@ export const DoctorCalendarTab = () => {
   const [selectedEvent, setSelectedEvent] = useState<DoctorAppointment | null>(null)
   const { data: session } = useSession()
 
-  //  const appointments = mockedAppointment
-
   const { data: appointments, isLoading } = useGetDoctorAppointmentsQuery(session?.user?.id || '')
 
   const currentEvents: EventApi[] = useMemo(() => {
