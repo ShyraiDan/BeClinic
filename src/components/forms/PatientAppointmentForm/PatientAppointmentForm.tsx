@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { getHours, getDay, addHours, formatISO } from 'date-fns'
 import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
@@ -20,6 +20,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Spinner } from '@/components/ui/spinner'
 import { TextArea } from '@/components/ui/textarea'
 import { P } from '@/components/ui/typography'
 import { useRouter } from '@/i18n/navigation'
@@ -49,6 +50,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
   const locale = useLocale()
   const t = useTranslations('forms')
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [isFileLoading, setFileLoading] = useState(false)
 
   const { control, handleSubmit, watch, setValue } = useForm<PatientAppointmentFormValues>({
     mode: 'onSubmit',
@@ -126,13 +128,15 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
   }
 
   const handleUploadFile = async (file: File) => {
+    setFileLoading(true)
+
     const timestamp = Date.now()
     const extension = file.name.split('.').pop()
 
-    console.log('file', file)
-
     const fileName = await saveFileToBucket(file, `appointment_${timestamp}.${extension}`, 'beclinic/custom/files')
     setValue('fileName', fileName)
+
+    setFileLoading(false)
   }
 
   const timeOptions = useMemo(() => {
@@ -316,9 +320,11 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
                 {!fileName && (
                   <Button
                     type='button'
+                    disabled={isFileLoading}
                     onClick={() => {
                       fileInputRef.current?.click()
                     }}>
+                    {isFileLoading && <Spinner className='mr-2' />}
                     {t('appointmentForm.appointmentFiles.addButton')}
                   </Button>
                 )}

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { H4, P } from '@/components/ui/typography'
+import { H4 } from '@/components/ui/typography'
 import { DoctorEditAppointmentFormValues } from '@/shared/types'
 
 interface MedicineFormProps {

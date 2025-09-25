@@ -6,7 +6,7 @@ import { User } from 'lucide-react'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 
 import { StyledSelect } from '@/components/StyledSelect/StyledSelect'
@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Spinner } from '@/components/ui/spinner'
 import { TextArea } from '@/components/ui/textarea'
 import { P } from '@/components/ui/typography'
 import { saveFileToBucket } from '@/lib/bucket'
@@ -31,6 +32,7 @@ interface EditDoctorFormProps {
 export const EditDoctorForm = ({ doctor, allowedAction }: EditDoctorFormProps) => {
   const t = useTranslations('forms')
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [isFileLoading, setFileLoading] = useState(false)
 
   const { data: session, update } = useSession()
   const { handleSubmit, control, setValue, watch, getValues } = useForm<EditDoctorFormValues>({
@@ -65,11 +67,15 @@ export const EditDoctorForm = ({ doctor, allowedAction }: EditDoctorFormProps) =
   }
 
   const handleUploadFile = async (file: File) => {
+    setFileLoading(true)
+
     const timestamp = Date.now()
     const extension = file.name.split('.').pop()
 
     const fileName = await saveFileToBucket(file, `${doctor?._id}_${timestamp}.${extension}`, 'beclinic/custom/avatars')
     setValue('avatarUrl', fileName)
+
+    setFileLoading(false)
   }
 
   const avatarUrl = watch('avatarUrl') ?? ''
@@ -103,9 +109,11 @@ export const EditDoctorForm = ({ doctor, allowedAction }: EditDoctorFormProps) =
                   {!avatarUrl && (
                     <Button
                       type='button'
+                      disabled={isFileLoading}
                       onClick={() => {
                         fileInputRef.current?.click()
                       }}>
+                      {isFileLoading && <Spinner className='mr-2' />}
                       {t('editPatientForm.avatarUrl.addAvatar')}
                     </Button>
                   )}
@@ -114,9 +122,11 @@ export const EditDoctorForm = ({ doctor, allowedAction }: EditDoctorFormProps) =
                     <>
                       <Button
                         type='button'
+                        disabled={isFileLoading}
                         onClick={() => {
                           fileInputRef.current?.click()
                         }}>
+                        {isFileLoading && <Spinner className='mr-2' />}
                         {t('edit')}
                       </Button>
                       <Button

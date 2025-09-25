@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Spinner } from '@/components/ui/spinner'
 import { TextArea } from '@/components/ui/textarea'
 import { P } from '@/components/ui/typography'
 import { useRouter } from '@/i18n/navigation'
@@ -29,6 +30,7 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
   const t = useTranslations('forms')
   const { data: session } = useSession()
   const router = useRouter()
+  const [isFileLoading, setFileLoading] = useState(false)
 
   const isEditMode = !!analysis?._id
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -90,11 +92,14 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
   }
 
   const handleUploadFile = async (file: File) => {
+    setFileLoading(true)
     const timestamp = Date.now()
     const extension = file.name.split('.').pop()
 
     const fileName = await saveFileToBucket(file, `analyses_${timestamp}.${extension}`, 'beclinic/custom/files')
     setValue('fileName', fileName)
+
+    setFileLoading(false)
   }
 
   const fileName = watch('fileName') ?? ''
@@ -165,9 +170,11 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
                 {!fileName && (
                   <Button
                     type='button'
+                    disabled={isFileLoading}
                     onClick={() => {
                       fileInputRef.current?.click()
                     }}>
+                    {isFileLoading && <Spinner className='mr-2' />}
                     {t('analysisForm.analysisFiles.button')}
                   </Button>
                 )}
