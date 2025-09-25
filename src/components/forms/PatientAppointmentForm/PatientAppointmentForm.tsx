@@ -9,7 +9,7 @@ import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-ho
 import { toast } from 'sonner'
 
 import { useGetAnalysisQuery } from '@/client/analysis'
-import { useCreateAppointmentMutation, usePatientUpdateAppointmentMutation } from '@/client/appointment'
+import { useCreateAppointmentMutation, useUpdatePatientAppointmentMutation } from '@/client/appointment'
 import { useSearchDoctorQuery } from '@/client/doctor'
 import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
@@ -69,7 +69,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
   const { data: analysesData } = useGetAnalysisQuery(session?.user?.id || '')
 
   const { mutateAsync: createAppointment } = useCreateAppointmentMutation(session?.user?.id || '')
-  const { mutateAsync: updateAppointment } = usePatientUpdateAppointmentMutation(
+  const { mutateAsync: updateAppointment } = useUpdatePatientAppointmentMutation(
     session?.user?.id || '',
     appointment?._id || ''
   )

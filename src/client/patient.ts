@@ -4,7 +4,7 @@ import { getPatient, updatePatient } from '@/lib/patient'
 import { patientSchema } from '@/shared/schemas'
 import { EditPatientFormValues } from '@/shared/types'
 
-export const usePatientQuery = (patientId: string) => {
+export const useGetPatientQuery = (patientId: string) => {
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ['patient', patientId],
     queryFn: patientId ? async () => await getPatient(patientId) : skipToken,

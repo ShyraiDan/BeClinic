@@ -7,7 +7,7 @@ import { notFound, useParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
-import { useSinglePatientAppointmentQuery } from '@/client/appointment'
+import { useGetSinglePatientAppointmentQuery } from '@/client/appointment'
 import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
 import { MedicineCard } from '@/components/MedicineCard/MedicineCard'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
@@ -139,7 +139,10 @@ const PatientSingleAppointmentPage = () => {
 
   const dateLocale = dateLocaleMap[locale] ?? enUS
 
-  const { data: appointmentData, isLoading } = useSinglePatientAppointmentQuery(session?.user.id || '', appointmentId)
+  const { data: appointmentData, isLoading } = useGetSinglePatientAppointmentQuery(
+    session?.user.id || '',
+    appointmentId
+  )
 
   const isDataLoading = isLoading || !appointmentData
 

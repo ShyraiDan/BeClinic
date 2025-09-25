@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 
-import { usePatientAppointmentsQuery } from '@/client/appointment'
+import { useGetPatientAppointmentsQuery } from '@/client/appointment'
 import AppointmentCard from '@/components/AppointmentCard/AppointmentCard'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
@@ -21,7 +21,7 @@ export const AppointmentTab = () => {
 
   const t = useTranslations('page')
 
-  const { data: appointments, isLoading } = usePatientAppointmentsQuery(session?.user?.id || '')
+  const { data: appointments, isLoading } = useGetPatientAppointmentsQuery(session?.user?.id || '')
 
   const futureAppointments = useMemo(
     () => appointments?.filter((appointment) => isAfter(appointment.endTime, new Date())) || [],

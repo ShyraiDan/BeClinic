@@ -14,7 +14,7 @@ import {
   PatientEditAppointmentFormValuesDto
 } from '@/shared/types'
 
-export const usePatientAppointmentsQuery = (patientId: string) => {
+export const useGetPatientAppointmentsQuery = (patientId: string) => {
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ['appointments', patientId],
     queryFn: patientId ? async () => await getPatientAppointments(patientId) : skipToken,
@@ -24,7 +24,7 @@ export const usePatientAppointmentsQuery = (patientId: string) => {
   return { data, isLoading, isFetching, isError }
 }
 
-export const useSinglePatientAppointmentQuery = (patientId: string, appointmentId: string) => {
+export const useGetSinglePatientAppointmentQuery = (patientId: string, appointmentId: string) => {
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ['appointment', appointmentId],
     queryFn:
@@ -62,7 +62,7 @@ interface UpdateAppointmentParams {
   data: PatientEditAppointmentFormValuesDto
 }
 
-export const usePatientUpdateAppointmentMutation = (patientId: string, appointmentId: string) => {
+export const useUpdatePatientAppointmentMutation = (patientId: string, appointmentId: string) => {
   const queryClient = useQueryClient()
 
   return useMutation<PatientAppointment, Error, UpdateAppointmentParams>({
