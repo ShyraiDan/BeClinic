@@ -5,6 +5,7 @@ import { InferSchemaType } from 'mongoose'
 import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import AnalysisModel from '@/shared/models/analysis'
+import { analysesSchema } from '@/shared/schemas'
 import { Analysis, AnalysisFormValues } from '@/shared/types'
 
 export const getAnalyses = async (patientId: string): Promise<Analysis[]> => {
@@ -33,7 +34,7 @@ export const getAnalyses = async (patientId: string): Promise<Analysis[]> => {
       return []
     }
 
-    return analyses
+    return analysesSchema.array().parse(analyses)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -50,17 +51,23 @@ export const getSingleAnalysis = async (patientId: string, analysisId: string): 
   try {
     await connectMongoDB()
 
-    const analysis = await AnalysisModel.findById(analysisId).lean<Analysis>()
+    const analysis = await AnalysisModel.findById(analysisId)
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          patientId: doc?.patientId.toString(),
+          createdAt: doc?.createdAt?.toISOString(),
+          updatedAt: doc?.updatedAt?.toISOString()
+        }
+      })
+      .lean<Analysis>()
 
     if (!analysis) {
       throw new Error('Error getting analysis')
     }
 
-    return {
-      ...analysis,
-      _id: analysis._id.toString(),
-      patientId: analysis.patientId.toString()
-    }
+    return analysesSchema.parse(analysis)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -89,17 +96,23 @@ export const createAnalysis = async (
       throw new Error('Creating analysis failed')
     }
 
-    const newAnalysis = await AnalysisModel.findById(newAnalysisDoc._id).lean()
+    const newAnalysis = await AnalysisModel.findById(newAnalysisDoc._id)
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          patientId: doc?.patientId.toString(),
+          createdAt: doc?.createdAt?.toISOString(),
+          updatedAt: doc?.updatedAt?.toISOString()
+        }
+      })
+      .lean<Analysis>()
 
     if (!newAnalysis) {
       throw new Error('Creating analysis failed')
     }
 
-    return {
-      ...newAnalysis,
-      _id: newAnalysis._id.toString(),
-      patientId: newAnalysis.patientId.toString()
-    }
+    return analysesSchema.parse(newAnalysis)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -123,19 +136,31 @@ export const updateAnalysis = async (
     const updAnalysis = await AnalysisModel.findOneAndUpdate(
       { _id: analysisId },
       {
-        ...data
-      }
-    ).lean()
+        $set: {
+          analysisName: data.analysisName,
+          date: data.date,
+          description: data.description,
+          fileName: data.fileName
+        }
+      },
+      { new: true }
+    )
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          patientId: doc?.patientId.toString(),
+          createdAt: doc?.createdAt instanceof Date ? doc?.createdAt?.toISOString() : doc?.createdAt,
+          updatedAt: doc?.updatedAt instanceof Date ? doc?.updatedAt?.toISOString() : doc?.updatedAt
+        }
+      })
+      .lean<Analysis>()
 
     if (!updAnalysis) {
       throw new Error('Update analysis failed')
     }
 
-    return {
-      ...updAnalysis,
-      _id: updAnalysis._id.toString(),
-      patientId: updAnalysis.patientId.toString()
-    }
+    return analysesSchema.parse(updAnalysis)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')

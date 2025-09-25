@@ -41,7 +41,7 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
     resolver: zodResolver(analysisFormValuesSchema),
     defaultValues: {
       analysisName: analysis?.analysisName || '',
-      date: analysis?.date,
+      date: analysis?.date || '',
       description: analysis?.description || '',
       fileName: analysis?.fileName || ''
     }
@@ -164,6 +164,7 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
               <div className='flex items-center gap-3'>
                 {!fileName && (
                   <Button
+                    type='button'
                     onClick={() => {
                       fileInputRef.current?.click()
                     }}>
@@ -175,6 +176,7 @@ export const AnalysisForm = ({ analysis }: AnalysisFormProps) => {
 
                 {fileName && (
                   <Button
+                    type='button'
                     variant='reset'
                     onClick={() => {
                       setValue('fileName', '')

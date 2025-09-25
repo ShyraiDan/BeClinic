@@ -20,7 +20,7 @@ export const AnalysisCard = ({ analysis, locale }: AnalysisCardProps) => {
         <div className='w-2 bg-blue-100' />
         <div className='py-4 pr-4 pl-3 flex flex-col'>
           <H6>{analysis.analysisName}</H6>
-          <P className='capitalize'>{format(analysis.date, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}</P>
+          <P className='capitalize'>{format(analysis.date, 'MMM dd, yyyy', { locale: dateLocale })}</P>
         </div>
       </div>
     </Link>

@@ -165,7 +165,11 @@
       "title": "Блог",
       "findPosts": "{count, plural, =0 {Нічого не знайдено} one {Знайдено # допис} few {Знайдено # дописи} many {Знайдено # дописів} other {Знайдено # дописів}}",
       "readMore": "Дізнатися більше",
-      "noBlogs": "Блоги не знайдені"
+      "noBlogs": "Блоги не знайдені",
+      "notifications": {
+        "blogDeleteSuccess": "Блог видалено успішно",
+        "blogDeleteError": "Помилка при видаленні блога"
+      }
     },
     "addBlogPage": {
       "title": "Додати блог"
@@ -268,7 +272,11 @@
     },
     "singleAnalysisPage": {
       "analysisDate": "Дата аналізу:",
-      "analysisDetails": "Опис аналізу"
+      "analysisDetails": "Опис аналізу",
+      "notifications": {
+        "deleteAnalysisSuccess": "Аналіз видалено успішно",
+        "deleteAnalysisError": "Помилка при видаленні аналізу"
+      }
     },
     "editAnalysisPage": {
       "title": "Редагувати аналіз"
@@ -608,6 +616,12 @@
     "deleteBlog": {
       "title": "Видалити блог",
       "reallyDelete": "Ви впевнені, що хочете видалити цей блог?",
+      "delete": "Видалити",
+      "cancel": "Скасувати"
+    },
+    "deleteAnalysis": {
+      "title": "Видалити аналіз",
+      "reallyDelete": "Ви впевнені, що хочете видалити цей аналіз?",
       "delete": "Видалити",
       "cancel": "Скасувати"
     },

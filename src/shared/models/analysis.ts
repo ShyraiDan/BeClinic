@@ -13,7 +13,7 @@ const mongoAnalysisSchema = new Schema(
     },
     description: String,
     date: {
-      type: Date,
+      type: String,
       required: true
     },
     fileName: String
