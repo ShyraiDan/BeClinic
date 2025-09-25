@@ -1,4 +1,3 @@
-import { EventApi } from '@fullcalendar/core'
 import { format, parseISO } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import Link from 'next/link'
@@ -6,6 +5,8 @@ import Link from 'next/link'
 import { H6, P } from '@/components/ui/typography'
 import { SupportedLocales } from '@/shared/types'
 import { dateLocaleMap } from '@/utils/dateLocaleMap'
+
+import type { EventApi } from '@fullcalendar/core'
 
 interface CalendarAppointmentCardProps {
   event: EventApi
