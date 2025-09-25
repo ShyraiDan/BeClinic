@@ -1,6 +1,6 @@
 'use client'
 
-import { format } from 'date-fns'
+import { format, formatISO, parseISO } from 'date-fns'
 import { ChevronDownIcon } from 'lucide-react'
 import { useState, ReactNode } from 'react'
 
@@ -12,8 +12,8 @@ import { cn } from '@/utils/utils'
 interface StyledDatePickerProps {
   placeholder: string
   hintFormat: string
-  onChange: (date: Date) => void
-  initialDate?: Date
+  onChange: (date: string) => void
+  initialDate?: string
   calendarModalStyles?: string
   showOutsideDays?: boolean
   disabled?: boolean
@@ -31,11 +31,11 @@ export const StyledDatePicker = ({
   errorText = null
 }: StyledDatePickerProps) => {
   const [open, setOpen] = useState(false)
-  const [date, setDate] = useState<Date | undefined>(initialDate ? new Date(initialDate) : undefined)
+  const [date, setDate] = useState<Date | undefined>(initialDate ? parseISO(initialDate) : undefined)
 
   const handleSelect = (value: Date) => {
     if (value) {
-      onChange(value)
+      onChange(formatISO(value))
     }
 
     setDate(value)

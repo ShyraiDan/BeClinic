@@ -124,6 +124,7 @@ const UpcomingAppointment = ({ appointmentData, locale }: UpcomingAppointmentPro
         <>
           <Separator className='bg-[#D1D1D1]' />
           <H4 className='mb-2'>{t('singleAppointmentPage.additionalFiles')}</H4>
+          {appointmentData.fileName}
           <AttachmentPreviewModal attachment={appointmentData.fileName} />
         </>
       )}
@@ -157,7 +158,9 @@ const PatientSingleAppointmentPage = () => {
           <SkeletonText className='h-10 mb-2.5 mt-5.5 w-[270px] bg-white opacity-10' />
         ) : (
           <H2 className='text-white mt-4 mb-1'>
-            {t('singleAppointmentPage.appointmentTo', { position: appointmentData.doctorPosition })}
+            {t('singleAppointmentPage.appointmentTo', {
+              position: t(`profile.doctor.specialties.${appointmentData.doctorPosition}`)
+            })}
           </H2>
         )}
 

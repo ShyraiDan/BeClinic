@@ -17,17 +17,23 @@ export const getAnalyses = async (patientId: string): Promise<Analysis[]> => {
   try {
     await connectMongoDB()
 
-    const analyses = await AnalysisModel.find({ patientId }).lean<Analysis[]>()
+    const analyses = await AnalysisModel.find({ patientId })
+      .transform((docs) =>
+        docs.map((d) => ({
+          ...d,
+          _id: d._id.toString(),
+          patientId: d.patientId.toString(),
+          createdAt: d.createdAt?.toISOString(),
+          updatedAt: d.updatedAt?.toISOString()
+        }))
+      )
+      .lean<Analysis[]>()
 
     if (!analyses) {
       return []
     }
 
-    return analyses.map((analysis) => ({
-      ...analysis,
-      _id: analysis._id.toString(),
-      patientId: analysis.patientId.toString()
-    }))
+    return analyses
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
