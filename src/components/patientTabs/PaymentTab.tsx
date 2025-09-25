@@ -1,22 +1,22 @@
 'use client'
 
 import { useParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 
+import { useGetPaymentsQuery } from '@/client/payment'
 import { PaymentCard } from '@/components/PaymentCard/PaymentCard'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { P, H6 } from '@/components/ui/typography'
-import { mockedPayments } from '@/mocks/mockedPayments'
 import { SupportedLocales } from '@/shared/types'
 
 export const PaymentTab = () => {
   const params = useParams()
   const { locale } = params
   const t = useTranslations('page')
-
-  const payments = mockedPayments
-  const isLoading = false
+  const { data: session } = useSession()
+  const { data: payments, isLoading } = useGetPaymentsQuery(session?.user?.id || '')
 
   const unPayedServices = useMemo(() => payments?.filter((payment) => !payment.isPayed) ?? [], [payments])
   const payedServices = useMemo(() => payments?.filter((payment) => !!payment.isPayed) ?? [], [payments])
