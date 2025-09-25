@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { getHours, getDay, addHours } from 'date-fns'
+import { getHours, getDay, addHours, formatISO } from 'date-fns'
 import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useMemo, useRef } from 'react'
@@ -87,9 +87,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
     if (isEditMode) {
       const editAppointment: PatientEditAppointmentFormValuesDto = {
         ...appointment,
-        ...values,
-        startTime: addHours(new Date(values.startTime), getHours(values.startTimeHours)),
-        endTime: addHours(new Date(values.startTime), getHours(values.startTimeHours + 1))
+        ...values
       }
 
       const result = await updateAppointment({
@@ -108,8 +106,8 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
     } else {
       const newAppointment: PatientCreateAppointmentFormValuesDto = {
         ...values,
-        startTime: addHours(new Date(values.startTime), Number(values.startTimeHours.split(':')[0])),
-        endTime: addHours(new Date(values.startTime), Number(values.startTimeHours.split(':')[0]) + 1)
+        startTime: formatISO(addHours(new Date(values.startTime), Number(values.startTimeHours.split(':')[0]))),
+        endTime: formatISO(addHours(new Date(values.startTime), Number(values.startTimeHours.split(':')[0]) + 1))
       }
 
       const result = await createAppointment({
@@ -130,6 +128,8 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
   const handleUploadFile = async (file: File) => {
     const timestamp = Date.now()
     const extension = file.name.split('.').pop()
+
+    console.log('file', file)
 
     const fileName = await saveFileToBucket(file, `appointment_${timestamp}.${extension}`, 'beclinic/custom/files')
     setValue('fileName', fileName)
@@ -225,7 +225,6 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
             control={control}
             render={({ field, fieldState: { error } }) => (
               <>
-                {/* {field.value} */}
                 <P className='font-medium mb-2'>{t('appointmentForm.appointmentDate.label')}</P>
                 <StyledDatePicker
                   disabled={isEditMode}

@@ -5,7 +5,7 @@ import { InferSchemaType } from 'mongoose'
 import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import AppointmentModel from '@/shared/models/appointment'
-import { patientAppointmentSchema } from '@/shared/schemas'
+import { doctorAppointmentSchema, patientAppointmentSchema } from '@/shared/schemas'
 import {
   Appointment,
   DoctorAppointment,
@@ -27,29 +27,30 @@ export const getPatientAppointments = async (patientId: string): Promise<Patient
     const appointments = await AppointmentModel.find({ patient: patientId })
       .populate('doctor', 'doctorName position')
       .populate('analyses', 'patientId analysisName description date fileName')
+      .transform((docs) =>
+        docs.map((d) => ({
+          ...d,
+          _id: d._id.toString(),
+          analyses: d.analyses.map((analysis) => {
+            return { ...analysis, _id: analysis._id.toString() }
+          }),
+          createdAt: d.createdAt?.toISOString(),
+          updatedAt: d.updatedAt?.toISOString()
+        }))
+      )
       .lean<Appointment[]>()
 
     if (!appointments) {
       throw new Error('Error getting appointments')
     }
 
-    const appointmentDto = appointments.map((appointment) => ({
-      _id: appointment._id.toString(),
-      doctorName: appointment.doctor.doctorName,
-      doctorPosition: appointment.doctor.position,
-      startTime: appointment.startTime,
-      endTime: appointment.endTime,
-      description: appointment.description,
-      analyses: appointment.analyses.map((analysis) => {
-        return { ...analysis, _id: analysis._id.toString() }
-      }),
-      fileName: appointment.fileName,
-      reason: appointment.reason,
-      medicine: appointment.medicine,
-      treatment: appointment.treatment
-    }))
-
-    return appointmentDto
+    return patientAppointmentSchema.array().parse(
+      appointments.map((appointment) => ({
+        ...appointment,
+        doctorName: appointment.doctor.doctorName,
+        doctorPosition: appointment.doctor.position
+      }))
+    )
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -71,6 +72,17 @@ export const getSinglePatientAppointment = async (
     const appointment = await AppointmentModel.findById(appointmentId)
       .populate('doctor', 'doctorName position')
       .populate('analyses', 'patientId analysisName description date fileName')
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          analyses: doc?.analyses.map((analysis) => {
+            return { ...analysis, _id: analysis._id.toString() }
+          }),
+          createdAt: doc?.createdAt?.toISOString(),
+          updatedAt: doc?.updatedAt?.toISOString()
+        }
+      })
       .lean<Appointment>()
 
     if (!appointment) {
@@ -81,19 +93,11 @@ export const getSinglePatientAppointment = async (
       throw new Error('No access')
     }
 
-    return {
-      _id: appointment._id.toString(),
+    return patientAppointmentSchema.parse({
+      ...appointment,
       doctorName: appointment.doctor.doctorName,
-      doctorPosition: appointment.doctor.position,
-      startTime: appointment.startTime,
-      endTime: appointment.endTime,
-      description: appointment.description,
-      analyses: appointment.analyses.map((analysis) => {
-        return { ...analysis, _id: analysis._id.toString() }
-      }),
-      fileName: appointment.fileName,
-      reason: appointment.reason
-    }
+      doctorPosition: appointment.doctor.position
+    })
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -127,6 +131,14 @@ export const createPatientAppointment = async (
     const newAppointment = await AppointmentModel.findById(newAppointmentDoc._id)
       .populate('doctor', 'doctorName position')
       .populate('analyses', 'patientId analysisName description date fileName')
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          createdAt: doc?.createdAt?.toISOString(),
+          updatedAt: doc?.updatedAt?.toISOString()
+        }
+      })
       .lean<Appointment>()
 
     if (!newAppointment) {
@@ -135,11 +147,8 @@ export const createPatientAppointment = async (
 
     return patientAppointmentSchema.parse({
       ...newAppointment,
-      _id: newAppointment._id.toString(),
       doctorName: newAppointment.doctor.doctorName,
-      doctorPosition: newAppointment.doctor.position,
-      startTime: new Date(newAppointment.startTime),
-      endTime: new Date(newAppointment.endTime)
+      doctorPosition: newAppointment.doctor.position
     })
   } catch (error) {
     console.error('Error: ', error)
@@ -164,15 +173,31 @@ export const updatePatientAppointment = async (
     const appointment = await AppointmentModel.findOneAndUpdate(
       { _id: appointmentId },
       {
-        ...data
-      }
-    ).lean()
+        $set: { reason: data.reason, description: data.description, analyses: data.analyses, fileName: data.fileName }
+      },
+      { new: true }
+    )
+      .populate('doctor', 'doctorName position')
+      .populate('analyses', 'patientId analysisName description date fileName')
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          createdAt: doc?.createdAt instanceof Date ? doc?.createdAt?.toISOString() : doc?.createdAt,
+          updatedAt: doc?.updatedAt instanceof Date ? doc?.updatedAt?.toISOString() : doc?.updatedAt
+        }
+      })
+      .lean<Appointment>()
 
     if (!appointment) {
       throw new Error('Update appointment failed')
     }
 
-    return appointment
+    return patientAppointmentSchema.parse({
+      ...appointment,
+      doctorName: appointment.doctor.doctorName,
+      doctorPosition: appointment.doctor.position
+    })
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -191,7 +216,22 @@ export const getDoctorAppointments = async (doctorId: string): Promise<DoctorApp
     const appointments = await AppointmentModel.find({ doctor: doctorId })
       .populate(
         'patient',
-        'userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
+        'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
+      )
+      .transform((docs) =>
+        docs.map((d) => ({
+          ...d,
+          _id: d._id.toString(),
+          analyses: d.analyses.map((analysis) => {
+            return { ...analysis, _id: analysis._id.toString() }
+          }),
+          patient: {
+            ...d.patient,
+            _id: d.patient._id.toString()
+          },
+          createdAt: d.createdAt?.toISOString(),
+          updatedAt: d.updatedAt?.toISOString()
+        }))
       )
       .lean<Appointment[]>()
 
@@ -199,21 +239,7 @@ export const getDoctorAppointments = async (doctorId: string): Promise<DoctorApp
       throw new Error('Update appointment failed')
     }
 
-    const appointmentDto = appointments.map((appointment) => ({
-      _id: appointment._id.toString(),
-      diagnosis: appointment.diagnosis,
-      treatment: appointment.treatment,
-      startTime: appointment.startTime,
-      endTime: appointment.endTime,
-      medicine: appointment.medicine,
-      analyses: appointment.analyses,
-      fileName: appointment.fileName,
-      patient: appointment.patient,
-      reason: appointment.reason,
-      description: appointment.description
-    }))
-
-    return appointmentDto
+    return doctorAppointmentSchema.array().parse(appointments)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -235,8 +261,21 @@ export const getSingleDoctorAppointment = async (
     const appointment = await AppointmentModel.findById(appointmentId)
       .populate(
         'patient',
-        'userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
+        'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
       )
+      .transform((docs) => ({
+        ...docs,
+        _id: docs?._id.toString(),
+        analyses: docs?.analyses.map((analysis) => {
+          return { ...analysis, _id: analysis._id.toString() }
+        }),
+        patient: {
+          ...docs?.patient,
+          _id: docs?.patient._id.toString()
+        },
+        createdAt: docs?.createdAt?.toISOString(),
+        updatedAt: docs?.updatedAt?.toISOString()
+      }))
       .lean<Appointment>()
 
     if (!appointment) {
@@ -247,19 +286,7 @@ export const getSingleDoctorAppointment = async (
       throw new Error('No access')
     }
 
-    return {
-      _id: appointment._id.toString(),
-      diagnosis: appointment.diagnosis,
-      treatment: appointment.treatment,
-      startTime: appointment.startTime,
-      endTime: appointment.endTime,
-      medicine: appointment.medicine,
-      analyses: appointment.analyses,
-      fileName: appointment.fileName,
-      patient: appointment.patient,
-      reason: appointment.reason,
-      description: appointment.description
-    }
+    return doctorAppointmentSchema.parse(appointment)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -283,13 +310,31 @@ export const updateDoctorAppointment = async (
     const appointment = await AppointmentModel.findOneAndUpdate(
       { _id: appointmentId },
       { $set: { diagnosis: data.diagnosis, treatment: data.treatment, medicine: data.medicine } }
-    ).lean<Appointment>()
+    )
+      .transform((docs) => ({
+        ...docs,
+        _id: docs?._id.toString(),
+        analyses: docs?.analyses.map((analysis) => {
+          return { ...analysis, _id: analysis._id.toString() }
+        }),
+        patient: {
+          ...docs?.patient,
+          _id: docs?.patient._id.toString()
+        },
+        createdAt: docs?.createdAt instanceof Date ? docs?.createdAt?.toISOString() : docs?.createdAt,
+        updatedAt: docs?.updatedAt instanceof Date ? docs?.updatedAt?.toISOString() : docs?.updatedAt
+      }))
+      .populate(
+        'patient',
+        'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
+      )
+      .lean<Appointment>()
 
     if (!appointment) {
       throw new Error('Update appointment failed')
     }
 
-    return appointment
+    return doctorAppointmentSchema.parse(appointment)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')

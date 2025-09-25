@@ -54,6 +54,7 @@ export const DoctorAppointmentTab = () => {
               {futureAppointments.map((appointment) => (
                 <DoctorAppointmentCard
                   key={appointment._id}
+                  doctorId={session?.user?.id || ''}
                   appointment={appointment}
                   isIncoming
                   locale={locale as SupportedLocales}
@@ -73,6 +74,7 @@ export const DoctorAppointmentTab = () => {
               {pastAppointments.map((appointment) => (
                 <DoctorAppointmentCard
                   key={appointment._id}
+                  doctorId={session?.user?.id || ''}
                   appointment={appointment}
                   locale={locale as SupportedLocales}
                 />

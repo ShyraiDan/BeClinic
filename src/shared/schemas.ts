@@ -1,4 +1,4 @@
-import { endOfToday, isAfter } from 'date-fns'
+import { endOfToday, isAfter, parseISO } from 'date-fns'
 import { z } from 'zod'
 
 import { SUPPORTED_LOCALES } from '@/shared/constants'
@@ -70,8 +70,8 @@ export const blogSchema = z.object({
   description: localizedBlogDescriptionSchema,
   image: z.string('validation.blogImageRequired'),
   authorId: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date()
+  createdAt: z.string(), // ISO string
+  updatedAt: z.string() // ISO string
 })
 
 export const blogFormValuesSchema = blogSchema.pick({
@@ -104,9 +104,9 @@ export const patientSchema = z.object({
     .min(3, 'validation.nameMinLength')
     .max(50, 'validation.nameMaxLength'),
   dateOfBirth: z
-    .date()
+    .string() // ISO string
     .optional()
-    .refine((d) => !isAfter(d ?? new Date(), endOfToday()), {
+    .refine((d) => !isAfter(d ? parseISO(d) : new Date(), endOfToday()), {
       message: 'validation.futureDate'
     }),
   phoneNumber: z.string().optional(),
@@ -129,19 +129,19 @@ export const doctorSchema = z.object({
   avatarUrl: z.string().optional(),
   description: z.string().optional(),
   phone: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date()
+  createdAt: z.string(), // ISO string
+  updatedAt: z.string() // ISO string
 })
 
 export const analysesSchema = z.object({
   _id: z.string(),
   patientId: z.string(),
   analysisName: z.string('validation.analysisNameRequired'),
-  date: z.date('validation.analysisDateRequired'),
+  date: z.string('validation.analysisDateRequired'), // ISO string
   description: z.string().optional(),
   fileName: z.string().optional(),
-  createdAt: z.date(),
-  updatedAt: z.date()
+  createdAt: z.string(), // ISO string
+  updatedAt: z.string() // ISO string
 })
 
 export const medicineSchema = z.object({
@@ -153,18 +153,18 @@ export const medicineSchema = z.object({
 export const appointmentSchema = z.object({
   _id: z.string(),
   reason: z.string('validation.reasonRequired'),
-  startTime: z.date('validation.startTimeRequired'),
+  startTime: z.string('validation.startTimeRequired'), // ISO string
   patient: patientSchema,
   doctor: doctorSchema,
-  endTime: z.date(),
+  endTime: z.string(), // ISO string
   description: z.string().optional(),
   analyses: z.array(analysesSchema),
   fileName: z.string().optional(),
   diagnosis: z.string().optional(),
   treatment: z.string().optional(),
   medicine: z.array(medicineSchema).optional(),
-  createdAt: z.date(),
-  updatedAt: z.date()
+  createdAt: z.string(), // ISO string
+  updatedAt: z.string() // ISO string
 })
 
 export const patientAppointmentSchema = appointmentSchema
@@ -205,8 +205,8 @@ export const paymentSchema = z.object({
   amount: z.number(),
   isPayed: z.boolean(),
   patientId: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date()
+  createdAt: z.string(), // ISO string
+  updatedAt: z.string() // ISO string
 })
 
 export const createPaymentFormValuesSchema = paymentSchema

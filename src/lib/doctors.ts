@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { auth, unstable_update } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import DoctorModel from '@/shared/models/doctor'
+import { doctorSchema } from '@/shared/schemas'
 import { Doctor, EditDoctorFormValues } from '@/shared/types'
 
 export const searchDoctors = async (position: string): Promise<Doctor[]> => {
@@ -13,16 +14,22 @@ export const searchDoctors = async (position: string): Promise<Doctor[]> => {
 
     const doctors = await DoctorModel.find({
       position: { $regex: position || '', $options: 'i' }
-    }).lean<Doctor[]>()
+    })
+      .transform((docs) =>
+        docs.map((d) => ({
+          ...d,
+          _id: d._id.toString(),
+          createdAt: d.createdAt?.toISOString(),
+          updatedAt: d.updatedAt?.toISOString()
+        }))
+      )
+      .lean<Doctor[]>()
 
     if (!doctors) {
       return []
     }
 
-    return doctors.map((doctor) => ({
-      ...doctor,
-      _id: doctor._id.toString()
-    }))
+    return doctorSchema.array().parse(doctors)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Internal server error')
@@ -32,16 +39,22 @@ export const searchDoctors = async (position: string): Promise<Doctor[]> => {
 export const getDoctors = async (): Promise<Doctor[]> => {
   try {
     await connectMongoDB()
-    const doctors = await DoctorModel.find().lean<Doctor[]>()
+    const doctors = await DoctorModel.find()
+      .transform((docs) =>
+        docs.map((d) => ({
+          ...d,
+          _id: d._id.toString(),
+          createdAt: d.createdAt?.toISOString(),
+          updatedAt: d.updatedAt?.toISOString()
+        }))
+      )
+      .lean<Doctor[]>()
 
     if (!doctors) {
       return []
     }
 
-    return doctors.map((doctor) => ({
-      ...doctor,
-      _id: doctor._id.toString()
-    }))
+    return doctorSchema.array().parse(doctors)
   } catch (error) {
     console.error(error)
     throw new Error('Unexpected error')
@@ -51,16 +64,22 @@ export const getDoctors = async (): Promise<Doctor[]> => {
 export const getSingleDoctor = async (id: string): Promise<Doctor> => {
   try {
     await connectMongoDB()
-    const doctor = await DoctorModel.findById(id).lean<Doctor>({ getters: true })
+    const doctor = await DoctorModel.findById(id)
+      .transform((docs) => {
+        return {
+          ...docs,
+          _id: docs?._id.toString(),
+          createdAt: docs?.createdAt?.toISOString(),
+          updatedAt: docs?.updatedAt?.toISOString()
+        }
+      })
+      .lean<Doctor>({ getters: true })
 
     if (!doctor) {
       throw new Error('No doctor found')
     }
 
-    return {
-      ...doctor,
-      _id: doctor._id.toString()
-    }
+    return doctorSchema.parse(doctor)
   } catch (error) {
     console.error(error)
     throw new Error('Unexpected error')
@@ -78,15 +97,27 @@ export const updateDoctor = async (id: string, data: EditDoctorFormValues): Prom
     const updatedDoctor = await DoctorModel.findByIdAndUpdate(
       { _id: id },
       {
-        email: data.email,
-        doctorName: data.doctorName,
-        phone: data.phone,
-        avatarUrl: data.avatarUrl ?? '',
-        position: data.position,
-        description: data.description
+        $set: {
+          email: data.email,
+          doctorName: data.doctorName,
+          phone: data.phone,
+          avatarUrl: data.avatarUrl,
+          position: data.position,
+          description: data.description
+        }
       },
+
       { new: true }
-    ).lean<Doctor>()
+    )
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          createdAt: doc?.createdAt instanceof Date ? doc?.createdAt?.toISOString() : doc?.createdAt,
+          updatedAt: doc?.updatedAt instanceof Date ? doc?.updatedAt?.toISOString() : doc?.updatedAt
+        }
+      })
+      .lean<Doctor>()
 
     if (!updatedDoctor) throw new Error('Update doctor failed')
 
@@ -94,10 +125,7 @@ export const updateDoctor = async (id: string, data: EditDoctorFormValues): Prom
 
     revalidatePath('[locale]/doctor/[id]', 'page')
 
-    return {
-      ...updatedDoctor,
-      _id: updatedDoctor._id.toString()
-    }
+    return doctorSchema.parse(updatedDoctor)
   } catch (error) {
     console.error(error)
     throw new Error('Unexpected error')

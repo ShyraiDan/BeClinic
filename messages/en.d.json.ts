@@ -168,11 +168,7 @@ declare const messages: {
       "title": "Blog",
       "findPosts": "{count, plural, =0 {No posts found} one {# post found} other {# posts found}}",
       "readMore": "Read more",
-      "noBlogs": "No blogs found",
-      "notifications": {
-        "blogDeleteSuccess": "Blog deleted successfully",
-        "blogDeleteError": "Error deleting blog"
-      }
+      "noBlogs": "No blogs found"
     },
     "addBlogPage": {
       "title": "Add blog"
@@ -620,7 +616,11 @@ declare const messages: {
       "title": "Delete blog",
       "reallyDelete": "Are you sure you want to delete this blog?",
       "delete": "Delete",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "notifications": {
+        "blogDeleteSuccess": "Blog deleted successfully",
+        "blogDeleteError": "Error deleting blog"
+      }
     },
     "deleteAnalysis": {
       "title": "Delete analysis",

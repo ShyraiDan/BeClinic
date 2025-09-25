@@ -23,7 +23,7 @@ export const AttachmentPreviewModal = ({ attachment }: AttachmentPreviewModalPro
     <StyledModal
       contentClassName='h-[calc(100%-60px)] w-full !max-w-[calc(100%-48px)] lg:max-w-[60%] lg:w-[60%]'
       aria-describedby={undefined}
-      triggerButton={<Button>{t('appointmentForm.appointmentFiles.viewButton')}</Button>}>
+      triggerButton={<Button type='button'>{t('appointmentForm.appointmentFiles.viewButton')}</Button>}>
       <VisuallyHidden>
         <DialogTitle>{t('appointmentForm.appointmentFiles.previewAttachment')}</DialogTitle>
       </VisuallyHidden>

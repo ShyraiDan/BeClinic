@@ -3,6 +3,7 @@
 import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import PaymentModel from '@/shared/models/payment'
+import { paymentSchema } from '@/shared/schemas'
 import { CreatePaymentFormValues, Payment, UpdatePaymentFormValues } from '@/shared/types'
 
 export const getPatientPayments = async (patientId: string): Promise<Payment[]> => {
@@ -23,17 +24,21 @@ export const getPatientPayments = async (patientId: string): Promise<Payment[]> 
           select: 'doctorName position'
         }
       })
+      .transform((docs) =>
+        docs.map((d) => ({
+          ...d,
+          _id: d._id.toString(),
+          createdAt: d.createdAt?.toISOString(),
+          updatedAt: d.updatedAt?.toISOString()
+        }))
+      )
       .lean<Payment[]>({ getters: true })
 
     if (!payments) {
       return []
     }
 
-    return payments.map((payment) => ({
-      ...payment,
-      _id: payment._id.toString(),
-      patientId: payment.patientId.toString()
-    }))
+    return paymentSchema.array().parse(payments)
   } catch (error) {
     console.error(error)
     throw new Error('Unexpected error')
@@ -45,9 +50,16 @@ const getSinglePayment = async (paymentId: string): Promise<Payment> => {
 
   try {
     await connectMongoDB()
-    const payment = await PaymentModel.findById(paymentId).lean<Payment>()
-
-    console.log('payment', payment)
+    const payment = await PaymentModel.findById(paymentId)
+      .transform((docs) => {
+        return {
+          ...docs,
+          _id: docs?._id.toString(),
+          createdAt: docs?.createdAt?.toISOString(),
+          updatedAt: docs?.updatedAt?.toISOString()
+        }
+      })
+      .lean<Payment>()
 
     if (!payment) {
       throw new Error('No payment found')
@@ -57,11 +69,7 @@ const getSinglePayment = async (paymentId: string): Promise<Payment> => {
       throw new Error('No access')
     }
 
-    return {
-      ...payment,
-      _id: payment._id.toString(),
-      patientId: payment.patientId.toString()
-    }
+    return paymentSchema.parse(payment)
   } catch (error) {
     console.error(error)
     throw new Error('Unexpected error')
@@ -86,17 +94,24 @@ export const createPayment = async (paymentData: CreatePaymentFormValues): Promi
       throw new Error('Creating payment failed')
     }
 
-    const newPayment = await PaymentModel.findById(newPaymentDoc._id).lean<Payment>()
+    const newPayment = await PaymentModel.findById(newPaymentDoc._id)
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          appointment: doc?.appointment.toString(),
+          patient: doc?.patient.toString(),
+          createdAt: doc?.createdAt?.toISOString(),
+          updatedAt: doc?.updatedAt?.toISOString()
+        }
+      })
+      .lean<Payment>()
 
     if (!newPayment) {
       throw new Error('Creating payment failed')
     }
 
-    return {
-      ...newPayment,
-      _id: newPayment._id.toString(),
-      patientId: newPayment.patientId.toString()
-    }
+    return paymentSchema.parse(newPayment)
   } catch (error) {
     console.error(error)
     throw new Error('Unexpected error')
@@ -113,25 +128,32 @@ export const updatePayment = async (paymentData: UpdatePaymentFormValues): Promi
   try {
     await connectMongoDB()
 
-    const updPaymentDoc = await PaymentModel.findByIdAndUpdate(paymentData._id, {
-      ...paymentData
-    })
-
-    if (!updPaymentDoc) {
-      throw new Error('Updating payment failed')
-    }
-
-    const updPayment = await PaymentModel.findById(updPaymentDoc._id).lean<Payment>()
+    const updPayment = await PaymentModel.findByIdAndUpdate(
+      paymentData._id,
+      {
+        $set: {
+          isPayed: paymentData.isPayed
+        }
+      },
+      { new: true }
+    )
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          appointment: doc?.appointment.toString(),
+          patient: doc?.patient.toString(),
+          createdAt: doc?.createdAt?.toISOString(),
+          updatedAt: doc?.updatedAt?.toISOString()
+        }
+      })
+      .lean<Payment>()
 
     if (!updPayment) {
       throw new Error('Updating payment failed')
     }
 
-    return {
-      ...updPayment,
-      _id: updPayment._id.toString(),
-      patientId: updPayment.patientId.toString()
-    }
+    return paymentSchema.parse(updPayment)
   } catch (error) {
     console.error(error)
     throw new Error('Unexpected error')

@@ -268,7 +268,11 @@
     },
     "singleAnalysisPage": {
       "analysisDate": "Дата аналізу:",
-      "analysisDetails": "Опис аналізу"
+      "analysisDetails": "Опис аналізу",
+      "notifications": {
+        "deleteAnalysisSuccess": "Аналіз видалено успішно",
+        "deleteAnalysisError": "Помилка при видаленні аналізу"
+      }
     },
     "editAnalysisPage": {
       "title": "Редагувати аналіз"
@@ -608,6 +612,16 @@
     "deleteBlog": {
       "title": "Видалити блог",
       "reallyDelete": "Ви впевнені, що хочете видалити цей блог?",
+      "delete": "Видалити",
+      "cancel": "Скасувати",
+      "notifications": {
+        "blogDeleteSuccess": "Блог видалено успішно",
+        "blogDeleteError": "Помилка при видаленні блога"
+      }
+    },
+    "deleteAnalysis": {
+      "title": "Видалити аналіз",
+      "reallyDelete": "Ви впевнені, що хочете видалити цей аналіз?",
       "delete": "Видалити",
       "cancel": "Скасувати"
     },

@@ -57,11 +57,11 @@ export const DoctorAppointmentForm = ({ appointment }: DoctorAppointmentFormProp
     })
 
     if (result) {
-      toast.success(t('notifications.visitUpdateSuccess'))
+      toast.success(tForm('notifications.visitUpdateSuccess'))
 
       router.push(`/doctor/${session?.user.id}/appointments/${result._id}`)
     } else {
-      toast.error(t('notifications.visitUpdateError'))
+      toast.error(tForm('notifications.visitUpdateError'))
     }
   }
 
@@ -96,24 +96,26 @@ export const DoctorAppointmentForm = ({ appointment }: DoctorAppointmentFormProp
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label htmlFor='diagnosis' className='font-medium mb-2'>
-              {tForm('appointmentForm.diagnosis.label')}
+            <Label htmlFor='diagnosis' className='font-medium mb-4'>
+              <H4>{tForm('appointmentForm.diagnosis.label')}</H4>
             </Label>
             <Input placeholder={tForm('appointmentForm.diagnosis.placeholder')} {...field} />
             {error?.message && <ErrorText>{error.message}</ErrorText>}
           </div>
         )}
       />
+      <Separator className='bg-[#D1D1D1]' />
 
       <MedicineForm control={control} />
+      <Separator className='bg-[#D1D1D1]' />
 
       <Controller
         name='treatment'
         control={control}
         render={({ field, fieldState: { error } }) => (
           <div className='mb-4'>
-            <Label htmlFor='treatment' className='font-medium mb-2'>
-              {tForm('appointmentForm.treatment.label')}
+            <Label htmlFor='treatment' className='font-medium mb-4'>
+              <H4>{tForm('appointmentForm.treatment.label')}</H4>
             </Label>
             <Input placeholder={tForm('appointmentForm.treatment.placeholder')} {...field} />
             {error?.message && <ErrorText>{error.message}</ErrorText>}
@@ -122,7 +124,7 @@ export const DoctorAppointmentForm = ({ appointment }: DoctorAppointmentFormProp
       />
 
       <Button type='submit' className='mt-5 w-full'>
-        {t('save')}
+        {tForm('save')}
       </Button>
     </form>
   )

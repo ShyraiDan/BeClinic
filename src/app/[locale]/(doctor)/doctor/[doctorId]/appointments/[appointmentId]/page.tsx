@@ -97,7 +97,6 @@ const UpcomingAppointment = ({ appointmentData, locale }: UpcomingAppointmentPro
       <div className='flex justify-between'>
         <div>
           <H4>{t('singleAppointmentPage.appointmentCentre')}</H4>
-          <P>Вінниця</P>
         </div>
         <div>
           <StyledLinkButton
@@ -183,7 +182,7 @@ const DoctorSingleAppointmentPage = () => {
             {!isDataLoading && isAfter(appointment?.endTime, new Date()) && (
               <StyledLinkButton
                 variant='icon'
-                href={`doctor/${session?.user.id || ''}/appointments/${appointment?._id}/edit`}>
+                href={`/doctor/${session?.user.id || ''}/appointments/${appointment?._id}/edit`}>
                 <Pencil size={16} />
               </StyledLinkButton>
             )}

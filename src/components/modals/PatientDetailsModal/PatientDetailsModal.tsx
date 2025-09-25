@@ -15,7 +15,7 @@ export const PatientDetailsModal = ({ patient }: PatientDetailsModalProps) => {
   const t = useTranslations('modals')
 
   return (
-    <StyledModal triggerButton={<Button>{t('patientDetails.buttonTitle')}</Button>}>
+    <StyledModal triggerButton={<Button className='mt-4'>{t('patientDetails.buttonTitle')}</Button>}>
       <DialogHeader>
         <DialogTitle>{patient.userName}</DialogTitle>
       </DialogHeader>

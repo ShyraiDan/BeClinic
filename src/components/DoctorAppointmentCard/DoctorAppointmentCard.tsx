@@ -8,16 +8,17 @@ import { dateLocaleMap } from '@/utils/dateLocaleMap'
 import { cn } from '@/utils/utils'
 
 interface DoctorAppointmentCardProps {
+  doctorId: string
   appointment: DoctorAppointment
   locale: SupportedLocales
   isIncoming?: boolean
 }
 
-export const DoctorAppointmentCard = ({ appointment, locale, isIncoming }: DoctorAppointmentCardProps) => {
+export const DoctorAppointmentCard = ({ doctorId, appointment, locale, isIncoming }: DoctorAppointmentCardProps) => {
   const dateLocale = dateLocaleMap[locale] ?? enUS
 
   return (
-    <Link href={`/appointments/${appointment._id}`}>
+    <Link href={`/doctor/${doctorId}/appointments/${appointment._id}`}>
       <div className='flex inset-shadow-profile bg-white'>
         <div className={cn('w-2 bg-blue-100', isIncoming && 'bg-orange-400')} />
         <div className='py-4 pr-4 pl-3 flex flex-col'>

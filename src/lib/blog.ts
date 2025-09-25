@@ -3,22 +3,29 @@
 import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import BlogModel from '@/shared/models/blog'
+import { blogSchema } from '@/shared/schemas'
 import { Blog, CreateBlogFormDTO, EditBlogFormDTO } from '@/shared/types'
 
 export const getSingleBlog = async (blogId: string): Promise<Blog> => {
   try {
     await connectMongoDB()
-    const blog = await BlogModel.findById(blogId).lean<Blog>()
+    const blog = await BlogModel.findById(blogId)
+      .transform((docs) => {
+        return {
+          ...docs,
+          _id: docs?._id.toString(),
+          authorId: docs?.authorId.toString(),
+          createdAt: docs?.createdAt?.toISOString(),
+          updatedAt: docs?.updatedAt?.toISOString()
+        }
+      })
+      .lean<Blog>()
 
     if (!blog) {
       throw new Error('No blog found')
     }
 
-    return {
-      ...blog,
-      _id: blog._id.toString(),
-      authorId: blog.authorId.toString()
-    }
+    return blogSchema.parse(blog)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Internal server error')
@@ -28,17 +35,23 @@ export const getSingleBlog = async (blogId: string): Promise<Blog> => {
 export const getBlogs = async (): Promise<Blog[]> => {
   try {
     await connectMongoDB()
-    const blogs = await BlogModel.find().lean<Blog[]>()
+    const blogs = await BlogModel.find()
+      .transform((docs) =>
+        docs.map((d) => ({
+          ...d,
+          _id: d._id.toString(),
+          authorId: d?.authorId.toString(),
+          createdAt: d.createdAt?.toISOString(),
+          updatedAt: d.updatedAt?.toISOString()
+        }))
+      )
+      .lean<Blog[]>()
 
     if (!blogs) {
       throw new Error('No blogs found')
     }
 
-    return blogs.map((blog) => ({
-      ...blog,
-      _id: blog._id.toString(),
-      authorId: blog.authorId.toString()
-    }))
+    return blogSchema.array().parse(blogs)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Internal server error')
@@ -63,17 +76,23 @@ export const createBlog = async (blogData: CreateBlogFormDTO): Promise<Blog> => 
       throw new Error('Creating blog failed')
     }
 
-    const newBlog = await BlogModel.findById(newBlogDoc._id).lean<Blog>()
+    const newBlog = await BlogModel.findById(newBlogDoc._id)
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          authorId: doc?.authorId.toString(),
+          createdAt: doc?.createdAt?.toISOString(),
+          updatedAt: doc?.updatedAt?.toISOString()
+        }
+      })
+      .lean<Blog>()
 
     if (!newBlog) {
       throw new Error('Creating blog failed')
     }
 
-    return {
-      ...newBlog,
-      _id: newBlog._id.toString(),
-      authorId: newBlog.authorId.toString()
-    }
+    return blogSchema.parse(newBlog)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -93,19 +112,30 @@ export const updateBlog = async (blogId: string, blogData: EditBlogFormDTO): Pro
     const updBlog = await BlogModel.findOneAndUpdate(
       { _id: blogId },
       {
-        ...blogData
-      }
-    ).lean<Blog>()
+        $set: {
+          title: blogData.title,
+          description: blogData.description,
+          image: blogData.image
+        }
+      },
+      { new: true }
+    )
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          authorId: doc?.authorId.toString(),
+          createdAt: doc?.createdAt instanceof Date ? doc?.createdAt?.toISOString() : doc?.createdAt,
+          updatedAt: doc?.updatedAt instanceof Date ? doc?.updatedAt?.toISOString() : doc?.updatedAt
+        }
+      })
+      .lean<Blog>()
 
     if (!updBlog) {
       throw new Error('Updating blog failed')
     }
 
-    return {
-      ...updBlog,
-      _id: updBlog._id.toString(),
-      authorId: updBlog.authorId.toString()
-    }
+    return blogSchema.parse(updBlog)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
