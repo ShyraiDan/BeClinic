@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Spinner } from '@/components/ui/spinner'
 import { P } from '@/components/ui/typography'
 import { useRouter } from '@/i18n/navigation'
 import { createBlog, updateBlog } from '@/lib/blog'
@@ -37,6 +38,7 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
   const isEditMode = !!blog?._id
   const { data: session } = useSession()
   const router = useRouter()
+  const [isFileLoading, setFileLoading] = useState(false)
 
   const { control, reset, handleSubmit, watch, setValue, getValues } = useForm<BlogFormValues>({
     mode: 'onSubmit',
@@ -135,9 +137,13 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
   }
 
   const handleUploadImage = async (file: File) => {
+    setFileLoading(true)
+
     const extension = file.name.split('.').pop()
     const fileName = await saveFileToBucket(file, `blog_${session?.user.id}.${extension}`, 'beclinic/custom/files')
     setValue('image', fileName)
+
+    setFileLoading(false)
   }
 
   return (
@@ -194,13 +200,17 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
             {isEditImage && (
               <div className='flex items-center gap-3'>
                 <Button
+                  type='button'
+                  disabled={isFileLoading}
                   onClick={(e) => {
                     e.preventDefault()
                     fileInputRef.current?.click()
                   }}>
+                  {isFileLoading && <Spinner className='mr-2' />}
                   {t('download')}
                 </Button>
                 <Button
+                  type='button'
                   variant='reset'
                   onClick={() => {
                     setValue('image', '')
@@ -210,6 +220,7 @@ export const BlogForm = ({ blog }: BlogFormProps) => {
                 </Button>
                 {watch('image') && (
                   <Button
+                    type='button'
                     className='bg-red-100 hover:bg-red-700'
                     onClick={() => {
                       setIsEditImage(false)

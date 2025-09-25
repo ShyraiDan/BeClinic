@@ -6,7 +6,7 @@ import { User } from 'lucide-react'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 
 import { StyledDatePicker } from '@/components/StyledDatePicker/StyledDatePicker'
@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button'
 import { ErrorText } from '@/components/ui/errorText'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Spinner } from '@/components/ui/spinner'
 import { P } from '@/components/ui/typography'
 import { saveFileToBucket } from '@/lib/bucket'
 import { updatePatient } from '@/lib/patient'
@@ -61,6 +62,7 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
   const t = useTranslations('forms')
   const { data: session, update } = useSession()
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [isFileLoading, setFileLoading] = useState(false)
 
   const { handleSubmit, control, watch, getValues, setValue } = useForm<EditPatientFormValues>({
     mode: 'onSubmit',
@@ -103,6 +105,8 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
   const avatarUrl = watch('avatarUrl') ?? ''
 
   const handleUploadFile = async (file: File) => {
+    setFileLoading(true)
+
     const timestamp = Date.now()
     const extension = file.name.split('.').pop()
 
@@ -112,6 +116,8 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
       'beclinic/custom/avatars'
     )
     setValue('avatarUrl', fileName)
+
+    setFileLoading(false)
   }
 
   return (
@@ -143,9 +149,11 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
                   {!avatarUrl && (
                     <Button
                       type='button'
+                      disabled={isFileLoading}
                       onClick={() => {
                         fileInputRef.current?.click()
                       }}>
+                      {isFileLoading && <Spinner className='mr-2' />}
                       {t('editPatientForm.avatarUrl.addAvatar')}
                     </Button>
                   )}
