@@ -26,5 +26,5 @@ export const DeleteBlogButton = ({ blogId }: DeleteBlogButtonProps) => {
     }
   }
 
-  return <DeleteBlogModal allowedAction={() => void handleDeleteBlog} />
+  return <DeleteBlogModal allowedAction={() => void handleDeleteBlog()} />
 }
