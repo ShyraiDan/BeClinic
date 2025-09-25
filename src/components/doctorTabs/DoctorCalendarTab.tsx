@@ -1,6 +1,5 @@
 'use client'
 
-import { EventClickArg, EventApi } from '@fullcalendar/core'
 import enLocale from '@fullcalendar/core/locales/en-gb'
 import ukLocale from '@fullcalendar/core/locales/uk'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -9,25 +8,31 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import { isSameDay, parseISO } from 'date-fns'
 import { useParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useMemo, useState } from 'react'
 
+import { useGetDoctorAppointmentsQuery } from '@/client/appointment'
 import CalendarAppointmentCard from '@/components/CalendarAppointmentCard/CalendarAppointmentCard'
 import { AppointmentInfoModal } from '@/components/modals/AppointmentInfoModal/AppointmentInfoModal'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { H6, P } from '@/components/ui/typography'
-import { mockedAppointment } from '@/mocks/mockedAppointment'
-import { Appointment, SupportedLocales } from '@/shared/types'
+import { DoctorAppointment, SupportedLocales } from '@/shared/types'
 import { cn } from '@/utils/utils'
+
+import type { EventClickArg, EventApi } from '@fullcalendar/core'
 
 export const DoctorCalendarTab = () => {
   const t = useTranslations('page')
 
   const params = useParams()
-  const { doctorId, locale } = params
-  const [selectedEvent, setSelectedEvent] = useState<Appointment | null>(null)
+  const { locale } = params
+  const [selectedEvent, setSelectedEvent] = useState<DoctorAppointment | null>(null)
+  const { data: session } = useSession()
 
-  const appointments = mockedAppointment
+  //  const appointments = mockedAppointment
+
+  const { data: appointments, isLoading } = useGetDoctorAppointmentsQuery(session?.user?.id || '')
 
   const currentEvents: EventApi[] = useMemo(() => {
     return (
@@ -50,8 +55,6 @@ export const DoctorCalendarTab = () => {
       setSelectedEvent(selectedEvent)
     }
   }
-
-  const isLoading = false
 
   const handleEventInfoModalClose = () => setSelectedEvent(null)
 

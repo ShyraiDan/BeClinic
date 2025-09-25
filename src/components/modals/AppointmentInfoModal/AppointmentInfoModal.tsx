@@ -6,11 +6,11 @@ import { useTranslations } from 'next-intl'
 
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { H6, P } from '@/components/ui/typography'
-import { Appointment, SupportedLocales } from '@/shared/types'
+import { DoctorAppointment, SupportedLocales } from '@/shared/types'
 import { dateLocaleMap } from '@/utils/dateLocaleMap'
 
 interface AppointmentInfoModalProps {
-  appointment: Appointment
+  appointment: DoctorAppointment
   open: boolean
   handleClose: () => void
 }
