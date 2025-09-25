@@ -204,10 +204,31 @@ export const paymentSchema = z.object({
   appointment: appointmentSchema,
   amount: z.number(),
   isPayed: z.boolean(),
-  patient: patientSchema,
+  patientId: z.string(),
   createdAt: z.date(),
   updatedAt: z.date()
 })
+
+export const createPaymentFormValuesSchema = paymentSchema
+  .pick({
+    amount: true,
+    isPayed: true,
+    patientId: true
+  })
+  .extend({
+    appointmentId: z.string()
+  })
+
+export const updatePaymentFormValuesSchema = paymentSchema
+  .pick({
+    _id: true,
+    amount: true,
+    isPayed: true,
+    patientId: true
+  })
+  .extend({
+    appointmentId: z.string()
+  })
 
 export const patientAppointmentFormValuesSchema = appointmentSchema
   .pick({

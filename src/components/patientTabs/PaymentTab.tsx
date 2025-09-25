@@ -1,22 +1,22 @@
 'use client'
 
 import { useParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 
+import { useGetPaymentsQuery } from '@/client/payment'
 import { PaymentCard } from '@/components/PaymentCard/PaymentCard'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { P, H6 } from '@/components/ui/typography'
-import { mockedPayments } from '@/mocks/mockedPayments'
 import { SupportedLocales } from '@/shared/types'
 
-export const BillingTab = () => {
+export const PaymentTab = () => {
   const params = useParams()
   const { locale } = params
   const t = useTranslations('page')
-
-  const payments = mockedPayments
-  const isLoading = false
+  const { data: session } = useSession()
+  const { data: payments, isLoading } = useGetPaymentsQuery(session?.user?.id || '')
 
   const unPayedServices = useMemo(() => payments?.filter((payment) => !payment.isPayed) ?? [], [payments])
   const payedServices = useMemo(() => payments?.filter((payment) => !!payment.isPayed) ?? [], [payments])
@@ -24,7 +24,7 @@ export const BillingTab = () => {
   return (
     <>
       {unPayedServices.length === 0 && payedServices.length === 0 && !isLoading && (
-        <P>{t('profile.patient.noBillingHistory')}</P>
+        <P>{t('profile.patient.noPaymentHistory')}</P>
       )}
 
       {isLoading && (
@@ -51,7 +51,7 @@ export const BillingTab = () => {
 
       {payedServices.length > 0 && (
         <div className='mt-6'>
-          <H6>{t('profile.patient.billingHistory')}</H6>
+          <H6>{t('profile.patient.paymentHistory')}</H6>
 
           {payedServices.length > 0 && (
             <div className='grid grid-cols-1 gap-4 mt-4'>

@@ -15,19 +15,24 @@ const LocalizedStringSchema = new Schema(localizedStringShape, {
   strict: 'throw'
 })
 
-const mongoBlogSchema = new Schema({
-  title: { type: LocalizedStringSchema, required: true },
-  description: { type: LocalizedStringSchema, required: true },
-  image: {
-    type: String,
-    required: true
+const mongoBlogSchema = new Schema(
+  {
+    title: { type: LocalizedStringSchema, required: true },
+    description: { type: LocalizedStringSchema, required: true },
+    image: {
+      type: String,
+      required: true
+    },
+    authorId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Doctors',
+      required: true
+    }
   },
-  authorId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Doctors',
-    required: true
+  {
+    timestamps: true
   }
-})
+)
 
 type Blog = InferSchemaType<typeof mongoBlogSchema>
 

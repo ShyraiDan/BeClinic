@@ -7,22 +7,7 @@ export const mockedPayments: Payment[] = [
     isPayed: true,
     createdAt: new Date('2025-09-03T16:20:33.000Z'),
     updatedAt: new Date('2025-09-03T16:40:10.000Z'),
-    patient: {
-      _id: '66f007a5c9c4a1f2b3d4aa01',
-      email: 'olivia.morris@example.com',
-      userName: 'Olivia Morris',
-      dateOfBirth: new Date('2025-08-29T08:30:00.000Z'),
-      phoneNumber: '+1 (415) 555-0132',
-      bloodType: 'O',
-      diabetes: 'none',
-      rhFactor: '+',
-      bloodTransfusion: 'never',
-      intoleranceToMedicines: 'penicillin',
-      infectiousDiseases: 'none',
-      surgicalInterventions: 'appendectomy (2008)',
-      allergies: 'pollen',
-      avatarUrl: 'https://example.com/patients/olivia.jpg'
-    },
+    patientId: '66f007a5c9c4a1f2b3d4aa01',
     appointment: {
       _id: '66f007a5c9c4a1f2b3d4bb01',
       patient: {
@@ -67,21 +52,7 @@ export const mockedPayments: Payment[] = [
     isPayed: false,
     createdAt: new Date('2025-09-08T13:55:00.000Z'),
     updatedAt: new Date('2025-09-08T15:10:00.000Z'),
-    patient: {
-      _id: '66f007a5c9c4a1f2b3d4aa02',
-      email: 'denys.kovalenko@example.com',
-      userName: 'Denys Kovalenko',
-      dateOfBirth: new Date('2025-08-29T08:30:00.000Z'),
-      phoneNumber: '+380 (67) 555-0101',
-      bloodType: 'A',
-      diabetes: 'type 2 (diet controlled)',
-      rhFactor: '-',
-      bloodTransfusion: 'none',
-      intoleranceToMedicines: 'none',
-      infectiousDiseases: 'none',
-      surgicalInterventions: 'none',
-      allergies: 'dust mites'
-    },
+    patientId: '66f007a5c9c4a1f2b3d4aa01',
     appointment: {
       _id: '66f007a5c9c4a1f2b3d4bb02',
       patient: {
@@ -125,21 +96,7 @@ export const mockedPayments: Payment[] = [
     isPayed: true,
     createdAt: new Date('2025-09-12T12:00:00.000Z'),
     updatedAt: new Date('2025-09-12T12:45:00.000Z'),
-    patient: {
-      _id: '66f007a5c9c4a1f2b3d4aa03',
-      email: 'marta.ivanova@example.com',
-      userName: 'Marta Ivanova',
-      dateOfBirth: new Date('2025-08-29T08:30:00.000Z'),
-      phoneNumber: '+380 (63) 555-0222',
-      bloodType: 'B',
-      diabetes: 'none',
-      rhFactor: '+',
-      bloodTransfusion: 'never',
-      intoleranceToMedicines: 'ibuprofen',
-      infectiousDiseases: 'chickenpox (childhood)',
-      surgicalInterventions: 'tonsillectomy (2003)',
-      allergies: 'nuts'
-    },
+    patientId: '66f007a5c9c4a1f2b3d4aa01',
     appointment: {
       _id: '66f007a5c9c4a1f2b3d4bb03',
       patient: {
