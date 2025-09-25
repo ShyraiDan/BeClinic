@@ -37,7 +37,7 @@ const DoctorInfo = async ({ doctor }: DoctorInfoProps) => {
         <li className='py-3 border-b border-solid border-[#e1e5e3]'>
           <P className='flex items-center justify-between text-[#64727d]'>
             <span>{t('singleDoctorPage.doctorPosition')}</span>
-            <span>{doctor?.position}</span>
+            <span>{t(`profile.doctor.specialties.${doctor.position}`)}</span>
           </P>
         </li>
         <li className='py-3 border-b border-solid border-[#e1e5e3]'>
@@ -49,7 +49,7 @@ const DoctorInfo = async ({ doctor }: DoctorInfoProps) => {
         <li className='py-3'>
           <P className='flex items-center justify-between text-[#64727d]'>
             <span>{t('singleDoctorPage.doctorExperience')}</span>
-            <span>{t('singleDoctorPage.years', { years: getYear(new Date()) - getYear(doctor?.createdAt) })}</span>
+            <span>{t('singleDoctorPage.years', { years: getYear(new Date()) - getYear(doctor?.createdAt) + 1 })}</span>
           </P>
         </li>
       </ul>

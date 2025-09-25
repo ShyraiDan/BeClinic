@@ -1,6 +1,7 @@
 import { Smartphone, Mail } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 import { P, H6 } from '@/components/ui/typography'
 import { BUCKET_URL } from '@/shared/constants'
@@ -11,6 +12,8 @@ interface DoctorCardProps {
 }
 
 const DoctorCard = ({ doctor }: DoctorCardProps) => {
+  const t = useTranslations('page')
+
   return (
     <div className='transition-all duration-300 ease-in-out hover:inset-shadow-doctor-card'>
       {doctor.avatarUrl ? (
@@ -33,7 +36,9 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => {
       )}
 
       <div className='pt-5 px-4 mb-3.5'>
-        <P className='text-[#B5B9BB] text-[10px] uppercase tracking-[1px]'>{doctor.position}</P>
+        <P className='text-[#B5B9BB] text-[10px] uppercase tracking-[1px]'>
+          {t(`profile.doctor.specialties.${doctor.position}`)}
+        </P>
 
         <H6 className='font-normal text-[16px]'>
           <Link href={`/doctors/${doctor._id}`} className='transition-all duration-300 ease-in-out hover:text-blue-100'>
