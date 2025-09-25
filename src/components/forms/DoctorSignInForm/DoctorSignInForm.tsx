@@ -72,7 +72,7 @@ export const DoctorSignInForm = () => {
             <Label htmlFor='email'>{t('authForm.email.label')}</Label>
             <Input id='email' type='email' placeholder='example@example.com' {...field} />
 
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />
@@ -103,7 +103,7 @@ export const DoctorSignInForm = () => {
               </span>
             </div>
 
-            {error?.message && <ErrorText>{error.message}</ErrorText>}
+            {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
           </div>
         )}
       />
