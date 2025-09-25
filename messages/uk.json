@@ -164,7 +164,8 @@
     "blog": {
       "title": "Блог",
       "findPosts": "{count, plural, =0 {Нічого не знайдено} one {Знайдено # допис} few {Знайдено # дописи} many {Знайдено # дописів} other {Знайдено # дописів}}",
-      "readMore": "Дізнатися більше"
+      "readMore": "Дізнатися більше",
+      "noBlogs": "Блоги не знайдені"
     },
     "addBlogPage": {
       "title": "Додати блог"
@@ -543,7 +544,11 @@
       "analysisCreateSuccess": "Аналіз успішно створено",
       "analysisUpdateSuccess": "Аналіз успішно оновлено",
       "analysisCreateError": "Помилка створення аналізу",
-      "analysisUpdateError": "Помилка оновлення аналізу"
+      "analysisUpdateError": "Помилка оновлення аналізу",
+      "blogCreateSuccess": "Блог успішно створено",
+      "blogUpdateSuccess": "Блог успішно оновлено",
+      "blogCreateError": "Помилка створення блогу",
+      "blogUpdateError": "Помилка оновлення блогу"
     },
     "validation": {
       "userExists": "Користувач вже існує",
@@ -568,7 +573,10 @@
       "specialtyRequired": "Спеціальність є обов'язковою",
       "startTimeHoursRequired": "Час початку візиту є обов'язковим",
       "analysisNameRequired": "Назва аналізу є обов'язковою",
-      "analysisDateRequired": "Дата аналізу є обов'язковою"
+      "analysisDateRequired": "Дата аналізу є обов'язковою",
+      "blogTitleMinLength": "Заголовок блогу повинен містити не менше 20 символів",
+      "blogDescriptionMinLength": "Опис блогу повинен містити не менше 40 символів",
+      "blogImageRequired": "Зображення блогу є обов'язковим"
     },
     "specialtySelect": {
       "therapist": "Терапевт",

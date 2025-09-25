@@ -5,8 +5,20 @@ import { SUPPORTED_LOCALES } from '@/shared/constants'
 
 export type Locale = (typeof SUPPORTED_LOCALES)[number]
 
-const localizedStringSchema = z
-  .object(Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, z.string().min(1)])) as Record<Locale, z.ZodString>)
+const localizedBlogTitleSchema = z
+  .object(
+    Object.fromEntries(
+      SUPPORTED_LOCALES.map((l) => [l, z.string().min(20, 'validation.blogTitleMinLength')])
+    ) as Record<Locale, z.ZodString>
+  )
+  .strict()
+
+const localizedBlogDescriptionSchema = z
+  .object(
+    Object.fromEntries(
+      SUPPORTED_LOCALES.map((l) => [l, z.string().min(40, 'validation.blogDescriptionMinLength')])
+    ) as Record<Locale, z.ZodString>
+  )
   .strict()
 
 export const optionSchema = z.object({
@@ -54,9 +66,9 @@ export const workingHoursItemSchema = z.object({
 
 export const blogSchema = z.object({
   _id: z.string(),
-  title: localizedStringSchema,
-  description: localizedStringSchema,
-  image: z.string(),
+  title: localizedBlogTitleSchema,
+  description: localizedBlogDescriptionSchema,
+  image: z.string('validation.blogImageRequired'),
   authorId: z.string(),
   createdAt: z.date(),
   updatedAt: z.date()
@@ -66,6 +78,21 @@ export const blogFormValuesSchema = blogSchema.pick({
   title: true,
   description: true,
   image: true
+})
+
+export const createBlogFormDTOSchema = blogSchema.pick({
+  title: true,
+  description: true,
+  image: true,
+  authorId: true
+})
+
+export const editBlogFormDTOSchema = blogSchema.pick({
+  _id: true,
+  title: true,
+  description: true,
+  image: true,
+  authorId: true
 })
 
 export const patientSchema = z.object({

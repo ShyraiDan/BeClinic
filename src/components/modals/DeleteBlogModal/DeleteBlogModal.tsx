@@ -27,11 +27,11 @@ export const DeleteBlogModal = ({ allowedAction }: DeleteBlogModalProps) => {
       </DialogHeader>
       <P>{t('deleteBlog.reallyDelete')}</P>
       <div className='flex w-full justify-between gap-4 mt-4'>
-        <Button className='w-full' onClick={() => allowedAction()}>
+        <Button type='button' className='w-full' onClick={() => allowedAction()}>
           {t('deleteBlog.delete')}
         </Button>
         <DialogClose asChild>
-          <Button className='w-full' variant='outline-blue' onClick={() => allowedAction()}>
+          <Button type='button' className='w-full' variant='reset' onClick={() => allowedAction()}>
             {t('deleteBlog.cancel')}
           </Button>
         </DialogClose>

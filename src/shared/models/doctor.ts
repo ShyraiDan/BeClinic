@@ -1,4 +1,4 @@
-import mongoose, { HydratedDocument, InferSchemaType, Model, Schema } from 'mongoose'
+import mongoose, { InferSchemaType, Model, Schema } from 'mongoose'
 
 const mongoDoctorSchema = new Schema(
   {
@@ -32,7 +32,6 @@ const mongoDoctorSchema = new Schema(
 )
 
 export type Doctor = InferSchemaType<typeof mongoDoctorSchema>
-export type PatientDoc = HydratedDocument<Doctor>
 
 const DoctorModel = (mongoose.models.Doctors as Model<Doctor>) || mongoose.model('Doctors', mongoDoctorSchema)
 export default DoctorModel

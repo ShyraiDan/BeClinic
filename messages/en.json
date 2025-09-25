@@ -164,7 +164,12 @@
     "blog": {
       "title": "Blog",
       "findPosts": "{count, plural, =0 {No posts found} one {# post found} other {# posts found}}",
-      "readMore": "Read more"
+      "readMore": "Read more",
+      "noBlogs": "No blogs found",
+      "notifications": {
+        "blogDeleteSuccess": "Blog deleted successfully",
+        "blogDeleteError": "Error deleting blog"
+      }
     },
     "addBlogPage": {
       "title": "Add blog"
@@ -543,7 +548,11 @@
       "analysisCreateSuccess": "Analysis created successfully",
       "analysisUpdateSuccess": "Analysis updated successfully",
       "analysisCreateError": "Error creating analysis",
-      "analysisUpdateError": "Error updating analysis"
+      "analysisUpdateError": "Error updating analysis",
+      "blogCreateSuccess": "Blog created successfully",
+      "blogUpdateSuccess": "Blog updated successfully",
+      "blogCreateError": "Error creating blog",
+      "blogUpdateError": "Error updating blog"
     },
     "validation": {
       "userExists": "User already exists",
@@ -556,7 +565,7 @@
       "confirmPasswordMismatch": "Passwords must be equal",
       "verificationCodeMismatch": "Verification code is not valid",
       "verificationCodeRequired": "Verification code is required",
-      "positionRequired": "Speciality is required field",
+      "positionRequired": "Specialty is required field",
       "phoneRequired": "Phone is required field",
       "nameRequired": "User name is required field",
       "nameMinLength": "User name must be at least 3 characters",
@@ -568,7 +577,10 @@
       "specialtyRequired": "Specialty is required field",
       "startTimeHoursRequired": "Time is required field",
       "analysisNameRequired": "Analysis name is required field",
-      "analysisDateRequired": "Analysis date is required field"
+      "analysisDateRequired": "Analysis date is required field",
+      "blogTitleMinLength": "Blog title must be at least 20 characters",
+      "blogDescriptionMinLength": "Blog description must be at least 40 characters",
+      "blogImageRequired": "Blog image is required field"
     },
     "specialtySelect": {
       "therapist": "Therapist",
