@@ -5,10 +5,14 @@ import {
   getSinglePatientAppointment,
   createPatientAppointment,
   updatePatientAppointment,
-  getDoctorAppointments
+  getDoctorAppointments,
+  getSingleDoctorAppointment,
+  updateDoctorAppointment
 } from '@/lib/appointment'
-import { patientAppointmentSchema } from '@/shared/schemas'
+import { doctorAppointmentSchema, patientAppointmentSchema } from '@/shared/schemas'
 import {
+  DoctorAppointment,
+  DoctorEditAppointmentFormValues,
   PatientAppointment,
   PatientCreateAppointmentFormValuesDto,
   PatientEditAppointmentFormValuesDto
@@ -29,6 +33,17 @@ export const useGetSinglePatientAppointmentQuery = (patientId: string, appointme
     queryKey: ['appointment', appointmentId],
     queryFn:
       patientId && appointmentId ? async () => await getSinglePatientAppointment(patientId, appointmentId) : skipToken,
+    enabled: !!patientId && !!appointmentId
+  })
+
+  return { data, isLoading, isFetching, isError }
+}
+
+export const useGetSingleDoctorAppointmentQuery = (patientId: string, appointmentId: string) => {
+  const { data, isLoading, isFetching, isError } = useQuery({
+    queryKey: ['appointment', appointmentId],
+    queryFn:
+      patientId && appointmentId ? async () => await getSingleDoctorAppointment(patientId, appointmentId) : skipToken,
     enabled: !!patientId && !!appointmentId
   })
 
@@ -86,4 +101,26 @@ export const useGetDoctorAppointmentsQuery = (doctorId: string) => {
   })
 
   return { data, isLoading, isFetching, isError }
+}
+
+interface UpdateDoctorAppointmentParams {
+  doctorId: string
+  appointmentId: string
+  data: DoctorEditAppointmentFormValues
+}
+
+export const useUpdateDoctorAppointmentMutation = (doctorId: string, appointmentId: string) => {
+  const queryClient = useQueryClient()
+
+  return useMutation<DoctorAppointment, Error, UpdateDoctorAppointmentParams>({
+    mutationKey: ['appointment', appointmentId],
+    mutationFn: async ({ doctorId, appointmentId, data }: UpdateDoctorAppointmentParams) => {
+      const result = await updateDoctorAppointment(doctorId, appointmentId, data)
+
+      return doctorAppointmentSchema.parse(result)
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['appointments', doctorId] })
+    }
+  })
 }

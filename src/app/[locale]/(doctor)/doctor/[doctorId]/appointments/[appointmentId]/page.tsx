@@ -1,25 +1,25 @@
+'use client'
+
 import { format, isAfter, isBefore } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import { Pencil } from 'lucide-react'
+import { useParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
 
+import { useGetSingleDoctorAppointmentQuery } from '@/client/appointment'
 import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
 import { MedicineCard } from '@/components/MedicineCard/MedicineCard'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
 import { PatientDetailsModal } from '@/components/modals/PatientDetailsModal/PatientDetailsModal'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
-import { Container } from '@/components/ui/container'
+import { SkeletonText } from '@/components/skeletons/SkeletonText'
+import { Container, LoadingContainer } from '@/components/ui/container'
 import { Separator } from '@/components/ui/separator'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { H4, H2, P } from '@/components/ui/typography'
-import { getSingleDoctorAppointment } from '@/lib/appointment'
 import { SupportedLocales, DoctorAppointment } from '@/shared/types'
 import { dateLocaleMap } from '@/utils/dateLocaleMap'
-
-interface SingleAppointmentPageProps {
-  params: Promise<{ appointmentId: string; locale: SupportedLocales; doctorId: string }>
-}
 
 interface PastAppointmentProps {
   locale: SupportedLocales
@@ -144,50 +144,66 @@ const UpcomingAppointment = ({ appointmentData, locale }: UpcomingAppointmentPro
   )
 }
 
-const DoctorSingleAppointmentPage = async ({ params }: SingleAppointmentPageProps) => {
-  const { locale, appointmentId, doctorId } = await params
-  const t = await getTranslations('page')
+const DoctorSingleAppointmentPage = () => {
+  const { locale, appointmentId } = useParams<{ locale: string; appointmentId: string }>()
+  const t = useTranslations('page')
+  const { data: session } = useSession()
 
   const dateLocale = dateLocaleMap[locale] ?? enUS
+  const { data: appointment, isLoading } = useGetSingleDoctorAppointmentQuery(session?.user.id || '', appointmentId)
 
-  const appointment = await getSingleDoctorAppointment(doctorId, appointmentId)
-
+  const isDataLoading = isLoading || !appointment
   return (
     <>
       <PageHeading>
-        <H2 className='text-white mt-4 mb-1'>
-          {t('singleAppointmentPage.visit', { patientName: appointment?.patient.userName })}
-        </H2>
+        {isDataLoading ? (
+          <SkeletonText className='h-10 mb-2.5 mt-5.5 w-[270px] bg-white opacity-10' />
+        ) : (
+          <H2 className='text-white mt-4 mb-1'>
+            {t('singleAppointmentPage.visit', { patientName: appointment?.patient.userName })}
+          </H2>
+        )}
 
         <div className='flex items-center w-full justify-between'>
           <div>
-            <P className='text-white'>
-              {t('singleAppointmentPage.appointmentDate')}{' '}
-              <span className='capitalize'>
-                {format(appointment.startTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}
-                {format(appointment.endTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
-              </span>
-            </P>
+            {isDataLoading ? (
+              <SkeletonText className='h-4 mb-1 w-[270px] bg-white opacity-10' />
+            ) : (
+              <P className='text-white'>
+                {t('singleAppointmentPage.appointmentDate')}{' '}
+                <span className='capitalize'>
+                  {format(appointment.startTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}
+                  {format(appointment.endTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
+                </span>
+              </P>
+            )}
           </div>
 
           <div className='flex gap-4 text-white'>
-            {isAfter(appointment?.endTime, new Date()) && (
-              <StyledLinkButton variant='icon' href={`doctor/${doctorId}/appointments/${appointment?._id}/edit`}>
+            {!isDataLoading && isAfter(appointment?.endTime, new Date()) && (
+              <StyledLinkButton
+                variant='icon'
+                href={`doctor/${session?.user.id || ''}/appointments/${appointment?._id}/edit`}>
                 <Pencil size={16} />
               </StyledLinkButton>
             )}
           </div>
         </div>
       </PageHeading>
-      <Container>
-        {isAfter(appointment?.endTime, new Date()) && appointment && (
-          <UpcomingAppointment appointmentData={appointment} locale={locale} />
-        )}
 
-        {isBefore(appointment?.endTime, new Date()) && appointment && (
-          <PastAppointment appointmentData={appointment} locale={locale} />
-        )}
-      </Container>
+      {isDataLoading ? (
+        <LoadingContainer />
+      ) : (
+        <Container>
+          {isAfter(appointment?.endTime, new Date()) && appointment && (
+            <UpcomingAppointment appointmentData={appointment} locale={locale as SupportedLocales} />
+          )}
+
+          {isBefore(appointment?.endTime, new Date()) && appointment && (
+            <PastAppointment appointmentData={appointment} locale={locale as SupportedLocales} />
+          )}
+        </Container>
+      )}
     </>
   )
 }
