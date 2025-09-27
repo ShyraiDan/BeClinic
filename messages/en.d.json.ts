@@ -267,7 +267,11 @@ declare const messages: {
       "medicine": "Medicine",
       "dosage": "Dosage",
       "comment": "Comment",
-      "doctorComment": "Doctor's comment"
+      "doctorComment": "Doctor's comment",
+      "notifications": {
+        "deleteAppointmentSuccess": "Appointment deleted successfully",
+        "deleteAppointmentError": "Error deleting appointment"
+      }
     },
     "singleAnalysisPage": {
       "analysisDate": "Analysis date:",
@@ -625,6 +629,12 @@ declare const messages: {
     "deleteAnalysis": {
       "title": "Delete analysis",
       "reallyDelete": "Are you sure you want to delete this analysis?",
+      "delete": "Delete",
+      "cancel": "Cancel"
+    },
+    "deleteAppointment": {
+      "title": "Delete appointment",
+      "reallyDelete": "Are you sure you want to delete this appointment?",
       "delete": "Delete",
       "cancel": "Cancel"
     },

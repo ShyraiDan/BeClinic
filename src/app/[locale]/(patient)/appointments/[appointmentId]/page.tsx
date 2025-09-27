@@ -6,17 +6,20 @@ import { Pencil } from 'lucide-react'
 import { notFound, useParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
+import { toast } from 'sonner'
 
-import { useGetSinglePatientAppointmentQuery } from '@/client/appointment'
+import { useDeleteAppointmentMutation, useGetSinglePatientAppointmentQuery } from '@/client/appointment'
 import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
 import { MedicineCard } from '@/components/MedicineCard/MedicineCard'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
+import DeleteAppointmentModal from '@/components/modals/DeleteAppointmentModal/DeleteAppointmentModal'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { Container, LoadingContainer } from '@/components/ui/container'
 import { Separator } from '@/components/ui/separator'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { H4, H2, P } from '@/components/ui/typography'
+import { useRouter } from '@/i18n/navigation'
 import { SupportedLocales, PatientAppointment } from '@/shared/types'
 import { dateLocaleMap } from '@/utils/dateLocaleMap'
 
@@ -134,6 +137,7 @@ const UpcomingAppointment = ({ appointmentData, locale }: UpcomingAppointmentPro
 const PatientSingleAppointmentPage = () => {
   const { locale, appointmentId } = useParams<{ locale: string; appointmentId: string }>()
   const { data: session } = useSession()
+  const router = useRouter()
 
   const t = useTranslations('page')
 
@@ -143,11 +147,23 @@ const PatientSingleAppointmentPage = () => {
     session?.user.id || '',
     appointmentId
   )
+  const { mutateAsync: deleteAppointment } = useDeleteAppointmentMutation(appointmentId)
 
   const isDataLoading = isLoading || !appointmentData
 
   if (!appointmentData && !isLoading) {
     notFound()
+  }
+
+  const handleDeleteAppointment = async () => {
+    const res = await deleteAppointment({ appointmentId })
+
+    if (res) {
+      toast.success('singleAnalysisPage.notifications.deleteAppointmentSuccess')
+      router.push(`/patient/${session?.user.id}?tab=appointments`)
+    } else {
+      toast.error('singleAnalysisPage.notifications.deleteAppointmentError')
+    }
   }
 
   return (
@@ -192,6 +208,7 @@ const PatientSingleAppointmentPage = () => {
                 <Pencil size={16} />
               </StyledLinkButton>
             )}
+            <DeleteAppointmentModal allowedAction={handleDeleteAppointment} />
           </div>
         </div>
       </PageHeading>

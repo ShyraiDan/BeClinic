@@ -264,7 +264,11 @@
       "medicine": "Препарат",
       "dosage": "Доза",
       "comment": "Коментар",
-      "doctorComment": "Коментар лікаря"
+      "doctorComment": "Коментар лікаря",
+      "notifications": {
+        "deleteAppointmentSuccess": "Візит видалено успішно",
+        "deleteAppointmentError": "Помилка при видаленні візиту"
+      }
     },
     "singleAnalysisPage": {
       "analysisDate": "Дата аналізу:",
@@ -622,6 +626,12 @@
     "deleteAnalysis": {
       "title": "Видалити аналіз",
       "reallyDelete": "Ви впевнені, що хочете видалити цей аналіз?",
+      "delete": "Видалити",
+      "cancel": "Скасувати"
+    },
+    "deleteAppointment": {
+      "title": "Видалити візит",
+      "reallyDelete": "Ви впевнені, що хочете видалити цей візит?",
       "delete": "Видалити",
       "cancel": "Скасувати"
     },
