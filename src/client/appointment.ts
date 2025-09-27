@@ -7,7 +7,8 @@ import {
   updatePatientAppointment,
   getDoctorAppointments,
   getSingleDoctorAppointment,
-  updateDoctorAppointment
+  updateDoctorAppointment,
+  deleteAppointment
 } from '@/lib/appointment'
 import { doctorAppointmentSchema, patientAppointmentSchema } from '@/shared/schemas'
 import {
@@ -121,6 +122,15 @@ export const useUpdateDoctorAppointmentMutation = (doctorId: string, appointment
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['appointments', doctorId] })
+    }
+  })
+}
+
+export const useDeleteAppointmentMutation = (appointmentId: string) => {
+  return useMutation({
+    mutationKey: ['analysis', appointmentId],
+    mutationFn: async ({ appointmentId }: { appointmentId: string }) => {
+      return await deleteAppointment(appointmentId)
     }
   })
 }

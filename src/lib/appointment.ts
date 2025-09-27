@@ -340,3 +340,45 @@ export const updateDoctorAppointment = async (
     throw new Error('Unexpected error')
   }
 }
+
+export const deleteAppointment = async (appointmentId: string) => {
+  const session = await auth()
+
+  if (!session) {
+    throw new Error('No access')
+  }
+
+  try {
+    await connectMongoDB()
+    const appointment = await AppointmentModel.findById(appointmentId)
+      .populate('doctor', 'doctorName position')
+      .populate('analyses', 'patientId analysisName description date fileName')
+      .transform((doc) => {
+        return {
+          ...doc,
+          _id: doc?._id.toString(),
+          analyses: doc?.analyses.map((analysis) => {
+            return { ...analysis, _id: analysis._id.toString() }
+          }),
+          createdAt: doc?.createdAt?.toISOString(),
+          updatedAt: doc?.updatedAt?.toISOString()
+        }
+      })
+      .lean<Appointment>()
+
+    if (!appointment) {
+      throw new Error('Error getting appointment')
+    }
+
+    if (appointment?.patient._id.toString() !== session.user.id) {
+      throw new Error('No access')
+    }
+
+    await AppointmentModel.findByIdAndDelete(appointmentId)
+
+    return true
+  } catch (error) {
+    console.error('Error: ', error)
+    throw new Error('Unexpected error')
+  }
+}
