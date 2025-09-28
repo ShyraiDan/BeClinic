@@ -694,5 +694,21 @@
       "policy": "Privacy Policy",
       "allRightsReserved": "All rights reserved"
     }
+  },
+  "email": {
+    "confirmAppointmentTitle": "Confirmation of appointment",
+    "confirmAppointment": "Confirmation of appointment",
+    "patient": "Dear <strong>{ patientName }</strong>,",
+    "plannedAppointment": "Your doctor's appointment has been <strong>successfully scheduled</strong>!",
+    "date": "Date:",
+    "time": "Time:",
+    "doctor": "Doctor:",
+    "address": "Address:",
+    "changeAppointment": "If you want to change your appointment, please",
+    "contactUs": "contact us",
+    "viewDetails": "View details",
+    "thanks": "Thank you for choosing <strong>BeClinic</strong>. We wish you good health!",
+    "team": "Best regards,<br/>The BeClinic Team",
+    "rightsReserved": "All rights reserved."
   }
 }
