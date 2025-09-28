@@ -1,3 +1,7 @@
+import { format } from 'date-fns'
+
+import { dateLocaleMap } from '@/utils/dateLocaleMap'
+
 interface AppointmentCreationEmail {
   appointmentId: string
   patientName: string
@@ -13,6 +17,7 @@ export const appointmentCreationEmailEn = ({
   appointmentTime,
   doctorName
 }: AppointmentCreationEmail) => {
+  const dateLocale = dateLocaleMap.en
   return `
   <!DOCTYPE html>
   <html lang="uk">
@@ -38,11 +43,11 @@ export const appointmentCreationEmailEn = ({
                   <table width="100%" cellpadding="10" cellspacing="0" style="margin: 20px 0; background-color: #f9f9f9; border: 1px solid #e0e0e0;">
                     <tr>
                       <td style="font-size: 15px;"><strong>Date:</strong></td>
-                      <td style="font-size: 15px;">${appointmentDate}</td>
+                      <td style="font-size: 15px;">${format(appointmentDate, 'MMM dd, yyyy', { locale: dateLocale })}</td>
                     </tr>
                     <tr>
                       <td style="font-size: 15px;"><strong>Time:</strong></td>
-                      <td style="font-size: 15px;">${appointmentTime}</td>
+                      <td style="font-size: 15px;">${format(appointmentTime, 'HH:mm', { locale: dateLocale })}</td>
                     </tr>
                     <tr>
                       <td style="font-size: 15px;"><strong>Doctor:</strong></td>
@@ -94,6 +99,8 @@ export const appointmentCreationEmailUa = ({
   appointmentTime,
   doctorName
 }: AppointmentCreationEmail) => {
+  const dateLocale = dateLocaleMap.uk
+
   return `
   <!DOCTYPE html>
   <html lang="uk">
@@ -119,11 +126,11 @@ export const appointmentCreationEmailUa = ({
                   <table width="100%" cellpadding="10" cellspacing="0" style="margin: 20px 0; background-color: #f9f9f9; border: 1px solid #e0e0e0;">
                     <tr>
                       <td style="font-size: 15px;"><strong>Дата:</strong></td>
-                      <td style="font-size: 15px;">${appointmentDate}</td>
+                      <td style="font-size: 15px;">${format(appointmentDate, 'MMM dd, yyyy', { locale: dateLocale })}</td>
                     </tr>
                     <tr>
                       <td style="font-size: 15px;"><strong>Час:</strong></td>
-                      <td style="font-size: 15px;">${appointmentTime}</td>
+                      <td style="font-size: 15px;">${format(appointmentTime, 'HH:mm', { locale: dateLocale })}</td>
                     </tr>
                     <tr>
                       <td style="font-size: 15px;"><strong>Лікар:</strong></td>
