@@ -1,5 +1,6 @@
 'use server'
 
+import { isAfter } from 'date-fns'
 import { InferSchemaType } from 'mongoose'
 
 import { auth } from '@/auth'
@@ -148,17 +149,19 @@ export const createPatientAppointment = async (
       throw new Error('Creating appointment failed')
     }
 
-    const payment: CreatePaymentFormValues = {
-      appointmentId: newAppointment._id,
-      amount: 1000,
-      isPayed: false,
-      patientId: newAppointment.patient._id
-    }
+    if (isAfter(new Date(newAppointment.startTime), new Date())) {
+      const payment: CreatePaymentFormValues = {
+        appointmentId: newAppointment._id,
+        amount: 1000,
+        isPayed: false,
+        patientId: newAppointment.patient._id
+      }
 
-    const newPayment = await createPayment(payment)
+      const newPayment = await createPayment(payment)
 
-    if (!newPayment) {
-      throw new Error('Creating payment failed')
+      if (!newPayment) {
+        throw new Error('Creating payment failed')
+      }
     }
 
     return patientAppointmentSchema.parse({
