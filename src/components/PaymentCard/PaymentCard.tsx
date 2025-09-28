@@ -28,7 +28,9 @@ export const PaymentCard = ({ payment, isUnPayed, locale }: PaymentCardProps) =>
             doctorName: payment.appointment.doctorName
           })}
         </H6>
-        <P className='capitalize'>{format(payment.createdAt, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}</P>
+        <P className='capitalize'>
+          {format(payment.appointment.startTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
+        </P>
         {payment.isPayed ? (
           <P>
             {t('profile.patient.paid')}: {payment.amount}
