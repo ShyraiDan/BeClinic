@@ -193,7 +193,7 @@ declare const messages: {
         "unpaidBills": "Unpaid services",
         "payment": "Payment",
         "paid": "Paid",
-        "paymentCardTitle": "Payment: Visit to { doctorPosition }a { doctorName }",
+        "paymentCardTitle": "Payment: Visit to { doctorPosition } { doctorName }",
         "needToPay": "Payable: { money }",
         "no": "No",
         "analyses": "Analyses",

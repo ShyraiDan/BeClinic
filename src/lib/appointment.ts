@@ -8,12 +8,15 @@ import AppointmentModel from '@/shared/models/appointment'
 import { doctorAppointmentSchema, patientAppointmentSchema } from '@/shared/schemas'
 import {
   Appointment,
+  CreatePaymentFormValues,
   DoctorAppointment,
   DoctorEditAppointmentFormValues,
   PatientAppointment,
   PatientCreateAppointmentFormValuesDto,
   PatientEditAppointmentFormValuesDto
 } from '@/shared/types'
+
+import { createPayment } from './payment'
 
 export const getPatientAppointments = async (patientId: string): Promise<PatientAppointment[]> => {
   const session = await auth()
@@ -143,6 +146,19 @@ export const createPatientAppointment = async (
 
     if (!newAppointment) {
       throw new Error('Creating appointment failed')
+    }
+
+    const payment: CreatePaymentFormValues = {
+      appointmentId: newAppointment._id,
+      amount: 1000,
+      isPayed: false,
+      patientId: newAppointment.patient._id
+    }
+
+    const newPayment = await createPayment(payment)
+
+    if (!newPayment) {
+      throw new Error('Creating payment failed')
     }
 
     return patientAppointmentSchema.parse({
