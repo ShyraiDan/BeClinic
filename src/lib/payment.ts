@@ -9,8 +9,6 @@ import { CreatePaymentFormValues, Payment, RawPaymentSchema, UpdatePaymentFormVa
 export const getPatientPayments = async (patientId: string): Promise<Payment[]> => {
   const session = await auth()
 
-  console.log('patientId', patientId)
-
   if (session?.user.id !== patientId) {
     throw new Error('No access')
   }
@@ -150,8 +148,6 @@ export const createPayment = async (paymentData: CreatePaymentFormValues): Promi
       throw new Error('Creating payment failed')
     }
 
-    console.log('newPayment', JSON.stringify(newPayment, null, 2))
-
     return paymentSchema.parse(newPayment)
   } catch (error) {
     console.error(error)
@@ -193,12 +189,12 @@ export const updatePayment = async (paymentData: UpdatePaymentFormValues): Promi
           appointment: {
             _id: doc?.appointment._id.toString(),
             startTime: doc?.appointment?.startTime,
-            doctorName: doc?.appointment.doctor.doctorName,
+            doctorName: doc?.appointment?.doctor?.doctorName,
             position: doc?.appointment?.doctor?.position
           },
           patientId: doc?.patientId.toString(),
-          createdAt: doc?.createdAt?.toISOString(),
-          updatedAt: doc?.updatedAt?.toISOString()
+          createdAt: doc?.createdAt instanceof Date ? doc?.createdAt?.toISOString() : doc?.createdAt,
+          updatedAt: doc?.updatedAt instanceof Date ? doc?.updatedAt?.toISOString() : doc?.updatedAt
         }
       })
       .lean<Payment>()

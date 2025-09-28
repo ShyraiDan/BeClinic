@@ -120,7 +120,6 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
 
       if (result) {
         toast.success(t('notifications.visitCreateSuccess'))
-        // await sendEmail(locale as SupportedLocales, result)
         await sendAppointmentCreationEmail(locale as SupportedLocales, result)
 
         router.push(`/appointments/${result._id}`)
