@@ -36,7 +36,8 @@ import {
   createBlogFormDTOSchema,
   editBlogFormDTOSchema,
   createPaymentFormValuesSchema,
-  updatePaymentFormValuesSchema
+  updatePaymentFormValuesSchema,
+  rawPaymentSchema
 } from './schemas'
 
 import type { DefaultSession } from 'next-auth'
@@ -98,3 +99,4 @@ export type CreateBlogFormDTO = z.infer<typeof createBlogFormDTOSchema>
 export type EditBlogFormDTO = z.infer<typeof editBlogFormDTOSchema>
 export type CreatePaymentFormValues = z.infer<typeof createPaymentFormValuesSchema>
 export type UpdatePaymentFormValues = z.infer<typeof updatePaymentFormValuesSchema>
+export type RawPaymentSchema = z.infer<typeof rawPaymentSchema>

@@ -190,7 +190,7 @@
         "unpaidBills": "Неоплачені послуги",
         "payment": "Оплата",
         "paid": "Оплачено",
-        "paymentCardTitle": "Оплата: Візит до { doctorPosition }a { doctorName }",
+        "paymentCardTitle": "Оплата: Візит до { doctorPosition }a: { doctorName }",
         "needToPay": "До сплати: { money }",
         "no": "Ні",
         "analyses": "Аналізи",
@@ -662,6 +662,16 @@
       "intoleranceToMedicines": "Непереносимість ліків",
       "infectiousDiseases": "Інфекційні захворювання",
       "surgicalInterventions": "Хірургічні втручання"
+    },
+    "payment": {
+      "pay": "Оплатити",
+      "payment": "Оплата",
+      "processingPayment": "Обробка платежів...",
+      "needToPay": "Оплатити ₴ {amount}",
+      "notifications": {
+        "paymentSuccess": "Оплата успішно оброблена",
+        "paymentError": "Помилка при обробці платежу"
+      }
     }
   },
   "footer": {

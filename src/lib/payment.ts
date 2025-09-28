@@ -4,7 +4,7 @@ import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import PaymentModel from '@/shared/models/payment'
 import { paymentSchema } from '@/shared/schemas'
-import { CreatePaymentFormValues, Payment, UpdatePaymentFormValues } from '@/shared/types'
+import { CreatePaymentFormValues, Payment, RawPaymentSchema, UpdatePaymentFormValues } from '@/shared/types'
 
 export const getPatientPayments = async (patientId: string): Promise<Payment[]> => {
   const session = await auth()
@@ -15,8 +15,8 @@ export const getPatientPayments = async (patientId: string): Promise<Payment[]> 
 
   try {
     await connectMongoDB()
-    const payments = await PaymentModel.find({ patient: patientId })
-      .populate({
+    const payments = await PaymentModel.find({ patientId })
+      .populate<RawPaymentSchema>({
         path: 'appointment',
         select: 'startTime doctor',
         populate: {
@@ -28,6 +28,13 @@ export const getPatientPayments = async (patientId: string): Promise<Payment[]> 
         docs.map((d) => ({
           ...d,
           _id: d._id.toString(),
+          appointment: {
+            _id: d.appointment?._id.toString(),
+            startTime: d.appointment?.startTime,
+            doctorName: d.appointment.doctor.doctorName,
+            position: d.appointment?.doctor?.position
+          },
+          patientId: d.patientId.toString(),
           createdAt: d.createdAt?.toISOString(),
           updatedAt: d.updatedAt?.toISOString()
         }))
@@ -51,15 +58,30 @@ const getSinglePayment = async (paymentId: string): Promise<Payment> => {
   try {
     await connectMongoDB()
     const payment = await PaymentModel.findById(paymentId)
+      .populate<RawPaymentSchema>({
+        path: 'appointment',
+        select: 'startTime doctor',
+        populate: {
+          path: 'doctor',
+          select: 'doctorName position'
+        }
+      })
       .transform((docs) => {
         return {
           ...docs,
           _id: docs?._id.toString(),
+          appointment: {
+            _id: docs?.appointment?._id.toString(),
+            startTime: docs?.appointment?.startTime,
+            doctorName: docs?.appointment.doctor.doctorName,
+            position: docs?.appointment?.doctor?.position
+          },
+          patientId: docs?.patientId.toString(),
           createdAt: docs?.createdAt?.toISOString(),
           updatedAt: docs?.updatedAt?.toISOString()
         }
       })
-      .lean<Payment>()
+      .lean<Payment>({ getters: true })
 
     if (!payment) {
       throw new Error('No payment found')
@@ -79,7 +101,7 @@ const getSinglePayment = async (paymentId: string): Promise<Payment> => {
 export const createPayment = async (paymentData: CreatePaymentFormValues): Promise<Payment> => {
   const session = await auth()
 
-  if (session?.user.id !== paymentData.patientId) {
+  if (session?.user.id !== paymentData.patientId.toString()) {
     throw new Error('No access')
   }
 
@@ -87,7 +109,9 @@ export const createPayment = async (paymentData: CreatePaymentFormValues): Promi
     await connectMongoDB()
 
     const newPaymentDoc = await PaymentModel.create({
-      ...paymentData
+      ...paymentData,
+      appointment: paymentData.appointmentId,
+      patientId: paymentData.patientId
     })
 
     if (!newPaymentDoc) {
@@ -95,12 +119,25 @@ export const createPayment = async (paymentData: CreatePaymentFormValues): Promi
     }
 
     const newPayment = await PaymentModel.findById(newPaymentDoc._id)
+      .populate<RawPaymentSchema>({
+        path: 'appointment',
+        select: 'startTime doctor reason',
+        populate: {
+          path: 'doctor',
+          select: 'doctorName position'
+        }
+      })
       .transform((doc) => {
         return {
           ...doc,
           _id: doc?._id.toString(),
-          appointment: doc?.appointment.toString(),
-          patient: doc?.patient.toString(),
+          appointment: {
+            _id: doc?.appointment._id.toString(),
+            startTime: doc?.appointment?.startTime,
+            doctorName: doc?.appointment.doctor.doctorName,
+            position: doc?.appointment?.doctor?.position
+          },
+          patientId: doc?.patientId.toString(),
           createdAt: doc?.createdAt?.toISOString(),
           updatedAt: doc?.updatedAt?.toISOString()
         }
@@ -137,14 +174,27 @@ export const updatePayment = async (paymentData: UpdatePaymentFormValues): Promi
       },
       { new: true }
     )
+      .populate<RawPaymentSchema>({
+        path: 'appointment',
+        select: 'startTime doctor reason',
+        populate: {
+          path: 'doctor',
+          select: 'doctorName position'
+        }
+      })
       .transform((doc) => {
         return {
           ...doc,
           _id: doc?._id.toString(),
-          appointment: doc?.appointment.toString(),
-          patient: doc?.patient.toString(),
-          createdAt: doc?.createdAt?.toISOString(),
-          updatedAt: doc?.updatedAt?.toISOString()
+          appointment: {
+            _id: doc?.appointment._id.toString(),
+            startTime: doc?.appointment?.startTime,
+            doctorName: doc?.appointment?.doctor?.doctorName,
+            position: doc?.appointment?.doctor?.position
+          },
+          patientId: doc?.patientId.toString(),
+          createdAt: doc?.createdAt instanceof Date ? doc?.createdAt?.toISOString() : doc?.createdAt,
+          updatedAt: doc?.updatedAt instanceof Date ? doc?.updatedAt?.toISOString() : doc?.updatedAt
         }
       })
       .lean<Payment>()

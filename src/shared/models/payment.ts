@@ -15,7 +15,7 @@ const mongoPaymentSchema = new Schema(
       type: Boolean,
       required: true
     },
-    patient: {
+    patientId: {
       type: Schema.Types.ObjectId,
       ref: 'Patients',
       required: true

@@ -201,7 +201,7 @@ export const doctorAppointmentSchema = appointmentSchema.pick({
 
 export const paymentSchema = z.object({
   _id: z.string(),
-  appointment: appointmentSchema,
+  appointment: z.object({ _id: z.string(), startTime: z.string(), doctorName: z.string(), position: z.string() }),
   amount: z.number(),
   isPayed: z.boolean(),
   patientId: z.string(),
@@ -229,6 +229,16 @@ export const updatePaymentFormValuesSchema = paymentSchema
   .extend({
     appointmentId: z.string()
   })
+
+export const rawPaymentSchema = z.object({
+  _id: z.string(),
+  appointment: appointmentSchema,
+  amount: z.number(),
+  isPayed: z.boolean(),
+  patientId: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date()
+})
 
 export const patientAppointmentFormValuesSchema = appointmentSchema
   .pick({
