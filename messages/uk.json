@@ -694,21 +694,5 @@
       "policy": "Політика конфіденційності",
       "allRightsReserved": "Всі права захищені"
     }
-  },
-  "email": {
-    "confirmAppointmentTitle": "Підтвердження запису",
-    "confirmAppointment": "Підтвердження запису на прийом",
-    "patient": "Шановний(а) <strong>{ patientName }</strong>,",
-    "plannedAppointment": "Ваш візит до лікаря <strong>успішно заплановано!</strong>!",
-    "date": "Дата:",
-    "time": "Час:",
-    "doctor": "Лікар:",
-    "address": "Адреса:",
-    "changeAppointment": "Якщо вам потрібно змінити або скасувати запис, натисніть кнопку нижче або",
-    "contactUs": "зв’яжіться з нами",
-    "viewDetails": "Переглянути деталі",
-    "thanks": "Дякуємо, що обрали <strong>BeClinic</strong>. Бажаємо вам міцного здоров’я!",
-    "team": "З повагою,<br/>Команда BeClinic",
-    "rightsReserved": "Усі права захищені."
   }
 }
