@@ -24,8 +24,8 @@ export const DoctorAppointmentCard = ({ doctorId, appointment, locale, isIncomin
         <div className='py-4 pr-4 pl-3 flex flex-col'>
           <H6>{appointment.patient.userName}</H6>
           <P className='capitalize'>
-            {format(appointment.startTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}
-            {format(appointment.endTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
+            {format(appointment.startTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -
+            {format(appointment.endTime, 'HH:mm', { locale: dateLocale })}
           </P>
         </div>
       </div>
