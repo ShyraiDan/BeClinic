@@ -24,7 +24,7 @@ export const PaymentCard = ({ payment, isUnPayed, locale }: PaymentCardProps) =>
       <div className='py-4 pr-4 pl-3 flex flex-col w-full'>
         <H6>
           {t('profile.patient.paymentCardTitle', {
-            doctorPosition: payment.appointment.position,
+            doctorPosition: t(`profile.doctor.specialties.${payment.appointment.position}`),
             doctorName: payment.appointment.doctorName
           })}
         </H6>

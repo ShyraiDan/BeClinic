@@ -2,7 +2,7 @@
 
 import { useElements, useStripe, CardElement } from '@stripe/react-stripe-js'
 import { useSession } from 'next-auth/react'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -26,6 +26,7 @@ export const PaymentSubPage = ({ payment }: PaymentSubPageProps) => {
   const [loading, setLoading] = useState<boolean>(false)
   const { data: session } = useSession()
   const locale = useLocale()
+  const t = useTranslations('modals')
 
   const { mutateAsync: updatePayment } = useUpdatePaymentMutation(payment._id)
 
@@ -88,13 +89,13 @@ export const PaymentSubPage = ({ payment }: PaymentSubPageProps) => {
           }
         })
         await sendPaymentSuccessEmail(locale as SupportedLocales, paymentResult)
-        toast.success('Платіж успішно оброблений')
+        toast.success(t('payment.notifications.paymentSuccess'))
       }
 
       setLoading(false)
     } catch (error) {
       console.error(error)
-      toast.error('Error processing payment')
+      toast.error(t('payment.notifications.paymentError'))
     }
   }
 
@@ -117,7 +118,7 @@ export const PaymentSubPage = ({ payment }: PaymentSubPageProps) => {
           <Button
             type='submit'
             className='w-full text-white p-3 bg-black rounded-md font-bold disabled:opacity-50 disabled:animate-pulse mt-6'>
-            {!loading ? `Оплатити ₴${payment.amount}` : 'Обробка платежу...'}
+            {!loading ? t('payment.needToPay', { amount: payment.amount }) : t('payment.processingPayment')}
           </Button>
         </form>
       )}

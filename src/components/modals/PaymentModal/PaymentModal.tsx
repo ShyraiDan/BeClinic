@@ -21,9 +21,9 @@ export const PaymentModal = ({ payment }: PaymentModalProps) => {
   const t = useTranslations('modals')
 
   return (
-    <StyledModal triggerButton={<Button className='mt-4'>Pay</Button>}>
+    <StyledModal triggerButton={<Button className='mt-4'>{t('payment.pay')}</Button>}>
       <DialogHeader>
-        <DialogTitle>Payment</DialogTitle>
+        <DialogTitle>{t('payment.payment')}</DialogTitle>
       </DialogHeader>
       <Elements
         stripe={stripePromise}

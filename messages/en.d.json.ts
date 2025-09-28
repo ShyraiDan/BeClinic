@@ -193,7 +193,7 @@ declare const messages: {
         "unpaidBills": "Unpaid services",
         "payment": "Payment",
         "paid": "Paid",
-        "paymentCardTitle": "Payment: Visit to { doctorPosition } { doctorName }",
+        "paymentCardTitle": "Payment: Visit to { doctorPosition }: { doctorName }",
         "needToPay": "Payable: { money }",
         "no": "No",
         "analyses": "Analyses",
@@ -665,6 +665,16 @@ declare const messages: {
       "intoleranceToMedicines": "Intolerance to medicines",
       "infectiousDiseases": "Infectious diseases",
       "surgicalInterventions": "Surgical interventions"
+    },
+    "payment": {
+      "pay": "Pay",
+      "payment": "Payment",
+      "processingPayment": "Payment processing...",
+      "needToPay": "Pay ₴ {amount}",
+      "notifications": {
+        "paymentSuccess": "Payment successfully processed",
+        "paymentError": "Error processing payment"
+      }
     }
   },
   "footer": {
