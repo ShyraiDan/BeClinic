@@ -25,7 +25,7 @@ import { TextArea } from '@/components/ui/textarea'
 import { P } from '@/components/ui/typography'
 import { useRouter } from '@/i18n/navigation'
 import { saveFileToBucket } from '@/lib/bucket'
-import { sendEmail } from '@/lib/email'
+import { sendAppointmentCreationEmail } from '@/lib/email'
 import { doctorSpecialties } from '@/mocks/shared'
 import { patientAppointmentFormValuesSchema } from '@/shared/schemas'
 import {
@@ -120,8 +120,8 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
 
       if (result) {
         toast.success(t('notifications.visitCreateSuccess'))
-        const email = await sendEmail(locale as SupportedLocales, result)
-        console.log('email', email)
+        // await sendEmail(locale as SupportedLocales, result)
+        await sendAppointmentCreationEmail(locale as SupportedLocales, result)
 
         router.push(`/appointments/${result._id}`)
       } else {
