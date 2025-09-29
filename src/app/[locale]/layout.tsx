@@ -1,6 +1,7 @@
 import { Jost, Roboto } from 'next/font/google'
+import { notFound } from 'next/navigation'
 import { SessionProvider } from 'next-auth/react'
-import { NextIntlClientProvider } from 'next-intl'
+import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { getLocale, getMessages, setRequestLocale } from 'next-intl/server'
 import { ReactNode } from 'react'
 
@@ -8,6 +9,7 @@ import { auth } from '@/auth'
 import Footer from '@/components/Footer/Footer'
 import { Header } from '@/components/Header/Header'
 import { Toaster } from '@/components/ui/sonner'
+import { routing } from '@/i18n/routing'
 
 import type { Metadata } from 'next'
 
@@ -38,11 +40,19 @@ interface RootLayoutProps {
   children: ReactNode
 }
 
+export const generateStaticParams = () => {
+  return routing.locales.map((locale) => ({ locale }))
+}
+
 const RootLayout = async ({ children }: RootLayoutProps) => {
   const locale = await getLocale()
   const messages = await getMessages()
   setRequestLocale(locale)
   const session = await auth()
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound()
+  }
 
   return (
     <html lang={locale}>

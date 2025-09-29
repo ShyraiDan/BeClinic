@@ -12,7 +12,7 @@ import { H1 } from '@/components/ui/typography'
 import { getSingleBlog } from '@/lib/blog'
 import { getMarkdownFromS3 } from '@/lib/blogFiles'
 import { BUCKET_URL } from '@/shared/constants'
-import { SupportedLocales } from '@/shared/types'
+import { SupportedLocales, UserRoles } from '@/shared/types'
 
 interface SingleBlogPageProps {
   params: Promise<{ locale: SupportedLocales; blogId: string }>
@@ -31,7 +31,7 @@ const SingleBlogPage = async ({ params }: SingleBlogPageProps) => {
         <div className='flex items-center justify-between'>
           <H1 className='text-white mt-4 mb-1 text-[36px]'>{blog.title[locale]}</H1>
 
-          {isAuthor && (
+          {isAuthor && UserRoles.DOCTOR && (
             <div className='flex gap-2'>
               <StyledLinkButton variant='icon' href={`/blog/${blog?._id}/edit`}>
                 <Pencil size={16} />

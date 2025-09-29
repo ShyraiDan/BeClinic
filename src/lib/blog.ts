@@ -4,7 +4,7 @@ import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import BlogModel from '@/shared/models/blog'
 import { blogSchema } from '@/shared/schemas'
-import { Blog, CreateBlogFormDTO, EditBlogFormDTO } from '@/shared/types'
+import { Blog, CreateBlogFormDTO, EditBlogFormDTO, UserRoles } from '@/shared/types'
 
 export const getSingleBlog = async (blogId: string): Promise<Blog> => {
   try {
@@ -61,7 +61,7 @@ export const getBlogs = async (): Promise<Blog[]> => {
 export const createBlog = async (blogData: CreateBlogFormDTO): Promise<Blog> => {
   const session = await auth()
 
-  if (session?.user.id !== blogData.authorId) {
+  if (session?.user.id !== blogData.authorId || session?.user.role !== UserRoles.DOCTOR) {
     throw new Error('No access')
   }
 
@@ -102,7 +102,7 @@ export const createBlog = async (blogData: CreateBlogFormDTO): Promise<Blog> => 
 export const updateBlog = async (blogId: string, blogData: EditBlogFormDTO): Promise<Blog> => {
   const session = await auth()
 
-  if (!session || session.user.id !== blogData.authorId) {
+  if (session?.user.id !== blogData.authorId || session?.user.role !== UserRoles.DOCTOR) {
     throw new Error('No access')
   }
 
