@@ -8,8 +8,8 @@ import { DoctorAppointmentTab } from '@/components/doctorTabs/DoctorAppointmentT
 import { DoctorCalendarTab } from '@/components/doctorTabs/DoctorCalendarTab'
 import { EditDoctorModal } from '@/components/modals/EditDoctorModal/EditDoctorModal'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
+import { ProfileTab } from '@/components/ProfileTab/ProfileTab'
 import { SignOutButton } from '@/components/SignOutButton/SignOutButton'
-import { StyledTab } from '@/components/StyledTab/StyledTab'
 import { Container, LoadingContainer } from '@/components/ui/container'
 import { H2, H6, P } from '@/components/ui/typography'
 import { getSingleDoctor } from '@/lib/doctors'
@@ -93,7 +93,6 @@ interface DoctorProfilePageProps {
 
 const DoctorProfilePage = async ({ params }: DoctorProfilePageProps) => {
   const { doctorId } = await params
-
   const t = await getTranslations('page')
 
   return (
@@ -105,7 +104,7 @@ const DoctorProfilePage = async ({ params }: DoctorProfilePageProps) => {
             <DoctorProfile doctorId={doctorId} />
           </div>
           <div className='lg:col-start-1 lg:col-end-2 lg:row-start-1'>
-            <StyledTab tabs={tabs} />
+            <ProfileTab tabs={tabs} baseUrl={`/doctor/${doctorId}`} />
           </div>
         </Container>
       </Suspense>

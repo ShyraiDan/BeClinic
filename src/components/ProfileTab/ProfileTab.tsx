@@ -13,20 +13,20 @@ interface Tab {
   content: ReactNode
 }
 
-interface StyledTabProps {
+interface ProfileTabProps {
   tabs: {
     id: string
     label: string
     content: ReactNode
   }[]
-  defaultValue?: string
+  baseUrl: string
 }
 
 const handleDefaultTab = (tab: string | null, tabs: Tab[]): string => {
   return tabs.find((t) => t.id === tab)?.id || tabs[0].id
 }
 
-export const StyledTab = ({ tabs }: StyledTabProps) => {
+export const ProfileTab = ({ tabs, baseUrl }: ProfileTabProps) => {
   const t = useTranslations('page')
   const params = useParams<{ patientId: string }>()
   const searchParams = useSearchParams()
@@ -38,9 +38,9 @@ export const StyledTab = ({ tabs }: StyledTabProps) => {
   const handleChange = useCallback(
     (val: string) => {
       setActiveTab(val)
-      router.replace(`/patient/${params.patientId}?tab=${val}`)
+      router.replace(`/${baseUrl}?tab=${val}`)
     },
-    [params.patientId, router]
+    [baseUrl, router]
   )
 
   return (

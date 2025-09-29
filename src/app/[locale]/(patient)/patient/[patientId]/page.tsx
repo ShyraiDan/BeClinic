@@ -10,8 +10,8 @@ import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { AnalysesTab } from '@/components/patientTabs/AnalysesTab'
 import { AppointmentTab } from '@/components/patientTabs/AppointmentTab'
 import { PaymentTab } from '@/components/patientTabs/PaymentTab'
+import { ProfileTab } from '@/components/ProfileTab/ProfileTab'
 import { SignOutButton } from '@/components/SignOutButton/SignOutButton'
-import { StyledTab } from '@/components/StyledTab/StyledTab'
 import { Container, LoadingContainer } from '@/components/ui/container'
 import { P, H2, H6, H4 } from '@/components/ui/typography'
 import { getPatient } from '@/lib/patient'
@@ -146,7 +146,7 @@ const PatientProfilePage = async ({ params }: PatientProfilePageProps) => {
             <PatientProfile patientId={patientId} />
           </div>
           <div className='lg:col-start-1 lg:col-end-2 lg:row-start-1'>
-            <StyledTab tabs={tabs} />
+            <ProfileTab tabs={tabs} baseUrl={`/doctor/${patientId}`} />
           </div>
         </Container>
       </Suspense>
