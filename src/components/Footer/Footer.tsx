@@ -42,7 +42,7 @@ const otherLinksData = [
   {
     id: 'footer-link-1',
     title: 'links.blog',
-    link: '/blog'
+    link: '/blog?page=1'
   },
   {
     id: 'footer-link-2',

@@ -28,6 +28,7 @@ const handleDefaultTab = (tab: string | null, tabs: Tab[]): string => {
 
 export const ProfileTab = ({ tabs, baseUrl }: ProfileTabProps) => {
   const t = useTranslations('page')
+  // TODO: remove
   const params = useParams<{ patientId: string }>()
   const searchParams = useSearchParams()
   const tab = searchParams.get('tab')

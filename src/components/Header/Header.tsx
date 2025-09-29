@@ -32,7 +32,7 @@ const links: HeaderLinkProps[] = [
   },
   {
     id: 'header-link-2',
-    href: '/blog',
+    href: '/blog?page=1',
     label: 'links.blog'
   },
   {

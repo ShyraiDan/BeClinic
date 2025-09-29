@@ -24,7 +24,7 @@ export const DeleteBlogModal = ({ blogId }: DeleteBlogModalProps) => {
 
     if (result) {
       toast.success(t('deleteBlog.notifications.blogDeleteSuccess'))
-      router.replace('/blog')
+      router.replace('/blog?page=1')
     } else {
       toast.error(t('deleteBlog.notifications.blogDeleteError'))
     }

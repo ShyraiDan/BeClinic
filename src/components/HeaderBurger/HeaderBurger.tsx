@@ -27,7 +27,7 @@ const links = [
     label: 'links.doctors'
   },
   {
-    href: '/blog',
+    href: '/blog?page=1',
     label: 'links.blog'
   },
   {
