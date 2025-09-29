@@ -704,5 +704,11 @@
       "policy": "Політика конфіденційності",
       "allRightsReserved": "Всі права захищені"
     }
+  },
+  "components": {
+    "pagination": {
+      "next": "Наступна",
+      "previous": "Попередня"
+    }
   }
 }

@@ -704,5 +704,11 @@
       "policy": "Privacy Policy",
       "allRightsReserved": "All rights reserved"
     }
+  },
+  "components": {
+    "pagination": {
+      "next": "Next",
+      "previous": "Previous"
+    }
   }
 }

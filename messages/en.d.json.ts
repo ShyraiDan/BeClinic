@@ -707,6 +707,12 @@ declare const messages: {
       "policy": "Privacy Policy",
       "allRightsReserved": "All rights reserved"
     }
+  },
+  "components": {
+    "pagination": {
+      "next": "Next",
+      "previous": "Previous"
+    }
   }
 };
 export default messages;

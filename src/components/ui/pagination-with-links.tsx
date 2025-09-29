@@ -54,14 +54,14 @@ export interface PaginationWithLinksProps {
   />
  * ```
  */
-export function PaginationWithLinks({
+export const PaginationWithLinks = ({
   pageSizeSelectOptions,
   pageSize,
   totalCount,
   page,
   pageSearchParam,
   navigationMode = 'link'
-}: PaginationWithLinksProps) {
+}: PaginationWithLinksProps) => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -236,7 +236,7 @@ export function PaginationWithLinks({
   )
 }
 
-function SelectRowsPerPage({
+const SelectRowsPerPage = ({
   options,
   setPageSize,
   pageSize
@@ -244,7 +244,7 @@ function SelectRowsPerPage({
   options: number[]
   setPageSize: (newSize: number) => void
   pageSize: number
-}) {
+}) => {
   return (
     <div className='flex items-center gap-4'>
       <span className='whitespace-nowrap text-sm'>Rows per page</span>
