@@ -16,7 +16,9 @@ const buttonVariants = cva(
           'tracking-[2px] px-5 py-3 uppercase font-bold font-primary text-blue-100 text-xs border border-solid border-blue-100 hover:text-white hover:bg-blue-100',
         reset: 'bg-transparent border border-solid border-red-100 text-red-100 hover:border-red-700 hover:text-red-700',
         'date-picker': 'font-regular opacity-90 px-3 py-1.5 rounded border border-grey-400 w-full bg-white',
-        'calendar-button': 'p-0'
+        'calendar-button': 'p-0',
+        'pagination-outline':
+          'py-[9px] px-[19px] border border-solid border-blue-300 text-blue-300 hover:text-blue-200 hover:border-blue-200'
       }
     },
     defaultVariants: {

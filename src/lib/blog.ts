@@ -32,26 +32,47 @@ export const getSingleBlog = async (blogId: string): Promise<Blog> => {
   }
 }
 
-export const getBlogs = async (): Promise<Blog[]> => {
+interface PaginatedBlogs {
+  data: Blog[]
+  total: number
+  page: number
+  pageSize: number
+  totalPages: number
+}
+
+export const getBlogs = async (page = 1, pageSize = 10): Promise<PaginatedBlogs> => {
+  const safePage = Math.max(1, Math.floor(page))
+  const safePageSize = Math.min(100, Math.max(1, Math.floor(pageSize)))
+  const skip = (safePage - 1) * safePageSize
+
   try {
     await connectMongoDB()
-    const blogs = await BlogModel.find()
-      .transform((docs) =>
-        docs.map((d) => ({
-          ...d,
-          _id: d._id.toString(),
-          authorId: d?.authorId.toString(),
-          createdAt: d.createdAt?.toISOString(),
-          updatedAt: d.updatedAt?.toISOString()
-        }))
-      )
-      .lean<Blog[]>()
+    const [total, docs] = await Promise.all([
+      BlogModel.countDocuments(),
+      BlogModel.find().sort({ createdAt: -1 }).skip(skip).limit(safePageSize).lean()
+    ])
+
+    const blogs = docs.map((d) => ({
+      ...d,
+      _id: d._id.toString(),
+      authorId: d.authorId?.toString(),
+      createdAt: d.createdAt ? new Date(d.createdAt).toISOString() : undefined,
+      updatedAt: d.updatedAt ? new Date(d.updatedAt).toISOString() : undefined
+    }))
 
     if (!blogs) {
       throw new Error('No blogs found')
     }
 
-    return blogSchema.array().parse(blogs)
+    const totalPages = Math.max(1, Math.ceil(total / safePageSize))
+
+    return {
+      data: blogSchema.array().parse(blogs),
+      total,
+      page: safePage,
+      pageSize: safePageSize,
+      totalPages
+    }
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Internal server error')
