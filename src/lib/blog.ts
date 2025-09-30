@@ -61,7 +61,13 @@ export const getBlogs = async (page = 1, pageSize = 10): Promise<PaginatedBlogs>
     }))
 
     if (!blogs) {
-      throw new Error('No blogs found')
+      return {
+        data: [],
+        total: 0,
+        page: 0,
+        pageSize: 0,
+        totalPages: 0
+      }
     }
 
     const totalPages = Math.max(1, Math.ceil(total / safePageSize))

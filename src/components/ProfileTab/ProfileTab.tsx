@@ -18,15 +18,16 @@ interface ProfileTabProps {
     id: string
     label: string
     content: ReactNode
+    // url: string
+    url: { pathname: string; query: Record<string, string | number> }
   }[]
-  baseUrl: string
 }
 
 const handleDefaultTab = (tab: string | null, tabs: Tab[]): string => {
   return tabs.find((t) => t.id === tab)?.id || tabs[0].id
 }
 
-export const ProfileTab = ({ tabs, baseUrl }: ProfileTabProps) => {
+export const ProfileTab = ({ tabs }: ProfileTabProps) => {
   const t = useTranslations('page')
   // TODO: remove
   const params = useParams<{ patientId: string }>()
@@ -38,10 +39,15 @@ export const ProfileTab = ({ tabs, baseUrl }: ProfileTabProps) => {
 
   const handleChange = useCallback(
     (val: string) => {
+      const activeTab = tabs.find((t) => t.id === val)
+      if (!activeTab) {
+        return
+      }
+
       setActiveTab(val)
-      router.replace(`/${baseUrl}?tab=${val}`)
+      router.replace(activeTab.url)
     },
-    [baseUrl, router]
+    [router, tabs]
   )
 
   return (

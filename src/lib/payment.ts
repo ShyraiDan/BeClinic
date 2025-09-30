@@ -4,10 +4,24 @@ import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import PaymentModel from '@/shared/models/payment'
 import { paymentSchema } from '@/shared/schemas'
-import { CreatePaymentFormValues, Payment, RawPaymentSchema, UpdatePaymentFormValues } from '@/shared/types'
+import {
+  CreatePaymentFormValues,
+  PaginatedResponse,
+  Payment,
+  RawPaymentSchema,
+  UpdatePaymentFormValues
+} from '@/shared/types'
 
-export const getPatientPayments = async (patientId: string): Promise<Payment[]> => {
+export const getPatientPayments = async (
+  patientId: string,
+  page = 1,
+  pageSize = 10
+): Promise<PaginatedResponse<Payment[]>> => {
   const session = await auth()
+
+  const safePage = Math.max(1, Math.floor(page))
+  const safePageSize = Math.min(100, Math.max(1, Math.floor(pageSize)))
+  const skip = (safePage - 1) * safePageSize
 
   if (session?.user.id !== patientId) {
     throw new Error('No access')
@@ -15,37 +29,57 @@ export const getPatientPayments = async (patientId: string): Promise<Payment[]> 
 
   try {
     await connectMongoDB()
-    const payments = await PaymentModel.find({ patientId })
-      .populate<RawPaymentSchema>({
-        path: 'appointment',
-        select: 'startTime doctor',
-        populate: {
-          path: 'doctor',
-          select: 'doctorName position'
-        }
-      })
-      .transform((docs) =>
-        docs.map((d) => ({
-          ...d,
-          _id: d._id.toString(),
-          appointment: {
-            _id: d.appointment?._id.toString(),
-            startTime: d.appointment?.startTime,
-            doctorName: d.appointment.doctor.doctorName,
-            position: d.appointment?.doctor?.position
-          },
-          patientId: d.patientId.toString(),
-          createdAt: d.createdAt?.toISOString(),
-          updatedAt: d.updatedAt?.toISOString()
-        }))
-      )
-      .lean<Payment[]>({ getters: true })
+    const [total, payments] = await Promise.all([
+      PaymentModel.countDocuments({ patientId }),
+      PaymentModel.find({ patientId })
+        .sort({ createdAt: -1 })
+        .populate<RawPaymentSchema>({
+          path: 'appointment',
+          select: 'startTime doctor',
+          populate: {
+            path: 'doctor',
+            select: 'doctorName position'
+          }
+        })
+        .transform((docs) =>
+          docs.map((d) => ({
+            ...d,
+            _id: d._id.toString(),
+            appointment: {
+              _id: d.appointment?._id.toString(),
+              startTime: d.appointment?.startTime,
+              doctorName: d.appointment.doctor.doctorName,
+              position: d.appointment?.doctor?.position
+            },
+            patientId: d.patientId.toString(),
+            createdAt: d.createdAt?.toISOString(),
+            updatedAt: d.updatedAt?.toISOString()
+          }))
+        )
+        .skip(skip)
+        .limit(safePageSize)
+        .lean<Payment[]>({ getters: true })
+    ])
 
     if (!payments) {
-      return []
+      return {
+        data: [],
+        total: 0,
+        page: 0,
+        pageSize: 0,
+        totalPages: 0
+      }
     }
 
-    return paymentSchema.array().parse(payments)
+    const totalPages = Math.max(1, Math.ceil(total / safePageSize))
+
+    return {
+      data: paymentSchema.array().parse(payments),
+      total,
+      page: safePage,
+      pageSize: safePageSize,
+      totalPages
+    }
   } catch (error) {
     console.error(error)
     throw new Error('Unexpected error')

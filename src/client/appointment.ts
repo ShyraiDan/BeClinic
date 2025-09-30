@@ -19,10 +19,10 @@ import {
   PatientEditAppointmentFormValuesDto
 } from '@/shared/types'
 
-export const useGetPatientAppointmentsQuery = (patientId: string) => {
+export const useGetPatientAppointmentsQuery = (patientId: string, page: number, pageSize: number) => {
   const { data, isLoading, isFetching, isError } = useQuery({
-    queryKey: ['appointments', patientId],
-    queryFn: patientId ? async () => await getPatientAppointments(patientId) : skipToken,
+    queryKey: ['appointments', patientId, page, pageSize],
+    queryFn: patientId ? async () => await getPatientAppointments(patientId, page, pageSize) : skipToken,
     enabled: !!patientId
   })
 
