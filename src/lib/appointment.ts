@@ -12,6 +12,7 @@ import {
   CreatePaymentFormValues,
   DoctorAppointment,
   DoctorEditAppointmentFormValues,
+  PaginatedResponse,
   PatientAppointment,
   PatientCreateAppointmentFormValuesDto,
   PatientEditAppointmentFormValuesDto
@@ -19,42 +20,70 @@ import {
 
 import { createPayment } from './payment'
 
-export const getPatientAppointments = async (patientId: string): Promise<PatientAppointment[]> => {
+export const getPatientAppointments = async (
+  patientId: string,
+  page: number,
+  pageSize: number
+): Promise<PaginatedResponse<PatientAppointment[]>> => {
   const session = await auth()
 
   if (!session || session.user.id !== patientId) {
     throw new Error('No access')
   }
 
+  const safePage = Math.max(1, Math.floor(page))
+  const safePageSize = Math.min(100, Math.max(1, Math.floor(pageSize)))
+  const skip = (safePage - 1) * safePageSize
+
   try {
     await connectMongoDB()
-    const appointments = await AppointmentModel.find({ patient: patientId })
-      .populate('doctor', 'doctorName position')
-      .populate('analyses', 'patientId analysisName description date fileName')
-      .transform((docs) =>
-        docs.map((d) => ({
-          ...d,
-          _id: d._id.toString(),
-          analyses: d.analyses.map((analysis) => {
-            return { ...analysis, _id: analysis._id.toString() }
-          }),
-          createdAt: d.createdAt?.toISOString(),
-          updatedAt: d.updatedAt?.toISOString()
-        }))
-      )
-      .lean<Appointment[]>()
+    const [total, appointments] = await Promise.all([
+      AppointmentModel.countDocuments({ patient: patientId }),
+      AppointmentModel.find({ patient: patientId })
+        .sort({ createdAt: -1 })
+        .populate('doctor', 'doctorName position')
+        .populate('analyses', 'patientId analysisName description date fileName')
+        .transform((docs) =>
+          docs.map((d) => ({
+            ...d,
+            _id: d._id.toString(),
+            analyses: d.analyses.map((analysis) => {
+              return { ...analysis, _id: analysis._id.toString() }
+            }),
+            createdAt: d.createdAt?.toISOString(),
+            updatedAt: d.updatedAt?.toISOString()
+          }))
+        )
+        .skip(skip)
+        .limit(safePageSize)
+        .lean<Appointment[]>({ getters: true })
+    ])
 
     if (!appointments) {
-      throw new Error('Error getting appointments')
+      return {
+        data: [],
+        total: 0,
+        page: 0,
+        pageSize: 0,
+        totalPages: 0
+      }
     }
 
-    return patientAppointmentSchema.array().parse(
-      appointments.map((appointment) => ({
-        ...appointment,
-        doctorName: appointment.doctor.doctorName,
-        doctorPosition: appointment.doctor.position
-      }))
-    )
+    const totalPages = Math.max(1, Math.ceil(total / safePageSize))
+
+    return {
+      data: patientAppointmentSchema.array().parse(
+        appointments.map((appointment) => ({
+          ...appointment,
+          doctorName: appointment.doctor.doctorName,
+          doctorPosition: appointment.doctor.position
+        }))
+      ),
+      total,
+      page: safePage,
+      pageSize: safePageSize,
+      totalPages
+    }
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
