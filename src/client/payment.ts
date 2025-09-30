@@ -3,10 +3,10 @@ import { skipToken, useMutation, useQuery, useQueryClient } from '@tanstack/reac
 import { getPatientPayments, updatePayment } from '@/lib/payment'
 import { Payment, UpdatePaymentFormValues } from '@/shared/types'
 
-export const useGetPaymentsQuery = (patientId: string) => {
+export const useGetPaymentsQuery = (patientId: string, page: number, pageSize: number) => {
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ['payments', patientId],
-    queryFn: patientId ? async () => await getPatientPayments(patientId) : skipToken,
+    queryFn: patientId ? async () => await getPatientPayments(patientId, page, pageSize) : skipToken,
     enabled: !!patientId
   })
 

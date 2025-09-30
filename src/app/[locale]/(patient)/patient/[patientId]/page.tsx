@@ -123,10 +123,34 @@ const PatientProfile = async ({ patientId }: PatientProfileProps) => {
   )
 }
 
-const tabs = [
-  { id: TABS_ENUM.APPOINTMENTS, label: 'profile.patient.appointments', content: <AppointmentTab /> },
-  { id: TABS_ENUM.ANALYSES, label: 'profile.patient.analyses', content: <AnalysesTab /> },
-  { id: TABS_ENUM.PAYMENT, label: 'profile.patient.payment', content: <PaymentTab /> }
+const makeTabs = (patientId: string) => [
+  {
+    id: TABS_ENUM.APPOINTMENTS,
+    label: 'profile.patient.appointments',
+    url: {
+      pathname: `/patient/${patientId}`,
+      query: { tab: 'appointments', page: 1 }
+    },
+    content: <AppointmentTab />
+  },
+  {
+    id: TABS_ENUM.ANALYSES,
+    label: 'profile.patient.analyses',
+    url: {
+      pathname: `/patient/${patientId}`,
+      query: { tab: 'analyses', page: 1 }
+    },
+    content: <AnalysesTab />
+  },
+  {
+    id: TABS_ENUM.PAYMENT,
+    label: 'profile.patient.payment',
+    url: {
+      pathname: `/patient/${patientId}`,
+      query: { tab: 'payment', page: 1 }
+    },
+    content: <PaymentTab />
+  }
 ]
 
 interface PatientProfilePageProps {
@@ -146,7 +170,7 @@ const PatientProfilePage = async ({ params }: PatientProfilePageProps) => {
             <PatientProfile patientId={patientId} />
           </div>
           <div className='lg:col-start-1 lg:col-end-2 lg:row-start-1'>
-            <ProfileTab tabs={tabs} baseUrl={`/doctor/${patientId}`} />
+            <ProfileTab tabs={makeTabs(patientId)} />
           </div>
         </Container>
       </Suspense>
