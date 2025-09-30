@@ -5,7 +5,7 @@ import { Payment, UpdatePaymentFormValues } from '@/shared/types'
 
 export const useGetPaymentsQuery = (patientId: string, page: number, pageSize: number) => {
   const { data, isLoading, isFetching, isError } = useQuery({
-    queryKey: ['payments', patientId],
+    queryKey: ['payments', { patientId, page, pageSize }],
     queryFn: patientId ? async () => await getPatientPayments(patientId, page, pageSize) : skipToken,
     enabled: !!patientId
   })

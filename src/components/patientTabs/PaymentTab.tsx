@@ -1,6 +1,6 @@
 'use client'
 
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
@@ -13,9 +13,10 @@ import { SupportedLocales } from '@/shared/types'
 
 export const PaymentTab = () => {
   const params = useParams<Record<string, string | undefined>>()
-  const { locale, page, pageSize } = params
-  const pageNumber = parseInt(page || '1')
-  const pageSizeNumber = parseInt(pageSize || '10')
+  const searchParams = useSearchParams()
+  const { locale } = params
+  const pageNumber = parseInt(searchParams.get('page') || '1')
+  const pageSizeNumber = parseInt(searchParams.get('pageSize') || '10')
   const t = useTranslations('page')
   const { data: session } = useSession()
   const { data: paymentsData, isLoading } = useGetPaymentsQuery(session?.user?.id || '', pageNumber, pageSizeNumber)

@@ -62,6 +62,14 @@ declare module 'next-auth' {
   }
 }
 
+export interface PaginatedResponse<T> {
+  data: T
+  total: number
+  page: number
+  pageSize: number
+  totalPages: number
+}
+
 export type SupportedLocales = (typeof SUPPORTED_LOCALES)[number]
 
 export type Option = z.infer<typeof optionSchema>

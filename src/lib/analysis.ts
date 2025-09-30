@@ -6,35 +6,64 @@ import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import AnalysisModel from '@/shared/models/analysis'
 import { analysesSchema } from '@/shared/schemas'
-import { Analysis, AnalysisFormValues } from '@/shared/types'
+import { Analysis, AnalysisFormValues, PaginatedResponse } from '@/shared/types'
 
-export const getAnalyses = async (patientId: string): Promise<Analysis[]> => {
+export const getAnalyses = async (
+  patientId: string,
+  page: number,
+  pageSize: number
+): Promise<PaginatedResponse<Analysis[]>> => {
   const session = await auth()
 
   if (!session || session.user.id !== patientId) {
     throw new Error('No access')
   }
 
+  const safePage = Math.max(1, Math.floor(page))
+  const safePageSize = Math.min(100, Math.max(1, Math.floor(pageSize)))
+  const skip = (safePage - 1) * safePageSize
+
   try {
     await connectMongoDB()
 
-    const analyses = await AnalysisModel.find({ patientId })
-      .transform((docs) =>
-        docs.map((d) => ({
-          ...d,
-          _id: d._id.toString(),
-          patientId: d.patientId.toString(),
-          createdAt: d.createdAt?.toISOString(),
-          updatedAt: d.updatedAt?.toISOString()
-        }))
-      )
-      .lean<Analysis[]>()
+    const [total, analyses] = await Promise.all([
+      AnalysisModel.countDocuments({ patientId }),
+      AnalysisModel.find({ patientId })
+        .sort({ createdAt: -1 })
+
+        .transform((docs) =>
+          docs.map((d) => ({
+            ...d,
+            _id: d._id.toString(),
+            patientId: d.patientId.toString(),
+            createdAt: d.createdAt?.toISOString(),
+            updatedAt: d.updatedAt?.toISOString()
+          }))
+        )
+        .skip(skip)
+        .limit(safePageSize)
+        .lean<Analysis[]>({ getters: true })
+    ])
 
     if (!analyses) {
-      return []
+      return {
+        data: [],
+        total: 0,
+        page: 0,
+        pageSize: 0,
+        totalPages: 0
+      }
     }
 
-    return analysesSchema.array().parse(analyses)
+    const totalPages = Math.max(1, Math.ceil(total / safePageSize))
+
+    return {
+      data: analysesSchema.array().parse(analyses),
+      total,
+      page: safePage,
+      pageSize: safePageSize,
+      totalPages
+    }
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')

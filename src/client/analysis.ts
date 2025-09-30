@@ -4,10 +4,10 @@ import { getAnalyses, getSingleAnalysis, createAnalysis, updateAnalysis, deleteA
 import { analysesSchema } from '@/shared/schemas'
 import { AnalysisFormValues, Analysis } from '@/shared/types'
 
-export const useGetAnalysisQuery = (patientId: string) => {
+export const useGetAnalysisQuery = (patientId: string, page: number, pageSize: number) => {
   const { data, isLoading, isFetching, isError } = useQuery({
-    queryKey: ['analysis', patientId],
-    queryFn: patientId ? async () => await getAnalyses(patientId) : skipToken,
+    queryKey: ['analysis', { patientId, page, pageSize }],
+    queryFn: patientId ? async () => await getAnalyses(patientId, page, pageSize) : skipToken,
     enabled: !!patientId
   })
 

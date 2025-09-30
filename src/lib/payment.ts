@@ -4,17 +4,19 @@ import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
 import PaymentModel from '@/shared/models/payment'
 import { paymentSchema } from '@/shared/schemas'
-import { CreatePaymentFormValues, Payment, RawPaymentSchema, UpdatePaymentFormValues } from '@/shared/types'
+import {
+  CreatePaymentFormValues,
+  PaginatedResponse,
+  Payment,
+  RawPaymentSchema,
+  UpdatePaymentFormValues
+} from '@/shared/types'
 
-interface PaginatedPayments {
-  data: Payment[]
-  total: number
-  page: number
-  pageSize: number
-  totalPages: number
-}
-
-export const getPatientPayments = async (patientId: string, page = 1, pageSize = 10): Promise<PaginatedPayments> => {
+export const getPatientPayments = async (
+  patientId: string,
+  page = 1,
+  pageSize = 10
+): Promise<PaginatedResponse<Payment[]>> => {
   const session = await auth()
 
   const safePage = Math.max(1, Math.floor(page))
