@@ -67,9 +67,7 @@ const SectionHeading = ({ title }: { title: string }) => {
   )
 }
 
-// TODO:  Change export to export const
-
-const Footer = () => {
+export const Footer = () => {
   const t = useTranslations('footer')
 
   return (
@@ -145,4 +143,3 @@ const Footer = () => {
     </footer>
   )
 }
-export default Footer

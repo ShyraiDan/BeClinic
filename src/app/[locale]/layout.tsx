@@ -6,7 +6,7 @@ import { getLocale, getMessages, setRequestLocale } from 'next-intl/server'
 import { ReactNode } from 'react'
 
 import { auth } from '@/auth'
-import Footer from '@/components/Footer/Footer'
+import { Footer } from '@/components/Footer/Footer'
 import { Header } from '@/components/Header/Header'
 import { Toaster } from '@/components/ui/sonner'
 import { routing } from '@/i18n/routing'
