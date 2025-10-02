@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
-import { useGetAnalysisQuery } from '@/client/analysis'
+import { useGetPaginatedAnalysisQuery } from '@/client/analysis'
 import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links'
@@ -22,7 +22,11 @@ export const AnalysesTab = () => {
   const pageNumber = parseInt(searchParams.get('page') || '1')
   const pageSizeNumber = parseInt(searchParams.get('pageSize') || '10')
 
-  const { data: analysesData, isLoading } = useGetAnalysisQuery(session?.user?.id || '', pageNumber, pageSizeNumber)
+  const { data: analysesData, isLoading } = useGetPaginatedAnalysisQuery(
+    session?.user?.id || '',
+    pageNumber,
+    pageSizeNumber
+  )
 
   const t = useTranslations('page')
 
