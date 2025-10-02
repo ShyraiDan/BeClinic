@@ -8,7 +8,8 @@ import {
   getDoctorAppointments,
   getSingleDoctorAppointment,
   updateDoctorAppointment,
-  deleteAppointment
+  deleteAppointment,
+  getDoctorCalendarAppointments
 } from '@/lib/appointment'
 import { doctorAppointmentSchema, patientAppointmentSchema } from '@/shared/schemas'
 import {
@@ -94,10 +95,10 @@ export const useUpdatePatientAppointmentMutation = (patientId: string, appointme
   })
 }
 
-export const useGetDoctorAppointmentsQuery = (doctorId: string) => {
+export const useGetDoctorAppointmentsQuery = (doctorId: string, page: number, pageSize: number) => {
   const { data, isLoading, isFetching, isError } = useQuery({
-    queryKey: ['appointments', doctorId],
-    queryFn: doctorId ? async () => await getDoctorAppointments(doctorId) : skipToken,
+    queryKey: ['appointments', doctorId, page, pageSize],
+    queryFn: doctorId ? async () => await getDoctorAppointments(doctorId, page, pageSize) : skipToken,
     enabled: !!doctorId
   })
 
@@ -133,4 +134,14 @@ export const useDeleteAppointmentMutation = (appointmentId: string) => {
       return await deleteAppointment(appointmentId)
     }
   })
+}
+
+export const useGetCalendarAppointmentQuery = (doctorId: string, startDate: string, endDate: string) => {
+  const { data, isLoading, isFetching, isError } = useQuery({
+    queryKey: ['appointments', doctorId, startDate, endDate],
+    queryFn: doctorId ? async () => await getDoctorCalendarAppointments(doctorId, startDate, endDate) : skipToken,
+    enabled: !!doctorId
+  })
+
+  return { data, isLoading, isFetching, isError }
 }

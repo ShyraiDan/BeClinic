@@ -1,6 +1,6 @@
 'use server'
 
-import { isAfter } from 'date-fns'
+import { isAfter, parseISO } from 'date-fns'
 import { InferSchemaType } from 'mongoose'
 
 import { auth } from '@/auth'
@@ -47,6 +47,8 @@ export const getPatientAppointments = async (
           docs.map((d) => ({
             ...d,
             _id: d._id.toString(),
+            startTime: d.startTime?.toISOString(),
+            endTime: d.endTime?.toISOString(),
             analyses: d.analyses.map((analysis) => {
               return { ...analysis, _id: analysis._id.toString() }
             }),
@@ -109,6 +111,8 @@ export const getSinglePatientAppointment = async (
         return {
           ...doc,
           _id: doc?._id.toString(),
+          startTime: doc?.startTime?.toISOString(),
+          endTime: doc?.endTime?.toISOString(),
           analyses: doc?.analyses.map((analysis) => {
             return { ...analysis, _id: analysis._id.toString() }
           }),
@@ -154,6 +158,8 @@ export const createPatientAppointment = async (
       ...data,
       doctor: data.doctorId,
       patient: patientId,
+      startTime: parseISO(data.startTime),
+      endTime: parseISO(data.endTime),
       analyses: data.analyses.map((analysis) => analysis._id)
     })
 
@@ -168,6 +174,8 @@ export const createPatientAppointment = async (
         return {
           ...doc,
           _id: doc?._id.toString(),
+          startTime: doc?.startTime?.toISOString(),
+          endTime: doc?.endTime?.toISOString(),
           createdAt: doc?.createdAt?.toISOString(),
           updatedAt: doc?.updatedAt?.toISOString()
         }
@@ -231,6 +239,8 @@ export const updatePatientAppointment = async (
         return {
           ...doc,
           _id: doc?._id.toString(),
+          startTime: doc?.startTime?.toISOString(),
+          endTime: doc?.endTime?.toISOString(),
           createdAt: doc?.createdAt instanceof Date ? doc?.createdAt?.toISOString() : doc?.createdAt,
           updatedAt: doc?.updatedAt instanceof Date ? doc?.updatedAt?.toISOString() : doc?.updatedAt
         }
@@ -252,42 +262,73 @@ export const updatePatientAppointment = async (
   }
 }
 
-export const getDoctorAppointments = async (doctorId: string): Promise<DoctorAppointment[]> => {
+export const getDoctorAppointments = async (
+  doctorId: string,
+  page: number,
+  pageSize: number
+): Promise<PaginatedResponse<DoctorAppointment[]>> => {
   const session = await auth()
 
   if (!session || session.user.id !== doctorId) {
     throw new Error('No access')
   }
 
+  const safePage = Math.max(1, Math.floor(page))
+  const safePageSize = Math.min(100, Math.max(1, Math.floor(pageSize)))
+  const skip = (safePage - 1) * safePageSize
+
   try {
     await connectMongoDB()
-    const appointments = await AppointmentModel.find({ doctor: doctorId })
-      .populate(
-        'patient',
-        'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
-      )
-      .transform((docs) =>
-        docs.map((d) => ({
-          ...d,
-          _id: d._id.toString(),
-          analyses: d.analyses.map((analysis) => {
-            return { ...analysis, _id: analysis._id.toString() }
-          }),
-          patient: {
-            ...d.patient,
-            _id: d.patient._id.toString()
-          },
-          createdAt: d.createdAt?.toISOString(),
-          updatedAt: d.updatedAt?.toISOString()
-        }))
-      )
-      .lean<Appointment[]>()
+
+    const [total, appointments] = await Promise.all([
+      AppointmentModel.countDocuments({ doctor: doctorId }),
+      AppointmentModel.find({ doctor: doctorId })
+        .sort({ createdAt: -1 })
+        .populate(
+          'patient',
+          'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
+        )
+        .transform((docs) =>
+          docs.map((d) => ({
+            ...d,
+            _id: d._id.toString(),
+            startTime: d.startTime?.toISOString(),
+            endTime: d.endTime?.toISOString(),
+            analyses: d.analyses.map((analysis) => {
+              return { ...analysis, _id: analysis._id.toString() }
+            }),
+            patient: {
+              ...d.patient,
+              _id: d.patient._id.toString()
+            },
+            createdAt: d.createdAt?.toISOString(),
+            updatedAt: d.updatedAt?.toISOString()
+          }))
+        )
+        .skip(skip)
+        .limit(safePageSize)
+        .lean<Appointment[]>({ getters: true })
+    ])
 
     if (!appointments) {
-      throw new Error('Update appointment failed')
+      return {
+        data: [],
+        total: 0,
+        page: 0,
+        pageSize: 0,
+        totalPages: 0
+      }
     }
 
-    return doctorAppointmentSchema.array().parse(appointments)
+    const totalPages = Math.max(1, Math.ceil(total / safePageSize))
+
+    return {
+      data: doctorAppointmentSchema.array().parse(appointments),
+      total,
+      page: safePage,
+      pageSize: safePageSize,
+      totalPages
+    }
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -314,6 +355,8 @@ export const getSingleDoctorAppointment = async (
       .transform((docs) => ({
         ...docs,
         _id: docs?._id.toString(),
+        startTime: docs?.startTime?.toISOString(),
+        endTime: docs?.endTime?.toISOString(),
         analyses: docs?.analyses.map((analysis) => {
           return { ...analysis, _id: analysis._id.toString() }
         }),
@@ -362,6 +405,8 @@ export const updateDoctorAppointment = async (
       .transform((docs) => ({
         ...docs,
         _id: docs?._id.toString(),
+        startTime: docs?.startTime?.toISOString(),
+        endTime: docs?.endTime?.toISOString(),
         analyses: docs?.analyses.map((analysis) => {
           return { ...analysis, _id: analysis._id.toString() }
         }),
@@ -405,6 +450,8 @@ export const deleteAppointment = async (appointmentId: string) => {
         return {
           ...doc,
           _id: doc?._id.toString(),
+          startTime: doc?.startTime?.toISOString(),
+          endTime: doc?.endTime?.toISOString(),
           analyses: doc?.analyses.map((analysis) => {
             return { ...analysis, _id: analysis._id.toString() }
           }),
@@ -425,6 +472,57 @@ export const deleteAppointment = async (appointmentId: string) => {
     await AppointmentModel.findByIdAndDelete(appointmentId)
 
     return true
+  } catch (error) {
+    console.error('Error: ', error)
+    throw new Error('Unexpected error')
+  }
+}
+
+export const getDoctorCalendarAppointments = async (
+  doctorId: string,
+  startDate: string,
+  endDate: string
+): Promise<DoctorAppointment[]> => {
+  const session = await auth()
+
+  if (!session || session.user.id !== doctorId) {
+    throw new Error('No access')
+  }
+
+  try {
+    await connectMongoDB()
+    const appointments = await AppointmentModel.find({
+      doctor: doctorId,
+      startTime: { $gte: parseISO(startDate), $lte: parseISO(endDate) }
+    })
+      .populate(
+        'patient',
+        'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
+      )
+      .transform((docs) =>
+        docs.map((d) => ({
+          ...d,
+          _id: d._id.toString(),
+          startTime: d?.startTime?.toISOString(),
+          endTime: d?.endTime?.toISOString(),
+          analyses: d.analyses.map((analysis) => {
+            return { ...analysis, _id: analysis._id.toString() }
+          }),
+          patient: {
+            ...d.patient,
+            _id: d.patient._id.toString()
+          },
+          createdAt: d.createdAt?.toISOString(),
+          updatedAt: d.updatedAt?.toISOString()
+        }))
+      )
+      .lean<Appointment[]>()
+
+    if (!appointments) {
+      throw new Error('Update appointment failed')
+    }
+
+    return doctorAppointmentSchema.array().parse(appointments)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')

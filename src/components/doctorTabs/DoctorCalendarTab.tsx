@@ -6,13 +6,13 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
-import { isSameDay, parseISO } from 'date-fns'
+import { endOfMonth, isSameDay, parseISO, startOfMonth } from 'date-fns'
 import { useParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 
-import { useGetDoctorAppointmentsQuery } from '@/client/appointment'
+import { useGetCalendarAppointmentQuery } from '@/client/appointment'
 import CalendarAppointmentCard from '@/components/CalendarAppointmentCard/CalendarAppointmentCard'
 import { AppointmentInfoModal } from '@/components/modals/AppointmentInfoModal/AppointmentInfoModal'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
@@ -20,17 +20,31 @@ import { H6, P } from '@/components/ui/typography'
 import { DoctorAppointment, SupportedLocales } from '@/shared/types'
 import { cn } from '@/utils/utils'
 
-import type { EventClickArg, EventApi } from '@fullcalendar/core'
+import type { EventClickArg, EventApi, DatesSetArg } from '@fullcalendar/core'
+
+interface Range {
+  start: string
+  end: string
+}
 
 export const DoctorCalendarTab = () => {
   const t = useTranslations('page')
+  const [dateRange, setDateRange] = useState<Range>({
+    start: startOfMonth(new Date()).toISOString(),
+    end: endOfMonth(new Date()).toISOString()
+  })
 
   const params = useParams()
   const { locale } = params
   const [selectedEvent, setSelectedEvent] = useState<DoctorAppointment | null>(null)
   const { data: session } = useSession()
 
-  const { data: appointments, isLoading } = useGetDoctorAppointmentsQuery(session?.user?.id || '')
+  const { data: appointments, isLoading } = useGetCalendarAppointmentQuery(
+    session?.user?.id || '',
+    dateRange.start,
+    dateRange.end
+  )
+  const lastRangeRef = useRef<Range | null>(null)
 
   const currentEvents: EventApi[] = useMemo(() => {
     return (
@@ -55,6 +69,16 @@ export const DoctorCalendarTab = () => {
   }
 
   const handleEventInfoModalClose = () => setSelectedEvent(null)
+
+  const onDatesSet = useCallback((arg: DatesSetArg) => {
+    const next: Range = { start: arg.startStr, end: arg.endStr }
+    const prev = lastRangeRef.current
+
+    if (prev && prev.start === next.start && prev.end === next.end) return
+
+    lastRangeRef.current = next
+    setDateRange(next)
+  }, [])
 
   return (
     <div className='mt-6'>
@@ -98,6 +122,7 @@ export const DoctorCalendarTab = () => {
             selectable={true}
             selectMirror={true}
             dayMaxEvents={true}
+            datesSet={onDatesSet}
             eventClick={handleEventClick}
             events={currentEvents.map((event) => ({
               id: event.id,

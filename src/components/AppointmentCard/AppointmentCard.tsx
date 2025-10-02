@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { format, isAfter } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
@@ -11,12 +11,12 @@ import { cn } from '@/utils/utils'
 interface AppointmentCardProps {
   appointment: PatientAppointment
   locale: SupportedLocales
-  isIncoming?: boolean
 }
 
-const AppointmentCard = ({ appointment, isIncoming, locale }: AppointmentCardProps) => {
+const AppointmentCard = ({ appointment, locale }: AppointmentCardProps) => {
   const t = useTranslations('forms')
   const dateLocale = dateLocaleMap[locale] ?? enUS
+  const isIncoming = isAfter(appointment.startTime, new Date())
 
   return (
     <Link href={`/appointments/${appointment._id}`}>

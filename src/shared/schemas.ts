@@ -232,7 +232,10 @@ export const updatePaymentFormValuesSchema = paymentSchema
 
 export const rawPaymentSchema = z.object({
   _id: z.string(),
-  appointment: appointmentSchema,
+  appointment: appointmentSchema.extend({
+    startTime: z.date(),
+    endTime: z.date()
+  }),
   amount: z.number(),
   isPayed: z.boolean(),
   patientId: z.string(),
@@ -274,14 +277,13 @@ export const patientCreateAppointmentFormValuesDtoSchema = patientAppointmentFor
   .pick({
     reason: true,
     startTime: true,
-    endTime: true,
     description: true,
     analyses: true,
     fileName: true,
     doctorId: true
   })
   .extend({
-    endTime: true
+    endTime: z.string()
   })
 
 export const doctorEditAppointmentFormValuesSchema = doctorAppointmentSchema
