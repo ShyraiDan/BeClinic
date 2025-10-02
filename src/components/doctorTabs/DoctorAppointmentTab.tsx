@@ -1,10 +1,8 @@
 'use client'
 
-import { isAfter, isBefore } from 'date-fns'
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
-import { useMemo } from 'react'
 
 import { useGetDoctorAppointmentsQuery } from '@/client/appointment'
 import { DoctorAppointmentCard } from '@/components/DoctorAppointmentCard/DoctorAppointmentCard'
@@ -16,26 +14,22 @@ export const DoctorAppointmentTab = () => {
   const params = useParams()
   const { locale } = params
   const { data: session } = useSession()
+  const searchParams = useSearchParams()
+
+  const pageNumber = parseInt(searchParams.get('page') || '1')
+  const pageSizeNumber = parseInt(searchParams.get('pageSize') || '10')
 
   const t = useTranslations('page')
 
-  const { data: appointments, isLoading } = useGetDoctorAppointmentsQuery(session?.user?.id || '')
-
-  const futureAppointments = useMemo(
-    () => appointments?.filter((appointment) => isAfter(appointment.endTime, new Date())) || [],
-    [appointments]
-  )
-
-  const pastAppointments = useMemo(
-    () => appointments?.filter((appointment) => isBefore(appointment.endTime, new Date())) || [],
-    [appointments]
+  const { data: appointmentsData, isLoading } = useGetDoctorAppointmentsQuery(
+    session?.user?.id || '',
+    pageNumber,
+    pageSizeNumber
   )
 
   return (
     <>
-      {futureAppointments.length === 0 && pastAppointments.length === 0 && !isLoading && (
-        <P>{t('profile.patient.noAppointments')}</P>
-      )}
+      {appointmentsData?.data?.length === 0 && !isLoading && <P>{t('profile.patient.noAppointments')}</P>}
 
       {isLoading && (
         <div className='grid grid-cols-1 gap-4 mt-4'>
@@ -45,42 +39,20 @@ export const DoctorAppointmentTab = () => {
         </div>
       )}
 
-      {futureAppointments.length > 0 && (
+      {appointmentsData && appointmentsData?.data?.length > 0 && (
         <div className='mt-6'>
           <H6>{t('profile.patient.appointments')}</H6>
 
-          {futureAppointments.length > 0 && (
-            <div className='grid grid-cols-1 gap-4 mt-4'>
-              {futureAppointments.map((appointment) => (
-                <DoctorAppointmentCard
-                  key={appointment._id}
-                  doctorId={session?.user?.id || ''}
-                  appointment={appointment}
-                  isIncoming
-                  locale={locale as SupportedLocales}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-
-      {pastAppointments.length > 0 && (
-        <div className='mt-6'>
-          <H6>{t('profile.patient.historyAppointments')}</H6>
-
-          {pastAppointments.length > 0 && (
-            <div className='grid grid-cols-1 gap-4 mt-4'>
-              {pastAppointments.map((appointment) => (
-                <DoctorAppointmentCard
-                  key={appointment._id}
-                  doctorId={session?.user?.id || ''}
-                  appointment={appointment}
-                  locale={locale as SupportedLocales}
-                />
-              ))}
-            </div>
-          )}
+          <div className='grid grid-cols-1 gap-4 mt-4'>
+            {appointmentsData?.data?.map((appointment) => (
+              <DoctorAppointmentCard
+                key={appointment._id}
+                doctorId={session?.user?.id || ''}
+                appointment={appointment}
+                locale={locale as SupportedLocales}
+              />
+            ))}
+          </div>
         </div>
       )}
     </>

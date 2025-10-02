@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { format, isAfter } from 'date-fns'
 import { enUS } from 'date-fns/locale'
 import Link from 'next/link'
 
@@ -11,11 +11,11 @@ interface DoctorAppointmentCardProps {
   doctorId: string
   appointment: DoctorAppointment
   locale: SupportedLocales
-  isIncoming?: boolean
 }
 
-export const DoctorAppointmentCard = ({ doctorId, appointment, locale, isIncoming }: DoctorAppointmentCardProps) => {
+export const DoctorAppointmentCard = ({ doctorId, appointment, locale }: DoctorAppointmentCardProps) => {
   const dateLocale = dateLocaleMap[locale] ?? enUS
+  const isIncoming = isAfter(appointment.startTime, new Date())
 
   return (
     <Link href={`/doctor/${doctorId}/appointments/${appointment._id}`}>

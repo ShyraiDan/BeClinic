@@ -55,12 +55,7 @@ export const AppointmentTab = () => {
 
           <div className='grid grid-cols-1 gap-4 mt-4'>
             {appointmentsData.data.map((appointment) => (
-              <AppointmentCard
-                key={appointment._id}
-                appointment={appointment}
-                isIncoming
-                locale={locale as SupportedLocales}
-              />
+              <AppointmentCard key={appointment._id} appointment={appointment} locale={locale as SupportedLocales} />
             ))}
           </div>
           <div className='mt-10'>

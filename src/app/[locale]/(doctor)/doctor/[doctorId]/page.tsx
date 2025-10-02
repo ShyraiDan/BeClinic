@@ -82,9 +82,25 @@ const DoctorProfile = async ({ doctorId }: DoctorProfileProps) => {
   )
 }
 
-const tabs = [
-  { id: TABS_ENUM.APPOINTMENTS, label: 'profile.doctor.appointments', content: <DoctorAppointmentTab /> },
-  { id: TABS_ENUM.CALENDAR, label: 'profile.doctor.calendar', content: <DoctorCalendarTab /> }
+const makeTabs = (doctorId: string) => [
+  {
+    id: TABS_ENUM.APPOINTMENTS,
+    label: 'profile.doctor.appointments',
+    url: {
+      pathname: `/doctor/${doctorId}`,
+      query: { tab: 'appointments', page: 1 }
+    },
+    content: <DoctorAppointmentTab />
+  },
+  {
+    id: TABS_ENUM.CALENDAR,
+    label: 'profile.doctor.calendar',
+    url: {
+      pathname: `/doctor/${doctorId}`,
+      query: { tab: 'analyses', page: 1 }
+    },
+    content: <DoctorCalendarTab />
+  }
 ]
 
 interface DoctorProfilePageProps {
@@ -104,7 +120,7 @@ const DoctorProfilePage = async ({ params }: DoctorProfilePageProps) => {
             <DoctorProfile doctorId={doctorId} />
           </div>
           <div className='lg:col-start-1 lg:col-end-2 lg:row-start-1'>
-            <ProfileTab tabs={tabs} baseUrl={`/doctor/${doctorId}`} />
+            <ProfileTab tabs={makeTabs(doctorId)} />
           </div>
         </Container>
       </Suspense>
