@@ -1,13 +1,20 @@
 import { skipToken, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { getAnalyses, getSingleAnalysis, createAnalysis, updateAnalysis, deleteAnalysis } from '@/lib/analysis'
+import {
+  getPaginatedAnalyses,
+  getSingleAnalysis,
+  createAnalysis,
+  updateAnalysis,
+  deleteAnalysis,
+  getAnalyses
+} from '@/lib/analysis'
 import { analysesSchema } from '@/shared/schemas'
 import { AnalysisFormValues, Analysis } from '@/shared/types'
 
-export const useGetAnalysisQuery = (patientId: string, page: number, pageSize: number) => {
+export const useGetPaginatedAnalysisQuery = (patientId: string, page: number, pageSize: number) => {
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ['analysis', { patientId, page, pageSize }],
-    queryFn: patientId ? async () => await getAnalyses(patientId, page, pageSize) : skipToken,
+    queryFn: patientId ? async () => await getPaginatedAnalyses(patientId, page, pageSize) : skipToken,
     enabled: !!patientId
   })
 
@@ -74,4 +81,14 @@ export const useDeleteAnalysisMutation = (analysisId: string) => {
       return await deleteAnalysis(analysisId)
     }
   })
+}
+
+export const useGetAnalysisQuery = (patientId: string) => {
+  const { data, isLoading, isFetching, isError } = useQuery({
+    queryKey: ['analysis', patientId],
+    queryFn: patientId ? async () => await getAnalyses(patientId) : skipToken,
+    enabled: !!patientId
+  })
+
+  return { data, isLoading, isFetching, isError }
 }

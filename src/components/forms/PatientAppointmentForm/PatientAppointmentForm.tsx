@@ -8,6 +8,7 @@ import { useMemo, useRef, useState } from 'react'
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
+import { useGetAnalysisQuery } from '@/client/analysis'
 import { useCreateAppointmentMutation, useUpdatePatientAppointmentMutation } from '@/client/appointment'
 import { useSearchDoctorQuery } from '@/client/doctor'
 import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
@@ -69,9 +70,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
 
   const { data: doctors } = useSearchDoctorQuery(watch('specialty'))
 
-  // TODO: fix
-  // const { data: analysesData } = useGetAnalysisQuery(session?.user?.id || '')
-  const analysesData = []
+  const { data: analysesData } = useGetAnalysisQuery(session?.user?.id || '')
 
   const { mutateAsync: createAppointment } = useCreateAppointmentMutation(session?.user?.id || '')
   const { mutateAsync: updateAppointment } = useUpdatePatientAppointmentMutation(
