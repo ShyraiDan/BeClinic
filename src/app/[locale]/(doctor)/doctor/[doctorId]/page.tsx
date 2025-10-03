@@ -97,7 +97,7 @@ const makeTabs = (doctorId: string) => [
     label: 'profile.doctor.calendar',
     url: {
       pathname: `/doctor/${doctorId}`,
-      query: { tab: 'analyses', page: 1 }
+      query: { tab: 'calendar', page: 1 }
     },
     content: <DoctorCalendarTab />
   }

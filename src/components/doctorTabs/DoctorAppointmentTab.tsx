@@ -10,6 +10,8 @@ import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { H6, P } from '@/components/ui/typography'
 import { SupportedLocales } from '@/shared/types'
 
+import { PaginationWithLinks } from '../ui/pagination-with-links'
+
 export const DoctorAppointmentTab = () => {
   const params = useParams()
   const { locale } = params
@@ -17,7 +19,7 @@ export const DoctorAppointmentTab = () => {
   const searchParams = useSearchParams()
 
   const pageNumber = parseInt(searchParams.get('page') || '1')
-  const pageSizeNumber = parseInt(searchParams.get('pageSize') || '10')
+  const pageSizeNumber = parseInt(searchParams.get('pageSize') || '2')
 
   const t = useTranslations('page')
 
@@ -52,6 +54,9 @@ export const DoctorAppointmentTab = () => {
                 locale={locale as SupportedLocales}
               />
             ))}
+          </div>
+          <div className='mt-10'>
+            <PaginationWithLinks page={pageNumber} pageSize={pageSizeNumber} totalCount={appointmentsData.total} />
           </div>
         </div>
       )}

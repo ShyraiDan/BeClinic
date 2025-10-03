@@ -157,7 +157,7 @@ export const Header = ({ session }: HeaderProps) => {
               <LanguageModal />
             </div>
             {session ? (
-              <Link href={`/${session.user.role}/${session.user.id}?tab=appointments`}>
+              <Link href={`/${session.user.role}/${session.user.id}?tab=appointments&page=1`}>
                 {session.user.image ? (
                   <Image
                     src={`${BUCKET_URL}/custom/avatars/${session.user.image}`}
