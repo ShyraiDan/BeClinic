@@ -5,7 +5,7 @@ import * as React from 'react'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/utils/utils'
 
-function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
+const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => {
   return (
     <nav
       role='navigation'

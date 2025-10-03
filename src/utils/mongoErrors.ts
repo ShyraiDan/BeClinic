@@ -3,7 +3,7 @@ import { MongoServerError } from 'mongodb'
 
 import { DbError } from '@/shared/types'
 
-export function mapMongoError(err: unknown): DbError {
+export const mapMongoError = (err: unknown): DbError => {
   if (err instanceof MongoServerError) {
     switch (err.code) {
       case 11000:
