@@ -21,6 +21,10 @@ const localizedBlogDescriptionSchema = z
   )
   .strict()
 
+const localizedReviewSchema = z
+  .object(Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, z.string()])) as Record<Locale, z.ZodString>)
+  .strict()
+
 export const optionSchema = z.object({
   value: z.string(),
   label: z.string()
@@ -312,7 +316,7 @@ export const reviewSchema = z.object({
   userName: z.string(),
   userPhoto: z.string(),
   userPosition: z.string(),
-  review: z.string()
+  review: localizedReviewSchema
 })
 
 export const patientSignInFormValuesSchema = z.object({
