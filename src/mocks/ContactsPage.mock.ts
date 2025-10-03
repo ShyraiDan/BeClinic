@@ -17,7 +17,7 @@ export const mockedContactsItems: ContactsItem[] = [
     icon: '/contacts-icon-3.webp',
     type: 'address',
     title: 'contacts.contacts.address',
-    info: 'вулиця Соборна, 51а'
+    info: 'вулиця Хрещатик, 16'
   }
 ]
 

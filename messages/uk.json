@@ -109,7 +109,8 @@
       "contacts": {
         "emergencyHospital": "Невідкладна допомога",
         "address": "Адреса",
-        "email": "Email"
+        "email": "Email",
+        "clinicAddress": "вулиця Хрещатик, 16"
       },
       "advantages": {
         "experiencedDoctors": {
@@ -705,7 +706,7 @@
     },
     "headOffice": {
       "title": "Головний офіс",
-      "address": "м. Вінниця, вулиця Келецька, 41",
+      "address": "м. Київ, вулиця Хрещатик, 16",
       "businessDays": "Пн-Пт:",
       "saturday": "Сб:",
       "sunday": "Нд:",

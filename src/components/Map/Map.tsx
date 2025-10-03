@@ -20,8 +20,8 @@ export const Map = () => {
       const { Marker } = await loader.importLibrary('marker')
 
       const position = {
-        lat: 49.23378,
-        lng: 28.4115
+        lat: 50.449897,
+        lng: 30.525018
       }
 
       // options

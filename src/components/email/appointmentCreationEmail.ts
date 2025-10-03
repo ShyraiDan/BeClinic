@@ -55,7 +55,7 @@ export const appointmentCreationEmailEn = ({
                     </tr>
                     <tr>
                       <td style="font-size: 15px;"><strong>Address:</strong></td>
-                      <td style="font-size: 15px;">м. Вінниця, вулиця Келецька, 41</td>
+                      <td style="font-size: 15px;">Kyiv, 16 Khreshchatyk Street</td>
                     </tr>
                   </table>
 
@@ -138,7 +138,7 @@ export const appointmentCreationEmailUa = ({
                     </tr>
                     <tr>
                       <td style="font-size: 15px;"><strong>Адреса:</strong></td>
-                      <td style="font-size: 15px;">м. Вінниця, вулиця Келецька, 41</td>
+                      <td style="font-size: 15px;">м. Київ, вулиця Хрещатик, 16</td>
                     </tr>
                   </table>
 

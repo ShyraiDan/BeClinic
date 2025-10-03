@@ -112,7 +112,8 @@ declare const messages: {
       "contacts": {
         "emergencyHospital": "Emergency Cases",
         "address": "Address",
-        "email": "Email"
+        "email": "Email",
+        "clinicAddress": "16 Khreshchatyk Street"
       },
       "advantages": {
         "experiencedDoctors": {
@@ -708,7 +709,7 @@ declare const messages: {
     },
     "headOffice": {
       "title": "Head Office",
-      "address": "4096 N Highland St, Arlington VA 32101, USA",
+      "address": "Kyiv, 16 Khreshchatyk Street",
       "businessDays": "Mon-Fri:",
       "saturday": "Sat:",
       "sunday": "Sun:",
