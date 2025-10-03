@@ -69,15 +69,15 @@ export const DoctorAppointmentForm = ({ appointment }: DoctorAppointmentFormProp
     <form onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
       <H4>{t('singleAppointmentPage.patientDetails')}</H4>
       <PatientDetailsModal patient={appointment.patient} />
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
 
       <H4>{t('singleAppointmentPage.appointmentReason')}</H4>
       <P>{appointment.reason || '-'}</P>
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
 
       <H4 className='mb-2'>{t('singleAppointmentPage.appointmentDetails')}</H4>
       <P>{appointment?.description || '-'}</P>
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
 
       <H4 className='mb-2'>{t('singleAppointmentPage.appointmentAnalyses')}</H4>
       <div className='flex flex-col gap-4'>
@@ -87,7 +87,7 @@ export const DoctorAppointmentForm = ({ appointment }: DoctorAppointmentFormProp
         {appointment?.analyses?.length === 0 && <P>-</P>}
       </div>
 
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
 
       {appointment?.fileName && <AttachmentPreviewModal attachment={appointment.fileName} />}
 
@@ -104,10 +104,10 @@ export const DoctorAppointmentForm = ({ appointment }: DoctorAppointmentFormProp
           </div>
         )}
       />
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
 
       <MedicineForm control={control} />
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
 
       <Controller
         name='treatment'

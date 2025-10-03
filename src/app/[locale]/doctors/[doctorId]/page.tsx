@@ -72,26 +72,26 @@ const DoctorInfo = async ({ doctor }: DoctorInfoProps) => {
     <div className='bg-white inset-shadow-profile px-4 py-[30px]'>
       <H3 className='text-black text-[26px] mb-5'>{t('singleDoctorPage.aboutDoctor')}</H3>
       <ul>
-        <li className='py-3 border-b border-solid border-[#e1e5e3]'>
-          <P className='flex items-center justify-between text-[#64727d]'>
+        <li className='py-3 border-b border-solid border-grey-500'>
+          <P className='flex items-center justify-between text-grey-600'>
             <span>{t('singleDoctorPage.doctorName')}</span>
             <span>{doctor?.doctorName}</span>
           </P>
         </li>
-        <li className='py-3 border-b border-solid border-[#e1e5e3]'>
-          <P className='flex items-center justify-between text-[#64727d]'>
+        <li className='py-3 border-b border-solid border-grey-500'>
+          <P className='flex items-center justify-between text-grey-600'>
             <span>{t('singleDoctorPage.doctorPosition')}</span>
             <span>{t(`profile.doctor.specialties.${doctor.position}`)}</span>
           </P>
         </li>
-        <li className='py-3 border-b border-solid border-[#e1e5e3]'>
-          <P className='flex items-center justify-between text-[#64727d]'>
+        <li className='py-3 border-b border-solid border-grey-500'>
+          <P className='flex items-center justify-between text-grey-600'>
             <span>{t('singleDoctorPage.doctorEducation')}</span>
             <span>ВНМУ ім. М.І. Пирогова</span>
           </P>
         </li>
         <li className='py-3'>
-          <P className='flex items-center justify-between text-[#64727d]'>
+          <P className='flex items-center justify-between text-grey-600'>
             <span>{t('singleDoctorPage.doctorExperience')}</span>
             <span>{t('singleDoctorPage.years', { years: getYear(new Date()) - getYear(doctor?.createdAt) + 1 })}</span>
           </P>
@@ -143,14 +143,14 @@ const SingleDoctorPage = async ({ params }: SingleDoctorPageProps) => {
           )}
           <div>
             <div className='flex items-center justify-start'>
-              <div className='border border-solid border-[#56b0d2] w-[65px]' />
+              <div className='border border-solid border-blue-600 w-[65px]' />
             </div>
             <ul className='mt-6 mb-3 flex gap-5'>
               <li>
                 <Link href='https://www.linkedin.com/'>
                   <Linkedin
                     size={18}
-                    className='text-[#909aa3] transition-all duration-300 ease-in-out hover:text-blue-100'
+                    className='text-grey-700 transition-all duration-300 ease-in-out hover:text-blue-100'
                   />
                 </Link>
               </li>
@@ -158,7 +158,7 @@ const SingleDoctorPage = async ({ params }: SingleDoctorPageProps) => {
                 <Link href='https://x.com/'>
                   <Twitter
                     size={18}
-                    className='text-[#909aa3] transition-all duration-300 ease-in-out hover:text-blue-100'
+                    className='text-grey-700 transition-all duration-300 ease-in-out hover:text-blue-100'
                   />
                 </Link>
               </li>
@@ -166,7 +166,7 @@ const SingleDoctorPage = async ({ params }: SingleDoctorPageProps) => {
                 <Link href='https://www.facebook.com/'>
                   <Facebook
                     size={18}
-                    className='text-[#909aa3] transition-all duration-300 ease-in-out hover:text-blue-100'
+                    className='text-grey-700 transition-all duration-300 ease-in-out hover:text-blue-100'
                   />
                 </Link>
               </li>
@@ -174,7 +174,7 @@ const SingleDoctorPage = async ({ params }: SingleDoctorPageProps) => {
                 <Link href={`mailto:${doctor?.email}`}>
                   <Mail
                     size={18}
-                    className='text-[#909aa3] transition-all duration-300 ease-in-out hover:text-blue-100'
+                    className='text-grey-700 transition-all duration-300 ease-in-out hover:text-blue-100'
                   />
                 </Link>
               </li>

@@ -43,14 +43,14 @@ const PatientSignInModalContent = ({ setModalType }: ModalContentProps) => {
       <div className='flex flex-col'>
         <P className='mb-2'>
           {t('auth.noAccount')}{' '}
-          <span className='text-[#0674d1] cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNUP_PATIENT)}>
+          <span className='text-blue-300 cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNUP_PATIENT)}>
             {t('auth.signUp')}
           </span>
         </P>
 
         <P className='mb-2'>
           {t('auth.signInAsDoctor')}{' '}
-          <span className='text-[#0674d1] cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_DOCTOR)}>
+          <span className='text-blue-300 cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_DOCTOR)}>
             {t('auth.signIn')}
           </span>
         </P>
@@ -73,14 +73,14 @@ const PatientSignUpModalContent = ({ setModalType }: ModalContentProps) => {
       <div className='flex flex-col'>
         <P className='mb-2'>
           {t('auth.haveAccount')}{' '}
-          <span className='text-[#0674d1] cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_PATIENT)}>
+          <span className='text-blue-300 cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_PATIENT)}>
             {t('auth.signIn')}
           </span>
         </P>
 
         <P className='mb-2'>
           {t('auth.signInAsDoctor')}{' '}
-          <span className='text-[#0674d1] cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_DOCTOR)}>
+          <span className='text-blue-300 cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_DOCTOR)}>
             {t('auth.signIn')}
           </span>
         </P>
@@ -103,14 +103,14 @@ const DoctorSignInModalContent = ({ setModalType }: ModalContentProps) => {
       <div className='flex flex-col'>
         <P className='mb-2'>
           {t('auth.signUpAsDoctor')}{' '}
-          <span className='text-[#0674d1] cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNUP_DOCTOR)}>
+          <span className='text-blue-300 cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNUP_DOCTOR)}>
             {t('auth.signUp')}
           </span>
         </P>
 
         <P className='mb-2'>
           {t('auth.signInAsPatient')}{' '}
-          <span className='text-[#0674d1] cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_PATIENT)}>
+          <span className='text-blue-300 cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_PATIENT)}>
             {t('auth.signIn')}
           </span>
         </P>
@@ -135,14 +135,14 @@ const DoctorSignUpModalContent = ({ setModalType }: ModalContentProps) => {
       <div className='flex flex-col'>
         <P className='mb-2'>
           {t('auth.signInAsDoctor')}{' '}
-          <span className='text-[#0674d1] cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_DOCTOR)}>
+          <span className='text-blue-300 cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_DOCTOR)}>
             {t('auth.signIn')}
           </span>
         </P>
 
         <P className='mb-2'>
           {t('auth.signInAsPatient')}{' '}
-          <span className='text-[#0674d1] cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_PATIENT)}>
+          <span className='text-blue-300 cursor-pointer' onClick={() => setModalType(AUTH_MODAL_ENUM.SIGNIN_PATIENT)}>
             {t('auth.signIn')}
           </span>
         </P>

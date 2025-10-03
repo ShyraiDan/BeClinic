@@ -13,6 +13,7 @@
   --color-black-200: var(--black-200);
   --color-black-300: var(--black-300);
 
+  --color-grey-100: var(--grey-100);
   --color-grey-200: var(--grey-200);
   --color-grey-300: var(--grey-300);
   --color-grey-400: var(--grey-400);
@@ -47,9 +48,14 @@
   --black-200: oklch(39.52% 0.011 248.1);
   --black-300: oklch(49.53% 0.001 197.12);
 
+  --grey-100: oklch(86.07% 0 0);
   --grey-200: oklch(95.12% 0.003 247.86);
   --grey-300: oklch(95.32% 0.021 261.77);
   --grey-400: oklch(92.76% 0.006 264.53);
+  --grey-500: oklch(91.83% 0.005 165);
+  --grey-600: oklch(54.43% 0.024 241.67);
+  --grey-700: oklch(68.1% 0.018 245.19);
+  --grey-800: oklch(78.32% 0.005 228.84);
 
   --blue-100: oklch(62.97% 0.122 236.58);
   --blue-200: oklch(71.41% 0.097 223.29);

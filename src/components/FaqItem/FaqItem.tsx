@@ -26,7 +26,7 @@ export const FaqItem = ({ item }: FaqItemProps) => {
 
         {item.answer && (
           <P className='mt-3'>
-            <span className='text-[#42474c] font-primary text-[24px] mr-[5px] font-bold'>В:</span>
+            <span className='text-black-200 font-primary text-[24px] mr-[5px] font-bold'>В:</span>
             {t(item.answer)}
           </P>
         )}

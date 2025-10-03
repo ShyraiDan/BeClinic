@@ -36,7 +36,7 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => {
       )}
 
       <div className='pt-5 px-4 mb-3.5'>
-        <P className='text-[#B5B9BB] text-[10px] uppercase tracking-[1px]'>
+        <P className='text-grey-800 text-[10px] uppercase tracking-[1px]'>
           {t(`profile.doctor.specialties.${doctor.position}`)}
         </P>
 
@@ -51,7 +51,7 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => {
           <li className='flex items-center'>
             <Link
               href={`tel:${doctor.phone}`}
-              className='flex items-center text-[#b5b9bb] font-primary font-light text-sm transition-all duration-300 ease-in-out hover:text-[#0674d1] hover:[&_svg]:text-[#0674d1]'>
+              className='flex items-center text-grey-800 font-primary font-light text-sm transition-all duration-300 ease-in-out hover:text-blue-300 hover:[&_svg]:text-blue-300'>
               <Smartphone className='mr-2.5' size={14} />
               {doctor.phone}
             </Link>
@@ -59,7 +59,7 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => {
           <li className='flex items-center'>
             <Link
               href={`mailto:${doctor.email}`}
-              className='flex items-center text-[#b5b9bb] font-primary font-light text-sm transition-all duration-300 ease-in-out hover:text-[#0674d1] hover:[&_svg]:text-[#0674d1]'>
+              className='flex items-center text-grey-800 font-primary font-light text-sm transition-all duration-300 ease-in-out hover:text-blue-300 hover:[&_svg]:text-blue-300'>
               <Mail className='mr-2.5' size={14} />
               {doctor.email}
             </Link>

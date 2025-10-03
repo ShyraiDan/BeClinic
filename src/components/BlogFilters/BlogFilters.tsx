@@ -15,10 +15,10 @@ export const BlogFilters = ({ length }: BlogFiltersProps) => {
     <>
       <div className='flex justify-between mb-6'>
         <div className='flex items-center justify-center'>
-          {length > 0 && <P className='font-light text-[#616262]'>{t('blog.findPosts', { count: length })}</P>}
+          {length > 0 && <P className='font-light text-black-300'>{t('blog.findPosts', { count: length })}</P>}
         </div>
         <div className='flex gap-4'>
-          <StyledLinkButton href='/blog/add' variant='icon' className='p-2.5 bg-[#0674d1]'>
+          <StyledLinkButton href='/blog/add' variant='icon' className='p-2.5 bg-blue-300'>
             <Plus fill='#fff' size={16} />
           </StyledLinkButton>
         </div>

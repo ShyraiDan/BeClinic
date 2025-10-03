@@ -78,7 +78,7 @@ const SingleAnalysisPage = () => {
 
         {isLoading ? <SkeletonText className='h-4 mb-1 w-[240px]' /> : <P>{analyses?.description || '-'}</P>}
 
-        <Separator className='bg-[#D1D1D1]' />
+        <Separator className='bg-grey-100' />
         {analyses?.fileName && <AttachmentPreviewModal attachment={analyses.fileName} />}
       </Container>
     </>

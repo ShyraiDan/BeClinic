@@ -40,11 +40,11 @@ const PastAppointment = ({ locale, appointmentData }: PastAppointmentProps) => {
     <>
       <H4>{t('singleAppointmentPage.appointmentCentre')}</H4>
       <P>{appointmentData?.reason || '-'}</P>
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
 
       <H4 className='mb-2'>{t('singleAppointmentPage.appointmentDetails')}</H4>
       <P>{appointmentData?.description || '-'}</P>
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
 
       <H4 className='mb-2'>{t('singleAppointmentPage.appointmentAnalyses')}</H4>
       <div className='flex flex-col gap-4'>
@@ -54,11 +54,11 @@ const PastAppointment = ({ locale, appointmentData }: PastAppointmentProps) => {
         {appointmentData?.analyses?.length === 0 && <P>-</P>}
       </div>
 
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
 
       <H4 className='mb-2'>{t('singleAppointmentPage.diagnosis')}</H4>
       <P>{appointmentData?.diagnosis || '-'}</P>
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
 
       <H4 className='mb-2'>{t('singleAppointmentPage.treatment')}</H4>
       <div className='flex flex-col gap-4'>
@@ -73,7 +73,7 @@ const PastAppointment = ({ locale, appointmentData }: PastAppointmentProps) => {
           <P>-</P>
         )}
       </div>
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
 
       {appointmentData?.fileName && <AttachmentPreviewModal attachment={appointmentData.fileName} />}
 
@@ -102,15 +102,15 @@ const UpcomingAppointment = ({ appointmentData, locale }: UpcomingAppointmentPro
         </div>
       </div>
 
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
       <H4 className='mb-2'>{t('singleAppointmentPage.appointmentReason')}</H4>
       <P>{appointmentData?.reason || '-'}</P>
 
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
       <H4 className='mb-2'>{t('singleAppointmentPage.appointmentDetails')}</H4>
       <P>{appointmentData?.description || '-'}</P>
 
-      <Separator className='bg-[#D1D1D1]' />
+      <Separator className='bg-grey-100' />
       <H4 className='mb-2'>{t('singleAppointmentPage.appointmentAnalyses')}</H4>
       <div className='flex flex-col gap-4'>
         {appointmentData?.analyses && appointmentData.analyses.length > 0 ? (
@@ -124,7 +124,7 @@ const UpcomingAppointment = ({ appointmentData, locale }: UpcomingAppointmentPro
 
       {appointmentData?.fileName && (
         <>
-          <Separator className='bg-[#D1D1D1]' />
+          <Separator className='bg-grey-100' />
           <H4 className='mb-2'>{t('singleAppointmentPage.additionalFiles')}</H4>
           {appointmentData.fileName}
           <AttachmentPreviewModal attachment={appointmentData.fileName} />

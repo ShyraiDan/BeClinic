@@ -34,7 +34,7 @@ export const AppointmentTab = () => {
     <>
       <div className='mt-6 flex justify-between'>
         <H6>{t('profile.patient.makeAnAppointment')}</H6>
-        <StyledLinkButton href='/appointments/add' variant='icon' className='p-2.5 bg-[#0674d1]'>
+        <StyledLinkButton href='/appointments/add' variant='icon' className='p-2.5 bg-blue-300'>
           <Plus fill='#fff' size={16} />
         </StyledLinkButton>
       </div>

@@ -48,7 +48,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
 
       <div className='flex flex-col px-4'>
         <div className='flex items-center'>
-          <CalendarDays size={16} className='mr-2 text-[#56b0d2]' />
+          <CalendarDays size={16} className='mr-2 text-blue-600' />
           <span className='text-[#8f9395] text-sm px-[3px] capitalize'>
             {format(blog.updatedAt ?? blog.createdAt, 'MMMM d, yyyy', { locale: dateLocale })}
           </span>
@@ -56,7 +56,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         <H3 className='text-[#949494] mt-[5px]'>{blog.title[locale]}</H3>
       </div>
       <div className='flex px-4 mt-2'>
-        <StyledLink href={`/blog/${blog._id}`} className='text-[#56b0d2] underline'>
+        <StyledLink href={`/blog/${blog._id}`} className='text-blue-600 underline'>
           {t('blog.readMore')}
         </StyledLink>
       </div>

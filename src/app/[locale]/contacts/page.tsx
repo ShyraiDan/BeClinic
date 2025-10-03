@@ -89,7 +89,7 @@ const AdvantagesItem = ({ item }: { item: ContactsAdvantageItem }) => {
     <div
       className={cn(
         'flex flex-col items-center justify-center py-8 px-4',
-        item.type === 'doctor' ? 'bg-blue-500' : item.type === 'treatment' ? 'bg-blue-600' : 'bg-[#2a88c9]'
+        item.type === 'doctor' ? 'bg-blue-500' : item.type === 'treatment' ? 'bg-blue-600' : 'bg-blue-100'
       )}>
       <Image src={item.icon} alt={item.title} width={50} height={50} />
       <H5 className='mt-4 mb-1.5 text-white text-center text-lg'>{t(item.title)}</H5>

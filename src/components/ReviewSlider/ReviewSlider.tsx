@@ -37,7 +37,7 @@ export const ReviewSlider = ({ reviews }: ReviewSliderProps) => {
           return (
             <SwiperSlide key={item._id}>
               <div className='bg-white inset-shadow-profile p-4 mb-12 h-[260px] flex flex-col justify-between'>
-                <P className='mb-5 text-[#42474C] italic text-[20px] line-clamp-3'>
+                <P className='mb-5 text-black-200 italic text-[20px] line-clamp-3'>
                   {item.review[locale as SupportedLocales]}
                 </P>
                 <div className='flex'>
@@ -49,8 +49,8 @@ export const ReviewSlider = ({ reviews }: ReviewSliderProps) => {
                     className='w-[87px] h-[87px] rounded-full mr-4'
                   />
                   <div className='flex flex-col justify-center'>
-                    <P className='font-bold text-[#42474C]'>{item.userName}</P>
-                    <P className='text-[#42474C] text-sm font-light'>{item.userPosition}</P>
+                    <P className='font-bold text-black-200'>{item.userName}</P>
+                    <P className='text-black-200 text-sm font-light'>{item.userPosition}</P>
                   </div>
                 </div>
               </div>
