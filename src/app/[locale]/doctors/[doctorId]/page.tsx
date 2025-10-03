@@ -77,8 +77,8 @@ const SingleDoctorPage = async ({ params }: SingleDoctorPageProps) => {
   return (
     <>
       <PageHeading title={doctor?.doctorName} />
-      <Container className='my-12 md:grid md:grid-cols-[3fr_2fr] md:gap-7 lg:grid-cols-[1fr_360px]'>
-        <section>
+      <Container className='my-12 md:grid md:grid-cols-[3fr_2fr] md:gap-7 lg:grid-cols-[1fr_360px] max-w-screen-xl '>
+        <section className='min-w-0 [&_.swiper]:w-full [&_.swiper]:max-w-full [&_.swiper-wrapper]:box-border'>
           {doctor?.avatarUrl ? (
             <Image
               src={`${BUCKET_URL}/custom/avatars/${doctor.avatarUrl}`}
@@ -215,9 +215,7 @@ const SingleDoctorPage = async ({ params }: SingleDoctorPageProps) => {
             />
 
             <H6 className='mb-5 mt-12 text-[26px]'>{t('singleDoctorPage.review')}</H6>
-            <div className='md:max-w-[500px] md:mx-auto'>
-              <ReviewSlider reviews={mockedReviews} />
-            </div>
+            <ReviewSlider reviews={mockedReviews} />
           </div>
         </section>
         <section className='hidden md:block'>
