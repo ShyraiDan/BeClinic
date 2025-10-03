@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useLocale } from 'next-intl'
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'
+import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { P } from '@/components/ui/typography'
@@ -26,18 +26,13 @@ export const ReviewSlider = ({ reviews }: ReviewSliderProps) => {
           el: '.custom-pagination',
           clickable: true,
           renderBullet: (_, className) => {
-            return `<span class="${className} review-slider-bullet"/>`
+            return `<span class="${className} review-slider-bullet"></span>`
           }
         }}
-        effect='fade'
         centeredSlides
-        autoplay={{
-          delay: 15000,
-          disableOnInteraction: true
-        }}
         loop
         spaceBetween={20}
-        modules={[Navigation, Pagination, Autoplay]}>
+        modules={[Navigation, Pagination]}>
         {reviews.map((item) => {
           return (
             <SwiperSlide key={item._id}>

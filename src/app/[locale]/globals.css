@@ -81,6 +81,14 @@
   --green-100: oklch(64.15% 0.154 155.37);
 }
 
+.hero-slider-bullet {
+  background-color: #fff !important;
+}
+
+.review-slider-bullet {
+  background-color: #56b0cf !important;
+}
+
 /* Doctor calendar styles */
 
 .fc .fc-button-primary {

@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -11,7 +12,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
-import { useTranslations } from 'next-intl'
 
 const slidesData = [
   {
@@ -65,6 +65,9 @@ export const HeroSlider = () => {
         }}
         effect='fade'
         centeredSlides
+        allowTouchMove={false}
+        noSwiping={true}
+        simulateTouch={false}
         autoplay={{
           delay: 15000,
           disableOnInteraction: true
