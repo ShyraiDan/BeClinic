@@ -1,4 +1,22 @@
 {
+  "seo": {
+    "index": {
+      "title": "BeClinic",
+      "description": "BeClinic is a platform for doctor appointments, medical records, and telemedicine."
+    },
+    "blog": {
+      "title": "Blog | BeClinic"
+    },
+    "contacts": {
+      "title": "Contacts | BeClinic"
+    },
+    "faq": {
+      "title": "Faqs | BeClinic"
+    },
+    "doctors": {
+      "title": "Doctors | BeClinic"
+    }
+  },
   "header": {
     "links": {
       "hero": "Home",

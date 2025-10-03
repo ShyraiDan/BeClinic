@@ -2,6 +2,24 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
+  "seo": {
+    "index": {
+      "title": "BeClinic",
+      "description": "BeClinic is a platform for doctor appointments, medical records, and telemedicine."
+    },
+    "blog": {
+      "title": "Blog | BeClinic"
+    },
+    "contacts": {
+      "title": "Contacts | BeClinic"
+    },
+    "faq": {
+      "title": "Faqs | BeClinic"
+    },
+    "doctors": {
+      "title": "Doctors | BeClinic"
+    }
+  },
   "header": {
     "links": {
       "hero": "Home",

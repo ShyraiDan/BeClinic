@@ -1,7 +1,7 @@
 import { getYear } from 'date-fns'
 import { Facebook, Twitter, Linkedin, Mail } from 'lucide-react'
 import Image from 'next/image'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, getLocale } from 'next-intl/server'
 
 import { auth } from '@/auth'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
@@ -15,6 +15,50 @@ import { getSingleDoctor } from '@/lib/doctors'
 import { mockedReviews } from '@/mocks/Reviews.mocks'
 import { BUCKET_URL } from '@/shared/constants'
 import { Doctor, UserRoles } from '@/shared/types'
+
+import type { Metadata } from 'next'
+
+export const generateMetadata = async ({ params }: { params: Promise<{ doctorId: string }> }): Promise<Metadata> => {
+  const { doctorId } = await params
+  const locale = await getLocale()
+
+  const t = await getTranslations({ locale, namespace: 'seo' })
+
+  return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_PRODUCTION_URL!),
+    applicationName: t('doctors.title'),
+    title: t('doctors.title'),
+    description: t('index.description'),
+
+    keywords: ['медицина', 'онлайн запис', 'лікарі', 'онлайн медкарта', 'clinic', 'appointments', 'аналіз', 'analysis'],
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1
+    },
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/${locale}/doctors/${doctorId}`,
+      languages: {
+        en: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/en/doctors/${doctorId}`,
+        uk: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/uk/doctors/${doctorId}`
+      }
+    },
+    openGraph: {
+      type: 'website',
+      url: process.env.NEXT_PUBLIC_PRODUCTION_URL!,
+      siteName: t('doctors.title'),
+      title: t('doctors.title'),
+      description: t('index.description'),
+      images: [
+        { url: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/favicon.ico`, width: 1200, height: 630, alt: 'BeClinic' }
+      ],
+      locale: 'uk_UA',
+      alternateLocale: ['en_US']
+    }
+  }
+}
 
 interface DoctorInfoProps {
   doctor: Doctor

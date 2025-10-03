@@ -1,6 +1,7 @@
 import { Pencil } from 'lucide-react'
 import Markdown from 'markdown-to-jsx'
 import Image from 'next/image'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { Suspense } from 'react'
 
 import { auth } from '@/auth'
@@ -13,6 +14,50 @@ import { getSingleBlog } from '@/lib/blog'
 import { getMarkdownFromS3 } from '@/lib/blogFiles'
 import { BUCKET_URL } from '@/shared/constants'
 import { SupportedLocales, UserRoles } from '@/shared/types'
+
+import type { Metadata } from 'next'
+
+export const generateMetadata = async ({ params }: { params: Promise<{ blogId: string }> }): Promise<Metadata> => {
+  const { blogId } = await params
+  const locale = await getLocale()
+
+  const t = await getTranslations({ locale, namespace: 'seo' })
+
+  return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_PRODUCTION_URL!),
+    applicationName: t('blog.title'),
+    title: t('blog.title'),
+    description: t('index.description'),
+
+    keywords: ['медицина', 'онлайн запис', 'лікарі', 'онлайн медкарта', 'clinic', 'appointments', 'аналіз', 'analysis'],
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1
+    },
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/${locale}/blog/${blogId}`,
+      languages: {
+        en: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/en/blog/${blogId}`,
+        uk: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/uk/blog/${blogId}`
+      }
+    },
+    openGraph: {
+      type: 'website',
+      url: process.env.NEXT_PUBLIC_PRODUCTION_URL!,
+      siteName: t('blog.title'),
+      title: t('blog.title'),
+      description: t('index.description'),
+      images: [
+        { url: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/favicon.ico`, width: 1200, height: 630, alt: 'BeClinic' }
+      ],
+      locale: 'uk_UA',
+      alternateLocale: ['en_US']
+    }
+  }
+}
 
 interface SingleBlogPageProps {
   params: Promise<{ locale: SupportedLocales; blogId: string }>

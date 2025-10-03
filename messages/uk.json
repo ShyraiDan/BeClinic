@@ -1,4 +1,22 @@
 {
+  "seo": {
+    "index": {
+      "title": "BeClinic",
+      "description": "BeClinic — платформа для запису до лікарів, медичних карток і телемедицини."
+    },
+    "blog": {
+      "title": "Blog | BeClinic"
+    },
+    "contacts": {
+      "title": "Contacts | BeClinic"
+    },
+    "faq": {
+      "title": "Faqs | BeClinic"
+    },
+    "doctors": {
+      "title": "Doctors | BeClinic"
+    }
+  },
   "header": {
     "links": {
       "hero": "Головна",

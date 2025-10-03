@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { Suspense } from 'react'
 
 import BlogCard from '@/components/BlogCard/BlogCard'
@@ -8,6 +8,49 @@ import { Container, LoadingContainer } from '@/components/ui/container'
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links'
 import { P } from '@/components/ui/typography'
 import { getBlogs } from '@/lib/blog'
+
+import type { Metadata } from 'next'
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  const locale = await getLocale()
+
+  const t = await getTranslations({ locale, namespace: 'seo' })
+
+  return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_PRODUCTION_URL!),
+    applicationName: t('blog.title'),
+    title: t('blog.title'),
+    description: t('index.description'),
+
+    keywords: ['медицина', 'онлайн запис', 'лікарі', 'онлайн медкарта', 'clinic', 'appointments', 'аналіз', 'analysis'],
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1
+    },
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/${locale}/blog`,
+      languages: {
+        en: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/en/blog`,
+        uk: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/uk/blog`
+      }
+    },
+    openGraph: {
+      type: 'website',
+      url: process.env.NEXT_PUBLIC_PRODUCTION_URL!,
+      siteName: t('blog.title'),
+      title: t('blog.title'),
+      description: t('index.description'),
+      images: [
+        { url: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/favicon.ico`, width: 1200, height: 630, alt: 'BeClinic' }
+      ],
+      locale: 'uk_UA',
+      alternateLocale: ['en_US']
+    }
+  }
+}
 
 interface BlogPageParams {
   searchParams: Promise<Record<string, string | undefined>>
