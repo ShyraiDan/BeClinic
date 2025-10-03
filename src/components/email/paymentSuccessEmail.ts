@@ -63,7 +63,7 @@ export const paymentSuccessEmailUa = ({
                 </p>
 
                 <p style="text-align: center; margin: 30px 0;">
-                  <a href="https://medicate-densavdevdens-projects.vercel.app" style="background-color: #28a745; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-size: 16px;">
+                  <a href="${process.env.NEXT_PUBLIC_APP_DOMAIN}" style="background-color: #28a745; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-size: 16px;">
                     Переглянути деталі
                   </a>
                 </p>
