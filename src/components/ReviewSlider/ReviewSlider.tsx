@@ -1,11 +1,12 @@
 'use client'
 
 import Image from 'next/image'
+import { useLocale } from 'next-intl'
 import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { P } from '@/components/ui/typography'
-import { Review } from '@/shared/types'
+import { Review, SupportedLocales } from '@/shared/types'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -16,6 +17,8 @@ interface ReviewSliderProps {
 }
 
 export const ReviewSlider = ({ reviews }: ReviewSliderProps) => {
+  const locale = useLocale()
+
   return (
     <>
       <Swiper
@@ -39,7 +42,9 @@ export const ReviewSlider = ({ reviews }: ReviewSliderProps) => {
           return (
             <SwiperSlide key={item._id}>
               <div className='bg-white inset-shadow-profile p-4 mb-12 h-[260px] flex flex-col justify-between'>
-                <P className='mb-5 text-[#42474C] italic text-[20px] line-clamp-3'>{item.review}</P>
+                <P className='mb-5 text-[#42474C] italic text-[20px] line-clamp-3'>
+                  {item.review[locale as SupportedLocales]}
+                </P>
                 <div className='flex'>
                   <Image
                     src={item.userPhoto}
