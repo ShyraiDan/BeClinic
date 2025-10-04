@@ -1,3 +1,5 @@
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Jost, Roboto } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { SessionProvider } from 'next-auth/react'
@@ -102,6 +104,8 @@ const RootLayout = async ({ children }: RootLayoutProps) => {
             <Toaster richColors />
           </NextIntlClientProvider>
         </SessionProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
