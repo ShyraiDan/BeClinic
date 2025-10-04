@@ -1,12 +1,12 @@
 'use client'
 
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
-import { H2, H6 } from '@/components/ui/typography'
-import { cn } from '@/utils/utils'
+import { H2, H3 } from '@/components/ui/typography'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -15,13 +15,13 @@ import 'swiper/css/effect-fade'
 
 const slidesData = [
   {
-    bg: "bg-[url('/main-slider-img-1.jpg')]"
+    bg: '/main-slider-img-1.jpg'
   },
   {
-    bg: "bg-[url('/main-slider-img-2.jpg')]"
+    bg: '/main-slider-img-2.jpg'
   },
   {
-    bg: "bg-[url('/main-slider-img-3.jpg')]"
+    bg: '/main-slider-img-3.jpg'
   }
 ]
 
@@ -33,22 +33,29 @@ const Slide = ({ background }: SlideProps) => {
   const t = useTranslations('page')
 
   return (
-    <SwiperSlide>
-      <div className={cn(background, 'bg-cover bg-no-repeat bg-center w-full h-[675px] xl:h-[800px]')}>
-        <div className='flex items-start flex-col justify-center h-full px-4 max-w-[1200px] mx-auto'>
-          <H2 className='text-white sm:text-[50px] md:text-[60px] lg:text-[68px]'>{t('hero.title')}</H2>
-          <H6 className='text-white font-normal sm:text-[32px] md:text-[40px] lg:text-[44px]'>{t('hero.subTitle')}</H6>
-          <div className='flex gap-4 mt-3 sm:mt-6 lg:mt-9'>
-            <StyledLinkButton href='/doctors' className='bg-white text-blue-100 hover:text-white'>
-              {t('hero.button.doctor')}
-            </StyledLinkButton>
-            <StyledLinkButton variant='outline-white' className='border-white text-white' href='/contacts'>
-              {t('hero.button.contacts')}
-            </StyledLinkButton>
-          </div>
+    <section className='relative w-full h-[675px] xl:h-[800px]'>
+      <Image
+        src={background}
+        alt=''
+        fill
+        priority
+        fetchPriority='high'
+        sizes='100vw'
+        style={{ objectFit: 'cover', objectPosition: 'center' }}
+      />
+      <div className='relative z-10 flex items-start flex-col justify-center h-full px-4 max-w-[1200px] mx-auto'>
+        <H2 className='text-white sm:text-[50px] md:text-[60px] lg:text-[68px]'>{t('hero.title')}</H2>
+        <H3 className='text-white font-normal sm:text-[32px] md:text-[40px] lg:text-[44px]'>{t('hero.subTitle')}</H3>
+        <div className='flex gap-4 mt-3 sm:mt-6 lg:mt-9'>
+          <StyledLinkButton href='/doctors' className='bg-white text-blue-100 hover:text-white'>
+            {t('hero.button.doctor')}
+          </StyledLinkButton>
+          <StyledLinkButton variant='outline-white' className='border-white text-white' href='/contacts'>
+            {t('hero.button.contacts')}
+          </StyledLinkButton>
         </div>
       </div>
-    </SwiperSlide>
+    </section>
   )
 }
 

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
 import { Separator } from '@/components/ui/separator'
-import { P, H6 } from '@/components/ui/typography'
+import { P, H4 } from '@/components/ui/typography'
 
 const departmentsData = [
   {
@@ -59,7 +59,7 @@ const otherLinksData = [
 const SectionHeading = ({ title }: { title: string }) => {
   return (
     <>
-      <H6 className='text-white'>{title}</H6>
+      <H4 className='text-white'>{title}</H4>
       <div className='flex items-center justify-start mt-4 mb-6'>
         <div className='border border-solid border-[#c5cbcf] w-[65px]' />
       </div>
@@ -71,7 +71,7 @@ export const Footer = () => {
   const t = useTranslations('footer')
 
   return (
-    <footer className='bg-[#919ba6]'>
+    <footer className='bg-[#556476]'>
       <div className='xl:max-w-[1200px] xl:mx-auto'>
         <section className='pt-[30px] md:grid md:grid-cols-[31%_1fr_1fr_1fr]'>
           <div className='p-4'>

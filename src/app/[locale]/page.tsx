@@ -8,7 +8,7 @@ import { HeroSlider } from '@/components/HeroSlider/HeroSlider'
 import { DoctorCardSkeleton } from '@/components/skeletons/DoctorCardSkeletons'
 import { Container } from '@/components/ui/container'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
-import { H3, H6, P } from '@/components/ui/typography'
+import { H3, H4, P } from '@/components/ui/typography'
 import {
   mockedDepartments,
   mockedDepartmentsTwo,
@@ -25,7 +25,7 @@ const ServiceItem = ({ item }: { item: Service }) => {
     <div className='py-4'>
       <Image src={item.icon} alt={item.title} width={50} height={50} />
       <div>
-        <H6 className='my-4 font-normal text-xl'>{t(item.title)}</H6>
+        <H4 className='my-4 font-normal text-xl'>{t(item.title)}</H4>
         <P className='text-black-200 font-light text-sm'>{t(item.description)}</P>
       </div>
     </div>
@@ -38,7 +38,7 @@ const DepartmentsItem = ({ item }: { item: Department }) => {
   return (
     <div className='mx-4 px-2.5 mt-4 pt-[27px] pb-[30px] flex flex-col items-center justify-center'>
       <Image src={item.icon} alt={item.title} className='mb-4' width={90} height={90} />
-      <H6 className='mt-4 mb-2.5 text-xl text-center'>{t(item.title)}</H6>
+      <H4 className='mt-4 mb-2.5 text-xl text-center'>{t(item.title)}</H4>
       <P className='text-black-200 font-light text-center'>{t(item.description)}</P>
     </div>
   )
@@ -146,7 +146,7 @@ const HeroPage = async () => {
         <div className='flex flex-col p-4 xl:max-w-[1200px] xl:mx-auto'>
           <Image src='/logo.png' alt='BeClinic' className='mb-[35px]' width={182} height={32} />
           <H3 className='text-[38px] text-white font-normal mb-[30px]'>{t('hero.welcome.title')}</H3>
-          <H6 className='mb-6 text-white font-light max-w-[550px]'>{t('hero.welcome.subtitle')}</H6>
+          <H4 className='mb-6 text-white font-light max-w-[550px] text-base'>{t('hero.welcome.subtitle')}</H4>
           <P className='text-white font-light mb-[50px] max-w-[500px]'>{t('hero.welcome.description')}</P>
 
           <StyledLinkButton variant='outline-white' href='/contacts' className='w-[250px] border-white text-white'>

@@ -58,13 +58,21 @@ export const generateMetadata = async (): Promise<Metadata> => {
       follow: true,
       'max-image-preview': 'large',
       'max-snippet': -1,
-      'max-video-preview': -1
+      'max-video-preview': -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+        'max-video-preview': -1
+      }
     },
     alternates: {
       canonical: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/${locale}`,
       languages: {
         en: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/en`,
-        uk: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/uk`
+        uk: `${process.env.NEXT_PUBLIC_PRODUCTION_URL!}/uk`,
+        'x-default': process.env.NEXT_PUBLIC_PRODUCTION_URL!
       }
     },
     openGraph: {

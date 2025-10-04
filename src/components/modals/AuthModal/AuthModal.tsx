@@ -177,7 +177,7 @@ export const AuthModal = () => {
     <StyledModal
       contentClassName='h-[700px] lg:w-[960px] lg:!max-w-[960px]'
       triggerButton={
-        <Button variant='outline' className='hover:bg-blue-200 hover:text-white'>
+        <Button variant='outline' aria-label='Open auth modal' className='hover:bg-blue-200 hover:text-white'>
           {t('auth.signIn')}
         </Button>
       }>
