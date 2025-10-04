@@ -312,7 +312,7 @@ declare const messages: {
       "doctorDescription": "The Department of Pediatrics strives to improve the well-being of all children. We will be recognized by UNMC, the region, and the country as a center of excellence and innovation in healthcare, science, education, service, and advocacy. Our faculty will continually improve their abilities through the support and opportunities provided by the department and UNMC.",
       "doctorAccordion": {
         "review": {
-          "title": "Review",
+          "title": "Education",
           "content": {
             "programs": {
               "title": "Programs and specialties",

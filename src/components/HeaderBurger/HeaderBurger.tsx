@@ -49,6 +49,7 @@ const BurgerMenuContent = ({ showModal, session }: BurgerMenuContentProps) => {
     <>
       <div className='flex justify-end'>
         <Button
+          aria-label='Close menu'
           onClick={() => showModal()}
           variant='icon'
           className='h-[30px] w-[30px] p-0 bg-transparent hover:bg-transparent [&>svg]:transition-all [&>svg]:duration-300 [&>svg]:ease-in-out hover:[&>svg]:text-red-100'>

@@ -9,7 +9,7 @@ import { ReviewSlider } from '@/components/ReviewSlider/ReviewSlider'
 import { StyledAccordion } from '@/components/StyledAccordion/StyledAccordion'
 import { Container } from '@/components/ui/container'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
-import { H3, H6, P } from '@/components/ui/typography'
+import { H3, P } from '@/components/ui/typography'
 import { Link } from '@/i18n/navigation'
 import { getSingleDoctor } from '@/lib/doctors'
 import { mockedReviews } from '@/mocks/Reviews.mocks'
@@ -139,6 +139,8 @@ const SingleDoctorPage = async ({ params }: SingleDoctorPageProps) => {
               className='w-full h-full max-h-[440px] mb-10 object-cover'
               width={730}
               height={440}
+              priority
+              fetchPriority='high'
             />
           )}
           <div>
@@ -258,7 +260,7 @@ const SingleDoctorPage = async ({ params }: SingleDoctorPageProps) => {
               ]}
             />
 
-            <H6 className='mb-5 mt-12 text-[26px]'>{t('singleDoctorPage.review')}</H6>
+            <H3 className='mb-5 mt-12 text-[26px]'>{t('singleDoctorPage.review')}</H3>
             <ReviewSlider reviews={mockedReviews} />
           </div>
         </section>
