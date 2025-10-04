@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
+import { auth } from '@/auth'
 import { HeroSlider } from '@/components/HeroSlider/HeroSlider'
 import { DoctorCardSkeleton } from '@/components/skeletons/DoctorCardSkeletons'
 import { Container } from '@/components/ui/container'
@@ -14,7 +16,7 @@ import {
   mockedServicesData,
   mockedClients
 } from '@/mocks/HeroPage.mock'
-import { Service, Department } from '@/shared/types'
+import { Service, Department, UserRoles } from '@/shared/types'
 
 const ServiceItem = ({ item }: { item: Service }) => {
   const t = useTranslations('page')
@@ -65,9 +67,9 @@ const Departments = () => {
   )
 }
 
-const HeroPage = () => {
-  const t = useTranslations('page')
-
+const HeroPage = async () => {
+  const t = await getTranslations('page')
+  const session = await auth()
   return (
     <>
       <div>
@@ -100,9 +102,11 @@ const HeroPage = () => {
           <div className='py-5 px-4 border-b-[7px] border-solid border-blue-600'>
             <H3 className='mb-5 text-blue-100 font-normal text-[26px]'>{t('hero.doctors.schedule')}</H3>
             <P className='mb-5 text-black-200 font-light'>{t('hero.doctors.description')}</P>
-            <StyledLinkButton variant='outline-blue' href='/appointments/add'>
-              {t('hero.button.makeAnAppointment')}
-            </StyledLinkButton>
+            {session?.user.role === UserRoles.PATIENT && (
+              <StyledLinkButton variant='outline-blue' href='/appointments/add'>
+                {t('hero.button.makeAnAppointment')}
+              </StyledLinkButton>
+            )}
           </div>
 
           <div className='py-5 px-4 border-b-[7px] border-solid border-blue-100'>
