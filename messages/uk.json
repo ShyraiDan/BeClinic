@@ -128,8 +128,8 @@
       },
       "location": {
         "branch": "Відділення #{ count }",
-        "addressOne": "вулиця Соборна, 51а",
-        "addressTwo": "вулиця Келецька, 41",
+        "addressOne": "м. Київ, вулиця Хрещатик, 16",
+        "addressTwo": "м. Київ, вулиця Хрещатик, 16",
         "workingHours": "Графік роботи",
         "businessDays": "Пн-Пт:",
         "saturday": "Сб:",

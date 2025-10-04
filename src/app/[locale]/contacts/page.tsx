@@ -108,10 +108,10 @@ const OfficeItem = ({ item, count }: { item: ContactsOfficeItem; count: number }
       </H5>
       <P className='mt-3 text-center font-light md:text-left'>
         {t(item.address)} <br />
-        <StyledLink href={`mailto:${item.email}`} className='justify-center md:justify-start'>
+        <StyledLink href={`mailto:${item.email}`} className=' text-blue-100 justify-center md:justify-start'>
           {item.email}
         </StyledLink>
-        <StyledLink href={`tel:${item.phone}`} className='justify-center md:justify-start'>
+        <StyledLink href={`tel:${item.phone}`} className=' text-blue-100 justify-center md:justify-start'>
           {item.phone}
         </StyledLink>
       </P>
@@ -147,7 +147,16 @@ const ContactsPage = () => {
     <>
       <PageHeading title={t('contacts.title')} />
       <div className='md:grid md:grid-cols-2'>
-        <div className="bg-[url('/contacts-img1.jpg')] bg-cover bg-no-repeat w-full h-[240px] bg-center md:h-[580px] md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2" />
+        <div className='relative w-full h-[240px] md:h-[580px] md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2'>
+          <Image
+            src='/contacts-img1.jpg'
+            alt='Doctors core team'
+            fill
+            sizes='(min-width: 768px) 50vw, 100vw'
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+          />
+        </div>
+
         <div className='py-[60px] px-4 lg:max-w-[600px] lg:ml-auto'>
           <H1 className='mb-5 text-center text-[26px] md:text-left xl:text-[26px]'>{t('contacts.subtitle')}</H1>
           <div className='flex items-center justify-center md:justify-start'>

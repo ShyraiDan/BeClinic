@@ -131,8 +131,8 @@ declare const messages: {
       },
       "location": {
         "branch": "Office #{ count }",
-        "addressOne": "вулиця Соборна, 51а",
-        "addressTwo": "вулиця Келецька, 41",
+        "addressOne": "Kyiv, 16 Khreshchatyk Street",
+        "addressTwo": "Kyiv, 16 Khreshchatyk Street",
         "workingHours": "Opening Hours",
         "businessDays": "Mon-Fri:",
         "saturday": "Sat:",
