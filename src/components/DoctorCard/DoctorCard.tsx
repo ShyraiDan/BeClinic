@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
-import { P, H6 } from '@/components/ui/typography'
+import { P, H6, H3 } from '@/components/ui/typography'
 import { BUCKET_URL } from '@/shared/constants'
 import { Doctor } from '@/shared/types'
 
@@ -40,18 +40,18 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => {
           {t(`profile.doctor.specialties.${doctor.position}`)}
         </P>
 
-        <H6 className='font-normal text-[16px]'>
+        <H3 className='font-normal text-[16px]'>
           <Link href={`/doctors/${doctor._id}`} className='transition-all duration-300 ease-in-out hover:text-blue-100'>
             {doctor.doctorName}
           </Link>
-        </H6>
+        </H3>
       </div>
       <div className='ml-4 pb-[30px]'>
         <ul>
           <li className='flex items-center'>
             <Link
               href={`tel:${doctor.phone}`}
-              className='flex items-center text-grey-800 font-primary font-light text-sm transition-all duration-300 ease-in-out hover:text-blue-300 hover:[&_svg]:text-blue-300'>
+              className='flex items-center py-1.5 text-grey-800 font-primary font-light text-sm transition-all duration-300 ease-in-out hover:text-blue-300 hover:[&_svg]:text-blue-300'>
               <Smartphone className='mr-2.5' size={14} />
               {doctor.phone}
             </Link>
@@ -59,7 +59,7 @@ const DoctorCard = ({ doctor }: DoctorCardProps) => {
           <li className='flex items-center'>
             <Link
               href={`mailto:${doctor.email}`}
-              className='flex items-center text-grey-800 font-primary font-light text-sm transition-all duration-300 ease-in-out hover:text-blue-300 hover:[&_svg]:text-blue-300'>
+              className='flex items-center py-1.5 text-grey-800 font-primary font-light text-sm transition-all duration-300 ease-in-out hover:text-blue-300 hover:[&_svg]:text-blue-300'>
               <Mail className='mr-2.5' size={14} />
               {doctor.email}
             </Link>

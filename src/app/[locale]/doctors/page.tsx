@@ -102,7 +102,16 @@ const DoctorsPage = async () => {
     <>
       <PageHeading title={t('doctors.title')} />
       <section className='md:grid md:grid-cols-2'>
-        <div className="bg-[url('/department-single-img5.jpg')] bg-cover bg-no-repeat w-full h-[240px] bg-center md:h-[440px] md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2" />
+        <div className='relative w-full h-[240px] md:h-[440px] md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2'>
+          <Image
+            src='/department-single-img5.jpg'
+            alt='Doctors core team'
+            fill
+            sizes='(min-width: 768px) 50vw, 100vw'
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+          />
+        </div>
+
         <div className='py-[60px] px-4 lg:max-w-[600px] lg:ml-auto'>
           <H2 className='mb-5 text-center text-[26px] md:text-left xl:text-[26px]'>{t('doctors.ourTeam')}</H2>
           <div className='flex items-center justify-center md:justify-start'>
@@ -111,7 +120,6 @@ const DoctorsPage = async () => {
           <P className='mt-4 font-light'>{t('doctors.description')}</P>
         </div>
       </section>
-
       <Container className='mt-[45px]'>
         <section className='py-4'>
           <H2 className='mb-5 text-center text-[26px] md:text-left xl:text-[26px]'>{t('doctors.doctors')}</H2>
