@@ -28,7 +28,7 @@ export const useUpdatePaymentMutation = (paymentId: string) => {
       return await updatePayment(data)
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['payments', paymentId] })
+      await queryClient.invalidateQueries({ queryKey: ['payments'] })
     }
   })
 }
