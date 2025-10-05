@@ -126,7 +126,6 @@ const UpcomingAppointment = ({ appointmentData, locale }: UpcomingAppointmentPro
         <>
           <Separator className='bg-grey-100' />
           <H4 className='mb-2'>{t('singleAppointmentPage.additionalFiles')}</H4>
-          {appointmentData.fileName}
           <AttachmentPreviewModal attachment={appointmentData.fileName} />
         </>
       )}
