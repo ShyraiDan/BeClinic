@@ -134,12 +134,12 @@ export const Header = ({ session }: HeaderProps) => {
               {isPatient && (
                 <>
                   <HeaderLink
-                    href={`/patient/${session.user.id}?tab=appointments`}
+                    href={`/patient/${session.user.id}?tab=appointments&page=1`}
                     label='links.appointment'
                     currentPath={path}
                   />
                   <HeaderLink
-                    href={`/patient/${session.user.id}?tab=analyses`}
+                    href={`/patient/${session.user.id}?tab=analyses&page=1`}
                     label='links.analyses'
                     currentPath={path}
                   />
