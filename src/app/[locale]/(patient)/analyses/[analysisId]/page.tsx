@@ -39,10 +39,10 @@ const SingleAnalysisPage = () => {
     const res = await deleteAnalysis({ analysisId })
 
     if (res) {
-      toast.success('singleAnalysisPage.notifications.deleteAnalysisSuccess')
+      toast.success(t('singleAnalysisPage.notifications.deleteAnalysisSuccess'))
       router.push(`/patient/${session?.user.id}?tab=analyses`)
     } else {
-      toast.error('singleAnalysisPage.notifications.deleteAnalysisError')
+      toast.error(t('singleAnalysisPage.notifications.deleteAnalysisError'))
     }
   }
 
