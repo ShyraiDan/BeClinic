@@ -202,7 +202,7 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
               <Label htmlFor='userName'>{t('editPatientForm.patientName.label')}</Label>
               <Input id='userName' type='text' placeholder={t('editPatientForm.patientName.placeholder')} {...field} />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -215,7 +215,7 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
               <Label htmlFor='email'>{t('editPatientForm.email.label')}</Label>
               <Input id='email' type='email' placeholder='example@example.com' {...field} />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -230,11 +230,11 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
                 initialDate={value}
                 hintFormat='dd/MM/yyyy'
                 placeholder={t('editPatientForm.dateOfBirth.placeholder')}
-                errorText={(error?.message && <ErrorText>{error.message}</ErrorText>) || null}
+                errorText={(error?.message && <ErrorText>{t(error.message)}</ErrorText>) || null}
                 onChange={onChange}
               />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -255,7 +255,7 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
                 {...field}
               />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -272,7 +272,7 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
                 {...field}
               />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -284,8 +284,7 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
             <div className='mb-4'>
               <Label htmlFor='diabetes'>{t('editPatientForm.diabetes.label')}</Label>
               <Input id='diabetes' type='text' placeholder={t('editPatientForm.diabetes.placeholder')} {...field} />
-
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -298,7 +297,7 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
               <P className='mb-2 font-medium'>{t('editPatientForm.rhFactor.label')}</P>
               <StyledSelect options={rhOptions} placeholder={t('editPatientForm.rhFactor.placeholder')} {...field} />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -316,7 +315,7 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
                 {...field}
               />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -334,7 +333,7 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
                 {...field}
               />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -352,7 +351,7 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
                 {...field}
               />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -370,7 +369,7 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
                 {...field}
               />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -383,7 +382,7 @@ export const EditPatientForm = ({ patient, allowedAction }: EditPatientFormProps
               <Label htmlFor='allergies'>{t('editPatientForm.allergies.label')}</Label>
               <Input id='allergies' type='text' placeholder={t('editPatientForm.allergies.placeholder')} {...field} />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />

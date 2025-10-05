@@ -164,7 +164,7 @@ export const EditDoctorForm = ({ doctor, allowedAction }: EditDoctorFormProps) =
               <Label htmlFor='doctorName'>{t('editDoctorForm.doctorName.label')}</Label>
               <Input id='doctorName' type='text' placeholder={t('editDoctorForm.doctorName.placeholder')} {...field} />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -177,7 +177,7 @@ export const EditDoctorForm = ({ doctor, allowedAction }: EditDoctorFormProps) =
               <Label htmlFor='email'>{t('editDoctorForm.email.label')}</Label>
               <Input id='email' type='email' placeholder='example@example.com' {...field} />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -195,7 +195,7 @@ export const EditDoctorForm = ({ doctor, allowedAction }: EditDoctorFormProps) =
                 localized
               />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -215,8 +215,7 @@ export const EditDoctorForm = ({ doctor, allowedAction }: EditDoctorFormProps) =
                 replacement='_'
                 {...field}
               />
-
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
@@ -229,7 +228,7 @@ export const EditDoctorForm = ({ doctor, allowedAction }: EditDoctorFormProps) =
               <Label htmlFor='description'>{t('editDoctorForm.description.label')}</Label>
               <TextArea id='description' placeholder={t('editDoctorForm.description.placeholder')} {...field} />
 
-              {error?.message && <ErrorText>{error.message}</ErrorText>}
+              {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
             </div>
           )}
         />
