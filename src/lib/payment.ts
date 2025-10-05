@@ -47,7 +47,7 @@ export const getPatientPayments = async (
             _id: d._id.toString(),
             appointment: {
               _id: d.appointment?._id.toString(),
-              startTime: d.appointment?.startTime,
+              startTime: d.appointment?.startTime?.toISOString(),
               doctorName: d.appointment.doctor.doctorName,
               position: d.appointment?.doctor?.position
             },
@@ -106,7 +106,7 @@ const getSinglePayment = async (paymentId: string): Promise<Payment> => {
           _id: docs?._id.toString(),
           appointment: {
             _id: docs?.appointment?._id.toString(),
-            startTime: docs?.appointment?.startTime,
+            startTime: docs?.appointment?.startTime?.toISOString(),
             doctorName: docs?.appointment.doctor.doctorName,
             position: docs?.appointment?.doctor?.position
           },
