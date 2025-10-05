@@ -84,12 +84,6 @@ const DoctorInfo = async ({ doctor }: DoctorInfoProps) => {
             <span>{t(`profile.doctor.specialties.${doctor.position}`)}</span>
           </P>
         </li>
-        <li className='py-3 border-b border-solid border-grey-500'>
-          <P className='flex items-center justify-between text-grey-600'>
-            <span>{t('singleDoctorPage.doctorEducation')}</span>
-            <span>ВНМУ ім. М.І. Пирогова</span>
-          </P>
-        </li>
         <li className='py-3'>
           <P className='flex items-center justify-between text-grey-600'>
             <span>{t('singleDoctorPage.doctorExperience')}</span>
