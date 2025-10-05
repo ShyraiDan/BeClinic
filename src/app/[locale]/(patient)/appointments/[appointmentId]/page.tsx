@@ -158,10 +158,10 @@ const PatientSingleAppointmentPage = () => {
     const res = await deleteAppointment({ appointmentId })
 
     if (res) {
-      toast.success('singleAnalysisPage.notifications.deleteAppointmentSuccess')
+      toast.success(t('singleAnalysisPage.notifications.deleteAppointmentSuccess'))
       router.push(`/patient/${session?.user.id}?tab=appointments`)
     } else {
-      toast.error('singleAnalysisPage.notifications.deleteAppointmentError')
+      toast.error(t('singleAnalysisPage.notifications.deleteAppointmentError'))
     }
   }
 
