@@ -222,7 +222,7 @@ export const updatePayment = async (paymentData: UpdatePaymentFormValues): Promi
           _id: doc?._id.toString(),
           appointment: {
             _id: doc?.appointment._id.toString(),
-            startTime: doc?.appointment?.startTime,
+            startTime: doc?.appointment?.startTime.toISOString(),
             doctorName: doc?.appointment?.doctor?.doctorName,
             position: doc?.appointment?.doctor?.position
           },
