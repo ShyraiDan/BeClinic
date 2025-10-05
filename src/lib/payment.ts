@@ -48,7 +48,7 @@ export const getPatientPayments = async (
             appointment: {
               _id: d.appointment?._id.toString(),
               startTime: d.appointment?.startTime?.toISOString(),
-              doctorName: d.appointment.doctor.doctorName,
+              doctorName: d.appointment?.doctor.doctorName,
               position: d.appointment?.doctor?.position
             },
             patientId: d.patientId.toString(),
@@ -222,7 +222,10 @@ export const updatePayment = async (paymentData: UpdatePaymentFormValues): Promi
           _id: doc?._id.toString(),
           appointment: {
             _id: doc?.appointment._id.toString(),
-            startTime: doc?.appointment?.startTime.toISOString(),
+            startTime:
+              doc?.appointment?.startTime instanceof Date
+                ? doc?.appointment?.startTime?.toISOString()
+                : doc?.appointment?.startTime,
             doctorName: doc?.appointment?.doctor?.doctorName,
             position: doc?.appointment?.doctor?.position
           },
