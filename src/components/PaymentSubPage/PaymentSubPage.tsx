@@ -16,9 +16,10 @@ import { convertToSubCurrency } from '@/utils/convetToSubcurrency'
 
 interface PaymentSubPageProps {
   payment: Payment
+  allowedAction: () => void
 }
 
-export const PaymentSubPage = ({ payment }: PaymentSubPageProps) => {
+export const PaymentSubPage = ({ payment, allowedAction }: PaymentSubPageProps) => {
   const stripe = useStripe()
   const elements = useElements()
   const [errorMessage, setErrorMessage] = useState<string>()
@@ -90,6 +91,7 @@ export const PaymentSubPage = ({ payment }: PaymentSubPageProps) => {
         })
         await sendPaymentSuccessEmail(locale as SupportedLocales, paymentResult)
         toast.success(t('payment.notifications.paymentSuccess'))
+        allowedAction()
       }
 
       setLoading(false)

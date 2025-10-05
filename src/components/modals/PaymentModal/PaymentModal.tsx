@@ -3,6 +3,7 @@
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useTranslations } from 'next-intl'
+import { useState } from 'react'
 
 import { PaymentSubPage } from '@/components/PaymentSubPage/PaymentSubPage'
 import { StyledModal } from '@/components/StyledModal/StyledModal'
@@ -19,9 +20,17 @@ interface PaymentModalProps {
 
 export const PaymentModal = ({ payment }: PaymentModalProps) => {
   const t = useTranslations('modals')
+  const [open, setOpen] = useState(false)
 
   return (
-    <StyledModal triggerButton={<Button className='mt-4'>{t('payment.pay')}</Button>}>
+    <StyledModal
+      open={open}
+      onOpenChange={setOpen}
+      triggerButton={
+        <Button onClick={() => setOpen(true)} className='mt-4'>
+          {t('payment.pay')}
+        </Button>
+      }>
       <DialogHeader>
         <DialogTitle>{t('payment.payment')}</DialogTitle>
       </DialogHeader>
@@ -32,7 +41,7 @@ export const PaymentModal = ({ payment }: PaymentModalProps) => {
           amount: convertToSubCurrency(1000),
           currency: 'uah'
         }}>
-        <PaymentSubPage payment={payment} />
+        <PaymentSubPage payment={payment} allowedAction={() => setOpen(false)} />
       </Elements>
     </StyledModal>
   )
