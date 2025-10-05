@@ -239,8 +239,8 @@ export const updatePatientAppointment = async (
         return {
           ...doc,
           _id: doc?._id.toString(),
-          startTime: doc?.startTime?.toISOString(),
-          endTime: doc?.endTime?.toISOString(),
+          startTime: doc?.startTime instanceof Date ? doc?.startTime?.toISOString() : doc?.startTime,
+          endTime: doc?.endTime instanceof Date ? doc?.endTime?.toISOString() : doc?.endTime,
           createdAt: doc?.createdAt instanceof Date ? doc?.createdAt?.toISOString() : doc?.createdAt,
           updatedAt: doc?.updatedAt instanceof Date ? doc?.updatedAt?.toISOString() : doc?.updatedAt
         }

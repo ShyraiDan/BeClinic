@@ -603,7 +603,9 @@
       "analysisDateRequired": "Дата аналізу є обов'язковою",
       "blogTitleMinLength": "Заголовок блогу повинен містити не менше 20 символів",
       "blogDescriptionMinLength": "Опис блогу повинен містити не менше 40 символів",
-      "blogImageRequired": "Зображення блогу є обов'язковим"
+      "blogImageRequired": "Зображення блогу є обов'язковим",
+      "doctorNameRequired": "Лікар є обов'язковим",
+      "doctorPositionRequired": "Спеціальність є обов'язковою"
     },
     "specialtySelect": {
       "therapist": "Терапевт",

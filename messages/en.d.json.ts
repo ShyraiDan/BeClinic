@@ -606,7 +606,9 @@ declare const messages: {
       "analysisDateRequired": "Analysis date is required field",
       "blogTitleMinLength": "Blog title must be at least 20 characters",
       "blogDescriptionMinLength": "Blog description must be at least 40 characters",
-      "blogImageRequired": "Blog image is required field"
+      "blogImageRequired": "Blog image is required field",
+      "doctorNameRequired": "Doctor name is required field",
+      "doctorPositionRequired": "Specialty is required"
     },
     "specialtySelect": {
       "therapist": "Therapist",

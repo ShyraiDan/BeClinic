@@ -140,8 +140,8 @@ export const doctorSchema = z.object({
 export const analysesSchema = z.object({
   _id: z.string(),
   patientId: z.string(),
-  analysisName: z.string('validation.analysisNameRequired'),
-  date: z.string('validation.analysisDateRequired'), // ISO string
+  analysisName: z.string('validation.analysisNameRequired').min(1, 'validation.analysisNameRequired'),
+  date: z.string('validation.analysisDateRequired').min(1, 'validation.analysisDateRequired'), // ISO string
   description: z.string().optional(),
   fileName: z.string().optional(),
   createdAt: z.string(), // ISO string
@@ -156,7 +156,7 @@ export const medicineSchema = z.object({
 
 export const appointmentSchema = z.object({
   _id: z.string(),
-  reason: z.string('validation.reasonRequired'),
+  reason: z.string('validation.reasonRequired').min(1, 'validation.reasonRequired'),
   startTime: z.string('validation.startTimeRequired'), // ISO string
   patient: patientSchema,
   doctor: doctorSchema,
@@ -256,8 +256,8 @@ export const patientAppointmentFormValuesSchema = appointmentSchema
     fileName: true
   })
   .extend({
-    doctorId: z.string(),
-    specialty: z.string(),
+    doctorId: z.string('validation.doctorNameRequired').min(1, 'validation.doctorNameRequired'),
+    specialty: z.string('validation.doctorPositionRequired').min(1, 'validation.doctorPositionRequired'),
     startTimeHours: z.string(),
     doctorName: z.string().optional()
   })

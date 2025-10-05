@@ -164,7 +164,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
   })
 
   return (
-    <form onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
+    <form onSubmit={(e) => void handleSubmit(onSubmit)(e)} onError={(e) => console.log(e)}>
       <Controller
         name='reason'
         control={control}
@@ -260,7 +260,7 @@ export const PatientAppointmentForm = ({ appointment }: AppointmentFormProps) =>
                   placeholder={t('appointmentForm.appointmentTime.placeholder')}
                   {...field}
                 />
-                {error?.message && <ErrorText>{t(error.message)}</ErrorText>}
+                {error?.message && <ErrorText>{t('validation.startTimeRequired')}</ErrorText>}
               </>
             )}
           />
