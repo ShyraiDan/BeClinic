@@ -2,13 +2,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
+import { Suspense } from 'react'
 
 import { auth } from '@/auth'
+import DoctorCard from '@/components/DoctorCard/DoctorCard'
 import { HeroSlider } from '@/components/HeroSlider/HeroSlider'
 import { DoctorCardSkeleton } from '@/components/skeletons/DoctorCardSkeletons'
 import { Container } from '@/components/ui/container'
 import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { H3, H4, P } from '@/components/ui/typography'
+import { getDoctors } from '@/lib/doctors'
 import {
   mockedDepartments,
   mockedDepartmentsTwo,
@@ -70,6 +73,8 @@ const Departments = () => {
 const HeroPage = async () => {
   const t = await getTranslations('page')
   const session = await auth()
+  const doctors = await getDoctors()
+
   return (
     <>
       <div>
@@ -173,9 +178,20 @@ const HeroPage = async () => {
         </div>
 
         <div className='flex flex-col gap-10 md:grid md:grid-cols-4 md:gap-4 pt-5'>
-          {Array.from({ length: 4 }).map((_, index) => (
-            <DoctorCardSkeleton key={index} />
-          ))}
+          <Suspense
+            fallback={Array.from({ length: 4 }).map((_, index) => (
+              <DoctorCardSkeleton key={index} />
+            ))}>
+            {doctors.length === 0 ? (
+              <P>{t('doctors.noDoctors')}</P>
+            ) : (
+              <>
+                {doctors.map((doctor) => (
+                  <DoctorCard key={doctor._id} doctor={doctor} />
+                ))}
+              </>
+            )}
+          </Suspense>
         </div>
 
         <div className='pt-8 pb-4 grid grid-cols-2 md:grid-cols-4'>

@@ -142,8 +142,6 @@ const DoctorsPage = async () => {
               </>
             )}
           </Suspense>
-
-          {}
         </section>
         <section className='pt-[50px] mb-9'>
           <H2 className='mb-5 text-center text-[26px] md:text-left xl:text-[26px]'>
