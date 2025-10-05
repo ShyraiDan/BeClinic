@@ -1,5 +1,6 @@
 'use server'
 
+import { parseISO } from 'date-fns'
 import { InferSchemaType } from 'mongoose'
 
 import { auth } from '@/auth'
@@ -35,6 +36,7 @@ export const getPaginatedAnalyses = async (
           docs.map((d) => ({
             ...d,
             _id: d._id.toString(),
+            date: d.date instanceof Date ? d.date.toISOString() : d.date,
             patientId: d.patientId.toString(),
             createdAt: d.createdAt?.toISOString(),
             updatedAt: d.updatedAt?.toISOString()
@@ -85,6 +87,7 @@ export const getSingleAnalysis = async (patientId: string, analysisId: string): 
         return {
           ...doc,
           _id: doc?._id.toString(),
+          date: doc?.date?.toISOString(),
           patientId: doc?.patientId.toString(),
           createdAt: doc?.createdAt?.toISOString(),
           updatedAt: doc?.updatedAt?.toISOString()
@@ -118,6 +121,7 @@ export const createAnalysis = async (
 
     const newAnalysisDoc = await AnalysisModel.create({
       ...data,
+      date: parseISO(data.date),
       patientId
     })
 
@@ -130,6 +134,7 @@ export const createAnalysis = async (
         return {
           ...doc,
           _id: doc?._id.toString(),
+          date: doc?.date?.toISOString(),
           patientId: doc?.patientId.toString(),
           createdAt: doc?.createdAt?.toISOString(),
           updatedAt: doc?.updatedAt?.toISOString()
@@ -167,7 +172,7 @@ export const updateAnalysis = async (
       {
         $set: {
           analysisName: data.analysisName,
-          date: data.date,
+          date: parseISO(data.date),
           description: data.description,
           fileName: data.fileName
         }
@@ -178,6 +183,7 @@ export const updateAnalysis = async (
         return {
           ...doc,
           _id: doc?._id.toString(),
+          date: doc?.date instanceof Date ? doc?.date?.toISOString() : doc?.date,
           patientId: doc?.patientId.toString(),
           createdAt: doc?.createdAt instanceof Date ? doc?.createdAt?.toISOString() : doc?.createdAt,
           updatedAt: doc?.updatedAt instanceof Date ? doc?.updatedAt?.toISOString() : doc?.updatedAt
@@ -235,6 +241,7 @@ export const getAnalyses = async (patientId: string): Promise<Analysis[]> => {
         docs.map((d) => ({
           ...d,
           _id: d._id.toString(),
+          date: d.date.toISOString(),
           patientId: d.patientId.toString(),
           createdAt: d.createdAt?.toISOString(),
           updatedAt: d.updatedAt?.toISOString()

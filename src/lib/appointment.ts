@@ -12,6 +12,7 @@ import {
   CreatePaymentFormValues,
   DoctorAppointment,
   DoctorEditAppointmentFormValues,
+  Medicine,
   PaginatedResponse,
   PatientAppointment,
   PatientCreateAppointmentFormValuesDto,
@@ -19,6 +20,34 @@ import {
 } from '@/shared/types'
 
 import { createPayment } from './payment'
+
+interface RawPatientAppointment {
+  _id: string
+  patient: string
+  doctor: {
+    _id: string
+    doctorName: string
+    position: string
+  }
+  startTime: Date
+  endTime: Date
+  reason: string
+  description: string
+  analyses: {
+    _id: string
+    patientId: string
+    analysisName: string
+    description: string
+    date: Date
+    fileName: string
+    createdAt: Date
+    updatedAt: Date
+  }[]
+  fileName: string
+  medicine: Medicine[]
+  createdAt: Date
+  updatedAt: Date
+}
 
 export const getPatientAppointments = async (
   patientId: string,
@@ -42,7 +71,10 @@ export const getPatientAppointments = async (
       AppointmentModel.find({ patient: patientId })
         .sort({ createdAt: -1 })
         .populate('doctor', 'doctorName position')
-        .populate('analyses', 'patientId analysisName description date fileName')
+        .populate<RawPatientAppointment>(
+          'analyses',
+          'patientId analysisName description date fileName createdAt updatedAt'
+        )
         .transform((docs) =>
           docs.map((d) => ({
             ...d,
@@ -50,7 +82,14 @@ export const getPatientAppointments = async (
             startTime: d.startTime?.toISOString(),
             endTime: d.endTime?.toISOString(),
             analyses: d.analyses.map((analysis) => {
-              return { ...analysis, _id: analysis._id.toString() }
+              return {
+                ...analysis,
+                _id: analysis._id.toString(),
+                patientId: analysis.patientId.toString(),
+                date: analysis.date?.toISOString(),
+                createdAt: analysis.createdAt?.toISOString(),
+                updatedAt: analysis.updatedAt?.toISOString()
+              }
             }),
             createdAt: d.createdAt?.toISOString(),
             updatedAt: d.updatedAt?.toISOString()
@@ -106,7 +145,10 @@ export const getSinglePatientAppointment = async (
     await connectMongoDB()
     const appointment = await AppointmentModel.findById(appointmentId)
       .populate('doctor', 'doctorName position')
-      .populate('analyses', 'patientId analysisName description date fileName')
+      .populate<RawPatientAppointment>(
+        'analyses',
+        'patientId analysisName description date fileName createdAt updatedAt'
+      )
       .transform((doc) => {
         return {
           ...doc,
@@ -114,7 +156,14 @@ export const getSinglePatientAppointment = async (
           startTime: doc?.startTime?.toISOString(),
           endTime: doc?.endTime?.toISOString(),
           analyses: doc?.analyses.map((analysis) => {
-            return { ...analysis, _id: analysis._id.toString() }
+            return {
+              ...analysis,
+              _id: analysis._id.toString(),
+              patientId: analysis.patientId.toString(),
+              date: analysis.date?.toISOString(),
+              createdAt: analysis.createdAt?.toISOString(),
+              updatedAt: analysis.updatedAt?.toISOString()
+            }
           }),
           createdAt: doc?.createdAt?.toISOString(),
           updatedAt: doc?.updatedAt?.toISOString()
@@ -169,13 +218,28 @@ export const createPatientAppointment = async (
 
     const newAppointment = await AppointmentModel.findById(newAppointmentDoc._id)
       .populate('doctor', 'doctorName position')
-      .populate('analyses', 'patientId analysisName description date fileName')
+      .populate<RawPatientAppointment>(
+        'analyses',
+        'patientId analysisName description date fileName createdAt updatedAt'
+      )
       .transform((doc) => {
+        console.log('doc', doc)
+
         return {
           ...doc,
           _id: doc?._id.toString(),
           startTime: doc?.startTime?.toISOString(),
           endTime: doc?.endTime?.toISOString(),
+          analyses: doc?.analyses.map((analysis) => {
+            return {
+              ...analysis,
+              _id: analysis._id.toString(),
+              patientId: analysis.patientId.toString(),
+              date: analysis.date?.toISOString(),
+              createdAt: analysis.createdAt?.toISOString(),
+              updatedAt: analysis.updatedAt?.toISOString()
+            }
+          }),
           createdAt: doc?.createdAt?.toISOString(),
           updatedAt: doc?.updatedAt?.toISOString()
         }
@@ -226,35 +290,56 @@ export const updatePatientAppointment = async (
   try {
     await connectMongoDB()
 
-    const appointment = await AppointmentModel.findOneAndUpdate(
+    const updAppointmentDoc = await AppointmentModel.findOneAndUpdate(
       { _id: appointmentId },
       {
         $set: { reason: data.reason, description: data.description, analyses: data.analyses, fileName: data.fileName }
       },
       { new: true }
     )
+
+    if (!updAppointmentDoc) {
+      throw new Error('Update appointment failed')
+    }
+
+    const updAppointment = await AppointmentModel.findById(updAppointmentDoc._id)
       .populate('doctor', 'doctorName position')
-      .populate('analyses', 'patientId analysisName description date fileName')
+      .populate<RawPatientAppointment>(
+        'analyses',
+        'patientId analysisName description date fileName createdAt updatedAt'
+      )
       .transform((doc) => {
+        console.log('doc', doc)
+
         return {
           ...doc,
           _id: doc?._id.toString(),
-          startTime: doc?.startTime instanceof Date ? doc?.startTime?.toISOString() : doc?.startTime,
-          endTime: doc?.endTime instanceof Date ? doc?.endTime?.toISOString() : doc?.endTime,
-          createdAt: doc?.createdAt instanceof Date ? doc?.createdAt?.toISOString() : doc?.createdAt,
-          updatedAt: doc?.updatedAt instanceof Date ? doc?.updatedAt?.toISOString() : doc?.updatedAt
+          startTime: doc?.startTime?.toISOString(),
+          endTime: doc?.endTime?.toISOString(),
+          analyses: doc?.analyses.map((analysis) => {
+            return {
+              ...analysis,
+              _id: analysis._id.toString(),
+              patientId: analysis.patientId.toString(),
+              date: analysis.date?.toISOString(),
+              createdAt: analysis.createdAt?.toISOString(),
+              updatedAt: analysis.updatedAt?.toISOString()
+            }
+          }),
+          createdAt: doc?.createdAt?.toISOString(),
+          updatedAt: doc?.updatedAt?.toISOString()
         }
       })
       .lean<Appointment>()
 
-    if (!appointment) {
+    if (!updAppointment) {
       throw new Error('Update appointment failed')
     }
 
     return patientAppointmentSchema.parse({
-      ...appointment,
-      doctorName: appointment.doctor.doctorName,
-      doctorPosition: appointment.doctor.position
+      ...updAppointment,
+      doctorName: updAppointment.doctor.doctorName,
+      doctorPosition: updAppointment.doctor.position
     })
   } catch (error) {
     console.error('Error: ', error)
