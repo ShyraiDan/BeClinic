@@ -100,11 +100,15 @@ export const Footer = () => {
             <P className='mb-3 font-light text-white'>
               {t('headOffice.address')}
               <br />
-              <Link href='mailto:info@beclinic.com' className='font-primary'>
+              <Link
+                href='mailto:info@beclinic.com'
+                className='font-primary transition-all duration-300 ease-in-out hover:text-blue-400'>
                 info@beclinic.com
               </Link>
               <br />
-              <Link href='tel:80012345678'>800 1234 56 78</Link>
+              <Link href='tel:80012345678' className='transition-all duration-300 ease-in-out hover:text-blue-400'>
+                800 1234 56 78
+              </Link>
             </P>
             <P className='font-light text-white'>
               {t('headOffice.businessDays')} 9:00 - 19:00
