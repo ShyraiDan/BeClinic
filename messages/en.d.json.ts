@@ -696,6 +696,11 @@ declare const messages: {
         "paymentSuccess": "Payment successfully processed",
         "paymentError": "Error processing payment"
       }
+    },
+    "previewAnalyses": {
+      "date": "Date",
+      "description": "Description",
+      "attachments": "Attachments"
     }
   },
   "footer": {

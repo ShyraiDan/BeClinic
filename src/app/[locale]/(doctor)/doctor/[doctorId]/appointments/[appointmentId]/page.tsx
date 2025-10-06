@@ -8,10 +8,10 @@ import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { useGetSingleDoctorAppointmentQuery } from '@/client/appointment'
-import { AnalysisCard } from '@/components/AnalysisCard/AnalysisCard'
 import { MedicineCard } from '@/components/MedicineCard/MedicineCard'
 import { AttachmentPreviewModal } from '@/components/modals/AttachmentPreviewModal/AttachmentPreviewModal'
 import { PatientDetailsModal } from '@/components/modals/PatientDetailsModal/PatientDetailsModal'
+import { PreviewAnalysesModal } from '@/components/modals/PreviewAnalysesModal/PreviewAnalysesModal'
 import { PageHeading } from '@/components/PageHeading/PageHeading'
 import { SkeletonText } from '@/components/skeletons/SkeletonText'
 import { Container, LoadingContainer } from '@/components/ui/container'
@@ -54,10 +54,15 @@ const PastAppointment = ({ locale, appointmentData }: PastAppointmentProps) => {
 
       <H4 className='mb-2'>{t('singleAppointmentPage.appointmentAnalyses')}</H4>
       <div className='flex flex-col gap-4'>
-        {appointmentData?.analyses?.map((analysis) => (
-          <AnalysisCard key={analysis._id} analysis={analysis} locale={locale} />
-        ))}
-        {appointmentData?.analyses?.length === 0 && <P>-</P>}
+        <div className='flex flex-col gap-4'>
+          {appointmentData?.analyses && appointmentData.analyses.length > 0 ? (
+            appointmentData.analyses.map((analysis) => (
+              <PreviewAnalysesModal key={analysis._id} analysis={analysis} locale={locale} />
+            ))
+          ) : (
+            <P>-</P>
+          )}
+        </div>
       </div>
 
       <Separator className='bg-grey-100' />
@@ -127,7 +132,7 @@ const UpcomingAppointment = ({ appointmentData, locale }: UpcomingAppointmentPro
       <div className='flex flex-col gap-4'>
         {appointmentData?.analyses && appointmentData.analyses.length > 0 ? (
           appointmentData.analyses.map((analysis) => (
-            <AnalysisCard key={analysis._id} analysis={analysis} locale={locale} />
+            <PreviewAnalysesModal key={analysis._id} analysis={analysis} locale={locale} />
           ))
         ) : (
           <P>-</P>

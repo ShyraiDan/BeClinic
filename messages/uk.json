@@ -693,6 +693,11 @@
         "paymentSuccess": "Оплата успішно оброблена",
         "paymentError": "Помилка при обробці платежу"
       }
+    },
+    "previewAnalyses": {
+      "date": "Дата",
+      "description": "Опис",
+      "attachments": "Додаткові файли"
     }
   },
   "footer": {
