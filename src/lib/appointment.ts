@@ -5,6 +5,7 @@ import { InferSchemaType } from 'mongoose'
 
 import { auth } from '@/auth'
 import connectMongoDB from '@/lib/mongodb'
+import AnalysisModel from '@/shared/models/analysis'
 import AppointmentModel from '@/shared/models/appointment'
 import { doctorAppointmentSchema, patientAppointmentSchema } from '@/shared/schemas'
 import {
@@ -45,6 +46,48 @@ interface RawPatientAppointment {
   }[]
   fileName: string
   medicine: Medicine[]
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface RawDoctorAppointment {
+  _id: string
+  diagnosis: string
+  treatment: string
+  startTime: Date
+  endTime: Date
+  medicine: Medicine[]
+  analyses: {
+    _id: string
+    patientId: string
+    analysisName: string
+    description: string
+    date: Date
+    fileName: string
+    createdAt: Date
+    updatedAt: Date
+  }[]
+  fileName: string
+  patient: {
+    _id: string
+    email: string
+    userName: string
+    dateOfBirth?: string | undefined
+    phoneNumber?: string | undefined
+    bloodType?: string | undefined
+    diabetes?: string | undefined
+    rhFactor?: string | undefined
+    bloodTransfusion?: string | undefined
+    intoleranceToMedicines?: string | undefined
+    infectiousDiseases?: string | undefined
+    surgicalInterventions?: string | undefined
+    allergies?: string | undefined
+    avatarUrl?: string | undefined
+    createdAt: Date
+    updatedAt: Date
+  }
+  reason: string
+  description: string
   createdAt: Date
   updatedAt: Date
 }
@@ -309,8 +352,6 @@ export const updatePatientAppointment = async (
         'patientId analysisName description date fileName createdAt updatedAt'
       )
       .transform((doc) => {
-        console.log('doc', doc)
-
         return {
           ...doc,
           _id: doc?._id.toString(),
@@ -371,8 +412,13 @@ export const getDoctorAppointments = async (
         .sort({ createdAt: -1 })
         .populate(
           'patient',
-          'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
+          'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies createdAt updatedAt'
         )
+        .populate<RawDoctorAppointment>({
+          path: 'analyses',
+          select: 'patientId analysisName description date fileName createdAt updatedAt',
+          model: AnalysisModel
+        })
         .transform((docs) =>
           docs.map((d) => ({
             ...d,
@@ -380,11 +426,20 @@ export const getDoctorAppointments = async (
             startTime: d.startTime?.toISOString(),
             endTime: d.endTime?.toISOString(),
             analyses: d.analyses.map((analysis) => {
-              return { ...analysis, _id: analysis._id.toString() }
+              return {
+                ...analysis,
+                _id: analysis._id.toString(),
+                patientId: analysis.patientId.toString(),
+                date: analysis.date?.toISOString(),
+                createdAt: analysis.createdAt?.toISOString(),
+                updatedAt: analysis.updatedAt?.toISOString()
+              }
             }),
             patient: {
               ...d.patient,
-              _id: d.patient._id.toString()
+              _id: d.patient._id.toString(),
+              createdAt: d.patient.createdAt?.toISOString(),
+              updatedAt: d.patient.updatedAt?.toISOString()
             },
             createdAt: d.createdAt?.toISOString(),
             updatedAt: d.updatedAt?.toISOString()
@@ -437,17 +492,31 @@ export const getSingleDoctorAppointment = async (
         'patient',
         'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
       )
+      .populate<RawDoctorAppointment>({
+        path: 'analyses',
+        select: 'patientId analysisName description date fileName createdAt updatedAt',
+        model: AnalysisModel
+      })
       .transform((docs) => ({
         ...docs,
         _id: docs?._id.toString(),
         startTime: docs?.startTime?.toISOString(),
         endTime: docs?.endTime?.toISOString(),
         analyses: docs?.analyses.map((analysis) => {
-          return { ...analysis, _id: analysis._id.toString() }
+          return {
+            ...analysis,
+            _id: analysis._id.toString(),
+            patientId: analysis.patientId.toString(),
+            date: analysis.date?.toISOString(),
+            createdAt: analysis.createdAt?.toISOString(),
+            updatedAt: analysis.updatedAt?.toISOString()
+          }
         }),
         patient: {
           ...docs?.patient,
-          _id: docs?.patient._id.toString()
+          _id: docs?.patient._id.toString(),
+          createdAt: docs?.patient.createdAt?.toISOString(),
+          updatedAt: docs?.patient.updatedAt?.toISOString()
         },
         createdAt: docs?.createdAt?.toISOString(),
         updatedAt: docs?.updatedAt?.toISOString()
@@ -483,36 +552,56 @@ export const updateDoctorAppointment = async (
   try {
     await connectMongoDB()
 
-    const appointment = await AppointmentModel.findOneAndUpdate(
+    const updAppointmentDoc = await AppointmentModel.findOneAndUpdate(
       { _id: appointmentId },
       { $set: { diagnosis: data.diagnosis, treatment: data.treatment, medicine: data.medicine } }
     )
+
+    if (!updAppointmentDoc) {
+      throw new Error('Update appointment failed')
+    }
+
+    const updAppointment = await AppointmentModel.findById(updAppointmentDoc._id)
+      .populate(
+        'patient',
+        'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
+      )
+      .populate<RawDoctorAppointment>({
+        path: 'analyses',
+        select: 'patientId analysisName description date fileName createdAt updatedAt',
+        model: AnalysisModel
+      })
       .transform((docs) => ({
         ...docs,
         _id: docs?._id.toString(),
         startTime: docs?.startTime?.toISOString(),
         endTime: docs?.endTime?.toISOString(),
         analyses: docs?.analyses.map((analysis) => {
-          return { ...analysis, _id: analysis._id.toString() }
+          return {
+            ...analysis,
+            _id: analysis._id.toString(),
+            patientId: analysis.patientId.toString(),
+            date: analysis.date?.toISOString(),
+            createdAt: analysis.createdAt?.toISOString(),
+            updatedAt: analysis.updatedAt?.toISOString()
+          }
         }),
         patient: {
           ...docs?.patient,
-          _id: docs?.patient._id.toString()
+          _id: docs?.patient._id.toString(),
+          createdAt: docs?.patient.createdAt?.toISOString(),
+          updatedAt: docs?.patient.updatedAt?.toISOString()
         },
         createdAt: docs?.createdAt instanceof Date ? docs?.createdAt?.toISOString() : docs?.createdAt,
         updatedAt: docs?.updatedAt instanceof Date ? docs?.updatedAt?.toISOString() : docs?.updatedAt
       }))
-      .populate(
-        'patient',
-        'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
-      )
       .lean<Appointment>()
 
-    if (!appointment) {
+    if (!updAppointment) {
       throw new Error('Update appointment failed')
     }
 
-    return doctorAppointmentSchema.parse(appointment)
+    return doctorAppointmentSchema.parse(updAppointment)
   } catch (error) {
     console.error('Error: ', error)
     throw new Error('Unexpected error')
@@ -530,7 +619,7 @@ export const deleteAppointment = async (appointmentId: string) => {
     await connectMongoDB()
     const appointment = await AppointmentModel.findById(appointmentId)
       .populate('doctor', 'doctorName position')
-      .populate('analyses', 'patientId analysisName description date fileName')
+      .populate<RawPatientAppointment>('analyses', 'patientId analysisName description date fileName')
       .transform((doc) => {
         return {
           ...doc,
@@ -538,7 +627,14 @@ export const deleteAppointment = async (appointmentId: string) => {
           startTime: doc?.startTime?.toISOString(),
           endTime: doc?.endTime?.toISOString(),
           analyses: doc?.analyses.map((analysis) => {
-            return { ...analysis, _id: analysis._id.toString() }
+            return {
+              ...analysis,
+              _id: analysis._id.toString(),
+              patientId: analysis.patientId.toString(),
+              date: analysis.date?.toISOString(),
+              createdAt: analysis.createdAt?.toISOString(),
+              updatedAt: analysis.updatedAt?.toISOString()
+            }
           }),
           createdAt: doc?.createdAt?.toISOString(),
           updatedAt: doc?.updatedAt?.toISOString()
@@ -584,6 +680,10 @@ export const getDoctorCalendarAppointments = async (
         'patient',
         'email userName dateOfBirth bloodType diabetes rhFactor bloodTransfusion intoleranceToMedicines infectiousDiseases surgicalInterventions allergies'
       )
+      .populate<RawDoctorAppointment>(
+        'analyses',
+        'patientId analysisName description date fileName createdAt updatedAt'
+      )
       .transform((docs) =>
         docs.map((d) => ({
           ...d,
@@ -591,7 +691,14 @@ export const getDoctorCalendarAppointments = async (
           startTime: d?.startTime?.toISOString(),
           endTime: d?.endTime?.toISOString(),
           analyses: d.analyses.map((analysis) => {
-            return { ...analysis, _id: analysis._id.toString() }
+            return {
+              ...analysis,
+              _id: analysis._id.toString(),
+              patientId: analysis.patientId.toString(),
+              date: analysis.date?.toISOString(),
+              createdAt: analysis.createdAt?.toISOString(),
+              updatedAt: analysis.updatedAt?.toISOString()
+            }
           }),
           patient: {
             ...d.patient,
