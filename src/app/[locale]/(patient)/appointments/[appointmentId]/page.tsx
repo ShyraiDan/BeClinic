@@ -75,7 +75,9 @@ const PastAppointment = ({ locale, appointmentData }: PastAppointmentProps) => {
       </div>
       <Separator className='bg-grey-100' />
 
+      <H4 className='mb-2'>{t('singleAppointmentPage.additionalFiles')}</H4>
       {appointmentData?.fileName && <AttachmentPreviewModal attachment={appointmentData.fileName} />}
+      <Separator className='bg-grey-100' />
 
       <H4>{t('singleAppointmentPage.doctorComment')}</H4>
       <P>{appointmentData?.treatment || '-'}</P>

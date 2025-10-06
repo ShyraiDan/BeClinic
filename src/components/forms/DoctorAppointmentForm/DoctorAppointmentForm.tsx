@@ -89,7 +89,9 @@ export const DoctorAppointmentForm = ({ appointment }: DoctorAppointmentFormProp
 
       <Separator className='bg-grey-100' />
 
+      <H4 className='mb-2'>{t('singleAppointmentPage.additionalFiles')}</H4>
       {appointment?.fileName && <AttachmentPreviewModal attachment={appointment.fileName} />}
+      <Separator className='bg-grey-100' />
 
       <Controller
         name='diagnosis'
