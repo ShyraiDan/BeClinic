@@ -19,49 +19,50 @@ export const PatientDetailsModal = ({ patient }: PatientDetailsModalProps) => {
       <DialogHeader>
         <DialogTitle>{patient.userName}</DialogTitle>
       </DialogHeader>
-      <H4 className='mb-2'>Email</H4>
-      <P>{patient.email}</P>
-      <Separator className='bg-grey-100' />
+      <div className='h-[450px] overflow-y-auto'>
+        <H4 className='mb-2'>Email</H4>
+        <P>{patient.email}</P>
+        <Separator className='bg-grey-100' />
 
-      <H4 className='mb-2'>{t('patientDetails.dateOfBirth')}</H4>
-      <P>{patient.dateOfBirth ? format(patient.dateOfBirth, 'dd.MM.yyyy') : '-'}</P>
-      <Separator className='bg-grey-100' />
+        <H4 className='mb-2'>{t('patientDetails.dateOfBirth')}</H4>
+        <P>{patient.dateOfBirth ? format(patient.dateOfBirth, 'dd.MM.yyyy') : '-'}</P>
+        <Separator className='bg-grey-100' />
 
-      <H4 className='mb-2'>{t('patientDetails.phoneNumber')}</H4>
-      <P>{patient.phoneNumber}</P>
-      <Separator className='bg-grey-100' />
+        <H4 className='mb-2'>{t('patientDetails.phoneNumber')}</H4>
+        <P>{patient.phoneNumber || '-'}</P>
+        <Separator className='bg-grey-100' />
 
-      <H4 className='mb-2'>{t('patientDetails.bloodType')}</H4>
-      <P>{patient.bloodType}</P>
-      <Separator className='bg-grey-100' />
+        <H4 className='mb-2'>{t('patientDetails.bloodType')}</H4>
+        <P>{patient.bloodType || '-'}</P>
+        <Separator className='bg-grey-100' />
 
-      <H4 className='mb-2'>{t('patientDetails.diabetes')}</H4>
-      <P>{patient.diabetes}</P>
-      <Separator className='bg-grey-100' />
+        <H4 className='mb-2'>{t('patientDetails.diabetes')}</H4>
+        <P>{patient.diabetes || '-'}</P>
+        <Separator className='bg-grey-100' />
 
-      <H4 className='mb-2'>{t('patientDetails.rhFactor')}</H4>
-      <P>{patient.rhFactor}</P>
-      <Separator className='bg-grey-100' />
+        <H4 className='mb-2'>{t('patientDetails.rhFactor')}</H4>
+        <P>{patient.rhFactor || '-'}</P>
+        <Separator className='bg-grey-100' />
 
-      <H4 className='mb-2'>{t('patientDetails.bloodTransfusion')}</H4>
-      <P>{patient.bloodTransfusion}</P>
-      <Separator className='bg-grey-100' />
+        <H4 className='mb-2'>{t('patientDetails.bloodTransfusion')}</H4>
+        <P>{patient.bloodTransfusion || '-'}</P>
+        <Separator className='bg-grey-100' />
 
-      <H4 className='mb-2'>{t('patientDetails.intoleranceToMedicines')}</H4>
-      <P>{patient.intoleranceToMedicines}</P>
-      <Separator className='bg-grey-100' />
+        <H4 className='mb-2'>{t('patientDetails.intoleranceToMedicines')}</H4>
+        <P>{patient.intoleranceToMedicines || '-'}</P>
+        <Separator className='bg-grey-100' />
 
-      <H4 className='mb-2'>{t('patientDetails.infectiousDiseases')}</H4>
-      <P>{patient.infectiousDiseases}</P>
-      <Separator className='bg-grey-100' />
+        <H4 className='mb-2'>{t('patientDetails.infectiousDiseases')}</H4>
+        <P>{patient.infectiousDiseases || '-'}</P>
+        <Separator className='bg-grey-100' />
 
-      <H4 className='mb-2'>{t('patientDetails.surgicalInterventions')}</H4>
-      <P>{patient.surgicalInterventions}</P>
-      <Separator className='bg-grey-100' />
+        <H4 className='mb-2'>{t('patientDetails.surgicalInterventions')}</H4>
+        <P>{patient.surgicalInterventions || '-'}</P>
+        <Separator className='bg-grey-100' />
 
-      <H4 className='mb-2'>{t('patientDetails.allergies')}</H4>
-      <P>{patient.allergies}</P>
-      <Separator className='bg-grey-100' />
+        <H4 className='mb-2'>{t('patientDetails.allergies')}</H4>
+        <P>{patient.allergies || '-'}</P>
+      </div>
     </StyledModal>
   )
 }
