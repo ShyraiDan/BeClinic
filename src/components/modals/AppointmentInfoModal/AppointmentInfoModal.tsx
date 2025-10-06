@@ -1,10 +1,10 @@
 import { format } from 'date-fns'
 import { enUS } from 'date-fns/locale'
-import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { StyledLinkButton } from '@/components/ui/styledLinkButton'
 import { H6, P } from '@/components/ui/typography'
 import { DoctorAppointment, SupportedLocales } from '@/shared/types'
 import { dateLocaleMap } from '@/utils/dateLocaleMap'
@@ -30,8 +30,8 @@ export const AppointmentInfoModal = ({ handleClose, appointment, open }: Appoint
   return (
     <Dialog open={open} onOpenChange={() => handleOpenChange()}>
       <DialogContent className='border-none'>
-        <div className='flex flex-col w-full '>
-          <H6>{appointment.patient.userName}</H6>
+        <div className='flex flex-col w-full'>
+          <DialogTitle>{appointment.patient.userName}</DialogTitle>
           <P className='capitalize'>
             {format(appointment.startTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })} -{' '}
             {format(appointment.endTime, 'MMM dd, yyyy HH:mm', { locale: dateLocale })}
@@ -46,11 +46,11 @@ export const AppointmentInfoModal = ({ handleClose, appointment, open }: Appoint
           </div>
 
           <div className='mt-4 flex'>
-            <Link
+            <StyledLinkButton
               href={`/appointments/${appointment._id}`}
-              className='text-white bg-blue-100 px-2.5 py-1.5 rounded block'>
+              className='bg-blue-100 tracking-normal font-bold text-white'>
               {t('profile.doctor.moveToVisit')}
-            </Link>
+            </StyledLinkButton>
           </div>
         </div>
       </DialogContent>
